@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Sinergia Value Creation & Comercial | Superlógica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 
+    Chosen Palette: Superlógica Official Branding
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1C1F24 (Dark Charcoal)
+    - Accent Color: #1034F2 (Superlógica Blue)
+    - Muted Background: #f0f4f8 (Light Blue-Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page narrative to guide stakeholders through the value proposition of the new VC-to-Sales process. The structure is thematic, moving from high-level strategy to tactical execution and finally to data-driven impact.
+    1.  Header: A strong, benefit-oriented title.
+    2.  Strategic Vision: Sets the stage for why the project is critical for company growth.
+    3.  The Transformation ("Antes vs. Agora"): A powerful visual comparison to highlight the problems solved. This is a key section to demonstrate value immediately.
+    4.  Tactical Simplicity & Process Flow: Shows how easy the new process is for users (VC and Sales), reducing friction and encouraging adoption.
+    5.  The Power of Data: The climax of the presentation, showcasing mock dashboards to make the concept of data-driven decisions tangible and impressive.
+    6.  Benefits & Adoption Plan: Summarizes the value and outlines a clear path forward.
+    7.  Navigation: Fixed side arrows provide a controlled, presentation-like experience, ensuring the narrative is delivered in the intended order without obscuring content.
+    This structure was chosen to build a compelling business case, making it easy for the audience to understand the strategic importance, tactical ease, and analytical power of the solution.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: "Antes vs. Agora" comparison. -> Goal: Compare. -> Viz/Method: A two-column layout with styled cards and Unicode icons (❌, ✅). -> Interaction: None. -> Justification: Provides a clear, immediate visual contrast of the operational improvements. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: New opportunity creation process. -> Goal: Inform. -> Viz/Method: A simplified step-by-step list next to a visual mockup of the UI. -> Interaction: None. -> Justification: Focuses on the ease of use for the VC team. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Opportunity Journey. -> Goal: Organize. -> Viz/Method: A clean, horizontal flowchart built with HTML/CSS. -> Interaction: None. -> Justification: Visually maps the journey of an opportunity from creation to closure. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Strategic & Operational Dashboards. -> Goal: Inform/Impress. -> Viz/Method: Two interactive charts (Doughnut and Bar) created with Chart.js to simulate the new dashboards. -> Interaction: Hover for tooltips. -> Justification: This is the "wow" factor. It makes the abstract concept of "indicators" tangible and demonstrates the analytical power gained. -> Library: Chart.js/Canvas. NO SVG.
+    -   Report Info: Adoption Plan. -> Goal: Organize. -> Viz/Method: A vertical timeline. -> Interaction: None. -> Justification: Clearly presents the rollout plan. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1C1F24;
+        }
+        .superlogica-blue { color: #1034F2; }
+        .superlogica-bg-blue { background-color: #1034F2; }
+        .superlogica-bg-dark { background-color: #1C1F24; }
+        .superlogica-bg-light { background-color: #f0f4f8; }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(28, 31, 36, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #1034F2;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-arrow:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 350px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Section 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <div class="w-24 h-24 superlogica-bg-blue flex items-center justify-center rounded-2xl mx-auto mb-6 shadow-lg relative">
+                     <div class="absolute w-16 h-16 bg-white" style="clip-path: polygon(50% 12%, 78% 22%, 95% 50%, 78% 78%, 50% 88%, 22% 78%, 5% 50%, 22% 22%);"></div>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-wide">Potencializando o Crescimento</h1>
+                <h2 class="text-2xl md:text-4xl font-light mt-2 superlogica-blue">A Nova Ponte entre Value Creation e o Time Comercial</h2>
+                <p class="mt-6 text-lg text-gray-600">Uma solução para transformar insights em receita.</p>
+            </div>
+        </section>
+
+        <!-- Section 2: Visão Estratégica -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center text-center p-8 superlogica-bg-light">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">De Sucesso do Cliente a Motor de Crescimento</h2>
+                <p class="text-xl md:text-2xl text-gray-700">Estamos transformando a área de Value Creation de um centro de excelência em retenção para uma poderosa e proativa <span class="superlogica-blue font-bold">máquina de geração de demanda qualificada</span>.</p>
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Alinhamento Estratégico</h3>
+                        <p class="text-sm text-gray-600 mt-2">Conectamos a satisfação do cliente diretamente à nossa principal meta de crescimento: a expansão da receita.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Inteligência de Mercado</h3>
+                        <p class="text-sm text-gray-600 mt-2">Ninguém conhece melhor as oportunidades dos clientes do que o time de VC. Estamos transformando esse conhecimento em ação.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Vantagem Competitiva</h3>
+                        <p class="text-sm text-gray-600 mt-2">Saímos de um modelo reativo para um modelo preditivo, antecipando as necessidades dos clientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Cenário Anterior -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">De Onde Viemos: O Desafio Operacional</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-8 rounded-lg bg-gray-100 border-l-4 border-red-500">
+                        <h3 class="text-2xl font-bold mb-4">Antes: O Processo Manual</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li><span class="font-bold">Criação:</span> Oportunidades criadas no Salesforce, mas sem padrão.</li>
+                            <li><span class="font-bold">Acompanhamento:</span> Nenhum processo individualizado por indicação.</li>
+                            <li><span class="font-bold">Padronização:</span> Inexistente, cada analista seguia um fluxo próprio.</li>
+                            <li><span class="font-bold">Indicadores:</span> Zero visibilidade sobre a performance.</li>
+                            <li class="mt-4 p-3 bg-red-100 text-red-800 rounded-md text-center font-semibold">Resultado: Esforço alto e perda de inteligência.</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 rounded-lg bg-gray-100 border-l-4 border-green-500">
+                        <h3 class="text-2xl font-bold mb-4">Agora: A Transformação</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li><span class="font-bold">Criação:</span> Processo simples, rápido e padronizado no Salesforce.</li>
+                            <li><span class="font-bold">Acompanhamento:</span> Rastreabilidade ponta a ponta de cada indicação.</li>
+                            <li><span class="font-bold">Padronização:</span> Um único fluxo de trabalho para toda a equipe.</li>
+                            <li><span class="font-bold">Indicadores:</span> Dados analíticos ricos para gestão e operação.</li>
+                            <li class="mt-4 p-3 bg-green-100 text-green-800 rounded-md text-center font-semibold">Resultado: Processo eficiente que gera dados estratégicos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 4: Processo Tático -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 superlogica-bg-light">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Simplicidade que Gera Resultados</h2>
+                <p class="text-xl text-gray-700 mb-10">Criamos um processo tão intuitivo que a geração de uma oportunidade se torna parte natural do dia a dia do analista de VC.</p>
+                <div class="bg-white p-8 rounded-lg shadow-lg text-left">
+                    <h3 class="text-xl font-bold mb-4">Passo a Passo: Menos de 1 minuto</h3>
+                    <ol class="list-decimal list-inside space-y-4">
+                        <li><span class="font-semibold">Identifica a Oportunidade:</span> Durante uma conversa, o analista de VC percebe uma necessidade.</li>
+                        <li><span class="font-semibold">Cria a Indicação:</span> No Salesforce, indica a <span class="superlogica-blue font-bold">Conta Administradora</span>.</li>
+                        <li><span class="font-semibold">Aponta o Potencial:</span> Informa os <span class="superlogica-blue font-bold">produtos</span> com potencial e, se aplicável, a <span class="superlogica-blue font-bold">quantidade</span> ou os <span class="superlogica-blue font-bold">Condomínios</span> específicos.</li>
+                    </ol>
+                    <p class="mt-6 p-4 bg-gray-100 rounded-md font-semibold text-center">A informação flui do insight à ação sem nenhum atrito.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 5: Jornada da Oportunidade -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-6xl w-full text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12">A Jornada da Oportunidade: Do Insight ao Fechamento</h2>
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="text-center w-48">
+                        <div class="text-4xl">💡</div>
+                        <h3 class="font-bold mt-2">1. VC Identifica</h3>
+                    </div>
+                    <div class="text-4xl font-light text-gray-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-48">
+                        <div class="text-4xl">📝</div>
+                        <h3 class="font-bold mt-2">2. VC Registra</h3>
+                    </div>
+                    <div class="text-4xl font-light text-gray-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-48">
+                        <div class="text-4xl">🎯</div>
+                        <h3 class="font-bold mt-2">3. Distribuição Inteligente</h3>
+                    </div>
+                    <div class="text-4xl font-light text-gray-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-48">
+                        <div class="text-4xl">💬</div>
+                        <h3 class="font-bold mt-2">4. Comercial Atua</h3>
+                    </div>
+                    <div class="text-4xl font-light text-gray-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-48">
+                        <div class="text-4xl">📈</div>
+                        <h3 class="font-bold mt-2">5. Visibilidade 360°</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6 & 7 & 8: O Poder dos Dados -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 superlogica-bg-dark text-white">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">O Poder dos Dados: A Visão que Impressiona</h2>
+                <p class="text-xl text-gray-300">Pela primeira vez, temos uma visão completa e em tempo real do potencial de crescimento dentro da nossa base. O que antes era invisível, agora é nosso principal ativo estratégico.</p>
+            </div>
+        </section>
+
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-6xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossos Novos Indicadores</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-center">Visão Estratégica (Liderança)</h3>
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <div class="chart-container mx-auto">
+                                <canvas id="strategicChart"></canvas>
+                            </div>
+                            <ul class="text-sm mt-4 space-y-2">
+                                <li><span class="font-bold">Pipeline Gerado por VC (R$):</span> Quanto novo negócio a área de VC colocou no funil?</li>
+                                <li><span class="font-bold">Top Produtos Indicados:</span> Onde estão nossas maiores oportunidades de cross-sell?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4 text-center">Visão Operacional (Gestão)</h3>
+                        <div class="bg-white p-6 rounded-lg shadow-lg">
+                            <div class="chart-container mx-auto">
+                                <canvas id="operationalChart"></canvas>
+                            </div>
+                            <ul class="text-sm mt-4 space-y-2">
+                                <li><span class="font-bold">Tempo para Primeiro Contato:</span> Quão rápido o time comercial está atuando nas indicações?</li>
+                                <li><span class="font-bold">Motivos de Perda:</span> Por que não estamos convertendo as indicações?</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section 9: Benefícios -->
+        <section id="slide9" class="min-h-screen flex flex-col justify-center items-center p-8 superlogica-bg-light">
+             <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">O Futuro da Nossa Estratégia Comercial</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-left">
+                        <h3 class="font-bold text-lg mb-2">📈 Aumento de Receita</h3>
+                        <p class="text-sm text-gray-600">Criação de um novo canal de vendas previsível e escalável.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-left">
+                        <h3 class="font-bold text-lg mb-2">🤝 Colaboração Total</h3>
+                        <p class="text-sm text-gray-600">Quebra de silos entre VC e Comercial, criando um time único focado no cliente.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-left">
+                        <h3 class="font-bold text-lg mb-2">⚙️ Produtividade</h3>
+                        <p class="text-sm text-gray-600">Eliminação de processos manuais e foco em atividades de alto valor.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm text-left">
+                        <h3 class="font-bold text-lg mb-2">🧠 Visibilidade Estratégica</h3>
+                        <p class="text-sm text-gray-600">Tomada de decisão baseada em dados concretos sobre o potencial da nossa base.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Próximos Passos -->
+        <section id="slide10" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Próximos Passos: Como Garantimos o Sucesso?</h2>
+                <ol class="relative border-l border-gray-200">                  
+                    <li class="mb-10 ml-6">            
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white" style="background-color: #e2e8f0;">1</span>
+                        <h3 class="flex items-center mb-1 text-lg font-semibold">Treinamento Focado</h3>
+                        <p class="text-base font-normal text-gray-500">Sessões com os times de VC e Comercial, focadas na simplicidade do novo processo.</p>
+                    </li>
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white" style="background-color: #e2e8f0;">2</span>
+                        <h3 class="mb-1 text-lg font-semibold">Material de Apoio</h3>
+                        <p class="text-base font-normal text-gray-500">Criação de um guia rápido ("Quick Guide") com o passo a passo.</p>
+                    </li>
+                    <li class="mb-10 ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white" style="background-color: #e2e8f0;">3</span>
+                        <h3 class="mb-1 text-lg font-semibold">Acompanhamento Inicial</h3>
+                        <p class="text-base font-normal text-gray-500">Suporte intensificado nas primeiras duas semanas para garantir a adesão.</p>
+                    </li>
+                     <li class="ml-6">
+                        <span class="absolute flex items-center justify-center w-6 h-6 bg-blue-100 rounded-full -left-3 ring-8 ring-white" style="background-color: #e2e8f0;">4</span>
+                        <h3 class="mb-1 text-lg font-semibold">Comunicação Contínua</h3>
+                        <p class="text-base font-normal text-gray-500">Divulgação dos primeiros resultados e casos de sucesso para engajar as equipes.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+
+            // Chart Logic
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Strategic Chart (Doughnut)
+            const strategicCtx = document.getElementById('strategicChart').getContext('2d');
+            new Chart(strategicCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Convertidas', 'Perdidas', 'Em Aberto'],
+                    datasets: [{
+                        label: 'Taxa de Conversão (VC > Venda)',
+                        data: [25, 10, 65],
+                        backgroundColor: ['#27ae60', '#c0392b', '#bdc3c7'],
+                        borderColor: '#ffffff',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    ...tooltipCallback,
+                    plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Operational Chart (Bar)
+            const operationalCtx = document.getElementById('operationalChart').getContext('2d');
+            new Chart(operationalCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ana', 'Bruno', 'Carla', 'Daniel'],
+                    datasets: [{
+                        label: 'Oportunidades Geradas por Analista VC',
+                        data: [12, 19, 8, 15],
+                        backgroundColor: '#1034F2',
+                        borderColor: '#0b248a',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    ...tooltipCallback,
+                     plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
