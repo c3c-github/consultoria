@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kickoff do Projeto: Política de Pedido Mínimo - Onda 2 | ADAMA & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Partnership Harmony (Adama & C3C)
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #414042 (Adama Dark Gray)
+    - Adama Accent: #00a950 (Adama Green)
+    - C3C Accent: #0077c0 (C3C Blue)
+    - Muted Background: #f4f6f8 (Light Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page narrative to guide stakeholders through the kickoff of the project's second phase. The structure is thematic, moving from a recap of Phase 1 to the objectives, scope, and plan for Phase 2.
+    1.  Header: A clear title for the kickoff meeting, incorporating both Adama and C3C branding.
+    2.  Section-based Layout: Each slide from the presentation script is transformed into a full-width, screen-height section to create a focused, slide-like experience.
+    3.  Visual Elements: Key points are highlighted using styled cards, lists, and diagrams (flowchart, timeline table) to make the information digestible and engaging.
+    4.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, ensuring the narrative is delivered in the intended order without obscuring content.
+    This user flow is linear and intuitive, perfect for a kickoff meeting where the goal is to align all stakeholders on the plan.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Recap of Wave 1. -> Goal: Inform. -> Viz/Method: Styled cards with Unicode icons (✅, ➡️). -> Interaction: None. -> Justification: Quickly summarizes the status of the previous phase. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Wave 2 Functional Scope. -> Goal: Organize. -> Viz/Method: A numbered list with highlighted keywords. -> Interaction: None. -> Justification: Clearly outlines the new features to be developed. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Technical Solution Flowchart. -> Goal: Organize. -> Viz/Method: A simplified step-by-step diagram. -> Interaction: None. -> Justification: Explains the technical process in an easy-to-understand visual format. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Project Timeline. -> Goal: Change. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: Clearly illustrates the project phases and the synergy with Wave 1. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Risks & Mitigations. -> Goal: Inform. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: Presents critical project information in a structured way. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #414042;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(65, 64, 66, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #0077c0;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-arrow:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .timeline-cell {
+            background-color: #e9ecef;
+            text-align: center;
+            font-weight: bold;
+            color: #414042;
+        }
+        .timeline-cell.onda1 {
+            background-color: #d4edda; /* Light green */
+            color: #155724;
+        }
+        .timeline-cell.onda2 {
+            background-color: #d1ecf1; /* Light blue */
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #00a950;">ADAMA</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #0077c0;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Kickoff do Projeto: Política de Pedido Mínimo</h1>
+                <h2 class="text-2xl md:text-4xl font-light mt-2" style="color: #00a950;">ONDA 2 - A Trava no Desmembramento de Pedidos</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Pauta</h2>
+                <ul class="text-xl space-y-4">
+                    <li class="p-4 bg-white rounded-md shadow-sm">1. Recapitulando a Onda 1: Onde Estamos</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">2. Objetivo da Onda 2: Por que o Desmembramento?</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">3. Escopo Funcional: O Que Faremos</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">4. Visão Geral da Solução Técnica</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">5. Cronograma e Sinergia com a Onda 1</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">6. Riscos e Mitigações</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">7. Próximos Passos</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Recap Onda 1 -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Recapitulando a Onda 1: Fundações Construídas</h2>
+                <p class="text-lg text-gray-700 mb-8">A Onda 1 estabeleceu com sucesso a política de valor mínimo para a criação de novas negociações, garantindo a governança desde o início do processo de vendas.</p>
+                <div class="p-8 bg-gray-50 rounded-lg shadow-md border-l-4" style="border-color: #00a950;">
+                    <h3 class="text-xl font-bold mb-4">Status Atual da Onda 1</h3>
+                    <p class="text-lg">✅ Desenvolvimento Concluído</p>
+                    <p class="text-lg mt-2">➡️ Iniciando a Homologação (UAT) na próxima semana.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Objetivo Onda 2 -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-50">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Objetivo da Onda 2: Garantindo a Eficiência até a Entrega Final</h2>
+                <p class="text-lg text-gray-700 mb-8">Implementar uma trava de valor mínimo para o **desmembramento de pedidos do tipo contrato**, garantindo que as entregas fracionadas mantenham um valor mínimo de faturamento antes de serem integradas ao SAP.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg" style="color: #0077c0;">Eficiência Operacional</h3>
+                        <p class="text-sm mt-2">Evitar faturamentos de baixo valor que geram custos logísticos desproporcionais.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg" style="color: #0077c0;">Alinhamento Estratégico</h3>
+                        <p class="text-sm mt-2">Manter a consistência da política de valor mínimo em todo o ciclo do pedido.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg" style="color: #0077c0;">Flexibilidade Controlada</h3>
+                        <p class="text-sm mt-2">Oferecer um processo de exceção claro e auditável para casos específicos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Escopo Funcional -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-3xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Escopo Funcional: As Novas Funcionalidades</h2>
+                <ol class="list-decimal list-inside space-y-4 text-lg">
+                    <li><span class="font-semibold">Bloqueio Inteligente:</span> Ao tentar desmembrar um pedido abaixo do mínimo, o sistema exibirá um pop-up solicitando uma justificativa.</li>
+                    <li><span class="font-semibold">Criação via Exceção:</span> Após justificar, o pedido é criado no Salesforce, mas fica **bloqueado para envio ao SAP**.</li>
+                    <li><span class="font-semibold">Fluxo de Aprovação:</span> Uma solicitação é enviada para o Coordenador/Gerente de Customer Service para aprovar a exceção.</li>
+                    <li><span class="font-semibold">Liberação para o SAP:</span> Somente após a aprovação, o botão "Enviar para o SAP" é liberado para o RTV.</li>
+                    <li><span class="font-semibold">Configuração Independente:</span> A política de valor para desmembramento será gerenciada em uma tabela separada da Onda 1.</li>
+                </ol>
+            </div>
+        </section>
+
+        <!-- Slide 6: Solução Técnica -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Como a Solução Irá Funcionar</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>1. RTV tenta desmembrar:</strong> Informa as quantidades na tela.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>2. Sistema Valida o Valor:</strong> Se abaixo do mínimo, exibe pop-up para justificativa.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>3. RTV Justifica:</strong> Preenche o motivo da exceção.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-yellow-100 rounded-md shadow-sm border border-yellow-300"><strong>4. Pedido Criado e Bloqueado:</strong> Registro criado com status "Em Aprovação" e envio para SAP desabilitado.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>5. Aprovação de CS:</strong> Coordenador/Gerente aprova a solicitação.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-green-100 rounded-md shadow-sm border border-green-300"><strong>6. Pedido Liberado:</strong> Status muda para "Aprovado" e botão "Enviar para o SAP" é habilitado.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Cronograma -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nosso Plano de Ação e Sinergia com a Onda 1</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-gray-100">
+                                <th class="p-3 font-bold uppercase text-gray-600 border border-gray-300">Fase do Projeto</th>
+                                <th class="p-3 font-bold uppercase text-gray-600 border border-gray-300">Semana 1 (31/07-01/08)</th>
+                                <th class="p-3 font-bold uppercase text-gray-600 border border-gray-300">Semana 2 (04/08-08/08)</th>
+                                <th class="p-3 font-bold uppercase text-gray-600 border border-gray-300">Semana 3 (11/08-15/08)</th>
+                                <th class="p-3 font-bold uppercase text-gray-600 border border-gray-300">Semana 4 (18/08-22/08)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 2: Levantamento</td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda2">● ●</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 2: Desenvolvimento</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda2">●●●●●</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 2: Homologação (UAT)</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda2">●●●●●</td>
+                                <td class="p-3 border border-gray-300"></td>
+                            </tr>
+                            <tr>
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 2: Deploy</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda2">●●●●●</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 1: Homologação (UAT)</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda1">●●●●●</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-3 font-semibold border border-gray-300">ONDA 1: Deploy</td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300"></td>
+                                <td class="p-3 border border-gray-300 timeline-cell onda1">●●●●●</td>
+                                <td class="p-3 border border-gray-300"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="mt-6 text-center text-gray-600">O cronograma foi desenhado para otimizar os recursos, com as equipes de desenvolvimento e testes atuando em paralelo nas duas ondas.</p>
+            </div>
+        </section>
+
+        <!-- Slide 8: Riscos -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Pontos de Atenção</h2>
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <h3 class="font-bold">Dependência do Deploy da Onda 1</h3>
+                        <p class="text-sm text-gray-600 mt-1">Qualquer atraso no deploy da Onda 1 será comunicado e o plano da Onda 2 será ajustado.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <h3 class="font-bold">Complexidade da Tela de Desmembramento</h3>
+                        <p class="text-sm text-gray-600 mt-1">O levantamento técnico será focado em mapear a customização existente para garantir uma integração suave.</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-yellow-500">
+                        <h3 class="font-bold">Disponibilidade da Equipe Adama para UAT</h3>
+                        <p class="text-sm text-gray-600 mt-1">Agendamento prévio dos participantes e sessões de teste para a semana designada (11/08 a 15/08).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Próximos Passos -->
+        <section id="slide9" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-2xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Nossas Ações Imediatas</h2>
+                <div class="text-left space-y-6">
+                    <div>
+                        <p class="text-lg font-semibold">1. Validação deste Kickoff</p>
+                        <p class="text-gray-600">Obter o "de acordo" de todos para o plano apresentado.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">2. Agendamento do Levantamento</p>
+                        <p class="text-gray-600">Funcional: Quinta-feira, 31 de Julho.</p>
+                        <p class="text-gray-600">Técnico: Sexta-feira, 01 de Agosto.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">3. Início do Desenvolvimento</p>
+                        <p class="text-gray-600">Segunda-feira, 04 de Agosto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
