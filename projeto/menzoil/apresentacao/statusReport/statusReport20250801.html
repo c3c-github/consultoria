@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Replanejamento do Projeto Sales Cloud | Menzoil & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Partnership Harmony (Menzoil & C3C)
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1a1a1a (Black/Dark Gray)
+    - Menzoil Accent: #fecb00 (Menzoil Yellow)
+    - C3C Accent: #0077c0 (C3C Blue)
+    - Muted Background: #f5f5f5 (Light Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page narrative to guide a crucial replanning meeting. The structure is thematic, moving from a recap of work completed to the challenges, the new plan, and a partnership proposal.
+    1.  Header: A clear title for the meeting, incorporating both Menzoil and C3C branding.
+    2.  Section-based Layout: Each slide from the presentation script is transformed into a full-width, screen-height section to create a focused, slide-like experience.
+    3.  Visual Elements: Key points are highlighted using styled cards, lists, and tables to make the information digestible. The investment proposal is a key visual anchor.
+    4.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, ensuring the narrative is delivered in the intended order without obscuring content.
+    This user flow is linear and intuitive, perfect for a strategic meeting where clarity, transparency, and a clear path forward are essential.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Sprint 1 Deliverables. -> Goal: Inform. -> Viz/Method: Styled cards with Unicode icons (✅). -> Interaction: None. -> Justification: Clearly and positively showcases the value already delivered. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Project Timeline. -> Goal: Change. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: Provides a clear, detailed roadmap for the next 5 months. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Investment Proposal. -> Goal: Inform/Persuade. -> Viz/Method: A two-column layout with logos and clear percentages. -> Interaction: None. -> Justification: Visually represents the shared commitment and partnership aspect of the proposal. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(26, 26, 26, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #fecb00;
+            color: #1a1a1a;
+        }
+        .nav-arrow:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #fecb00;">MENZOIL</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #0077c0;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Status e Replanejamento do Projeto Sales Cloud</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Uma Proposta para o Sucesso da Parceria</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Pauta</h2>
+                <ul class="text-xl space-y-3">
+                    <li class="p-3 bg-white rounded-md shadow-sm">1. Recapitulação do Objetivo Estratégico</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">2. Status Atual: Sprint 1 Concluída</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">3. Análise e Aprendizados</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">4. Proposta de Replanejamento</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">5. Investimento na Parceria</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">6. Próximos Passos e Decisões</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Objetivo -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Por que Estamos Aqui? A Visão do Projeto</h2>
+                <p class="text-xl text-gray-700 mb-8">Vamos relembrar o objetivo que nos une: <span class="font-bold">transformar a operação comercial da Menzoil</span>, tornando-a mais ágil, inteligente e orientada a dados.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="p-4 bg-gray-50 rounded-lg border-l-4" style="border-color: #fecb00;">
+                        <h3 class="font-bold">Digitalizar</h3>
+                        <p class="text-sm text-gray-600">Processo de simulação e geração de pedidos.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border-l-4" style="border-color: #fecb00;">
+                        <h3 class="font-bold">Otimizar</h3>
+                        <p class="text-sm text-gray-600">Gestão de carteira e relacionamento com representantes.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border-l-4" style="border-color: #fecb00;">
+                        <h3 class="font-bold">Integrar</h3>
+                        <p class="text-sm text-gray-600">Informações críticas de clientes, pedidos e estoque.</p>
+                    </div>
+                    <div class="p-4 bg-gray-50 rounded-lg border-l-4" style="border-color: #fecb00;">
+                        <h3 class="font-bold">Capacitar</h3>
+                        <p class="text-sm text-gray-600">Gestão com indicadores para tomada de decisão.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Status Sprint 1 -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">A Fundação do Projeto está Construída</h2>
+                <p class="text-lg text-gray-700 mb-8">A Sprint 1 foi concluída, e com ela, entregamos a base fundamental e mais complexa de todo o projeto, garantindo a solidez para as próximas fases.</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                    <div class="p-4 bg-white rounded-md shadow-sm">✅ <span class="font-semibold">Simulador de Pedidos + PDF</span></div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">✅ <span class="font-semibold">Modelo de Dados do Simulador</span></div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">✅ <span class="font-semibold">Gestão de Carteira (Base)</span></div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">✅ <span class="font-semibold">Agrupamento de Frete</span></div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">✅ <span class="font-semibold">Carga de Dados Iniciais</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Aprendizados -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Transparência e Aprendizados</h2>
+                <p class="text-lg text-gray-700 mb-8">A complexidade real de funcionalidades essenciais, como o Simulador, se mostrou maior do que a estimada inicialmente. O tempo investido foi crucial para garantir a qualidade e a estabilidade da fundação do projeto, evitando retrabalhos futuros.</p>
+                <div class="p-8 bg-gray-50 rounded-lg text-left">
+                    <h3 class="font-bold text-lg mb-4">Principais Fatores de Complexidade:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>**Modelo de Dados do Simulador:** A profundidade das regras de negócio exigiu uma estruturação de dados mais robusta.</li>
+                        <li>**Integração de Dados:** A qualidade e a preparação dos dados para a carga inicial foram vitais para o sucesso do simulador.</li>
+                        <li>**Validação dos Processos:** O alinhamento fino dos processos de gestão de carteira e frete foi fundamental para garantir a aderência da solução.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Replanejamento -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">O Novo Caminho: Concluir o Projeto com Sucesso</h2>
+                <p class="text-xl text-gray-700 mb-8">Nosso novo objetivo é finalizar todo o escopo remanescente até o <span class="font-bold">final de Dezembro de 2025</span>, agrupando as funcionalidades em fases temáticas para otimizar as entregas.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="p-4 bg-white shadow-sm rounded-md text-center"><strong>Fase 1</strong><br>Aprovações e Integrações Críticas<br><span class="text-xs">(Ago/Set)</span></div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 bg-white shadow-sm rounded-md text-center"><strong>Fase 2</strong><br>Inteligência de Vendas e Visitas<br><span class="text-xs">(Out/Nov)</span></div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 bg-white shadow-sm rounded-md text-center"><strong>Fase 3</strong><br>Metas e Marketing Cloud<br><span class="text-xs">(Dez)</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Cronograma Detalhado -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">O Plano para os Próximos 5 Meses</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse shadow-lg rounded-lg overflow-hidden">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="p-3 font-bold uppercase text-left">Mês</th>
+                                <th class="p-3 font-bold uppercase text-left">Foco Principal</th>
+                                <th class="p-3 font-bold uppercase text-left">Principais Entregas</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold" style="background-color: #fef9e7;">Agosto</td>
+                                <td class="p-3 font-semibold" style="background-color: #fef9e7;">Aprovações e Integrações (Parte 1)</td>
+                                <td class="p-3" style="background-color: #fef9e7;">Aprovação do simulador (Comercial), Integração de Pedido, Cadastro e Aprovação de Contas (Cadastro).</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold" style="background-color: #fef9e7;">Setembro</td>
+                                <td class="p-3 font-semibold" style="background-color: #fef9e7;">Aprovações e Integrações (Parte 2)</td>
+                                <td class="p-3" style="background-color: #fef9e7;">Aprovação do simulador (Financeiro), Integração Receita, Portal dos Representantes, Aprovação de Contas (Financeiro).</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">Outubro</td>
+                                <td class="p-3 font-semibold">Inteligência de Vendas</td>
+                                <td class="p-3">Gestão de Carteira 2, Sugestão de Mix de Produtos, Gestão de Leads, Sugestão de Últimos Produtos.</td>
+                            </tr>
+                             <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">Novembro</td>
+                                <td class="p-3 font-semibold">Integrações Finais e Visitas</td>
+                                <td class="p-3">Integração de Status (Pedido, Estoque, Conta), Geração e Aprovação de Visitas.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold" style="background-color: #e8f8f5;">Dezembro</td>
+                                <td class="p-3 font-semibold" style="background-color: #e8f8f5;">Metas e Marketing Cloud</td>
+                                <td class="p-3" style="background-color: #e8f8f5;">Gestão de Metas, Sazonalidade, Setup Marketing Cloud, Jornadas e Treinamento Final.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Proposta -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-800 text-white">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Fortalecendo Nossa Parceria</h2>
+                <p class="text-lg text-gray-300 mb-8">Reconhecemos o impacto no cronograma e, como parceiros, estamos 100% comprometidos com o sucesso do projeto. Para viabilizar a conclusão, propomos um modelo de investimento compartilhado.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+                    <div class="p-8 bg-gray-700 rounded-lg">
+                        <h3 class="text-2xl font-bold" style="color: #0077c0;">C3C Software</h3>
+                        <p class="text-5xl font-black my-4">2 Meses</p>
+                        <p class="text-2xl font-bold text-gray-300">(40% do esforço)</p>
+                        <p class="mt-4">Custo integral assumido pela C3C como investimento na parceria.</p>
+                    </div>
+                    <div class="p-8 rounded-lg" style="background-color: #fecb00; color: #1a1a1a;">
+                        <h3 class="text-2xl font-bold">Menzoil</h3>
+                        <p class="text-5xl font-black my-4">3 Meses</p>
+                        <p class="text-2xl font-bold text-gray-800">(60% do esforço)</p>
+                        <p class="mt-4">Investimento para a conclusão e entrega de todo o escopo restante.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Próximos Passos -->
+        <section id="slide9" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-2xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Como Avançamos Juntos</h2>
+                <div class="text-left space-y-6">
+                    <div>
+                        <p class="text-lg font-semibold">1. Alinhamento e Aprovação</p>
+                        <p class="text-gray-600">Discussão e aprovação formal da proposta de replanejamento e do novo modelo de investimento.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">2. Retomada Imediata</p>
+                        <p class="text-gray-600">Reinício das atividades com foco total nas entregas planejadas para Agosto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
