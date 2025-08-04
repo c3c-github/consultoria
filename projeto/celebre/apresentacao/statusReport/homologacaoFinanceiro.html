@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Homologação: Projeto Financeiro | Célebre Corretora & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Corporate Trust (Célebre & C3C)
+    - Background: #f8f9fa (Off-white)
+    - Primary Text/Elements: #212529 (Dark Gray)
+    - Célebre Accent: #007bff (Primary Blue)
+    - C3C Accent: #6f42c1 (Purple)
+    - Muted Background: #e9ecef (Light Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page, slide-based application to present the UAT plan for the Célebre Financeiro project. The structure is linear to mimic a traditional presentation, ensuring the information is delivered in a logical sequence.
+    1.  Section-based Layout: Each "slide" from the script is a full-height section, creating a focused view for each topic.
+    2.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, which is ideal for a formal meeting. This prevents users from getting lost and ensures the narrative is followed.
+    3.  Visual Hierarchy: Clear titles, bullet points, and tables are used to structure information for easy consumption.
+    4.  Thematic Sections: The flow moves from the high-level "why" (Objective) to the "how" (Methodology), "when" (Timeline), "who" (Roles), and "what's next" (Next Steps).
+    This structure was chosen to provide clarity, set clear expectations, and facilitate a structured discussion during the UAT planning meeting.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Testing Methodology. -> Goal: Organize. -> Viz/Method: A three-column layout with styled cards representing the 3-day cycle. -> Interaction: None. -> Justification: Visually breaks down the testing process into clear, digestible steps. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: High-level Timeline. -> Goal: Change. -> Viz/Method: A simple timeline structure using cards for each week. -> Interaction: None. -> Justification: Provides a quick, high-level overview of the entire testing period. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Detailed UAT Schedule. -> Goal: Organize. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: The table is the best format for presenting detailed, structured information like a schedule with dates, tasks, and objectives. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Roles & Responsibilities. -> Goal: Inform. -> Viz/Method: Two distinct columns with bulleted lists. -> Interaction: None. -> Justification: Clearly separates the responsibilities of each team. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(33, 37, 41, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #007bff;
+        }
+        .nav-arrow:disabled {
+            background-color: #adb5bd;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #007bff;">Célebre Corretora</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #6f42c1;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Cronograma de Homologação do Projeto Financeiro</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Validação da Última Vertente do Projeto</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-100">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Pauta</h2>
+                <ul class="text-xl space-y-3">
+                    <li class="p-3 bg-white rounded-md shadow-sm">1. Objetivo da Fase de Homologação</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">2. Nossa Metodologia de Testes (Ciclo de 3 Dias)</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">3. Cronograma Detalhado por Funcionalidade</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">4. Papéis e Responsabilidades</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">5. Próximos Passos (Pós-Homologação)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Objetivo -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">O Nosso Objetivo Juntos</h2>
+                <p class="text-xl text-gray-700 mb-8">Validar de forma colaborativa cada funcionalidade do Projeto Financeiro, garantindo que a solução atenda 100% às necessidades do negócio e esteja pronta para ser implantada com <span class="font-bold" style="color: #007bff;">segurança e confiança</span>.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="p-4 bg-gray-50 rounded-lg">✅ <span class="font-semibold">Validar</span> as regras de negócio implementadas.</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">✅ <span class="font-semibold">Garantir</span> a aderência dos processos para a equipe de backoffice.</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">✅ <span class="font-semibold">Identificar</span> e documentar os ajustes finos necessários.</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">✅ <span class="font-semibold">Obter o "de acordo" formal</span> para o Go-Live de cada etapa.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Metodologia -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-100">
+            <div class="max-w-5xl w-full text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Nossa Metodologia de Testes: Ciclo de 3 Dias</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-blue-500">
+                        <h3 class="text-xl font-bold mb-3">Dia 1: Apresentação</h3>
+                        <p class="text-gray-600">A C3C demonstra a funcionalidade, o fluxo completo e esclarece as regras de negócio aplicadas para alinhar o conhecimento.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-purple-500">
+                        <h3 class="text-xl font-bold mb-3">Dia 2: Homologação</h3>
+                        <p class="text-gray-600">O time da Célebre executa os cenários de teste no ambiente de UAT, validando na prática o comportamento da ferramenta.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-green-500">
+                        <h3 class="text-xl font-bold mb-3">Dia 3: Aceite</h3>
+                        <p class="text-gray-600">A C3C apresenta os ajustes com base no feedback e realiza uma validação final para obter o aceite formal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Cronograma Geral -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Nosso Plano de Ação (Agosto/2025)</h2>
+                <div class="space-y-6">
+                    <div class="p-6 bg-gray-100 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold">Semana 1 (11/08 a 15/08)</h3>
+                        <p class="text-gray-700 mt-2">Foco: Previsão de Comissão & Lançamentos</p>
+                    </div>
+                    <div class="p-6 bg-gray-100 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold">Semana 2 (18/08 a 22/08)</h3>
+                        <p class="text-gray-700 mt-2">Foco: Comparação Previsto vs. Realizado & Controle de Pagamento</p>
+                    </div>
+                    <div class="p-6 bg-gray-100 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-bold">Semana 3 (25/08 a 29/08)</h3>
+                        <p class="text-gray-700 mt-2">Foco: Comunicações Automáticas e Encerramento</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Cronograma Detalhado -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-6xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Agenda de Homologação</h2>
+                <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="p-3 font-bold uppercase">Funcionalidade</th>
+                                <th class="p-3 font-bold uppercase">Fase do Teste</th>
+                                <th class="p-3 font-bold uppercase">Data Sugerida</th>
+                                <th class="p-3 font-bold uppercase">Objetivo da Sessão</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold row-span-3" rowspan="3">1. Previsão de Comissão</td>
+                                <td class="p-3">Apresentação</td>
+                                <td class="p-3">Seg, 11/08</td>
+                                <td class="p-3">Demonstrar o cálculo automático da comissão.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Homologação</td><td class="p-3">Ter, 12/08</td><td class="p-3">Validar os cálculos para diferentes cenários.</td></tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Correção e Aceite</td><td class="p-3">Qua, 13/08</td><td class="p-3">Validar ajustes e obter o aceite formal.</td></tr>
+                            
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="p-3 font-semibold row-span-3" rowspan="3">2. Lançamentos</td>
+                                <td class="p-3">Apresentação</td>
+                                <td class="p-3">Qui, 14/08</td>
+                                <td class="p-3">Demonstrar o processo de upload da planilha.</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100"><td class="p-3">Homologação</td><td class="p-3">Sex, 15/08</td><td class="p-3">Validar a importação e o tratamento de erros.</td></tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100"><td class="p-3">Correção e Aceite</td><td class="p-3">Seg, 18/08</td><td class="p-3">Validar ajustes e obter o aceite formal.</td></tr>
+
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold row-span-3" rowspan="3">3. Comparação Previsto vs. Realizado</td>
+                                <td class="p-3">Apresentação</td>
+                                <td class="p-3">Ter, 19/08</td>
+                                <td class="p-3">Demonstrar a tela de comparação e divergências.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Homologação</td><td class="p-3">Qua, 20/08</td><td class="p-3">Validar a acuracidade da comparação.</td></tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Correção e Aceite</td><td class="p-3">Qui, 21/08</td><td class="p-3">Validar ajustes e obter o aceite formal.</td></tr>
+
+                            <tr class="bg-gray-50 hover:bg-gray-100">
+                                <td class="p-3 font-semibold row-span-3" rowspan="3">4. Controle de Pagamento de Comissão</td>
+                                <td class="p-3">Apresentação</td>
+                                <td class="p-3">Sex, 22/08</td>
+                                <td class="p-3">Demonstrar o fluxo de sinalização para corretores.</td>
+                            </tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100"><td class="p-3">Homologação</td><td class="p-3">Seg, 25/08</td><td class="p-3">Validar a geração dos relatórios para assinatura.</td></tr>
+                            <tr class="bg-gray-50 hover:bg-gray-100"><td class="p-3">Correção e Aceite</td><td class="p-3">Ter, 26/08</td><td class="p-3">Validar ajustes e obter o aceite formal.</td></tr>
+
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-3 font-semibold row-span-3" rowspan="3">5. Comunicações Automáticas</td>
+                                <td class="p-3">Apresentação</td>
+                                <td class="p-3">Qua, 27/08</td>
+                                <td class="p-3">Demonstrar os gatilhos e templates de e-mail.</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Homologação</td><td class="p-3">Qui, 28/08</td><td class="p-3">Validar se as comunicações são disparadas.</td></tr>
+                            <tr class="hover:bg-gray-50"><td class="p-3">Correção e Aceite</td><td class="p-3">Sex, 29/08</td><td class="p-3">Validar ajustes e obter o aceite final do projeto.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 7: Papéis -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-100">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Quem Faz o Quê?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4" style="color: #007bff;">Time Célebre</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Participar ativamente das apresentações.</li>
+                            <li>Executar os cenários de teste com dados reais.</li>
+                            <li>Reportar inconsistências e melhorias de forma clara.</li>
+                            <li>Fornecer o aceite formal ao final de cada ciclo.</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md">
+                        <h3 class="text-2xl font-bold mb-4" style="color: #6f42c1;">C3C Software</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Conduzir as apresentações e demonstrações.</li>
+                            <li>Fornecer suporte contínuo durante a homologação.</li>
+                            <li>Realizar os ajustes necessários com agilidade.</li>
+                            <li>Documentar os resultados e os aceites.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Próximos Passos -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Rumo ao Go-Live: Próximos Passos</h2>
+                <div class="text-left space-y-6">
+                    <div>
+                        <p class="text-lg font-semibold">1. Obtenção do Aceite Formal</p>
+                        <p class="text-gray-600">Documento de encerramento da fase de UAT assinado.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">2. Preparação para o Go-Live</p>
+                        <p class="text-gray-600">Planejamento da migração de dados (se houver) e comunicação interna.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">3. Treinamento Final</p>
+                        <p class="text-gray-600">Sessão de treinamento oficial com todos os usuários do backoffice.</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-semibold">4. Definição da Data de Implantação</p>
+                        <p class="text-gray-600">Agendamento da janela de deploy em produção.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
