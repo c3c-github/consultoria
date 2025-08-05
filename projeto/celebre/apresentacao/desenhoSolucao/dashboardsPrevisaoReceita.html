@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação de Indicadores: Projeto Financeiro | Célebre Corretora & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Corporate Trust (Célebre & C3C)
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #212529 (Dark Gray)
+    - Célebre Accent: #007bff (Primary Blue)
+    - C3C Accent: #6f42c1 (Purple)
+    - Muted Background: #f8f9fa (Light Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page, slide-based application to present the proposed KPIs for the Célebre Financeiro project. The structure is linear to mimic a traditional presentation, ensuring the information is delivered in a logical sequence to build a case for the new analytical capabilities.
+    1.  Section-based Layout: Each "slide" from the script is a full-height section, creating a focused view for each topic.
+    2.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, which is ideal for a formal meeting. This prevents users from getting lost and ensures the narrative is followed.
+    3.  Visual Hierarchy: Clear titles, bullet points, and tables are used to structure information for easy consumption. The dashboard mockup and KPI cards are designed to be the visual centerpiece.
+    4.  Thematic Sections: The flow moves from the high-level "why" (Poder dos Dados) to the "what" (Dashboard and Indicators), and "how" (Filters), concluding with a call for discussion.
+    This structure was chosen to facilitate a strategic discussion about data and analytics, setting clear expectations for the dashboards to be built.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Dashboard KPIs. -> Goal: Inform. -> Viz/Method: Large, styled cards for each KPI. -> Interaction: None. -> Justification: Creates a high-impact visual summary of the main metrics, similar to a real dashboard. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Detailed Indicators. -> Goal: Organize. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: The table is the best format for presenting detailed, structured information like the indicator list, its purpose, and dimensions. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Dynamic Filters. -> Goal: Inform. -> Viz/Method: A list with Unicode icons (🔍) to represent the filtering capability. -> Interaction: None. -> Justification: Clearly and visually communicates the concept of dynamic analysis without needing a complex implementation. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #212529;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(33, 37, 41, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #007bff;
+        }
+        .nav-arrow:disabled {
+            background-color: #adb5bd;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #007bff;">Célebre Corretora</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #6f42c1;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Proposta de Indicadores Estratégicos</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">A Nova Visão Analítica do Processo Financeiro</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: O Poder dos Dados -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-50">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">De Planilhas a Dashboards Estratégicos</h2>
+                <p class="text-xl text-gray-700">Com a automação da previsão e dos lançamentos, passamos a ter dados estruturados que nos permitem, pela primeira vez, criar uma <span class="font-bold">visão analítica completa</span> do nosso faturamento e comissionamento.</p>
+                <p class="mt-6 p-4 bg-white rounded-lg shadow-sm text-lg">Nossa proposta é apresentar um modelo de **Dashboard Financeiro** que trará respostas rápidas para as perguntas mais importantes do negócio.</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: Proposta de Dashboard -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Dashboard de Previsão de Receitas e Comissões</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase">Receita Prevista (Mês)</h3>
+                        <p class="text-4xl font-bold mt-2" style="color: #007bff;">R$ X.XXX.XXX</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase">Comissão a Pagar (Mês)</h3>
+                        <p class="text-4xl font-bold mt-2" style="color: #007bff;">R$ XXX.XXX</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase">Inadimplência Prevista</h3>
+                        <p class="text-4xl font-bold mt-2" style="color: #007bff;">X %</p>
+                    </div>
+                    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+                        <h3 class="text-sm font-semibold text-gray-500 uppercase">Novas Propostas no Mês</h3>
+                        <p class="text-4xl font-bold mt-2" style="color: #007bff;">XXX</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-gray-600">Um mockup visual dos principais KPIs que estarão em destaque no topo do dashboard, oferecendo uma visão geral imediata da saúde financeira.</p>
+            </div>
+        </section>
+
+        <!-- Slide 4: Detalhando os Indicadores -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-6xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">O Que Podemos Medir?</h2>
+                <div class="overflow-x-auto bg-white rounded-lg shadow-lg">
+                    <table class="w-full text-sm text-left">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="p-4 font-bold uppercase">Indicador</th>
+                                <th class="p-4 font-bold uppercase">O que ele responde?</th>
+                                <th class="p-4 font-bold uppercase">Dimensões de Análise</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Receita Bruta Prevista</td>
+                                <td class="p-4">Qual o faturamento total esperado das operadoras?</td>
+                                <td class="p-4">Operadora, Período, Tipo de Plano</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Comissão a Pagar (Corretores)</td>
+                                <td class="p-4">Qual o valor total que devemos repassar aos nossos corretores?</td>
+                                <td class="p-4">Corretor, Supervisor, Período</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Receita Líquida Prevista (Célebre)</td>
+                                <td class="p-4">Qual a margem real que a Célebre tem em suas operações?</td>
+                                <td class="p-4">Operadora, Período, Tipo de Plano</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Ticket Médio por Proposta</td>
+                                <td class="p-4">Qual o valor médio de uma nova venda?</td>
+                                <td class="p-4">Operadora, Corretor, Período</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Performance por Operadora</td>
+                                <td class="p-4">Qual operadora está gerando mais receita e qual tem a melhor margem?</td>
+                                <td class="p-4">Operadora</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 font-semibold">Performance por Corretor/Supervisor</td>
+                                <td class="p-4">Quem são os corretores e supervisores que mais geram receita líquida?</td>
+                                <td class="p-4">Corretor, Supervisor</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 5: Filtros -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Respostas na Ponta dos Dedos</h2>
+                <p class="text-xl text-gray-700 mb-8">Todos os indicadores poderão ser analisados de forma dinâmica, permitindo que a gestão cruze informações e extraia insights valiosos.</p>
+                <div class="text-left space-y-4 text-lg">
+                    <div class="p-4 bg-white rounded-md shadow-sm">🔍 <span class="font-semibold">Por Período:</span> "Quero ver a previsão de receita para o próximo trimestre."</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">🏢 <span class="font-semibold">Por Operadora:</span> "Qual a comissão a pagar apenas para a Operadora X?"</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm">👥 <span class="font-semibold">Por Corretor/Supervisor:</span> "Qual foi a receita líquida gerada pela equipe do Supervisor Y no último mês?"</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Agradecimento -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl font-bold">Obrigado!</h2>
+                <p class="text-xl text-gray-600 mt-4">Dúvidas e Próximos Passos para a Construção dos Dashboards</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
