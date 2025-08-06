@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Estratégica do Suporte Salesforce | Karina Plásticos & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 
+    Chosen Palette: Strategic Corporate
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1e293b (Slate Gray)
+    - Primary Accent: #3b82f6 (Blue)
+    - Critical Accent: #ef4444 (Red)
+    - Improvement Accent: #f97316 (Orange)
+    - Muted Background: #f1f5f9 (Light Slate)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a linear, narrative-driven presentation to guide Karina Plásticos' leadership through a data-backed proposal. The structure logically builds a case for change.
+    1.  Title Slide: Sets a professional and strategic tone.
+    2.  Current Status Overview: Starts with a balanced view (progress vs. open issues) using a donut chart to provide an immediate high-level summary.
+    3.  The Critical Alert - The Core Problem: This is the pivotal section. It uses a bar chart to visually and dramatically highlight the high-priority backlog, making the problem tangible and urgent.
+    4.  Root Cause Analysis: A diagram explains *why* the problem exists (resource contention), moving from symptom to cause.
+    5.  The Solution: A clear, side-by-side comparison of the current vs. proposed models, focusing on the benefits.
+    6.  The Action Plan: A simple roadmap shows the immediate value and phased approach of the new model, building confidence in the solution.
+    7.  Next Steps: A clear call to action.
+    This structure was chosen to be persuasive and easy to follow, ensuring the argument is clear, data-driven, and leads to the desired outcome.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Overall ticket status (20 of 50 closed). -> Goal: Inform. -> Viz/Method: Donut Chart. -> Interaction: Hover for tooltips. -> Justification: Provides a quick, high-level summary of progress and remaining work. -> Library: Chart.js/Canvas. NO SVG.
+    -   Report Info: Queued ticket breakdown by priority (4 Critical, 11 Improvement). -> Goal: Inform/Compare. -> Viz/Method: Bar Chart. -> Interaction: Hover for tooltips. -> Justification: This is the most critical visualization. It highlights the urgency and the strategic cost of the current model. -> Library: Chart.js/Canvas. NO SVG.
+    -   Report Info: Resource contention (3 workstreams vs. 80 hours). -> Goal: Organize. -> Viz/Method: HTML/CSS Diagram. -> Interaction: None. -> Justification: A visual metaphor clearly explains the root cause of the backlog without complex text. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Proposed new model. -> Goal: Compare. -> Viz/Method: Two-column card layout. -> Interaction: None. -> Justification: A direct comparison highlights the value of the proposed change. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Phased action plan. -> Goal: Change/Organize. -> Viz/Method: A 3-step visual roadmap. -> Interaction: None. -> Justification: Shows a clear, logical plan for how the new resource will deliver value immediately and over time. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(30, 41, 59, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #3b82f6;
+        }
+        .nav-arrow:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 350px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black text-gray-800">Karina Plásticos</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #3b82f6;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Análise Estratégica do Suporte Salesforce</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Status, Criticidade e Proposta de Otimização</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Status Atual -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">O Panorama Atual: Onde se Concentra Nosso Esforço?</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-left">
+                        <p class="text-lg text-slate-700">Nosso time está empenhado e entregando resultados, com <span class="font-bold">40% (20 de 50)</span> dos casos totais já concluídos. No entanto, a análise da criticidade dos chamados que ainda estão em aberto acende um alerta importante.</p>
+                        <p class="mt-4 text-lg text-slate-700">A análise de prioridade dos <span class="font-bold">17 casos "Em fila"</span> nos mostra um cenário preocupante que precisa de atenção estratégica.</p>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: O Alerta Crítico -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">O Alerta Crítico: Análise da Fila de Espera</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                     <div class="chart-container">
+                        <canvas id="priorityChart"></canvas>
+                    </div>
+                    <div class="text-left">
+                        <div class="p-4 bg-red-100 border-l-4 border-red-500 rounded-r-lg">
+                            <h3 class="font-bold text-lg text-red-800">Casos Críticos em Espera: 4 Chamados</h3>
+                            <p class="text-sm text-red-700 mt-1">Demandas que podem impactar diretamente a operação, a coleta de dados ou processos de negócio essenciais.</p>
+                        </div>
+                        <div class="p-4 bg-orange-100 border-l-4 border-orange-500 rounded-r-lg mt-4">
+                            <h3 class="font-bold text-lg text-orange-800">Melhorias Estratégicas Bloqueadas: 11 Chamados</h3>
+                            <p class="text-sm text-orange-700 mt-1">Existe uma demanda reprimida por evoluções na plataforma que não conseguimos atender com a agilidade necessária. Estamos deixando de agregar valor.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: A Raiz do Problema -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-slate-50">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">A Raiz do Problema: Um Recurso Limitado para Três Frentes</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
+                    <div class="space-y-4">
+                        <div class="p-4 bg-white rounded-lg shadow-sm text-center"><strong>Suporte Corretivo</strong><br><span class="text-xs">(Críticos e Urgentes)</span></div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm text-center"><strong>Pendências de Projeto</strong><br><span class="text-xs">(Ajustes e Documentação)</span></div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm text-center"><strong>Desligamento do Legado</strong><br><span class="text-xs">(Projeto de Alto Risco)</span></div>
+                    </div>
+                    <div class="text-5xl font-thin text-slate-400 transform rotate-90 md:rotate-0">→</div>
+                    <div class="p-8 border-4 border-dashed border-red-500 rounded-lg">
+                        <h3 class="text-xl font-bold">Capacidade Contratual</h3>
+                        <p class="text-5xl font-black my-2">80h</p>
+                        <p class="font-semibold">/mês</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-lg text-slate-700">É evidente que a capacidade atual é insuficiente para cobrir essas três frentes de forma satisfatória, forçando um estado reativo focado em "apagar incêndios".</p>
+            </div>
+        </section>
+
+        <!-- Slide 5: Proposta -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Proposta Reforçada: Alocação Híbrida e Dedicada</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-8 rounded-lg bg-slate-100">
+                        <h3 class="text-2xl font-bold mb-4">Modelo Atual</h3>
+                        <ul class="space-y-3 text-slate-700">
+                            <li><span class="font-bold">Horas:</span> 80h/mês</li>
+                            <li><span class="font-bold">Modelo:</span> Remoto</li>
+                            <li><span class="font-bold">Foco:</span> Reativo, dividido</li>
+                            <li class="mt-4 p-3 bg-red-100 text-red-800 rounded-md text-center font-semibold">Resultado: Fila de críticos e melhorias bloqueadas.</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 rounded-lg border-2" style="border-color: #3b82f6; background-color: #eff6ff;">
+                        <h3 class="text-2xl font-bold mb-4" style="color: #3b82f6;">Modelo Proposto</h3>
+                        <ul class="space-y-3 text-slate-700">
+                            <li><span class="font-bold">Horas:</span> 160h/mês (Full-Time)</li>
+                            <li><span class="font-bold">Modelo:</span> Híbrido (Presencial + Remoto)</li>
+                            <li><span class="font-bold">Foco:</span> Proativo, dedicado</li>
+                            <li class="mt-4 p-3 bg-blue-100 text-blue-800 rounded-md text-center font-semibold">Resultado: Riscos mitigados e inovação acelerada.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Plano de Ação -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">O Plano de Ação: Do Risco à Inovação</h2>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-8 md:space-y-0 md:space-x-4">
+                    <div class="text-center w-64">
+                        <div class="p-4 rounded-full mx-auto w-24 h-24 flex items-center justify-center text-4xl" style="background-color: #ef4444; color: white;">1</div>
+                        <h3 class="font-bold mt-4">Ataque Imediato aos Riscos</h3>
+                        <p class="text-sm text-slate-600 mt-1">Prioridade total para zerar a fila de 4 casos críticos, mitigando riscos operacionais.</p>
+                    </div>
+                    <div class="text-4xl font-light text-slate-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-64">
+                        <div class="p-4 rounded-full mx-auto w-24 h-24 flex items-center justify-center text-4xl" style="background-color: #f97316; color: white;">2</div>
+                        <h3 class="font-bold mt-4">Vazão para Melhorias</h3>
+                        <p class="text-sm text-slate-600 mt-1">Foco na fila de 11 melhorias, transformando o Salesforce em um motor de inovação.</p>
+                    </div>
+                    <div class="text-4xl font-light text-slate-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="text-center w-64">
+                        <div class="p-4 rounded-full mx-auto w-24 h-24 flex items-center justify-center text-4xl" style="background-color: #3b82f6; color: white;">3</div>
+                        <h3 class="font-bold mt-4">Finalização das Pendências</h3>
+                        <p class="text-sm text-slate-600 mt-1">Conclusão das pendências de projeto e do desligamento do sistema legado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Próximos Passos -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-2xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Próximos Passos</h2>
+                <p class="text-xl text-gray-700 mb-8">Nosso objetivo é sair da gestão de crise e entrar em um ciclo de melhoria contínua. Acreditamos firmemente que este investimento maximizará o retorno sobre o investimento feito no Salesforce.</p>
+                <div class="p-6 bg-slate-100 rounded-lg">
+                    <p class="text-lg font-semibold">Colocamo-nos à disposição para agendarmos uma conversa e detalharmos este plano de ação.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+
+            // Chart Logic
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Status Chart (Doughnut)
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            new Chart(statusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Concluídos', 'Em Aberto'],
+                    datasets: [{
+                        data: [20, 30],
+                        backgroundColor: ['#22c55e', '#94a3b8'],
+                        borderColor: '#f1f5f9',
+                        borderWidth: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    ...tooltipCallback,
+                    plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Priority Chart (Bar)
+            const priorityCtx = document.getElementById('priorityChart').getContext('2d');
+            new Chart(priorityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Crítica', 'Melhoria', 'Média'],
+                    datasets: [{
+                        label: 'Casos em Fila de Espera',
+                        data: [4, 11, 2], // 17 total = 4 critical + 11 improvement + 2 medium
+                        backgroundColor: ['#ef4444', '#f97316', '#eab308'],
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    ...tooltipCallback,
+                     plugins: {
+                        ...tooltipCallback.plugins,
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
