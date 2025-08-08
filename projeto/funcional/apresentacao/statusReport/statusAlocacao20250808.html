@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Report: Projeto Salesforce | Funcional & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Corporate & Tech (Funcional & C3C)
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1e293b (Slate Gray)
+    - Funcional Accent: #00a99d (Teal/Green from Funcional website)
+    - C3C Accent: #6f42c1 (Purple)
+    - Muted Background: #f1f5f9 (Light Slate)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page, slide-based application to present the project's monthly status report. The structure is linear to mimic a traditional presentation, ensuring the information is delivered in a logical sequence.
+    1.  Section-based Layout: Each "slide" from the script is a full-height section, creating a focused view for each topic.
+    2.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, which is ideal for a formal meeting. This prevents users from getting lost and ensures the narrative is followed.
+    3.  Visual Hierarchy: Clear titles, bullet points, and styled cards are used to structure information for easy consumption.
+    4.  Thematic Sections: The flow moves from a high-level overview to detailed results for each workstream, proposed KPIs, future opportunities, and a clear action plan.
+    This structure was chosen to provide a clear, transparent, and strategic update to the client, building confidence and aligning on next steps.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Workstream results. -> Goal: Inform. -> Viz/Method: Styled cards with Unicode icons (✅, 🔄, ⏸️). -> Interaction: None. -> Justification: Clearly and visually summarizes the status and deliverables of each project front. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Proposed KPIs. -> Goal: Organize. -> Viz/Method: A two-column layout with distinct lists for Marketing and Service Cloud. -> Interaction: None. -> Justification: Separates the indicators by area, making them easy to understand and discuss. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Future Opportunities. -> Goal: Inform. -> Viz/Method: Styled cards explaining MuleSoft and Slack. -> Interaction: None. -> Justification: Presents potential new projects in a clear, benefit-oriented way. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(30, 41, 59, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #00a99d;
+        }
+        .nav-arrow:disabled {
+            background-color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #00a99d;">Funcional</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #6f42c1;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Status Report do Projeto Salesforce</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Resultados de Julho e Planejamento Futuro</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Pauta</h2>
+                <ul class="text-xl space-y-3">
+                    <li class="p-3 bg-white rounded-md shadow-sm">1. Visão Geral e Alocação de Recursos</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">2. Resultados de Julho: As 3 Frentes de Trabalho</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">3. Proposta de Indicadores de Sucesso (KPIs)</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">4. Oportunidades de Evolução</li>
+                    <li class="p-3 bg-white rounded-md shadow-sm">5. Próximos Passos para Agosto</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Visão Geral -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Nosso Time e Foco em Julho</h2>
+                <p class="text-xl text-gray-700 mb-8">Em julho, operamos com <span class="font-bold">2 recursos dedicados</span>, distribuídos estrategicamente em três frentes paralelas para acelerar as entregas de valor.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg" style="color: #00a99d;">Marketing</h3>
+                        <p class="text-sm mt-2">Implantação e migração do RD Station.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg" style="color: #00a99d;">MVP Service Cloud</h3>
+                        <p class="text-sm mt-2">Desenvolvimento e preparação para homologação.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg" style="color: #00a99d;">Especificação Funcional</h3>
+                        <p class="text-sm mt-2">Visão do CRM e Inception do Service Cloud.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Marketing Cloud -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Frente 1: Marketing Cloud</h2>
+                <p class="text-xl text-center text-green-600 font-bold mb-8">Status: FUNDAÇÃO CONCLUÍDA</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-4">Entregas de Julho:</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>✅ Tombamento do RD Station</li>
+                            <li>✅ Configurações Técnicas (DNS, SSL)</li>
+                            <li>✅ Criação das Primeiras Jornadas</li>
+                            <li>✅ Criação de Landing Pages</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-4">Próximos Passos:</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>➡️ Treinamento da equipe Funcional (Agosto)</li>
+                            <li>➡️ Ativação do canal de WhatsApp (Ago/Set)</li>
+                            <li>➡️ Implementação de melhorias e novos conteúdos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: MVP Service Cloud -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Frente 2: MVP Service Cloud</h2>
+                <p class="text-xl text-center text-orange-500 font-bold mb-8">Status: PRONTO PARA HOMOLOGAÇÃO</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="font-semibold text-lg mb-4">Entregas de Julho:</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>✅ Portal do Cliente (v1)</li>
+                            <li>✅ Atendimento via E-mail</li>
+                            <li>✅ Acompanhamento de Atividades (Contabilidade)</li>
+                            <li>🔄 Ajustes finos em andamento</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg mb-4">Próximos Passos:</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>➡️ Homologação (UAT) do MVP (Agosto)</li>
+                            <li>➡️ Sprint 2: Integração com Datalake e Portal da Inteligência</li>
+                            <li>➡️ Sprint 3: Finalização do portal, WhatsApp e mais integrações</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Especificação Funcional -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-8">Frente 3: Especificação Funcional</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Visão do CRM</h3>
+                        <p class="text-sm text-gray-600">Iniciamos o levantamento da visão macro do CRM. O processo foi <span class="font-bold text-red-600">pausado temporariamente</span> a pedido da Funcional para aguardar a avaliação de uma consultoria externa, garantindo total alinhamento estratégico.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Projeto de Service Cloud</h3>
+                        <p class="text-sm text-gray-600">Demos continuidade e a fase de <span class="font-bold text-green-600">Inception será finalizada em Agosto</span>. Já temos um backlog rico de histórias detalhadas e prontas para o desenvolvimento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: KPIs -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Proposta de Indicadores de Sucesso (KPIs)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4">Para Marketing Cloud</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Taxa de Abertura e Cliques (CTR)</li>
+                            <li>Taxa de Conclusão de Jornada</li>
+                            <li>Leads Gerados via LPs</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="text-xl font-bold mb-4">Para Service Cloud (MVP)</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Volume de Casos Criados (e-mail vs. portal)</li>
+                            <li>Tempo de Primeira Resposta (TMR)</li>
+                            <li>Taxa de Adoção do Portal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Oportunidades -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center p-8 bg-slate-50">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Oportunidades de Evolução: Maximizando o Investimento</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">MuleSoft</h3>
+                        <p class="text-sm text-gray-600">Ideal para gerenciar as futuras integrações (Datalake, Portal da Inteligência, Agentforce) de forma segura, escalável e governada, evitando a complexidade de integrações ponto a ponto.</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Slack</h3>
+                        <p class="text-sm text-gray-600">Integrado ao Service Cloud, permite que as equipes de atendimento colaborem em tempo real para resolver chamados complexos ("swarming"), reduzindo o tempo de resolução.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Próximos Passos -->
+        <section id="slide9" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Nosso Foco para Agosto</h2>
+                <div class="text-left text-lg space-y-4">
+                    <p>1. <span class="font-bold">Marketing:</span> Iniciar o treinamento da equipe e planejar a ativação do WhatsApp.</p>
+                    <p>2. <span class="font-bold">Service Cloud:</span> Realizar a homologação (UAT) do MVP e planejar o início da Sprint 2.</p>
+                    <p>3. <span class="font-bold">Especificação:</span> Finalizar a Inception do projeto de Service e aguardar o retorno sobre a frente de CRM.</p>
+                    <p>4. <span class="font-bold">Estratégia:</span> Agendar uma reunião para detalhar as oportunidades com MuleSoft e Slack.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
