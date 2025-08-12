@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Horas Suporte - Vindi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Bibliotecas para exportação de PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F2F2F2;
+        }
+        .table-header {
+            background-color: #2978FF;
+            color: white;
+        }
+        .summary-table {
+            background-color: #e2e8f0;
+        }
+        .summary-table th {
+            background-color: #cbd5e1;
+        }
+        .status-entregue {
+            color: #1DDDBD;
+            font-weight: bold;
+        }
+        .status-desenvolvimento {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        /* Estilos para os botões de ação */
+        .action-button {
+            background-color: #2978FF;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .action-button:hover {
+            background-color: #1c64d1;
+        }
+        .action-button.csv {
+            background-color: #1DDDBD;
+        }
+        .action-button.csv:hover {
+            background-color: #17a294;
+        }
+        @media print {
+            body {
+                background-color: #ffffff;
+            }
+            .no-print {
+                display: none;
+            }
+            .p-4, .sm\:p-8 {
+                padding: 0;
+            }
+            .shadow-lg {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div id="report-content" class="max-w-7xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+        <!-- CABEÇALHO COM LOGO -->
+        <div class="p-6 border-b border-gray-200 text-center">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNzI1LjM4NCIgaGVpZ2h0PSIxNTYuNTA1IiB2aWV3Qm94PSIwIDAgNzI1LjM4NCAxNTYuNTA1Ij48ZGVmcz48c3R5bGU+LmF7ZmlsbDojMTExODI3O2ZvbnQtc2l6ZTo2MXB4O2ZvbnQtZmFtaWx5Ok1vbnRzZXJyYXQtQm9sZCwgTW9udHNlcnJhdDtsZXR0ZXItc3BhY2luZzowLjEzZW07Zm9udC13ZWlnaHQ6NzAwO30uYntmb250LWZhbWlseTpNb250c2VycmF0LVJlZ3VsYXIsIE1vbnRzZXJyYXQ7Zm9udC13ZWlnaHQ6NDAwO30uY3tmaWxsOnVybCgjYSk7fS5ke29wYWNpdHk6MC42NTtmaWxsOnVybCgjYik7fTwvc3R5bGU+PHJhZGlhbEdyYWRpZW50IGlkPSJhIiBjeD0iMC4xMDUiIGN5PSIwLjA2OSIgcj0iMS4wNDQiIGdyYWRpZW50VW5pdHM9Im9iamVjdEJvdW5kaW5nQm94Ij48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMxZGRkYmQiLz48c3RvcCBvZmZzZXQ9IjAuNDEzIiBzdG9wLWNvbG9yPSIjMWVkOWMwIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjMjk3OGZmIi8+PC9yYWRpYWxHcmFkaWVudD48cmFkaWFsR3JhZGllbnQgaWQ9ImIiIGN4PSIwLjM5NyIgY3k9IjEuMDkzIiByPSIwLjY3OCIgZ3JhZGllbnRVbml0cz0ib2JqZWN0Qm91bmRpbmdCb3giPjxzdG9wIG9mZnNldD0iMCIgc3RvcC1jb2xvcj0iI2ZmZiIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iI2ZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+PC9yYWRpYWxHcmFkaWVudD48L2RlZnM+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTEwNzEuMjQyIC0xNzYpIj48dGV4dCBjbGFzcz0iYSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTI1Mi42MjYgMjc1LjQ3OSkiPjx0c3BhbiB4PSIwIiB5PSIwIj5DM0M8L3RzcGFuPjx0c3BhbiB5PSIwIj4gPC90c3Bhbj48dHNwYW4gY2xhc3M9ImIiIHk9IjAiPlNPRlRXQVJNPC90c3Bhbj48L3RleHQ+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTA3MS4yNDIgMTc2KSI+PHBhdGggY2xhc3M9ImMiIGQ9Ik0zMi45NDEsMTA5LjM0aDBsMC0uMDE5Yy04LjQyNSw1Ljk2NS0xNy43NDgsNC41NjEtMjMuODA3LS41ODZDLTEuNzQ3LDk5LjUtNS4xNTcsNzYuNzYyLDExLjYwNiw2My4xMjRsMjguOCwxMi44NTFoMEwxMS42LDYzLjExNWMuMjY0LS4yMS42MTYtLjQ4OC45MjEtLjcxN3EtLjQ3OS4zNTgtLjkyMi43MTRBMTkuMDg0LDE5LjA4NCwwLDAsMSwuNCw0MS45NjNjMi41NjMtMTQuMDQsMjAuNDktMjguMjM5LDQwLjY4My0yMC41MzlMNDQuMzU1LDUyLjhoLjAwNkw0MS4wOTEsMjEuNDFjLjM4Ni4xNTQuOTM5LjM3NywxLjMyMi41NWE0OS45NDUsNDkuOTQ1LDAsMCwxLDYsMy4xNzlBNDIuMjQ2LDQyLjI0NiwwLDAsMCw0MS4wNzUsMjEuNCwxOC43ODksMTguNzg5LDAsMCwxLDUzLjc4OSwxLjM2MUM2Ny4yMy0zLjQzOSw4OC41NzIsNC40MDYsOTIsMjUuNzQybC0uMTc3LjEzMS4xNzItLjEydjBjOC40MjktNS45NzgsMTcuNjczLTMuODkyLDIzLjczNiwxLjI1OCwxMC44NzcsOS4yMzksMTQuMjM3LDMxLjk3NS0yLjUyNyw0NS42MTJsLS4wMjQtLjAxMS0uMDE3LjAxM2M5LjM3OCw0LjMxMywxMi42NzIsMTMuMTE5LDExLjI0NCwyMC45NC0yLjU2MywxNC4wNC0yMC41NDIsMjguMjUyLTQwLjczNSwyMC41NTNsLTMuMS0zMS4zMDZhNDguMjMzLDQ4LjIzMywwLDAsMCw2LjM0LS4xLDUwLjMsNTAuMywwLDAsMS02LjM2MS4xbDMuMTEsMzEuMzE4LjAwNiwwYTE5LjEsMTkuMSwwLDAsMS0xMi42MiwyMC4zNDEsMjMuMzg3LDIzLjM4NywwLDAsMS03Ljg1NiwyLjI5MkEzMC45NTgsMzAuOTU4LDAsMCwxLDMyLjk0MSwxMDkuMzRabTQ5LjY5Miw0LjM3Ni0uMTI1LS4wNTRxLTIuMTE0LS45NDItNC4xLTIuMDU1QTQwLjQ1NCw0MC40NTQsMCwwLDAsODIuNjM0LDExMy43MTZabS00OS45NDMtNi41NDFxLS4yLTIuMzYzLS4xODQtNC42OTRBNDMuMjksNDMuMjksMCwwLDAsMzIuNjkxLDEwNy4xNzRabTMyLjcxOS0yLjM2M2E1MC45NjMsNTAuOTYzLDAsMCwxLTQuOTg1LTcuNzg0bDAsMEE0NS4yLDQ1LjIsMCwwLDAsNjMuNSw5OC43N1pNMzcuNTA4LDgxLjE2NEE1MS4xMTQsNTEuMTE0LDAsMCwxLDQwLDc2LjYxOCw0Ny41MzUsNDcuNTM1LDAsMCwwLDM3LjUwOCw4MS4xNjRabTY0LjkzNC0yLjI2YTQ1LjIsNDUuMiwwLDAsMCw5LjYtNS40MTlBNDkuODc4LDQ5Ljg3OCwwLDAsMSwxMDIuNDQyLDc4LjlaTTEyLjY2Nyw2Mi4yOTNsLjA2Mi0uMDQ1cS44OC0uNjM5LDEuNzc4LTEuMjMzUTEzLjUzNCw2MS42NTEsMTIuNjY3LDYyLjI5M1ptMjAuOTE5LTguODM2YTUwLjA5Miw1MC4wOTIsMCwwLDEsOS41NC0uN3EtLjgyLS4wMzQtMS42MzctLjAzM0E0NC40NDIsNDQuNDQyLDAsMCwwLDMzLjU4Niw1My40NTdaTTY2LjQsNDQuNjI4LDgzLjM4MiwzMi4xLDY2LjQsNDQuNjIyWm0tLjUyNS0uOTgzYTQ3LDQ3LDAsMCwwLTUuMi03LjczQTUwLjgyNSw1MC44MjUsMCwwLDEsNjUuODgsNDMuNjQ1Wm0yNS45OC0zLjQ2OGMuMDEzLS4wODIuMDI2LS4xNjMuMDM4LS4yNDRhNDMuNiw0My42LDAsMCwwLC40NTgtNC42NzFBNDkuMzg4LDQ5LjM4OCwwLDAsMSw5MS44NjEsNDAuMTc3Wm0uMjg2LTEyLjY1N3EuMDQzLjQxMy4wOC44MjVxLS4wNjktLjkxOC0uMTU1LTEuNzg4QzkyLjEsMjYuOTIsOTIuMTIyLDI3LjMsOTIuMTQ2LDI3LjUyWiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTAuNzg3IDEwLjUwNCkiLz48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDApIj48cGF0aCBjbGFzcz0iZCIgZD0iTTQ0LjI4NSwzMy41NzcsNDEuMDA1LDIuMTY5Yy0yMC4xOTItNy43LTM4LjEyLDYuNS00MC42ODMsMjAuNTRhMTkuMDg1LDE5LjA4NSwwLDAsMCwxMS4yMDgsMjEuMTVDMTguMjI4LDM4LjQ4MiwzMS4xNzEsMzIuNjIsNDQuMjg1LDMzLjU3N1oiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwLjg1OSAyOS43MDEpIi8+PHBhdGggY2xhc3M9ImQiIGQ9Ik00NC4zMjIsMzMuNTI5LDQxLjA1LDIuMTU3QzIwLjg1OC01LjU0MSwyLjg3Myw4Ljc3OSwuMzEsMjIuODE5LTEuMTE5LDMwLjY0NywyLjMzNCwzOS40MzEsMTEuNzMsNDMuNzRBNDkuODkzLDQ5Ljg5MywwLDAsMSw0NC4zMjIsMzMuNTI5WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxMDguMDQ0KSByb3RhdGUoLTYwKSIvPjxwYXRoIGNsYXNzPSJkIiBkPSJNNDQuMjUzLDMzLjUsNDEuMTU1LDIuMThDMjAuOTYyLTUuNTE5LDIuODgsOC41NzEuMzE3LDIyLjYxMWExOS4xLDE5LjEsMCwwLDAsMTEuMzA1LDIxLjFDMTguMjU1LDM4LjM0MiwyOS45NjEsMzIuNzExLDQ0LjI1MywzMy41WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjIuNDE1IDE1Ni41MDQpIHJvdGF0ZSgtMTIwKSIvPjxwYXRoIGNsYXNzPSJkIiBkPSJNNDQuMTUyLDMzLjQ3NCw0MS4wNCwyLjE2OEMyMC44NjItNS41MzEsMi44ODIsOC42ODEuMzE5LDIyLjcyMS0xLjExLDMwLjU0OSwyLjE5MSwzOS4zNjMsMTEuNTg3LDQzLjY3MywxOC4wOCwzOC4zNDEsMzAuMiwzMi43OCw0NC4xNTIsMzMuNDc0WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTM1LjUxNSAxMjYuNzQpIHJvdGF0ZSgxODApIi8+PHBhdGggY2xhc3M9ImQiIGQ9Ik00NC4yMTcsMzMuNTA5LDQxLjExOSwyLjE2QzIwLjkyMi01LjUzNywyLjkxMyw4Ljc0LC4zNSwyMi43OGMtMS40MjksNy44MjgsMS4zODksMTYuODc5LDEwLjc4NiwyMS4xODhhNTQuODUzLDU0Ljg1MywwLDAsMSwxMi4zMTgtNy4wMDZBNTAuODgxLDUwLjg4MSwwLDAsMSw0NC4yMTcsMzMuNTA5WiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTQ2LjQyMyA0OC41NSkgcm90YXRlKDEyMCkiLz48cGF0aCBjbGFzcz0iZCIgZD0iTTQ0LjEwOSwzMy43NTYsNDAuNTU3LDIuMTM0QzIwLjM2NS01LjU2NSwyLjksOSwuMzM2LDIzLjAzNWExOC43ODksMTguNzg5LDAsMCwwLDExLDIxLjAzMUE1MC4wMzQsNTAuMDM0LDAsMCwxLDQ0LjEwOSwzMy43NTZaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4NC4zNTcgMCkgcm90YXRlKDYwKSIvPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt="Logo C3C Software" class="h-12 mx-auto">
+        </div>
+        <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+                <h1 class="text-2xl font-bold text-gray-800 text-center flex-1">Relatório de Horas Suporte - Vindi - 06/2025</h1>
+                <div class="flex gap-2 no-print">
+                    <button id="export-pdf-btn" class="action-button">Exportar PDF</button>
+                    <button id="export-csv-btn" class="action-button csv">Exportar CSV</button>
+                </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table id="report-table" class="min-w-full text-sm">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="p-3 text-left">Ticket</th>
+                            <th class="p-3 text-left hidden">Tempo de Execução (Minutos)</th>
+                            <th class="p-3 text-left">Hora</th>
+                            <th class="p-3 text-left">Caso Número</th>
+                            <th class="p-3 text-left">Data Inicial</th>
+                            <th class="p-3 text-left">Data Final</th>
+                            <th class="p-3 text-left">Status</th>
+                            <th class="p-3 text-left">Solicitado por</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Movistar] - Falha bot Whatsapp e Chatbot Movistar</td>
+                            <td class="p-3 hidden">180</td>
+                            <td class="p-3">3</td>
+                            <td class="p-3">121870</td>
+                            <td class="p-3">2025-07-04T11:43:11.000-0000</td>
+                            <td class="p-3">2025-07-04T11:44:21.000-0000</td>
+                            <td class="p-3 status-entregue">Entregue</td>
+                            <td class="p-3">Larissa Gomes</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Vindi] - Campos Calculados VR</td>
+                            <td class="p-3 hidden">1200</td>
+                            <td class="p-3">20</td>
+                            <td class="p-3">122000</td>
+                            <td class="p-3">2025-06-27T12:41:01.000-0000</td>
+                            <td class="p-3"></td>
+                            <td class="p-3 status-desenvolvimento">Em desenvolvimento</td>
+                            <td class="p-3">Vindi Lucas Silva</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Vindi] - Configuração de permissão de edição em alguns campos Funil Intermediador Open</td>
+                            <td class="p-3 hidden">120</td>
+                            <td class="p-3">2</td>
+                            <td class="p-3">115256</td>
+                            <td class="p-3">2025-06-03T14:42:29.000-0000</td>
+                            <td class="p-3">2025-07-04T11:40:43.000-0000</td>
+                            <td class="p-3 status-entregue">Entregue</td>
+                            <td class="p-3">Vindi Lucas Silva</td>
+                        </tr>
+                         <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Vindi] - Criação de API para Vindi Now</td>
+                            <td class="p-3 hidden">120</td>
+                            <td class="p-3">2</td>
+                            <td class="p-3">105572</td>
+                            <td class="p-3">2025-05-07T14:20:10.000-0000</td>
+                            <td class="p-3"></td>
+                            <td class="p-3 status-desenvolvimento">Em desenvolvimento</td>
+                            <td class="p-3">Vindi Lucas Silva</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Vindi] - Integração Pesquisa NPS</td>
+                            <td class="p-3 hidden">480</td>
+                            <td class="p-3">8</td>
+                            <td class="p-3">115558</td>
+                            <td class="p-3">2025-05-07T14:10:37.000-0000</td>
+                            <td class="p-3"></td>
+                            <td class="p-3 status-desenvolvimento">Em desenvolvimento</td>
+                            <td class="p-3">Vindi Lucas Silva</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Vindi] - Renovação anual criando oportunidade para o tipo de registro errado</td>
+                            <td class="p-3 hidden">1230</td>
+                            <td class="p-3">20,5</td>
+                            <td class="p-3">119598</td>
+                            <td class="p-3">2025-05-27T12:37:17.000-0000</td>
+                            <td class="p-3"></td>
+                            <td class="p-3 status-desenvolvimento">Em desenvolvimento</td>
+                            <td class="p-3">Larissa Gomes</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Movistar] - Migração bot QA Movistar para aprimorado</td>
+                            <td class="p-3 hidden">1200</td>
+                            <td class="p-3">20</td>
+                            <td class="p-3">113797</td>
+                            <td class="p-3">2025-05-19T11:01:43.000-0000</td>
+                            <td class="p-3">2025-07-07T16:55:31.000-0000</td>
+                            <td class="p-3 status-entregue">Entregue</td>
+                            <td class="p-3">Vindi Lucas Silva</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="p-3">[Movistar] - Relatórios Whatsapp/SMS/Email</td>
+                            <td class="p-3 hidden">180</td>
+                            <td class="p-3">3</td>
+                            <td class="p-3">115168</td>
+                            <td class="p-3">2025-06-02T17:46:50.000-0000</td>
+                            <td class="p-3">2025-06-01T22:17:55.000-0000</td>
+                            <td class="p-3 status-entregue">Entregue</td>
+                            <td class="p-3">Larissa Gomes</td>
+                        </tr>
+                        <!-- Adicione mais linhas de atividades conforme necessário -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-6 flex justify-end">
+                <div class="w-full max-w-sm">
+                    <table class="min-w-full text-sm summary-table rounded-lg overflow-hidden">
+                        <tbody class="divide-y divide-gray-300">
+                            <tr>
+                                <th class="p-3 text-left font-bold">TOTAL</th>
+                                <td class="p-3 text-right font-bold hidden">8910</td>
+                                <td class="p-3 text-right font-bold">148,5</td>
+                            </tr>
+                             <tr>
+                                <th class="p-3 text-left font-bold">Contrato-horas</th>
+                                <td class="p-3 text-right font-bold" colspan="2">118</td>
+                            </tr>
+                             <tr class="hidden">
+                                <th class="p-3 text-left font-bold">Contrato em minutos</th>
+                                <td class="p-3 text-right font-bold" colspan="2">7080</td>
+                            </tr>
+                             <tr>
+                                <th class="p-3 text-left font-bold">Porcentagem utilizada</th>
+                                <td class="p-3 text-right font-bold" colspan="2">126%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para exportar para PDF
+        document.getElementById('export-pdf-btn').addEventListener('click', function () {
+            const { jsPDF } = window.jspdf;
+            const reportElement = document.getElementById('report-content');
+            
+            html2canvas(reportElement, {
+                scale: 2,
+                useCORS: true
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'pt',
+                    format: 'a4'
+                });
+                
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const canvasWidth = canvas.width;
+                const canvasHeight = canvas.height;
+                const ratio = canvasWidth / canvasHeight;
+                
+                let newCanvasWidth = pdfWidth;
+                let newCanvasHeight = newCanvasWidth / ratio;
+
+                if (newCanvasHeight > pdfHeight) {
+                    newCanvasHeight = pdfHeight;
+                    newCanvasWidth = newCanvasHeight * ratio;
+                }
+                
+                const x = (pdfWidth - newCanvasWidth) / 2;
+                const y = (pdfHeight - newCanvasHeight) / 2;
+                
+                pdf.addImage(imgData, 'PNG', x, y, newCanvasWidth, newCanvasHeight);
+                pdf.save('Relatorio-Horas-Vindi-06-2025.pdf');
+            });
+        });
+
+        // Função para exportar para CSV
+        document.getElementById('export-csv-btn').addEventListener('click', function() {
+            const table = document.getElementById('report-table');
+            let csv = [];
+            
+            // Pega os cabeçalhos, ignorando os que têm a classe 'hidden'
+            const headers = [];
+            table.querySelectorAll('thead th').forEach(header => {
+                if (!header.classList.contains('hidden')) {
+                    headers.push(`"${header.innerText.trim()}"`);
+                }
+            });
+            csv.push(headers.join(';'));
+
+            // Pega as linhas do corpo da tabela
+            table.querySelectorAll('tbody tr').forEach(row => {
+                const rowData = [];
+                row.querySelectorAll('td').forEach((cell, index) => {
+                    // Verifica se a célula correspondente no cabeçalho não está escondida
+                    const headerCell = table.querySelector(`thead th:nth-child(${index + 1})`);
+                    if (headerCell && !headerCell.classList.contains('hidden')) {
+                        const cleanText = cell.innerText.trim().replace(/\s\s+/g, ' ');
+                        rowData.push(`"${cleanText}"`);
+                    }
+                });
+                csv.push(rowData.join(';'));
+            });
+
+            // Converte o array CSV em uma única string
+            const csvContent = csv.join('\n');
+
+            // Cria um link para download
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            if (link.download !== undefined) {
+                const url = URL.createObjectURL(blob);
+                link.setAttribute('href', url);
+                link.setAttribute('download', 'Relatorio-Horas-Vindi-06-2025.csv');
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        });
+    </script>
+</body>
+</html>
