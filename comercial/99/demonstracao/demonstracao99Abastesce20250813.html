@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Salesforce: Potencializando a Aquisição de Motoristas | 99Abastece & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 
+    Chosen Palette: Tech & Trust
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1f2937 (Gray-800)
+    - 99Abastece Accent: #f59e0b (Amber-500)
+    - C3C Accent: #3b82f6 (Blue-500)
+    - Muted Background: #f3f4f6 (Gray-100)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page, slide-based application to guide the sales demonstration for 99Abastece. The structure is linear, following the presentation script to build a compelling narrative from problem to solution.
+    1.  Section-based Layout: Each "slide" from the script is a full-height section, creating a focused view for each topic and mimicking a real presentation.
+    2.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, which is ideal for a guided demo. This ensures the presenter stays on script and the audience follows the logical flow.
+    3.  Visual Hierarchy: Clear titles, bullet points, and custom visual elements (charts, diagrams) are used to structure information for easy consumption and high impact.
+    4.  Thematic Sections: The demo is clearly divided into three parts: Pipeline Management, Digital Engagement, and Governance, each with its own title slide to structure the conversation.
+    This structure was chosen to create a professional, engaging, and easy-to-follow demonstration that clearly links the client's challenges to the platform's solutions.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Process Flow. -> Goal: Organize. -> Viz/Method: A simple, clean flowchart built with HTML/CSS. -> Interaction: None. -> Justification: Visually simplifies the entire proposed workflow in an easy-to-understand diagram. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Productivity Dashboards. -> Goal: Inform/Compare. -> Viz/Method: Two charts created with Chart.js (a bar chart for analyst performance and a doughnut chart for the conversion funnel). -> Interaction: Hover for tooltips. -> Justification: Makes the abstract concept of "dashboards" tangible and visually impressive, directly addressing the client's need for visibility. -> Library: Chart.js/Canvas. NO SVG.
+    -   Report Info: Compliance Dashboard. -> Goal: Inform. -> Viz/Method: A pie chart for Opt-ins/Opt-outs. -> Interaction: Hover for tooltips. -> Justification: Provides a clear visual representation of compliance metrics. -> Library: Chart.js/Canvas. NO SVG.
+    -   Report Info: "Antes vs. Depois". -> Goal: Compare. -> Viz/Method: A two-column layout with styled cards and Unicode icons. -> Interaction: None. -> Justification: Creates a powerful and immediate visual contrast to summarize the value proposition. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(31, 41, 55, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #f59e0b;
+        }
+        .nav-arrow:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            max-height: 350px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #f59e0b;">99Abastece</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #3b82f6;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Transformando a Aquisição de Motoristas com Salesforce</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Uma Demonstração Estratégica</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-2xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Nossa Jornada Hoje</h2>
+                <ul class="text-xl space-y-3">
+                    <li class="p-4 bg-white rounded-md shadow-sm">1. **Gestão do Pipeline de Aquisição:** Do prospect à ativação.</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">2. **Engajamento Digital Seguro:** O fim dos banimentos no WhatsApp.</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">3. **Controles e Governança:** Operando com segurança e compliance.</li>
+                    <li class="p-4 bg-white rounded-md shadow-sm">4. **Resumo do Valor** e Próximos Passos.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Desafios -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Os Pilares para Escalar a Aquisição</h2>
+                <p class="text-lg text-gray-700 mb-8">Sabemos que o desafio é escalar a aquisição de novos motoristas de forma rápida, mas sem perder a qualidade e eliminando riscos operacionais como o banimento de números.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                    <div class="p-4 bg-gray-50 rounded-lg">❓ <span class="font-semibold">Produtividade:</span> Como garantir que cada analista contate 120 prospects por dia de forma organizada?</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">❓ <span class="font-semibold">Segurança:</span> Como eliminar o risco de banimento no WhatsApp e operar com uma conta oficial?</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">❓ <span class="font-semibold">Visibilidade:</span> Como a supervisão pode acompanhar a performance e a conversão do funil em tempo real?</div>
+                    <div class="p-4 bg-gray-50 rounded-lg">❓ <span class="font-semibold">Compliance:</span> Como garantir que todas as comunicações estão padronizadas e aprovadas?</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: A Solução -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-50">
+            <div class="max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">A Solução: Uma Plataforma Única e Integrada</h2>
+                <p class="text-lg text-gray-700 mb-8">Vamos mostrar como o Salesforce centraliza todo o processo em uma única plataforma, desde a importação de uma lista de prospects até a conversão final, com total controle e visibilidade.</p>
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-4 text-white">
+                    <div class="p-4 bg-gray-400 rounded-md w-48">Prospects</div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 rounded-md w-48" style="background-color: #3b82f6;">Sales Cloud (Gestão)</div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 rounded-md w-48" style="background-color: #25D366;">Digital Engagement</div>
+                    <div class="text-2xl font-bold text-gray-400">→</div>
+                    <div class="p-4 rounded-md w-48" style="background-color: #f59e0b;">Motorista Ativo</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Parte 1 -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-blue-600 text-white">
+            <h2 class="text-2xl font-bold">PARTE 1</h2>
+            <h1 class="text-5xl font-black mt-2">Gestão do Pipeline de Aquisição</h1>
+            <p class="mt-4 text-xl">Sales Cloud: A Máquina de Produtividade</p>
+        </section>
+
+        <!-- Slide 6: Demo 1.1 -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-2">Da Lista ao Contato em Minutos</h2>
+                <p class="text-lg text-gray-600 mb-8">Importação e Segmentação Inteligente</p>
+                <div class="text-left bg-gray-50 p-8 rounded-lg shadow-md">
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "Começamos importando uma lista com 120 motoristas prospects."</p>
+                    <p>🗣️ <span class="font-bold">Apresentador diz:</span> "Observem que, ao importar, o Salesforce já segmenta automaticamente cada prospect por região e perfil, direcionando-os para a campanha e o analista corretos."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Demo 1.2 -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-2">Orquestrando a Aquisição com Campanhas</h2>
+                <p class="text-lg text-gray-600 mb-8">Follow-ups Automáticos</p>
+                <div class="text-left bg-white p-8 rounded-lg shadow-md">
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "Cada prospect entra em nossa campanha 'Aquisição 99Abastece', que possui uma sequência de atividades pré-definida."</p>
+                    <p>🗣️ <span class="font-bold">Apresentador diz:</span> "Isso garante que nenhum motorista seja esquecido. O sistema cria as tarefas de follow-up e pode até disparar as primeiras mensagens de WhatsApp automaticamente."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Demo 1.3 -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl font-bold text-center mb-10">Visibilidade Total com Dashboards</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="font-bold text-center mb-4">Produtividade por Analista</h3>
+                        <div class="chart-container"><canvas id="productivityChart"></canvas></div>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="font-bold text-center mb-4">Funil de Conversão</h3>
+                        <div class="chart-container"><canvas id="funnelChart"></canvas></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Parte 2 -->
+        <section id="slide9" class="min-h-screen flex flex-col justify-center items-center text-center p-8" style="background-color: #25D366; color: white;">
+            <h2 class="text-2xl font-bold">PARTE 2</h2>
+            <h1 class="text-5xl font-black mt-2">Engajamento Digital via WhatsApp</h1>
+            <p class="mt-4 text-xl">Digital Engagement: O Fim dos Banimentos</p>
+        </section>
+
+        <!-- Slide 10: Demo 2.1 -->
+        <section id="slide10" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-2">Comunicação Segura e Oficial</h2>
+                <p class="text-lg text-gray-600 mb-8">WhatsApp Business API: Confiança e Segurança</p>
+                <div class="text-left bg-gray-50 p-8 rounded-lg shadow-md">
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "Toda a comunicação parte de um número oficial da 99, com o selo de verificação. O risco de banimento é zero."</p>
+                    <p>🗣️ <span class="font-bold">Apresentador diz:</span> "Para iniciar a conversa, o analista usa templates já aprovados pela Meta e pela 99, como este de apresentação dos benefícios."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 11: Demo 2.2 -->
+        <section id="slide11" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-2">Automação que Escala a Conversa</h2>
+                <p class="text-lg text-gray-600 mb-8">Chatbots e Rastreamento da Jornada</p>
+                <div class="text-left bg-white p-8 rounded-lg shadow-md">
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "Quando o motorista responde com uma dúvida comum, um chatbot pode assumir a conversa."</p>
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "Se necessário, a conversa é automaticamente transferida para o analista responsável."</p>
+                    <p>🗣️ <span class="font-bold">Apresentador diz:</span> "Toda a jornada da conversa fica registrada no histórico do motorista, dando total visibilidade ao time."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 12: Parte 3 -->
+        <section id="slide12" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-800 text-white">
+            <h2 class="text-2xl font-bold">PARTE 3</h2>
+            <h1 class="text-5xl font-black mt-2">Controles e Governança</h1>
+            <p class="mt-4 text-xl">Operando com Segurança e Compliance</p>
+        </section>
+
+        <!-- Slide 13: Demo 3.1 -->
+        <section id="slide13" class="min-h-screen flex flex-col justify-center items-center p-8">
+             <div class="max-w-4xl text-center">
+                <h2 class="text-3xl font-bold mb-2">Garantindo a Qualidade da Mensagem</h2>
+                <p class="text-lg text-gray-600 mb-8">Workflow de Aprovação para Templates</p>
+                <div class="text-left bg-gray-50 p-8 rounded-lg shadow-md">
+                    <p class="mb-4">🗣️ <span class="font-bold">Apresentador diz:</span> "O time de marketing pode criar um novo template, mas ele não pode ser usado até que a supervisora aprove."</p>
+                    <p>🗣️ <span class="font-bold">Apresentador diz:</span> "Isso garante que apenas mensagens aprovadas e padronizadas sejam utilizadas, mantendo a consistência da comunicação."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 14: Demo 3.2 -->
+        <section id="slide14" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl w-full text-center">
+                <h2 class="text-3xl font-bold mb-10">Auditoria e Controle</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-left">
+                        <h3 class="font-bold text-lg mb-2">Dashboard de Opt-in/Opt-out</h3>
+                        <p class="text-gray-600 mb-4">Mostra em tempo real quantos motoristas aceitaram ou recusaram receber nossas mensagens, garantindo o compliance.</p>
+                        <h3 class="font-bold text-lg mb-2">Histórico Completo</h3>
+                        <p class="text-gray-600">Temos um histórico completo de todas as interações, criando uma trilha de auditoria completa e exportável.</p>
+                    </div>
+                    <div class="chart-container"><canvas id="complianceChart"></canvas></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 15: Resumo -->
+        <section id="slide15" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">A Transformação na Prática</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-8 rounded-lg bg-gray-100 border-l-4 border-red-500">
+                        <h3 class="text-2xl font-bold mb-4">Antes</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>❌ Processo manual de importação</li>
+                            <li>❌ Risco de banimento de números</li>
+                            <li>❌ Falta de visibilidade da performance</li>
+                            <li>❌ Comunicação não padronizada</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 rounded-lg bg-green-100 border-l-4 border-green-500">
+                        <h3 class="text-2xl font-bold mb-4">Com Salesforce</h3>
+                        <ul class="space-y-2 text-gray-700">
+                            <li>✅ Processo automatizado e escalável</li>
+                            <li>✅ Comunicação segura com número oficial</li>
+                            <li>✅ Dashboards com visão em tempo real</li>
+                            <li>✅ Controle total com aprovações e compliance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 16: Agradecimento -->
+        <section id="slide16" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl font-bold">Obrigado!</h2>
+                <p class="text-xl text-gray-600 mt-4">Dúvidas e Próximos Passos</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+
+            // Chart Logic
+            const tooltipCallback = {
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                const item = tooltipItems[0];
+                                let label = item.chart.data.labels[item.dataIndex];
+                                if (Array.isArray(label)) {
+                                  return label.join(' ');
+                                } else {
+                                  return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+
+            // Productivity Chart (Bar)
+            const productivityCtx = document.getElementById('productivityChart').getContext('2d');
+            new Chart(productivityCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Analista A', 'Analista B', 'Analista C'],
+                    datasets: [{
+                        label: 'Contatos Realizados',
+                        data: [115, 125, 108],
+                        backgroundColor: '#3b82f6',
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, ...tooltipCallback, plugins: { ...tooltipCallback.plugins, legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+            });
+
+            // Funnel Chart (Doughnut)
+            const funnelCtx = document.getElementById('funnelChart').getContext('2d');
+            new Chart(funnelCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Prospects', 'Contatados', 'Engajados', 'Ativos'],
+                    datasets: [{
+                        data: [120, 100, 60, 25],
+                        backgroundColor: ['#9ca3af', '#3b82f6', '#f59e0b', '#16a34a'],
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, ...tooltipCallback, plugins: { ...tooltipCallback.plugins, legend: { position: 'bottom' } } }
+            });
+
+            // Compliance Chart (Pie)
+            const complianceCtx = document.getElementById('complianceChart').getContext('2d');
+            new Chart(complianceCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Opt-in', 'Opt-out'],
+                    datasets: [{
+                        data: [95, 5],
+                        backgroundColor: ['#16a34a', '#ef4444'],
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, ...tooltipCallback, plugins: { ...tooltipCallback.plugins, legend: { position: 'bottom' } } }
+            });
+        });
+    </script>
+
+</body>
+</html>
