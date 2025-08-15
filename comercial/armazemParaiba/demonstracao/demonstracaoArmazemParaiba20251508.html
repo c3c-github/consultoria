@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Jornada do Cliente 360° | Armazém Paraíba & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: Armazém Paraíba Inspired
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #2c3e50 (Dark Blue/Charcoal)
+    - Primary Accent: #e74c3c (Red)
+    - Secondary Accent: #3498db (Blue)
+    - Muted Background: #ecf0f1 (Light Gray)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a customer journey narrative to help Armazém Paraíba visualize the value of a unified CRM. Instead of a technical demo, it tells a relatable story.
+    1.  Introduction: Meet "Ana," the customer persona, setting a relatable context.
+    2.  Thematic Phases: The presentation is broken down into four distinct phases of the customer lifecycle: Marketing, Sales, Service, and Analytics. Each phase is a full-screen "slide."
+    3.  Storytelling through Scenarios: Each phase presents a realistic scenario (e.g., cart abandonment, post-sale support) and shows how the Salesforce platform provides a connected solution.
+    4.  Visual Storytelling: Simple icons and diagrams are used to illustrate concepts like the 360-degree view and multi-channel communication.
+    5.  Navigation: Fixed side arrows guide the presenter and audience through the story in a controlled, linear fashion.
+    This structure was chosen to focus on the "why" (the value to the customer and the business) rather than just the "what" (the features), making the benefits of a CRM tangible and compelling.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Customer Journey Flow. -> Goal: Organize. -> Viz/Method: A series of full-screen sections, each representing a stage in the journey. -> Interaction: Next/Previous buttons. -> Justification: Creates an immersive, step-by-step storytelling experience. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Multi-channel touchpoints (e-commerce, email, WhatsApp). -> Goal: Inform. -> Viz/Method: Styled cards with Unicode icons (🛒, 📧, 📱). -> Interaction: None. -> Justification: Visually represents the different channels being unified by the platform. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: 360-Degree Customer View. -> Goal: Explain. -> Viz/Method: A central element ("Ana") surrounded by connected data points (History, Purchases, Cases). -> Interaction: None. -> Justification: A powerful visual metaphor for the core benefit of a unified CRM. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Unified Dashboards. -> Goal: Inform. -> Viz/Method: A simplified representation of different dashboards (Marketing, Sales, Service) side-by-side. -> Interaction: None. -> Justification: Communicates the concept of cross-departmental analytics on a single platform. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #2c3e50;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(44, 62, 80, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #e74c3c;
+        }
+        .nav-arrow:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                <h1 class="text-4xl md:text-5xl font-black">A Jornada do Cliente 360° com Salesforce</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2" style="color: #e74c3c;">Uma Visão Unificada para o Armazém Paraíba</h2>
+                <p class="mt-8 text-lg text-gray-600">Vamos seguir a jornada de uma cliente, a <strong>Ana</strong>, para entender o verdadeiro valor de um CRM.</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: Fase 1 - Marketing -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Fase 1: A Descoberta</h2>
+                <p class="text-xl text-gray-700 mb-10">Como atrair e engajar a Ana com inteligência.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">🛒</div>
+                        <h3 class="font-bold text-lg">Carrinho Abandonado</h3>
+                        <p class="text-sm text-gray-600 mt-2">A Ana visita o e-commerce, se interessa por uma Smart TV, mas não finaliza a compra. Ela cria uma conta.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">📧</div>
+                        <h3 class="font-bold text-lg">E-mail Personalizado</h3>
+                        <p class="text-sm text-gray-600 mt-2">O Marketing Cloud envia um e-mail automático lembrando a Ana da TV que ela viu, em vez de um e-mail genérico.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">📱</div>
+                        <h3 class="font-bold text-lg">WhatsApp Oficial</h3>
+                        <p class="text-sm text-gray-600 mt-2">Como ela não comprou, o sistema envia uma oferta de 10% de desconto pelo WhatsApp verificado do Armazém Paraíba, <strong>sem risco de banimento</strong>.</p>
+                    </div>
+                </div>
+                <p class="mt-10 p-4 bg-green-100 text-green-800 rounded-lg font-semibold">Resultado: A Ana finaliza a compra. Convertemos um interesse em uma venda de forma proativa e segura.</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: Fase 2 - Vendas -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Fase 2: A Venda e a Nova Oportunidade</h2>
+                <p class="text-xl text-gray-700 mb-10">Como transformar a primeira compra em um relacionamento duradouro.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center">
+                        <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center mx-auto mb-4">
+                            <span class="text-5xl">👩</span>
+                        </div>
+                        <h3 class="text-2xl font-bold">Ana</h3>
+                        <div class="mt-4 text-left text-sm space-y-2">
+                            <p><strong>Histórico:</strong> Visitou site, abriu e-mail, interagiu no WhatsApp.</p>
+                            <p><strong>Compra:</strong> Smart TV 4K.</p>
+                            <p><strong>Status:</strong> Nova Cliente.</p>
+                        </div>
+                        <p class="mt-4 text-xs font-semibold uppercase text-gray-500">VISÃO 360° DO CLIENTE</p>
+                    </div>
+                    <div class="text-left">
+                        <p class="text-lg text-gray-700 mb-4">No momento da compra, a Ana se torna uma cliente no Sales Cloud com todo o seu histórico. O sistema, de forma inteligente, identifica uma nova oportunidade:</p>
+                        <div class="p-6 bg-yellow-100 border-l-4 border-yellow-500 rounded-r-lg">
+                            <h3 class="font-bold text-lg text-yellow-800">Oportunidade de Cross-Sell</h3>
+                            <p class="text-yellow-700 mt-1">A Ana comprou um item de alto valor, mas não usou o <strong>Crediário Paraíba</strong>.</p>
+                        </div>
+                        <p class="mt-4 text-lg text-gray-700">O sistema cria uma tarefa para a <strong>Central de Crediário</strong>, que entra em contato com a Ana de forma personalizada, já sabendo de todo o seu contexto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Fase 3 - Atendimento -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Fase 3: O Pós-Venda e a Fidelização</h2>
+                <p class="text-xl text-gray-700 mb-10">Como unificar todas as centrais de atendimento para resolver problemas rapidamente.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">💬</div>
+                        <h3 class="font-bold text-lg">Contato via WhatsApp</h3>
+                        <p class="text-sm text-gray-600 mt-2">A Ana tem uma dúvida sobre a TV e chama a <strong>Central de Pós-Vendas</strong> no WhatsApp.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">📥</div>
+                        <h3 class="font-bold text-lg">Caso Automático no Service Cloud</h3>
+                        <p class="text-sm text-gray-600 mt-2">Um <strong>Caso</strong> é aberto e atribuído a um atendente, que já vê todo o histórico da Ana, sem precisar perguntar nada.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <div class="text-4xl mb-3">💡</div>
+                        <h3 class="font-bold text-lg">Resolução Rápida</h3>
+                        <p class="text-sm text-gray-600 mt-2">O sistema sugere um artigo da Base de Conhecimento, e o atendente resolve a dúvida em minutos na mesma conversa.</p>
+                    </div>
+                </div>
+                <p class="mt-10 p-4 bg-blue-100 text-blue-800 rounded-lg font-semibold">A mesma lógica se aplica a todas as centrais (Crediário, Boleto, Vendas), criando uma experiência unificada e sem atritos para o cliente.</p>
+            </div>
+        </section>
+
+        <!-- Slide 5: Fase 4 - Analytics -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Fase 4: A Visão Estratégica Unificada</h2>
+                <p class="text-xl text-gray-700 mb-10">Toda essa operação gera dados. Com o Salesforce, eles se transformam em inteligência para a tomada de decisão.</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Dashboard de Marketing</h3>
+                        <p class="text-sm text-gray-600">ROI das jornadas de WhatsApp, taxa de conversão de carrinho abandonado.</p>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Dashboard de Vendas</h3>
+                        <p class="text-sm text-gray-600">Oportunidades de cross-sell do Crediário, performance dos vendedores.</p>
+                    </div>
+                    <div class="p-6 bg-gray-50 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg mb-2">Dashboard de Atendimento</h3>
+                        <p class="text-sm text-gray-600">Volume de casos por canal, tempo de resolução, satisfação do cliente (CSAT).</p>
+                    </div>
+                </div>
+                <p class="mt-10 text-lg font-semibold">O mais importante: todos esses dados estão na mesma plataforma, permitindo cruzar informações de marketing, vendas e pós-vendas.</p>
+            </div>
+        </section>
+
+        <!-- Slide 6: Encerramento -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-800 text-white">
+            <div class="max-w-3xl">
+                <h2 class="text-4xl font-bold">A Jornada Completa</h2>
+                <p class="text-xl mt-4">O que vimos hoje foi a jornada da Ana, de uma visitante anônima a uma cliente satisfeita e fiel.</p>
+                <p class="text-lg mt-6">Mostramos como o Salesforce conecta todos os pontos de contato, eliminando a fricção, aumentando a eficiência e, o mais importante, colocando o cliente no centro de tudo.</p>
+                <p class="mt-8 font-semibold text-xl">A proposta não é apenas uma ferramenta, mas uma nova forma de operar, mais inteligente e integrada.</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
