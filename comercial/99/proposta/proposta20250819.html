@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta do Projeto: Acionamento e Conversão de Motoristas | 99Abastece & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: 99Abastece Inspired
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1f2937 (Gray-800)
+    - 99Abastece Accent: #f59e0b (Amber-500)
+    - C3C Accent: #3b82f6 (Blue-500)
+    - Muted Background: #f3f4f6 (Gray-100)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a single-page, slide-based application to present the project proposal. The structure is linear to mimic a formal presentation, ensuring the information is delivered in a logical, persuasive sequence.
+    1.  Section-based Layout: Each "slide" from the script is a full-height section, creating a focused view for each topic.
+    2.  Navigation: Fixed side arrows provide a controlled, step-by-step presentation flow, which is ideal for a formal meeting.
+    3.  Visual Hierarchy: Clear titles, bullet points, and custom visual elements are used to structure information for easy consumption and high impact.
+    4.  Thematic Sections: The flow moves from the high-level objective to the scope, technical solution, timeline, and team structure.
+    This structure was chosen to provide a clear, professional, and comprehensive overview of the project proposal.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: User Stories. -> Goal: Inform. -> Viz/Method: Styled cards with Unicode icons. -> Interaction: None. -> Justification: Summarizes the key user needs in a visually engaging way. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Technical Solution Flowchart. -> Goal: Organize. -> Viz/Method: A simplified step-by-step diagram. -> Interaction: None. -> Justification: Explains the technical process in an easy-to-understand visual format. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: Project Timeline. -> Goal: Change. -> Viz/Method: A styled HTML table. -> Interaction: None. -> Justification: Clearly illustrates the project phases and duration. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(31, 41, 55, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #f59e0b;
+        }
+        .nav-arrow:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #f59e0b;">99Abastece</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #3b82f6;">C3C Software</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Proposta de Projeto: Acionamento e Conversão de Motoristas</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Digitalização e Automação no Salesforce</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: Objetivo -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Objetivo do Projeto</h2>
+                <p class="text-xl text-gray-700">Digitalizar e automatizar o processo de acionamento e conversão de motoristas offline no Salesforce, substituindo o fluxo manual baseado em planilhas. O objetivo é criar um processo mais <span class="font-bold">seguro, escalável e rastreável</span>, fornecendo indicadores em tempo real para a gestão.</p>
+            </div>
+        </section>
+
+        <!-- Slide 3: Escopo Funcional -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Escopo Funcional: O Que Vamos Construir</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Hierarquia de Campanhas</h3>
+                        <p class="text-sm text-gray-600">Criação de campanhas "mãe" para a estratégia mensal e campanhas "filhas" automáticas por analista.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Carga de Leads via API</h3>
+                        <p class="text-sm text-gray-600">Flexibilidade para importar a base de motoristas via arquivo ou automaticamente via API padrão.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Disparo de WhatsApp</h3>
+                        <p class="text-sm text-gray-600">Analistas iniciam o contato via Digital Engagement com templates padronizados.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Transbordo com Omni-Channel</h3>
+                        <p class="text-sm text-gray-600">Respostas dos motoristas são roteadas em tempo real para o analista responsável.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Atualização de Conversão</h3>
+                        <p class="text-sm text-gray-600">Recebimento dos dados de abastecimento via API padrão para atualizar os leads.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Dashboards e Bonificação</h3>
+                        <p class="text-sm text-gray-600">Visão de performance em tempo real para todos e um relatório específico para o cálculo de bônus.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Arquitetura -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Visão Geral da Solução</h2>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>1. Preparação:</strong> Time 99 cria a Campanha Mãe e carrega os Leads (via CSV ou API).</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>2. Distribuição:</strong> Salesforce cria as Campanhas Filhas e distribui os Leads para os analistas.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-white rounded-md shadow-sm"><strong>3. Acionamento:</strong> Analista envia template de WhatsApp via Digital Engagement.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-yellow-100 rounded-md shadow-sm border border-yellow-300"><strong>4. Interação:</strong> Se o motorista responde, a conversa é roteada via Omni-Channel para o analista.</div>
+                    <div class="text-2xl font-bold text-gray-400">↓</div>
+                    <div class="p-4 bg-green-100 rounded-md shadow-sm border border-green-300"><strong>5. Conversão:</strong> Script Python da 99 envia os dados de abastecimento via API Padrão.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Cronograma -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Cronograma Estimado do Projeto (6 Semanas)</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm border-collapse shadow-lg rounded-lg overflow-hidden">
+                        <thead class="bg-gray-800 text-white">
+                            <tr>
+                                <th class="p-3 font-bold uppercase text-left">Fase</th>
+                                <th class="p-3 font-bold uppercase text-left">Duração</th>
+                                <th class="p-3 font-bold uppercase text-left">Principais Atividades</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white">
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">1. Especificação e Desenho da Solução</td>
+                                <td class="p-3">1 Semana</td>
+                                <td class="p-3">Liderar o desenho técnico, definir a arquitetura da API e a estratégia de automação.</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b border-gray-200">
+                                <td class="p-3 font-semibold">2. Desenvolvimento e Testes Unitários</td>
+                                <td class="p-3">3 Semanas</td>
+                                <td class="p-3">Desenvolver automações, configurar Digital Engagement e Omni-Channel, construir relatórios.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="p-3 font-semibold">3. Testes Integrados e Homologação (UAT)</td>
+                                <td class="p-3">1 Semana</td>
+                                <td class="p-3">Liderar as sessões de homologação com a equipe 99 e realizar os ajustes.</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-3 font-semibold">4. Deploy e Hypercare</td>
+                                <td class="p-3">1 Semana</td>
+                                <td class="p-3">Coordenar a janela de deploy, comunicar o Go-Live e gerenciar o suporte inicial.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Equipe -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Equipe do Projeto e Alocação</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Arquiteto Salesforce</h3>
+                        <p class="text-sm font-semibold text-blue-600">50% (20h/semana)</p>
+                        <p class="text-sm text-gray-600 mt-2">Desenho da solução, supervisão técnica e melhores práticas.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Gestor de Projeto</h3>
+                        <p class="text-sm font-semibold text-blue-600">25% (10h/semana)</p>
+                        <p class="text-sm text-gray-600 mt-2">Planejamento, gestão de atividades e comunicação.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Desenvolvedor Pleno</h3>
+                        <p class="text-sm font-semibold text-blue-600">100% (40h/semana)</p>
+                        <p class="text-sm text-gray-600 mt-2">Desenvolvimento das automações complexas e configurações.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="font-bold text-lg">Desenvolvedor Júnior</h3>
+                        <p class="text-sm font-semibold text-blue-600">100% (40h/semana)</p>
+                        <p class="text-sm text-gray-600 mt-2">Configurações declarativas, relatórios e dashboards.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Próximos Passos -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-2xl">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Próximos Passos</h2>
+                <p class="text-xl text-gray-700 mb-8">Nossa proposta é iniciar a fase de especificação e desenho da solução para detalhar cada requisito e solidificar o plano de projeto.</p>
+                <div class="p-6 bg-gray-50 rounded-lg">
+                    <p class="text-lg font-semibold">Estamos à disposição para discutir esta proposta e alinhar os próximos passos para o início do projeto.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
