@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Jornada de Sucesso do Cliente - C3C Software</title>
+    <!-- Importa a biblioteca de ícones Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- ESTILOS GERAIS --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+            overflow: hidden;
+        }
+
+        /* --- CONTAINER DA APRESENTAÇÃO --- */
+        #presentation-container {
+            width: 90%;
+            height: 90%;
+            max-width: 1100px;
+            max-height: 700px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* --- ESTRUTURA DO SLIDE --- */
+        .slide {
+            display: none; /* Esconde todos os slides por padrão */
+            flex-grow: 1;
+            padding: 40px 60px;
+            animation: fadeIn 0.6s ease-in-out;
+            overflow-y: auto; /* Permite rolagem se o conteúdo for grande */
+        }
+
+        .slide.active {
+            display: block; /* Mostra apenas o slide ativo */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- TÍTULOS E TEXTOS --- */
+        h1, h2 {
+            color: #003366; /* Azul corporativo escuro */
+            border-bottom: 3px solid #00a1e0; /* Azul claro C3C */
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        h1 { font-size: 2.8rem; text-align: center; border: none; }
+        h2 { font-size: 2rem; }
+        p, li { font-size: 1.1rem; line-height: 1.7; }
+        
+        .slide-title-page h1 { margin-top: 15%; }
+        .slide-title-page p { font-size: 1.4rem; color: #555; text-align: center; }
+
+        /* --- LAYOUTS E COLUNAS --- */
+        .content-columns {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .column {
+            flex: 1;
+        }
+        .column h3 {
+            color: #00a1e0;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        .column ul {
+            list-style: none;
+            padding: 0;
+        }
+        .column li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .column li i {
+            color: #00a1e0;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* --- NAVEGAÇÃO E RODAPÉ (ATUALIZADO) --- */
+        #navigation {
+            padding: 15px 60px;
+            background-color: #003366; /* Fundo azul escuro para destaque */
+            color: #ffffff; /* Texto branco para contraste */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0; /* Impede que a barra de navegação encolha */
+        }
+
+        #slide-counter {
+            font-size: 1rem;
+            color: #ffffff;
+        }
+
+        .nav-button {
+            background-color: #00a1e0; /* Azul claro para os botões */
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .nav-button:hover {
+            background-color: #007bb5; /* Tom mais escuro ao passar o mouse */
+            transform: translateY(-2px);
+        }
+        .nav-button:disabled {
+            background-color: #5a6a7a;
+            color: #c0c0c0;
+            cursor: not-allowed;
+            transform: none;
+        }
+        #c3c-logo {
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        /* --- RESPONSIVIDADE --- */
+        @media (max-width: 768px) {
+            body { height: auto; padding: 10px; }
+            #presentation-container { width: 100%; height: auto; max-height: none; }
+            .slide { padding: 20px; }
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .content-columns { flex-direction: column; gap: 20px; }
+            #navigation { padding: 15px 20px; flex-direction: column; gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        <!-- Slide 1: Título -->
+        <div class="slide active slide-title-page" data-title="Início">
+            <h1>A Jornada de Sucesso do Cliente</h1>
+            <p>Nossa Metodologia de Entrega - C3C Software</p>
+        </div>
+
+        <!-- Slide 2: Fase 0 -->
+        <div class="slide" data-title="Fase 0: Prospecção e Venda">
+            <h2>Fase 0: Prospecção e Venda</h2>
+            <p>O início da nossa parceria. Nesta fase, nosso foco é entender profundamente seus desafios para desenhar uma solução de valor.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-file-powerpoint"></i> Proposta Comercial Detalhada</li>
+                        <li><i class="fas fa-file-alt"></i> SOW (Escopo de Trabalho)</li>
+                        <li><i class="fas fa-handshake"></i> Contrato de Prestação de Serviços</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-bullseye"></i> Taxa de Conversão</li>
+                        <li><i class="fas fa-dollar-sign"></i> Custo de Aquisição de Cliente (CAC)</li>
+                        <li><i class="fas fa-calendar-alt"></i> Duração do Ciclo de Vendas</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Fase 1 -->
+        <div class="slide" data-title="Fase 1: Descoberta e Planejamento">
+            <h2>Fase 1: Descoberta e Planejamento</h2>
+            <p>A fundação do projeto. Mapeamos seus processos e requisitos em detalhe para garantir que a construção seja precisa e alinhada às suas metas.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-flag-checkered"></i> Ata de Reunião de Kick-off</li>
+                        <li><i class="fas fa-book-open"></i> BDD (Documento de Requisitos de Negócio)</li>
+                        <li><i class="fas fa-tasks"></i> Cronograma Detalhado do Projeto</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Aprovação formal do BDD no prazo</li>
+                        <li><i class="fas fa-star"></i> Alinhamento de expectativas com stakeholders</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Fase 2 -->
+        <div class="slide" data-title="Fase 2: Design e Construção">
+            <h2>Fase 2: Design e Construção</h2>
+            <p>É aqui que a solução ganha vida. Nosso time de especialistas configura e desenvolve a plataforma com base no que foi planejado.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-box"></i> Entregas Parciais (Sprints)</li>
+                        <li><i class="fas fa-cogs"></i> Documento de Design Técnico</li>
+                        <li><i class="fas fa-database"></i> Planilhas para Carga de Dados</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-percent"></i> Utilização Faturável da Equipe</li>
+                        <li><i class="fas fa-calendar-check"></i> Conclusão das Sprints no prazo</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Fase 3 -->
+        <div class="slide" data-title="Fase 3: Validação e Treinamento">
+            <h2>Fase 3: Validação e Treinamento</h2>
+            <p>Garantimos que a solução atende 100% aos requisitos e preparamos sua equipe para extrair o máximo de valor da nova ferramenta.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-vial"></i> Roteiros e Casos de Teste</li>
+                        <li><i class="fas fa-award"></i> Termo de Aceite do Usuário (UAT)</li>
+                        <li><i class="fas fa-chalkboard-teacher"></i> Material de Treinamento e Guias</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-clipboard-check"></i> % de Casos de Teste Aprovados</li>
+                        <li><i class="fas fa-users"></i> Nível de engajamento nos treinamentos</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Slide 6: Fase 4 -->
+        <div class="slide" data-title="Fase 4: Implantação e Go-Live">
+            <h2>Fase 4: Implantação e Go-Live</h2>
+            <p>O grande dia! Colocamos a solução em produção com um plano detalhado para garantir uma transição suave e segura.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-map-signs"></i> Plano de Cutover (Go-Live)</li>
+                        <li><i class="fas fa-life-ring"></i> Documentação de Suporte (Hipercare)</li>
+                        <li><i class="fas fa-trophy"></i> Termo de Encerramento do Projeto</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-smile"></i> CSAT (Pesquisa de Satisfação do Cliente)</li>
+                        <li><i class="fas fa-stopwatch"></i> Entrega no Prazo (On-time)</li>
+                        <li><i class="fas fa-wallet"></i> Entrega no Orçamento (On-budget)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Fase 5 -->
+        <div class="slide" data-title="Fase 5: Adoção e Sucesso Contínuo">
+            <h2>Fase 5: Adoção e Sucesso Contínuo</h2>
+            <p>Nosso diferencial. O projeto termina, mas nossa parceria evolui. Focamos proativamente no sucesso contínuo e na evolução da sua plataforma.</p>
+            <div class="content-columns">
+                <div class="column">
+                    <h3><i class="fas fa-file-signature"></i> Artefatos Entregues</h3>
+                    <ul>
+                        <li><i class="fas fa-chart-bar"></i> Relatórios de Adoção da Plataforma</li>
+                        <li><i class="fas fa-calendar-day"></i> QBR (Reunião Trimestral de Resultados)</li>
+                        <li><i class="fas fa-road"></i> Roadmap de Evolução da Solução</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3><i class="fas fa-chart-line"></i> Indicadores de Sucesso</h3>
+                    <ul>
+                        <li><i class="fas fa-thumbs-up"></i> NPS (Net Promoter Score)</li>
+                        <li><i class="fas fa-infinity"></i> LTV (Lifetime Value do Cliente)</li>
+                        <li><i class="fas fa-user-check"></i> Taxa de Adoção de Usuários</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: Fim -->
+        <div class="slide slide-title-page" data-title="Obrigado">
+            <h1>Obrigado!</h1>
+            <p>Comprometidos com a sua jornada de transformação digital.</p>
+        </div>
+
+        <!-- Navegação da Apresentação -->
+        <div id="navigation">
+            <span id="c3c-logo">C3C SOFTWARE</span>
+            <span id="slide-counter"></span>
+            <div>
+                <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">Anterior</button>
+                <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">Próximo</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- SCRIPT PARA CONTROLE DOS SLIDES ---
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounter = document.getElementById('slide-counter');
+
+        function showSlide(index) {
+            // Esconde todos os slides
+            slides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+
+            // Mostra o slide correto
+            slides[index].classList.add('active');
+            
+            // Atualiza o contador
+            slideCounter.textContent = `Slide ${index + 1} de ${totalSlides}`;
+
+            // Habilita/desabilita botões de navegação
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === totalSlides - 1;
+        }
+
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < totalSlides) {
+                currentSlideIndex = newIndex;
+                showSlide(currentSlideIndex);
+            }
+        }
+
+        // Inicializa a apresentação no primeiro slide
+        document.addEventListener('DOMContentLoaded', () => {
+            showSlide(currentSlideIndex);
+        });
+    </script>
+
+</body>
+</html>
