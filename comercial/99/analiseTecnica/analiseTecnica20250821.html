@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Estratégica: Jornada do Motorista Unificada | 99 Drive Labs & C3C Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    
+    <!-- 
+    Chosen Palette: 99 Drive Labs Inspired
+    - Background: #ffffff (White)
+    - Primary Text/Elements: #1f2937 (Gray-800)
+    - 99 Accent: #f59e0b (Amber-500)
+    - Salesforce Accent: #00a1e0 (Salesforce Blue)
+    - Muted Background: #f3f4f6 (Gray-100)
+    -->
+
+    <!-- 
+    Application Structure Plan:
+    The SPA is designed as a strategic narrative to guide the 99 Drive Labs team through a critical decision-making process. The structure contrasts two potential paths to highlight the benefits of the Salesforce-native approach.
+    1.  Section-based Layout: Each "slide" is a full-height section, creating a focused, presentation-like experience.
+    2.  Navigation: Fixed side arrows control the flow, ensuring the story is told in the intended, persuasive order.
+    3.  Visual Storytelling: The core of the presentation relies on diagrams to compare architectures and illustrate the customer journey, making complex concepts easy to grasp.
+    4.  Thematic Flow: The narrative moves from the current problem to a strategic crossroads, presents the proposed native solution (MVP and future), visualizes the solution in action with two use cases (Adesivação, Venda de Carros), and concludes with a strong value proposition.
+    This structure was chosen to be highly persuasive, demonstrating a deep understanding of the client's problem and presenting a clear, cost-effective, and scalable solution.
+    -->
+
+    <!-- 
+    Visualization & Content Choices:
+    -   Report Info: Architectural Comparison. -> Goal: Compare. -> Viz/Method: A two-column diagram comparing the complex "Third-Party Bot" architecture vs. the streamlined "Salesforce Native" architecture. -> Interaction: None. -> Justification: This is the most critical visual. It immediately demonstrates the cost and complexity savings of the native approach. -> Library: HTML/CSS. NO SVG.
+    -   Report Info: Customer Journey (Adesivação & Venda de Carros). -> Goal: Organize. -> Viz/Method: Two separate, detailed flowcharts built with HTML/CSS. -> Interaction: None. -> Justification: These diagrams make the end-to-end process tangible, showing how every step can be handled within a single platform, from marketing to post-sales. -> Library: HTML/CSS. NO SVG/Mermaid.
+    -   Report Info: MVP vs. Future Evolution. -> Goal: Change. -> Viz/Method: A simple two-step visual showing the progression from Salesforce Bots to Einstein Bots. -> Interaction: None. -> Justification: Clearly communicates the phased approach and the scalability of the native solution. -> Library: HTML/CSS. NO SVG.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1f2937;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(31, 41, 55, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            line-height: 1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 4px;
+        }
+        .nav-arrow:hover:not(:disabled) {
+            background-color: #f59e0b;
+        }
+        .nav-arrow:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <main class="container mx-auto">
+
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="min-h-screen flex flex-col justify-center items-center text-center p-8">
+            <div class="max-w-4xl">
+                 <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-3xl font-black" style="color: #f59e0b;">99 Drive Labs</div>
+                    <div class="text-3xl font-light text-gray-400">&</div>
+                    <div class="text-3xl font-black" style="color: #00a1e0;">Salesforce</div>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black mt-6">Proposta Estratégica: Uma Jornada Unificada para o Motorista</h1>
+                <h2 class="text-2xl md:text-3xl font-light mt-2">Simplificando a Tecnologia para Acelerar Resultados</h2>
+            </div>
+        </section>
+
+        <!-- Slide 2: O Cenário Atual -->
+        <section id="slide2" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-3xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">O Desafio Atual: Complexidade e Custo</h2>
+                <p class="text-xl text-gray-700">A busca por automação é urgente, mas o caminho atual apresenta desafios significativos: a gestão de múltiplas ferramentas (Take Blip, Marketing Cloud) e a consideração de um novo bot externo criam um cenário de alta complexidade e custo.</p>
+                <div class="mt-8 p-6 bg-yellow-100 border-l-4 border-yellow-500 text-left rounded-r-lg">
+                    <h3 class="font-bold text-yellow-800">O Risco da Fragmentação:</h3>
+                    <p class="text-yellow-700 mt-2">Cada nova ferramenta adiciona uma camada de custo, um novo contrato para gerenciar e, o mais crítico, um novo silo de dados, fragmentando a visão do cliente e dificultando a orquestração da jornada.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: A Encruzilhada Estratégica -->
+        <section id="slide3" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-5xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">A Encruzilhada Estratégica: Dois Caminhos Possíveis</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-8 rounded-lg bg-gray-100 border-2 border-red-500">
+                        <h3 class="text-2xl font-bold mb-4 text-center">Caminho 1: Adicionar Ferramentas</h3>
+                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                            <li>Manter licença do Marketing Cloud.</li>
+                            <li>Contratar <strong>nova solução de Bot</strong> (Fornecedor A).</li>
+                            <li>Contratar <strong>Salesforce Bots + Digital Engagement</strong> para conectar o canal ao bot externo.</li>
+                            <li>Contratar a C3C (Fornecedor B) para <strong>implementar a integração</strong>.</li>
+                            <li class="font-bold mt-4">Gestão: Necessidade de controlar <strong>2 fornecedores</strong> e <strong>2 projetos</strong> paralelos.</li>
+                            <li class="font-bold">Custo Total: (Licença Novo Bot) + (Projeto Integração) + (Licenças Salesforce).</li>
+                            <li class="font-bold">Risco: Dados do cliente fragmentados e maior complexidade.</li>
+                        </ul>
+                    </div>
+                    <div class="p-8 rounded-lg border-2 border-green-500 bg-green-50">
+                        <h3 class="text-2xl font-bold mb-4 text-center">Caminho 2: Consolidar na Plataforma</h3>
+                        <ul class="space-y-3 text-gray-700 list-disc list-inside">
+                            <li>Utilizar <strong>Salesforce Bots + Digital Engagement</strong> (nativo).</li>
+                            <li>Otimizar o investimento, migrando créditos do Marketing Cloud.</li>
+                            <li>Contratar a C3C para <strong>implementar a jornada completa</strong>.</li>
+                            <li class="font-bold mt-4">Gestão: <strong>1 fornecedor</strong> e <strong>1 projeto</strong> unificado.</li>
+                            <li class="font-bold">Custo Total: (Projeto de Implementação) + (Licenças Salesforce).</li>
+                            <li class="font-bold">Risco: Mínimo, com dados 100% unificados.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: A Solução Nativa -->
+        <section id="slide4" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">Nossa Proposta: Uma Solução Completa e Nativa</h2>
+                <p class="text-xl text-gray-700 mb-8">Propomos uma abordagem em fases, começando com um MVP robusto e evoluindo para uma solução com Inteligência Artificial, tudo dentro da plataforma Salesforce que vocês já possuem.</p>
+                <div class="flex flex-col md:flex-row justify-center items-stretch space-y-8 md:space-y-0 md:space-x-8">
+                    <div class="p-6 bg-white rounded-lg shadow-md w-full md:w-1/2">
+                        <h3 class="font-bold text-lg text-blue-600 mb-2">Fase 1: MVP (Rápido e Eficiente)</h3>
+                        <p class="text-sm text-gray-600">Usamos o <strong>Digital Engagement + Salesforce Bots</strong> para criar um bot de "nível 0" que qualifica, agenda e transborda para um atendente em casos de exceção. Resolvemos o problema imediato com baixo custo e alta velocidade.</p>
+                    </div>
+                    <div class="flex items-center text-4xl font-light text-gray-300 transform rotate-90 md:rotate-0">→</div>
+                    <div class="p-6 bg-white rounded-lg shadow-md w-full md:w-1/2">
+                        <h3 class="font-bold text-lg text-purple-600 mb-2">Fase 2: Evolução com IA</h3>
+                        <p class="text-sm text-gray-600">Adicionamos a inteligência do <strong>Einstein Bots</strong> e do <strong>Agentforce</strong>, permitindo que o bot entenda a linguagem natural, personalize a conversa e resolva casos ainda mais complexos de forma autônoma.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Jornada Adesivação -->
+        <section id="slide5" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-6xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Exemplo 1: A Jornada de Adesivação Unificada</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="p-3 bg-blue-100 rounded-md text-center">Disparo de Campanha para Leads via WhatsApp</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-blue-100 rounded-md text-center">Motorista responde e interage com o <strong>Salesforce Bot</strong> (Nível 0)</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-yellow-100 rounded-md text-center">Bot qualifica o interesse e oferece opções de agendamento</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-green-100 rounded-md text-center">Motorista escolhe data/hora e o <strong>agendamento é criado automaticamente</strong> no Salesforce</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-gray-100 rounded-md text-center">Gráfica parceira acessa o <strong>Portal do Parceiro</strong> para ver o agendamento</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-gray-100 rounded-md text-center">No dia, a gráfica realiza o <strong>Check-in e Check-out</strong> do serviço no portal</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-purple-100 rounded-md text-center">Sistema dispara <strong>Jornada de Pós-Venda</strong> (pesquisa de satisfação, lembrete de vistoria)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Jornada Venda de Carros -->
+        <section id="slide6" class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-50">
+            <div class="max-w-6xl w-full">
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Exemplo 2: A Jornada de Venda de Carros Elétricos</h2>
+                <div class="space-y-2 text-sm">
+                    <div class="p-3 bg-blue-100 rounded-md text-center">Disparo de Campanha para Leads (Car Sales) via WhatsApp</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-blue-100 rounded-md text-center">Motorista responde e interage com o <strong>Salesforce Bot</strong> (Nível 0)</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-yellow-100 rounded-md text-center">Bot qualifica o interesse e identifica a necessidade de um especialista</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-red-100 rounded-md text-center"><strong>Transbordo via Omni-Channel</strong> para um vendedor humano</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-red-100 rounded-md text-center">Vendedor continua a conversa, negocia e converte o Lead em <strong>Oportunidade</strong></div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-green-100 rounded-md text-center">Vendedor agenda <strong>Test Drive</strong> via Salesforce</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-gray-100 rounded-md text-center">Concessionária parceira realiza <strong>Check-in e Check-out</strong> no Portal</div>
+                    <div class="text-center text-xl">↓</div>
+                    <div class="p-3 bg-purple-100 rounded-md text-center">Sistema dispara <strong>Jornada de Acompanhamento de Venda</strong></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: Vantagens -->
+        <section id="slide7" class="min-h-screen flex flex-col justify-center items-center p-8">
+            <div class="max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-10">Vantagens da Abordagem Nativa</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">💰 Redução de Custo Estratégica</h3>
+                        <p class="text-sm text-gray-600">Elimina a licença do Take Blip e otimiza o investimento já feito no Marketing Cloud, migrando os créditos para o Digital Engagement.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">🚀 Velocidade de Implementação</h3>
+                        <p class="text-sm text-gray-600">Menor complexidade significa um MVP no ar em menos tempo, gerando valor mais rápido.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">📊 Dados 100% Unificados</h3>
+                        <p class="text-sm text-gray-600">Toda a jornada do motorista, do primeiro "oi" à pós-venda, fica em um único lugar, gerando insights reais.</p>
+                    </div>
+                    <div class="p-6 bg-slate-50 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">📈 Escalabilidade Garantida</h3>
+                        <p class="text-sm text-gray-600">Começamos com um bot simples e evoluímos para uma solução completa com IA, sem precisar trocar de plataforma.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Próximos Passos -->
+        <section id="slide8" class="min-h-screen flex flex-col justify-center items-center text-center p-8 bg-gray-800 text-white">
+            <div class="max-w-2xl">
+                <h2 class="text-4xl font-bold">Próximos Passos</h2>
+                <p class="text-xl mt-4">Nossa proposta é iniciar com um projeto focado no MVP, entregando a automação da <strong>jornada de drive labs</strong> em um cronograma acelerado.</p>
+                <p class="mt-8 font-semibold text-xl">Vamos agendar uma reunião para detalhar o escopo deste MVP e construir juntos um plano de ação?</p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation Arrows -->
+    <button id="prevArrow" class="nav-arrow left-4 md:left-8">‹</button>
+    <button id="nextArrow" class="nav-arrow right-4 md:right-8">›</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navigation Logic
+            const sections = document.querySelectorAll('section');
+            const prevBtn = document.getElementById('prevArrow');
+            const nextBtn = document.getElementById('nextArrow');
+            let currentSectionIndex = 0;
+
+            function updateButtonState() {
+                prevBtn.disabled = currentSectionIndex === 0;
+                nextBtn.disabled = currentSectionIndex === sections.length - 1;
+            }
+
+            function scrollToSection(index) {
+                if (index >= 0 && index < sections.length) {
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+            
+            prevBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex - 1);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                scrollToSection(currentSectionIndex + 1);
+            });
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const intersectingIndex = Array.from(sections).indexOf(entry.target);
+                        currentSectionIndex = intersectingIndex;
+                        updateButtonState();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            updateButtonState();
+        });
+    </script>
+
+</body>
+</html>
