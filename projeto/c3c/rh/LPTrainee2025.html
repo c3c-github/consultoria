@@ -36,6 +36,47 @@
         }
     </script>
 
+        <style>
+        /* Define um estilo base para o corpo da página, centralizando o conteúdo */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5; /* Um fundo cinza claro e suave */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+        }
+
+        /* Um contêiner para limitar a largura máxima do vídeo em telas grandes */
+        .main-container {
+            width: 100%;
+            max-width: 900px; /* Largura máxima do vídeo */
+        }
+        
+        /* O "truque" para a responsividade do vídeo */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção de 16:9 (9 / 16 = 0.5625) */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px; /* Bordas arredondadas para um visual moderno */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+        }
+
+        /* Estilo do iframe para preencher totalmente o contêiner wrapper */
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0; /* Remove a borda padrão do iframe */
+        }
+    </style>
+
     <style>
         /* Estilo customizado para garantir a aplicação da fonte */
         body {
@@ -168,18 +209,18 @@
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div class="bg-white p-4 rounded-lg shadow">
                             <i data-lucide="calendar" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
-                            <span class="font-bold text-lg">+10</span>
+                            <span class="font-bold text-lg">+ 6</span>
                             <p class="text-sm text-slate-500">Anos de Mercado</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow">
                             <i data-lucide="award" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
-                            <span class="font-bold text-lg">+200</span>
-                            <p class="text-sm text-slate-500">Certificações</p>
+                            <span class="font-bold text-lg">Profissionais</span>
+                            <p class="text-sm text-slate-500">Certificados</p>
                         </div>
                         <div class="bg-white p-4 rounded-lg shadow">
                              <i data-lucide="thumbs-up" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
-                            <span class="font-bold text-lg">GPTW</span>
-                            <p class="text-sm text-slate-500">Great Place to Work</p>
+                            <span class="font-bold text-lg">Excelente nota</span>
+                            <p class="text-sm text-slate-500">no Glassdoor</p>
                         </div>
                          <div class="bg-white p-4 rounded-lg shadow">
                             <i data-lucide="briefcase" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
@@ -206,13 +247,23 @@
     <section id="depoimentos" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">A Voz do Nosso Time</h2>
-            <div class="max-w-4xl mx-auto">
-                <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-2xl">
-                    <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
+            <div class="max-w-5xl mx-auto">
+                    <div class="main-container">
+                        <!-- O contêiner que fará o vídeo ser responsivo -->
+                        <div class="video-wrapper">
+                            <!-- O iframe do YouTube -->
+                            <iframe 
+                                src="https://www.youtube.com/embed/i68C6AeeoJ8" 
+                                title="Reprodutor de vídeo do YouTube" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
                 <div class="text-center mt-6">
-                    <p class="font-bold text-xl text-slate-900">João Silva</p>
-                    <p class="text-md text-c3c-blue">Consultor Salesforce</p>
+                    <p class="font-bold text-xl text-slate-900">Luidy, Nosso Líder Técnico</p>
+                    <p class="text-md text-c3c-blue">Desenvolvimento Salesforce</p>
                 </div>
             </div>
         </div>
