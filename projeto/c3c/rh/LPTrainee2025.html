@@ -36,34 +36,7 @@
         }
     </script>
 
-
     <style>
-
-          /* Um contêiner para limitar a largura máxima do vídeo em telas grandes */
-        .main-container {
-            width: 100%;
-            max-width: 900px; /* Largura máxima do vídeo */
-        }
-        
-        /* O "truque" para a responsividade do vídeo */
-        .video-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* Proporção de 16:9 (9 / 16 = 0.5625) */
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px; /* Bordas arredondadas para um visual moderno */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
-        }
-
-        /* Estilo do iframe para preencher totalmente o contêiner wrapper */
-        .video-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0; /* Remove a borda padrão do iframe */
-        }
         /* Estilo customizado para garantir a aplicação da fonte */
         body {
             font-family: 'Montserrat', sans-serif;
@@ -99,6 +72,23 @@
         .faq-answer {
             overflow: hidden;
             transition: max-height 0.4s ease-in-out;
+        }
+        /* Estilos para o vídeo responsivo */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px; /* Bordas arredondadas */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05); /* Sombra suave */
+        }
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0; /* Remove a borda padrão */
         }
     </style>
 </head>
@@ -234,19 +224,15 @@
         <div class="container mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">A Voz do Nosso Time</h2>
             <div class="max-w-5xl mx-auto">
-                    <div class="main-container">
-                        <!-- O contêiner que fará o vídeo ser responsivo -->
-                        <div class="video-wrapper">
-                            <!-- O iframe do YouTube -->
-                            <iframe 
-                                src="https://www.youtube.com/embed/i68C6AeeoJ8" 
-                                title="Reprodutor de vídeo do YouTube" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                    </div>
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://www.youtube.com/embed/i68C6AeeoJ8" 
+                        title="Reprodutor de vídeo do YouTube" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
                 <div class="text-center mt-6">
                     <p class="font-bold text-xl text-slate-900">Luidy, Nosso Líder Técnico</p>
                     <p class="text-md text-c3c-blue">Desenvolvimento Salesforce</p>
@@ -383,7 +369,7 @@
                                 <i data-lucide="chevron-down" class="faq-icon w-5 h-5"></i>
                             </summary>
                             <div class="faq-answer mt-2 text-slate-600 px-2 pt-2">
-                                <p>Oferecemos um pacote de benefícios competitivo, incluindo plano de saúde e odontológico, vale-refeição, auxílio para certificações Salesforce, day-off no aniversário e muito mais!</p>
+                                <p>Oferecemos um pacote de benefícios competitivo!</p>
                             </div>
                         </details>
                     </div>
