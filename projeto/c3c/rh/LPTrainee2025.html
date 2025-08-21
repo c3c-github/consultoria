@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programa de Trainee 2025 - C3C Software</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-icons@latest"></script>
+
+    <script>
+        // Configuração customizada do Tailwind para incluir as cores da marca e a nova fonte
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'c3c-blue': '#2978FF',
+                        'c3c-teal': '#1DDDBD',
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    aspectRatio: {
+                        '16/9': '16 / 9',
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilo customizado para garantir a aplicação da fonte */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Efeito de overlay para a imagem de fundo */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(15, 23, 42, 0.85), rgba(41, 120, 255, 0.5));
+            z-index: 1;
+        }
+        /* Estilo para o accordion do FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Cabeçalho Fixo -->
+    <header class="bg-white/90 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-10">
+                <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Logo Salesforce Partner" class="h-9 hidden sm:block">
+            </div>
+            <a href="https://c3csoftware.vagas.solides.com.br/vaga/658273" target="_blank" class="bg-c3c-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-c3c-teal transition-all duration-300 shadow-lg">
+                Inscreva-se
+            </a>
+        </div>
+    </header>
+
+    <!-- 1. Seção de Herói -->
+    <section id="hero" class="relative h-screen flex items-center justify-center text-white text-center overflow-hidden">
+        <!-- Imagem de Fundo -->
+        <img src="https://images.unsplash.com/photo-1519608487953-e999c8d477b8?q=80&w=2070&auto=format&fit=crop" alt="Cidade futurista à noite" class="absolute top-0 left-0 w-full h-full object-cover">
+        <div class="hero-overlay"></div>
+        <div class="relative z-10 p-6">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+                Construa o Futuro.<br>Sua Carreira Começa na C3C.
+            </h1>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light">
+                Programa de Trainee C3C Software: Buscamos talentos com potencial para se tornarem a próxima geração de especialistas Salesforce no Brasil.
+            </p>
+            <a href="https://c3csoftware.vagas.solides.com.br/vaga/658273" target="_blank" class="bg-c3c-teal text-slate-900 font-bold py-4 px-10 rounded-lg text-lg hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                QUERO FAZER PARTE!
+            </a>
+        </div>
+    </section>
+
+    <!-- 2. Seção: O Que Significa Ser um Trainee C3C? -->
+    <section id="programa" class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Uma Jornada de Aceleração Profissional</h2>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">
+                Nosso programa foi desenhado para você que busca mais do que um emprego: uma plataforma de lançamento para sua carreira em tecnologia. Aqui, você será um agente de transformação.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pilar 1 -->
+                <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <div class="bg-c3c-blue/10 text-c3c-blue rounded-full p-4 inline-block mb-4">
+                        <i data-lucide="rocket" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Trilha de Aprendizagem Acelerada</h3>
+                    <p class="text-slate-600">Mergulhe no universo Salesforce com treinamentos intensivos, certificações oficiais e projetos práticos desde o primeiro dia.</p>
+                </div>
+                <!-- Pilar 2 -->
+                <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <div class="bg-c3c-blue/10 text-c3c-blue rounded-full p-4 inline-block mb-4">
+                        <i data-lucide="users" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Mentoria Individualizada</h3>
+                    <p class="text-slate-600">Conte com o acompanhamento de líderes e especialistas para guiar seu desenvolvimento e acelerar suas conquistas.</p>
+                </div>
+                <!-- Pilar 3 -->
+                <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <div class="bg-c3c-blue/10 text-c3c-blue rounded-full p-4 inline-block mb-4">
+                        <i data-lucide="target" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Projetos de Alto Impacto</h3>
+                    <p class="text-slate-600">Atue em projetos desafiadores para grandes clientes, resolvendo problemas reais e gerando impacto no negócio.</p>
+                </div>
+                <!-- Pilar 4 -->
+                <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2">
+                    <div class="bg-c3c-blue/10 text-c3c-blue rounded-full p-4 inline-block mb-4">
+                        <i data-lucide="lightbulb" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Cultura de Inovação</h3>
+                    <p class="text-slate-600">Faça parte de um time diverso, dinâmico e que respira inovação. Um ambiente onde suas ideias são ouvidas e valorizadas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Seção: Conheça a C3C e o Universo Salesforce -->
+    <section id="sobre" class="py-20 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Somos a Parceria Certa para a Sua Evolução</h2>
+            </div>
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <!-- Sobre a C3C -->
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4 text-c3c-blue">Sobre a C3C Software</h3>
+                    <p class="text-slate-700 mb-6">
+                        Somos uma das principais consultorias parceiras da Salesforce no Brasil. Nascemos da paixão por tecnologia e pela crença no poder da transformação digital. Nosso time é formado por especialistas que não só implementam a melhor tecnologia do mundo, mas que também constroem relações de sucesso com nossos clientes.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i data-lucide="calendar" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
+                            <span class="font-bold text-lg">+10</span>
+                            <p class="text-sm text-slate-500">Anos de Mercado</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                            <i data-lucide="award" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
+                            <span class="font-bold text-lg">+200</span>
+                            <p class="text-sm text-slate-500">Certificações</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-lg shadow">
+                             <i data-lucide="thumbs-up" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
+                            <span class="font-bold text-lg">GPTW</span>
+                            <p class="text-sm text-slate-500">Great Place to Work</p>
+                        </div>
+                         <div class="bg-white p-4 rounded-lg shadow">
+                            <i data-lucide="briefcase" class="w-8 h-8 mx-auto text-c3c-blue mb-2"></i>
+                            <span class="font-bold text-lg">Grandes Clientes</span>
+                            <p class="text-sm text-slate-500">Líderes de Mercado</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Sobre Salesforce -->
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1637644991055-a7594b29f43a?q=80&w=1932&auto=format&fit=crop" alt="Ecossistema Salesforce com logos e gráficos" class="rounded-xl shadow-2xl w-full">
+                    <div class="mt-6 bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4 text-c3c-blue">Por que Salesforce?</h3>
+                        <p class="text-slate-700">
+                            A Salesforce é a plataforma de CRM #1 do mundo. Fazer carreira em Salesforce significa estar na vanguarda da tecnologia, com um mercado de trabalho aquecido e oportunidades globais.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Seção: Depoimentos em Vídeo -->
+    <section id="depoimentos" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">A Voz do Nosso Time</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Depoimento 1 -->
+                <div>
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="font-bold text-slate-900">João Silva</p>
+                        <p class="text-sm text-c3c-blue">Consultor Salesforce</p>
+                    </div>
+                </div>
+                <!-- Depoimento 2 -->
+                <div>
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="font-bold text-slate-900">Maria Almeida</p>
+                        <p class="text-sm text-c3c-blue">Desenvolvedora Salesforce</p>
+                    </div>
+                </div>
+                <!-- Depoimento 3 -->
+                <div>
+                    <div class="aspect-w-16 aspect-h-9 rounded-xl overflow-hidden shadow-lg">
+                         <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div class="text-center mt-4">
+                        <p class="font-bold text-slate-900">Carlos Pereira</p>
+                        <p class="text-sm text-c3c-blue">Arquiteto de Soluções Jr.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Seção: Etapas do Processo -->
+    <section id="etapas" class="py-20 bg-slate-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Sua Jornada Começa Agora</h2>
+            <div class="relative">
+                <!-- Linha do tempo -->
+                <div class="hidden md:block absolute top-5 left-1/2 w-0.5 h-full bg-c3c-blue/30 -translate-x-1/2"></div>
+                <!-- Etapas -->
+                <div class="space-y-12 md:space-y-0">
+                    <!-- Etapa 1 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 text-center md:text-right">
+                            <h3 class="text-xl font-bold text-c3c-blue">Inscrição Online</h3>
+                            <p class="text-slate-600">Candidate-se através do nosso portal de vagas.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="bg-c3c-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 relative">1</div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8"></div>
+                    </div>
+                     <!-- Etapa 2 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 order-1 md:order-3"></div>
+                        <div class="relative order-2">
+                            <div class="bg-c3c-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 relative">2</div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 text-center md:text-left order-3 md:order-1">
+                             <h3 class="text-xl font-bold text-c3c-blue">Testes Online</h3>
+                             <p class="text-slate-600">Raciocínio lógico, inglês e fit cultural.</p>
+                        </div>
+                    </div>
+                    <!-- Etapa 3 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 text-center md:text-right">
+                            <h3 class="text-xl font-bold text-c3c-blue">Dinâmica em Grupo</h3>
+                            <p class="text-slate-600">Desafio em equipe para resolver um case de negócio.</p>
+                        </div>
+                        <div class="relative">
+                            <div class="bg-c3c-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 relative">3</div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8"></div>
+                    </div>
+                     <!-- Etapa 4 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 order-1 md:order-3"></div>
+                        <div class="relative order-2">
+                            <div class="bg-c3c-blue text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 relative">4</div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8 text-center md:text-left order-3 md:order-1">
+                             <h3 class="text-xl font-bold text-c3c-blue">Entrevistas Finais</h3>
+                             <p class="text-slate-600">Bate-papo com RH e gestores da área.</p>
+                        </div>
+                    </div>
+                     <!-- Etapa 5 -->
+                     <div class="flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-8 text-center md:text-right">
+                            <h3 class="text-xl font-bold text-c3c-teal">Resultado e Contratação</h3>
+                            <p class="text-slate-600">Bem-vindo(a) ao time C3C!</p>
+                        </div>
+                        <div class="relative">
+                            <div class="bg-c3c-teal text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl z-10 relative">
+                                <i data-lucide="party-popper"></i>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 md:pl-8"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Seção: Pré-requisitos e FAQ -->
+    <section id="faq" class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">O Que Buscamos e o Que Você Precisa Saber</h2>
+            <div class="flex flex-col lg:flex-row gap-12">
+                <!-- Pré-requisitos -->
+                <div class="lg:w-1/3 bg-c3c-blue/5 p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-bold mb-6 text-c3c-blue">Pré-requisitos</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i data-lucide="graduation-cap" class="w-6 h-6 text-c3c-blue mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Conclusão da graduação entre 12/2023 e 12/2025 em cursos de TI, Engenharias, ADM e correlatos.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="languages" class="w-6 h-6 text-c3c-blue mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Inglês avançado (será testado).</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="map-pin" class="w-6 h-6 text-c3c-blue mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Disponibilidade para atuar em modelo híbrido em São Paulo/SP.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="heart" class="w-6 h-6 text-c3c-blue mr-3 mt-1 flex-shrink-0"></i>
+                            <span>Paixão por tecnologia, resolução de problemas e aprendizado contínuo.</span>
+                        </li>
+                    </ul>
+                </div>
+                <!-- FAQ -->
+                <div class="lg:w-2/3">
+                    <div class="space-y-4">
+                        <!-- Pergunta 1 -->
+                        <div class="faq-item border-b border-slate-200 pb-4">
+                            <button class="faq-question w-full text-left flex justify-between items-center py-2">
+                                <span class="text-lg font-semibold text-slate-800">Preciso saber programar?</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer mt-2 text-slate-600 px-2">
+                                <p>Não é um pré-requisito obrigatório! Buscamos talentos com boa lógica e vontade de aprender. Se você tiver noções, será um diferencial, mas ensinaremos o necessário para você se desenvolver, seja em uma trilha mais funcional ou técnica.</p>
+                            </div>
+                        </div>
+                        <!-- Pergunta 2 -->
+                        <div class="faq-item border-b border-slate-200 pb-4">
+                            <button class="faq-question w-full text-left flex justify-between items-center py-2">
+                                <span class="text-lg font-semibold text-slate-800">Preciso ter experiência prévia com Salesforce?</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer mt-2 text-slate-600 px-2">
+                                <p>De forma alguma! O objetivo do programa de trainee é justamente formar novos especialistas. Curiosidade e vontade de aprender sobre a plataforma são os ingredientes mais importantes.</p>
+                            </div>
+                        </div>
+                        <!-- Pergunta 3 -->
+                        <div class="faq-item border-b border-slate-200 pb-4">
+                            <button class="faq-question w-full text-left flex justify-between items-center py-2">
+                                <span class="text-lg font-semibold text-slate-800">Qual a duração do programa de trainee?</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer mt-2 text-slate-600 px-2">
+                                <p>O programa tem duração de 12 meses, com trilhas de desenvolvimento, avaliações e muito aprendizado. Após esse período, os trainees aprovados são efetivados em posições de acordo com seu desempenho e perfil.</p>
+                            </div>
+                        </div>
+                         <!-- Pergunta 4 -->
+                         <div class="faq-item border-b border-slate-200 pb-4">
+                            <button class="faq-question w-full text-left flex justify-between items-center py-2">
+                                <span class="text-lg font-semibold text-slate-800">Quais são os benefícios oferecidos?</span>
+                                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-300"></i>
+                            </button>
+                            <div class="faq-answer mt-2 text-slate-600 px-2">
+                                <p>Oferecemos um pacote de benefícios competitivo, incluindo plano de saúde e odontológico, vale-refeição, auxílio para certificações Salesforce, day-off no aniversário e muito mais!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Seção Final de CTA -->
+    <section id="final-cta" class="py-20 bg-c3c-blue text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold">Pronto para acelerar sua carreira?</h2>
+            <p class="text-lg text-slate-200 mt-4 mb-8 max-w-2xl mx-auto">As inscrições estão abertas. Não perca a chance de fazer parte de um time que está transformando o mercado de tecnologia.</p>
+            <a href="https://c3csoftware.vagas.solides.com.br/vaga/658273" target="_blank" class="bg-c3c-teal text-slate-900 font-bold py-4 px-10 rounded-lg text-lg hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                INSCREVA-SE AGORA
+            </a>
+        </div>
+    </section>
+
+
+    <!-- Rodapé -->
+    <footer class="bg-slate-800 text-white">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-12 mx-auto mb-6 brightness-0 invert">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+                <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="facebook" class="w-6 h-6"></i></a>
+            </div>
+            <p class="text-slate-400 text-sm">
+                &copy; 2025 C3C Software. Todos os direitos reservados. | <a href="#" class="hover:underline">Política de Privacidade</a>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        function setupPage() {
+            // Inicializa os ícones do Lucide
+            lucide.createIcons();
+
+            // Lógica para o Accordion do FAQ
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const questionButton = item.querySelector('.faq-question');
+                const answerDiv = item.querySelector('.faq-answer');
+                const icon = questionButton.querySelector('i');
+
+                questionButton.addEventListener('click', () => {
+                    const isExpanded = answerDiv.style.maxHeight && answerDiv.style.maxHeight !== '0px';
+
+                    // Fecha todos os outros itens antes de abrir o novo
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+                            otherItem.querySelector('.faq-question i').style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    // Abre ou fecha o item clicado
+                    if (isExpanded) {
+                        answerDiv.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                    } else {
+                        // Define maxHeight para a altura de rolagem do conteúdo
+                        answerDiv.style.maxHeight = answerDiv.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                    }
+                });
+            });
+        }
+
+        // Executa a função quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', setupPage);
+    </script>
+</body>
+</html>
