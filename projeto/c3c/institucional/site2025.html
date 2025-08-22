@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoria Salesforce | Transformação e Resultados</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-icons@latest"></script>
+
+    <script>
+        // Configuração customizada do Tailwind para incluir as cores da marca e a nova fonte
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#2978FF',
+                        'brand-teal': '#1DDDBD',
+                        'brand-dark': '#0f172a', // slate-900
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'infinite-scroll': 'infinite-scroll 25s linear infinite',
+                    },
+                    keyframes: {
+                        'infinite-scroll': {
+                            from: { transform: 'translateX(0)' },
+                            to: { transform: 'translateX(-100%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilo customizado para garantir a aplicação da fonte e scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Efeito de overlay para o vídeo de fundo */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(15, 23, 42, 0.8), rgba(41, 120, 255, 0.6));
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header (Cabeçalho Fixo) -->
+    <header id="header" class="bg-white/90 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logotipo -->
+            <a href="#hero" class="flex-shrink-0">
+                <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo da Consultoria" class="h-10">
+            </a>
+            
+            <!-- Menu de Navegação (Desktop) -->
+            <nav class="hidden lg:flex items-center space-x-8">
+                <a href="#servicos" class="text-slate-600 hover:text-brand-blue transition-colors">O que Fazemos</a>
+                <a href="#insights" class="text-slate-600 hover:text-brand-blue transition-colors">Insights</a>
+                <a href="#carreiras" class="text-slate-600 hover:text-brand-blue transition-colors">Junte-se a Nós</a>
+                <a href="#" class="text-slate-600 hover:text-brand-blue transition-colors">Quem Somos</a>
+            </nav>
+            
+            <!-- CTA "Contato" -->
+            <a href="#contato" class="bg-brand-blue text-white font-bold py-2 px-6 rounded-lg hover:bg-brand-teal transition-all duration-300 shadow-lg">
+                Contato
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Bloco 1: Hero Section -->
+        <section id="hero" class="relative h-screen flex items-center justify-center text-white text-center overflow-hidden">
+            <video autoplay loop muted playsinline class="absolute z-0 w-auto min-w-full min-h-full max-w-none">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-futuristic-computer-data-processing-3323-large.mp4" type="video/mp4">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 p-6">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
+                    Transformamos Dados em Decisões.<br>Relações em Resultados.
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light">
+                    Potencializamos o seu crescimento com a inteligência da Salesforce, da estratégia à implementação e otimização contínua.
+                </p>
+                <a href="#servicos" class="bg-brand-teal text-slate-900 font-bold py-4 px-10 rounded-lg text-lg hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    Descubra Nossas Soluções
+                </a>
+            </div>
+        </section>
+
+        <!-- Bloco 2: Prova Social -->
+        <section id="prova-social" class="py-8 bg-slate-100 overflow-hidden">
+            <div class="w-full inline-flex flex-nowrap">
+                <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll">
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+A" alt="Logo Cliente A" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+B" alt="Logo Cliente B" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Selo Salesforce Partner" class="h-12"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+C" alt="Logo Cliente C" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Pr%C3%AAmio+GPTW" alt="Prêmio Great Place to Work" class="h-12"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+D" alt="Logo Cliente D" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                </ul>
+                <ul class="flex items-center justify-center md:justify-start [&_li]:mx-8 [&_img]:max-w-none animate-infinite-scroll" aria-hidden="true">
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+A" alt="Logo Cliente A" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+B" alt="Logo Cliente B" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Selo Salesforce Partner" class="h-12"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+C" alt="Logo Cliente C" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Pr%C3%AAmio+GPTW" alt="Prêmio Great Place to Work" class="h-12"/></li>
+                    <li><img src="https://placehold.co/150x60/9ca3af/FFFFFF?text=Cliente+D" alt="Logo Cliente D" class="h-10 grayscale hover:grayscale-0 transition-all"/></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Bloco 3: Serviços -->
+        <section id="servicos" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Nossas Soluções para o Seu Crescimento</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">Alinhamos tecnologia e estratégia para destravar o potencial do seu negócio.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Serviço 1 -->
+                    <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="compass" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Estratégia e Implementação</h3>
+                        <p class="text-slate-600 mb-4">Desenhamos e implementamos soluções Salesforce sob medida para os seus desafios.</p>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Saiba Mais <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                    <!-- Serviço 2 -->
+                    <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="brain-circuit" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">IA e Dados</h3>
+                        <p class="text-slate-600 mb-4">Transformamos seus dados em insights acionáveis com o poder da IA.</p>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Saiba Mais <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                    <!-- Serviço 3 -->
+                    <div class="bg-slate-50 p-8 rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 transform hover:-translate-y-2 text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="refresh-cw" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Otimização Contínua</h3>
+                        <p class="text-slate-600 mb-4">Garantimos que a sua plataforma evolua com o seu negócio, maximizando o ROI.</p>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Saiba Mais <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 4: Indústrias -->
+        <section id="industrias" class="py-20 bg-slate-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Expertise para a Sua Indústria</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto mb-12">Falamos a linguagem do seu setor e entendemos seus desafios únicos.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Indústria 1 -->
+                    <div class="group relative rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1522204523234-8729aa6e3d5f?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Varejo</h3>
+                            <a href="#" class="text-brand-teal font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Saiba Mais</a>
+                        </div>
+                    </div>
+                     <!-- Indústria 2 -->
+                    <div class="group relative rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Saúde</h3>
+                            <a href="#" class="text-brand-teal font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Saiba Mais</a>
+                        </div>
+                    </div>
+                     <!-- Indústria 3 -->
+                    <div class="group relative rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Serviços Financeiros</h3>
+                            <a href="#" class="text-brand-teal font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Saiba Mais</a>
+                        </div>
+                    </div>
+                     <!-- Indústria 4 -->
+                    <div class="group relative rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"/>
+                        <div class="absolute inset-0 bg-black/60 flex flex-col justify-end p-6">
+                            <h3 class="text-white text-2xl font-bold">Tecnologia</h3>
+                            <a href="#" class="text-brand-teal font-semibold mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Saiba Mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 5: Estudos de Caso -->
+        <section id="casos" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Resultados Reais, Impacto Comprovado</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Caso 1 -->
+                    <div class="border border-slate-200 rounded-xl p-8">
+                        <img src="https://placehold.co/150x60/e2e8f0/334155?text=Cliente+X" class="h-10 mb-6"/>
+                        <p class="font-semibold mb-2">Desafio: <span class="font-normal text-slate-600">Baixa visibilidade do funil de vendas.</span></p>
+                        <p class="font-semibold mb-6">Solução: <span class="font-normal text-slate-600">Implementação do Sales Cloud com painéis personalizados.</span></p>
+                        <div class="bg-brand-teal/10 text-brand-teal p-4 rounded-lg">
+                            <p class="text-3xl font-bold">+35%</p>
+                            <p>em Eficiência de Vendas</p>
+                        </div>
+                    </div>
+                    <!-- Caso 2 -->
+                    <div class="border border-slate-200 rounded-xl p-8">
+                        <img src="https://placehold.co/150x60/e2e8f0/334155?text=Cliente+Y" class="h-10 mb-6"/>
+                        <p class="font-semibold mb-2">Desafio: <span class="font-normal text-slate-600">Atendimento ao cliente descentralizado e lento.</span></p>
+                        <p class="font-semibold mb-6">Solução: <span class="font-normal text-slate-600">Centralização com Service Cloud e automação de processos.</span></p>
+                        <div class="bg-brand-teal/10 text-brand-teal p-4 rounded-lg">
+                            <p class="text-3xl font-bold">-40%</p>
+                            <p>no Tempo de Resolução</p>
+                        </div>
+                    </div>
+                    <!-- Caso 3 -->
+                    <div class="border border-slate-200 rounded-xl p-8">
+                        <img src="https://placehold.co/150x60/e2e8f0/334155?text=Cliente+Z" class="h-10 mb-6"/>
+                        <p class="font-semibold mb-2">Desafio: <span class="font-normal text-slate-600">Dificuldade em personalizar a jornada do cliente.</span></p>
+                        <p class="font-semibold mb-6">Solução: <span class="font-normal text-slate-600">Criação de jornadas automatizadas com o Marketing Cloud.</span></p>
+                        <div class="bg-brand-teal/10 text-brand-teal p-4 rounded-lg">
+                            <p class="text-3xl font-bold">+25%</p>
+                            <p>na Taxa de Conversão</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="bg-brand-blue text-white font-bold py-3 px-8 rounded-lg hover:bg-brand-teal transition-all duration-300">Ver todos os nossos resultados</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 6: Jornada do Talento -->
+        <section id="carreiras" class="py-20 bg-brand-dark text-white">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row items-center gap-12">
+                    <div class="lg:w-1/2">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4">Construa o Futuro. Conosco.</h2>
+                        <p class="text-lg text-slate-300 mb-6">Somos um time de mentes curiosas e apaixonadas por resolver desafios complexos. Aqui, seu talento tem espaço para crescer e gerar impacto real.</p>
+                        <a href="#" class="bg-brand-teal text-slate-900 font-bold py-3 px-8 rounded-lg hover:bg-white transition-all duration-300">Explore Carreiras na Consultoria</a>
+                    </div>
+                    <div class="lg:w-1/2 bg-slate-800 p-8 rounded-xl">
+                        <p class="text-xl italic text-slate-300 mb-6">"Trabalhar aqui é ter autonomia para inovar e o suporte de uma equipe de classe mundial. Todos os dias aprendo algo novo."</p>
+                        <div class="flex items-center">
+                            <img src="https://placehold.co/60x60/E2E8F0/334155?text=MA" class="w-14 h-14 rounded-full mr-4"/>
+                            <div>
+                                <p class="font-bold">Maria Almeida</p>
+                                <p class="text-brand-teal">Líder Técnica Salesforce</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 7: Insights -->
+        <section id="insights" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Nossas Últimas Perspectivas</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Artigo 1 -->
+                    <div class="group">
+                        <div class="overflow-hidden rounded-xl mb-4"><img src="https://images.unsplash.com/photo-1611926653458-09294b3142b4?q=80&w=1974&auto=format&fit=crop" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/></div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-blue transition-colors">Como a IA Generativa está redefinindo o CRM</h3>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Ler artigo <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                    <!-- Artigo 2 -->
+                    <div class="group">
+                        <div class="overflow-hidden rounded-xl mb-4"><img src="https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?q=80&w=1974&auto=format&fit=crop" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/></div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-blue transition-colors">5 métricas essenciais para medir o ROI da sua plataforma</h3>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Ler artigo <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                    <!-- Artigo 3 -->
+                    <div class="group">
+                        <div class="overflow-hidden rounded-xl mb-4"><img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2070&auto=format&fit=crop" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"/></div>
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-blue transition-colors">A importância da gestão de mudanças na implementação</h3>
+                        <a href="#" class="font-semibold text-brand-blue hover:text-brand-teal">Ler artigo <i data-lucide="arrow-right" class="inline w-4 h-4"></i></a>
+                    </div>
+                </div>
+                <div class="text-center mt-12">
+                    <a href="#" class="bg-slate-100 text-slate-800 font-bold py-3 px-8 rounded-lg hover:bg-slate-200 transition-all duration-300">Visitar nosso Blog de Insights</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 8: Parcerias -->
+        <section id="parcerias" class="py-16 bg-slate-100">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-2xl font-bold text-brand-dark mb-8">Um Ecossistema de Inovação</h2>
+                <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
+                    <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" class="h-16"/>
+                    <img src="https://placehold.co/200x80/9ca3af/FFFFFF?text=MuleSoft" class="h-12 grayscale"/>
+                    <img src="https://placehold.co/200x80/9ca3af/FFFFFF?text=Tableau" class="h-12 grayscale"/>
+                    <img src="https://placehold.co/200x80/9ca3af/FFFFFF?text=AWS" class="h-12 grayscale"/>
+                </div>
+                <div class="mt-8">
+                    <a href="#" class="text-slate-600 hover:text-brand-blue transition-colors">Conheça nossa Rede de Parceiros</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 9: CTA Final e Formulário -->
+        <section id="contato" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Pronto para transformar o seu negócio?</h2>
+                    <p class="text-lg text-slate-600 mb-8">Deixe-nos uma mensagem e um de nossos especialistas entrará em contato.</p>
+                </div>
+                <form id="contact-form" class="max-w-xl mx-auto">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome</label>
+                            <input type="text" id="nome" name="nome" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail Corporativo</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue">
+                        </div>
+                        <div>
+                            <label for="mensagem" class="block text-sm font-medium text-slate-700 mb-1">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" rows="4" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-brand-blue text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-brand-teal transition-all duration-300">
+                                Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <div id="success-message" class="hidden mt-6 text-center bg-green-100 text-green-800 p-4 rounded-lg max-w-xl mx-auto">
+                    <p class="font-bold">Mensagem enviada com sucesso!</p>
+                    <p>Obrigado pelo seu contato. Entraremos em contato em breve.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer (Rodapé) -->
+    <footer class="bg-brand-dark text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <!-- Coluna 1: Logo e Descrição -->
+                <div class="md:col-span-1">
+                    <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo da Consultoria" class="h-10 mb-4 brightness-0 invert">
+                    <p class="text-slate-400">Sua parceira de confiança na transformação digital com Salesforce.</p>
+                </div>
+                <!-- Coluna 2: Navegação -->
+                <div>
+                    <h3 class="font-bold mb-4">Navegação</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#servicos" class="text-slate-400 hover:text-white">O que Fazemos</a></li>
+                        <li><a href="#industrias" class="text-slate-400 hover:text-white">Indústrias</a></li>
+                        <li><a href="#casos" class="text-slate-400 hover:text-white">Estudos de Caso</a></li>
+                        <li><a href="#insights" class="text-slate-400 hover:text-white">Insights</a></li>
+                    </ul>
+                </div>
+                <!-- Coluna 3: Empresa -->
+                <div>
+                    <h3 class="font-bold mb-4">Empresa</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-slate-400 hover:text-white">Quem Somos</a></li>
+                        <li><a href="#carreiras" class="text-slate-400 hover:text-white">Carreiras</a></li>
+                        <li><a href="#contato" class="text-slate-400 hover:text-white">Contato</a></li>
+                    </ul>
+                </div>
+                <!-- Coluna 4: Contato -->
+                <div>
+                    <h3 class="font-bold mb-4">Contato</h3>
+                    <address class="not-italic text-slate-400 space-y-2">
+                        <p>Av. Principal, 123, São Paulo</p>
+                        <p>+55 11 1234-5678</p>
+                        <p>contato@consultoria.com.br</p>
+                    </address>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-slate-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 text-sm">&copy; 2025 Consultoria Salesforce. Todos os direitos reservados.</p>
+                <div class="flex items-center space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-slate-500 hover:text-white">Política de Privacidade</a>
+                    <a href="#" class="text-slate-400 hover:text-white"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Função para inicializar todos os scripts da página
+        function initPageScripts() {
+            // Inicializa os ícones do Lucide
+            lucide.createIcons();
+
+            // Lógica para o formulário de contato
+            const form = document.getElementById('contact-form');
+            const successMessage = document.getElementById('success-message');
+
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault(); // Impede o envio real do formulário
+                    
+                    // Simulação de envio bem-sucedido
+                    form.style.display = 'none';
+                    successMessage.style.display = 'block';
+
+                    // Opcional: rolar para a mensagem de sucesso
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            }
+        }
+
+        // Executa a função de inicialização quando o DOM estiver completamente carregado
+        document.addEventListener('DOMContentLoaded', initPageScripts);
+    </script>
+</body>
+</html>
