@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transformação Salesforce Potencializada por IA | Consultoria Estratégica</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-icons@latest"></script>
+
+    <script>
+        // Configuração customizada do Tailwind para incluir as cores da marca e a nova fonte
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-blue': '#2978FF',
+                        'brand-teal': '#1DDDBD',
+                        'brand-dark': '#0f172a', // slate-900
+                    },
+                    fontFamily: {
+                        'sans': ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Estilo customizado para garantir a aplicação da fonte e scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+        /* Efeito de overlay para o vídeo de fundo */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(15, 23, 42, 0.85), rgba(41, 120, 255, 0.65));
+            z-index: 1;
+        }
+        /* Estilo para o modal */
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800">
+
+    <!-- Header Simples -->
+    <header class="absolute top-0 left-0 right-0 z-20 p-6">
+        <div class="container mx-auto">
+            <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo da Consultoria" class="h-10 brightness-0 invert">
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção "Acima da Dobra" -->
+        <section id="hero" class="relative min-h-screen flex items-center justify-center text-white text-center overflow-hidden">
+            <video autoplay loop muted playsinline class="absolute z-0 w-auto min-w-full min-h-full max-w-none">
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-SQUARE-particles-of-light-moving-around-a-cyberspace-3343-large.mp4" type="video/mp4">
+                Seu navegador não suporta a tag de vídeo.
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 p-6">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-4 max-w-4xl mx-auto">
+                    Além da Implementação: Transformação Salesforce Potencializada por IA, Entregue.
+                </h1>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light">
+                    Nós arquitetamos soluções Salesforce sob medida que integram IA, dados empresariais e design centrado no ser humano para impulsionar crescimento mensurável, eficiência e lealdade do cliente sem precedentes.
+                </p>
+                <button onclick="openModal('workshop')" class="bg-brand-teal text-slate-900 font-bold py-4 px-10 rounded-lg text-lg hover:bg-white transition-all duration-300 transform hover:scale-105 shadow-2xl">
+                    Solicite um Workshop de Estratégia
+                </button>
+            </div>
+        </section>
+
+        <!-- Bloco 1: O Desafio -->
+        <section id="desafio" class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4 max-w-3xl mx-auto">Seu CRM é Apenas um Sistema de Registro ou um Catalisador para o Crescimento?</h2>
+                <p class="text-lg text-slate-600 max-w-3xl mx-auto">
+                    Muitas empresas investem em Salesforce, mas enfrentam silos de dados, baixa adoção dos usuários e um ROI pouco claro. O resultado é uma ferramenta poderosa que não acompanha as expectativas dos clientes e não gera o crescimento esperado. Nós entendemos esse desafio.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 2: Nossa Solução -->
+        <section id="solucao" class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-12">Uma Abordagem Holística para a Transformação Salesforce</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-0 max-w-5xl mx-auto relative">
+                    <!-- Linha de conexão -->
+                    <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-brand-blue/20 -translate-y-1/2"></div>
+                    <!-- Fase 1 -->
+                    <div class="relative flex flex-col items-center p-4">
+                        <div class="bg-brand-blue text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl z-10 border-4 border-white">1</div>
+                        <h3 class="font-bold mt-4">Descobrir & Estratégia</h3>
+                    </div>
+                    <!-- Fase 2 -->
+                    <div class="relative flex flex-col items-center p-4">
+                        <div class="bg-brand-blue text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl z-10 border-4 border-white">2</div>
+                        <h3 class="font-bold mt-4">Arquitetar & Design</h3>
+                    </div>
+                    <!-- Fase 3 -->
+                    <div class="relative flex flex-col items-center p-4">
+                        <div class="bg-brand-blue text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl z-10 border-4 border-white">3</div>
+                        <h3 class="font-bold mt-4">Construir & Integrar</h3>
+                    </div>
+                    <!-- Fase 4 -->
+                    <div class="relative flex flex-col items-center p-4">
+                        <div class="bg-brand-blue text-white w-16 h-16 rounded-full flex items-center justify-center font-bold text-2xl z-10 border-4 border-white">4</div>
+                        <h3 class="font-bold mt-4">Lançar & Capacitar</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 3: Os Pilares da Nossa Prática -->
+        <section id="pilares" class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Pilar 1 -->
+                    <div class="text-center md:text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="brain-circuit" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">IA no Núcleo do Seu Negócio</h3>
+                        <p class="text-slate-600">Com insights preditivos e automação inteligente, alcançamos resultados como resolução de problemas 3x mais rápida.</p>
+                    </div>
+                    <!-- Pilar 2 -->
+                    <div class="text-center md:text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="users" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Projetado para Suas Pessoas</h3>
+                        <p class="text-slate-600">Nossa abordagem centrada no ser humano, com design de UX, garante uma plataforma intuitiva que impulsiona a adoção.</p>
+                    </div>
+                    <!-- Pilar 3 -->
+                    <div class="text-center md:text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="zap" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Aceleradores para ROI Rápido</h3>
+                        <p class="text-slate-600">Utilizamos soluções pré-construídas para indústrias como Serviços Financeiros e Varejo para entregar valor mais rapidamente.</p>
+                    </div>
+                    <!-- Pilar 4 -->
+                    <div class="text-center md:text-left">
+                        <div class="bg-brand-blue/10 text-brand-blue rounded-full p-4 inline-block mb-4"><i data-lucide="shield-check" class="w-8 h-8"></i></div>
+                        <h3 class="text-xl font-bold mb-2">Governança para Confiança & Escala</h3>
+                        <p class="text-slate-600">Implementamos um framework de governança robusto e um "Conselho de IA" para uma implantação ética e responsável.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 4: A Prova -->
+        <section id="prova" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mb-4">Entregando Resultados Mensuráveis</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                     <!-- Caso 1 -->
+                    <div class="border border-slate-200 rounded-xl p-8 text-center">
+                        <img src="https://placehold.co/150x60/e2e8f0/334155?text=Empresa+Tech" class="h-10 mb-6 mx-auto"/>
+                        <p class="text-slate-600 mb-4">"O processo de categorização de casos era manual e impreciso."</p>
+                        <div class="bg-brand-teal/10 text-brand-dark p-4 rounded-lg">
+                            <p class="text-4xl font-bold text-brand-teal">+30%</p>
+                            <p class="font-semibold">na precisão da categorização</p>
+                        </div>
+                    </div>
+                    <!-- Caso 2 -->
+                    <div class="border border-slate-200 rounded-xl p-8 text-center bg-brand-dark text-white">
+                        <img src="https://placehold.co/150x60/475569/FFFFFF?text=Ind%C3%BAstria+Global" class="h-10 mb-6 mx-auto"/>
+                        <p class="text-slate-300 mb-4">"Nossa produtividade de vendas estava estagnada."</p>
+                        <div class="bg-brand-teal/20 text-white p-4 rounded-lg">
+                            <p class="text-4xl font-bold text-brand-teal">>15%</p>
+                            <p class="font-semibold">de aumento na produtividade</p>
+                        </div>
+                    </div>
+                    <!-- Caso 3 -->
+                    <div class="border border-slate-200 rounded-xl p-8 text-center">
+                        <img src="https://placehold.co/150x60/e2e8f0/334155?text=Financeira+Corp" class="h-10 mb-6 mx-auto"/>
+                        <p class="text-slate-600 mb-4">"O tempo de resposta no atendimento era um grande gargalo."</p>
+                        <div class="bg-brand-teal/10 text-brand-dark p-4 rounded-lg">
+                            <p class="text-4xl font-bold text-brand-teal">80%</p>
+                            <p class="font-semibold">mais eficiente no processo de tickets</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bloco 5: Por Que Fazer Parceria Conosco? -->
+        <section id="parceria" class="py-20 bg-slate-50">
+            <div class="container mx-auto px-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div>
+                        <img src="https://placehold.co/200x100/FFFFFF/2978FF?text=Salesforce+Summit+Partner" class="h-20 mx-auto mb-4"/>
+                        <h3 class="text-xl font-bold">Parceiro Summit</h3>
+                        <p class="text-slate-600">O mais alto nível de parceria, reconhecendo nossa expertise e sucesso.</p>
+                    </div>
+                    <div>
+                        <div class="text-6xl font-extrabold text-brand-blue">150+</div>
+                        <h3 class="text-xl font-bold mt-2">Especialistas Certificados</h3>
+                        <p class="text-slate-600">Uma equipe profunda e dedicada ao ecossistema Salesforce.</p>
+                    </div>
+                    <div>
+                        <img src="https://placehold.co/200x100/FFFFFF/2978FF?text=Partner+Innovation+Awards" class="h-20 mx-auto mb-4"/>
+                        <h3 class="text-xl font-bold">Innovation Awards</h3>
+                        <p class="text-slate-600">Reconhecidos pela Salesforce por soluções inovadoras e de alto impacto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bloco 6: A Seção Final de CTA -->
+        <section id="cta-final" class="py-20 bg-brand-blue text-white text-center">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Pronto para Arquitetar Sua Vantagem Competitiva?</h2>
+                <div class="flex flex-col md:flex-row gap-4 justify-center items-center mt-8">
+                    <button onclick="openModal('workshop')" class="bg-brand-teal text-slate-900 font-bold py-4 px-8 rounded-lg text-lg hover:bg-white transition-all duration-300 w-full md:w-auto">
+                        Solicite um Workshop de Estratégia
+                    </button>
+                    <button onclick="openModal('guia')" class="bg-transparent border-2 border-white text-white font-bold py-4 px-8 rounded-lg text-lg hover:bg-white hover:text-brand-blue transition-all duration-300 w-full md:w-auto">
+                        Baixe o Guia Gratuito
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Simples -->
+    <footer class="bg-brand-dark text-white py-6">
+        <div class="container mx-auto px-6 text-center text-slate-400 text-sm">
+            &copy; 2025 Consultoria Estratégica. Todos os direitos reservados. | <a href="#" class="hover:text-white">Política de Privacidade</a>
+        </div>
+    </footer>
+
+    <!-- Modal para Workshop e Guia -->
+    <div id="modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="modal-content bg-white w-full max-w-lg rounded-xl shadow-2xl p-8 transform scale-95">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modal-title" class="text-2xl font-bold text-brand-dark"></h3>
+                <button onclick="closeModal()" class="text-slate-500 hover:text-slate-800"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            <p id="modal-description" class="text-slate-600 mb-6"></p>
+            <form id="modal-form">
+                <div class="space-y-4">
+                    <div>
+                        <label for="nome" class="block text-sm font-medium text-slate-700 mb-1">Nome</label>
+                        <input type="text" id="nome" name="nome" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue">
+                    </div>
+                    <div>
+                        <label for="empresa" class="block text-sm font-medium text-slate-700 mb-1">Empresa</label>
+                        <input type="text" id="empresa" name="empresa" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-slate-700 mb-1">E-mail Corporativo</label>
+                        <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue">
+                    </div>
+                    <div>
+                        <label for="desafio" class="block text-sm font-medium text-slate-700 mb-1">Seu Maior Desafio com o Salesforce</label>
+                        <textarea id="desafio" name="desafio" rows="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-brand-blue focus:border-brand-blue"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" id="modal-submit-button" class="w-full bg-brand-blue text-white font-bold py-3 px-6 rounded-lg text-lg hover:bg-brand-teal transition-all duration-300"></button>
+                    </div>
+                </div>
+            </form>
+            <div id="modal-success" class="hidden text-center">
+                <i data-lucide="check-circle" class="w-16 h-16 text-green-500 mx-auto mb-4"></i>
+                <h3 class="text-2xl font-bold text-brand-dark">Obrigado!</h3>
+                <p class="text-slate-600 mt-2">Recebemos sua solicitação e entraremos em contato em breve.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function initPageScripts() {
+            lucide.createIcons();
+
+            const modal = document.getElementById('modal');
+            const modalContent = modal.querySelector('.modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalDescription = document.getElementById('modal-description');
+            const modalSubmitButton = document.getElementById('modal-submit-button');
+            const modalForm = document.getElementById('modal-form');
+            const modalSuccess = document.getElementById('modal-success');
+
+            window.openModal = function(type) {
+                modalForm.style.display = 'block';
+                modalSuccess.style.display = 'none';
+                modalForm.reset();
+
+                if (type === 'workshop') {
+                    modalTitle.textContent = 'Solicite um Workshop de Estratégia';
+                    modalDescription.textContent = 'Preencha o formulário abaixo para agendar uma sessão consultiva e sem compromisso com nossos especialistas.';
+                    modalSubmitButton.textContent = 'Agendar Workshop';
+                } else {
+                    modalTitle.textContent = 'Baixe o Guia Gratuito';
+                    modalDescription.textContent = 'Receba em seu e-mail o "Manual Corporativo para a Transformação Salesforce Potencializada por IA" e comece a planejar seu próximo passo.';
+                    modalSubmitButton.textContent = 'Receber o Guia';
+                }
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+            }
+
+            window.closeModal = function() {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.add('scale-95');
+            }
+
+            modal.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            modalForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                modalForm.style.display = 'none';
+                modalSuccess.style.display = 'block';
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', initPageScripts);
+    </script>
+</body>
+</html>
