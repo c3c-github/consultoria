@@ -92,7 +92,7 @@
             </div>
         </header>
 
-        <!-- CAMADA 1: KPIs GLOBAIS E STATUS DE ATIVIDADES -->
+        <!-- CAMADA 1: KPIs GLOBAIS -->
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Card Horas -->
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -130,6 +130,24 @@
                     <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
                 </div>
             </div>
+            <!-- Card Vendas -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Vendas</h3>
+                <div class="relative w-40 h-40 mx-auto">
+                    <canvas id="salesChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-3xl font-bold text-black">R$1.30M</span>
+                        <span class="text-sm text-c3c-text-light">de R$1.20M</span>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <div class="flex items-center justify-center text-lg font-semibold indicator-green">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        <span class="ml-1">+10.0%</span>
+                    </div>
+                    <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
+                </div>
+            </div>
             <!-- Card Margem -->
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Margem</h3>
@@ -148,35 +166,74 @@
                     <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
                 </div>
             </div>
-             <!-- Card Atividades por Status -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Atividades por Status</h3>
-                <div class="relative w-40 h-40 mx-auto">
-                    <canvas id="taskStatusChart"></canvas>
-                     <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <span class="text-3xl font-bold text-black">76</span>
-                        <span class="text-sm text-c3c-text-light">Total</span>
-                    </div>
-                </div>
-                 <div class="mt-4 text-center">
-                    <div class="flex items-center justify-center text-lg font-semibold indicator-green">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-                        <span class="ml-1">+15</span>
-                    </div>
-                    <p class="text-xs text-c3c-text-light">novas atividades no período</p>
-                </div>
-            </div>
         </section>
 
-        <!-- CAMADA 2: ANÁLISE DE RENTABILIDADE -->
+        <!-- CAMADA 2: ANÁLISE DE RENTABILIDADE E ATIVIDADES -->
         <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="font-semibold text-black mb-4">Receita vs. Custo ao Longo do Tempo</h3>
                 <canvas id="revenueCostChart"></canvas>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Composição da Receita e Margem por Linha de Serviço</h3>
+                <h3 class="font-semibold text-black mb-4">Composição da Receita por Linha de Serviço</h3>
                 <canvas id="revenueCompositionChart"></canvas>
+            </div>
+        </section>
+        
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+             <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
+                <h3 class="font-semibold text-black mb-4">Atividades por Status</h3>
+                <div class="flex-grow flex items-center justify-center">
+                     <div class="w-full max-w-xs">
+                        <canvas id="taskStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="font-semibold text-black mb-4">Atividades Recentes</h3>
+                <div class="overflow-y-auto h-64">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-gray-100 sticky top-0">
+                            <tr>
+                                <th class="p-3 text-left font-semibold text-gray-600">Atividade</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Status</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Responsáveis</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3">Projeto Salesforce Cloud</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #1DDDBD;"></span>Concluída</span></td>
+                                <td class="p-3">Ana, Bruno</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Suporte Mensal</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
+                                <td class="p-3">Carla</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Alocação de Arquiteto</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
+                                <td class="p-3">Carlos</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Projeto Marketing Cloud</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #2978FF;"></span>Em Aberto</span></td>
+                                <td class="p-3">Ana, Daniel</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Integração ERP</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #6b7280;"></span>Pausada</span></td>
+                                <td class="p-3">Bruno</td>
+                            </tr>
+                            <tr>
+                                <td class="p-3">Desenvolvimento App Mobile</td>
+                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #000000;"></span>Cancelada</span></td>
+                                <td class="p-3">Equipe Mobile</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
@@ -282,54 +339,6 @@
                     </table>
                 </div>
             </div>
-            
-            <!-- Tabela 3: Atividades Recentes -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Atividades Recentes</h3>
-                <div class="overflow-y-auto h-64">
-                    <table class="min-w-full text-sm">
-                        <thead class="bg-gray-100 sticky top-0">
-                            <tr>
-                                <th class="p-3 text-left font-semibold text-gray-600">Atividade</th>
-                                <th class="p-3 text-left font-semibold text-gray-600">Status</th>
-                                <th class="p-3 text-left font-semibold text-gray-600">Responsáveis</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr>
-                                <td class="p-3">Projeto Salesforce Cloud</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #1DDDBD;"></span>Concluída</span></td>
-                                <td class="p-3">Ana, Bruno</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">Suporte Mensal</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
-                                <td class="p-3">Carla</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">Alocação de Arquiteto</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
-                                <td class="p-3">Carlos</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">Projeto Marketing Cloud</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #2978FF;"></span>Em Aberto</span></td>
-                                <td class="p-3">Ana, Daniel</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">Integração ERP</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #6b7280;"></span>Pausada</span></td>
-                                <td class="p-3">Bruno</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3">Desenvolvimento App Mobile</td>
-                                <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #000000;"></span>Cancelada</span></td>
-                                <td class="p-3">Equipe Mobile</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </section>
     </div>
 
@@ -365,7 +374,8 @@
             // Dados e criação dos gráficos de KPI
             createKpiChart('hoursChart', [8750, 8500-8750 > 0 ? 8500-8750 : 0], ['#2978FF', '#F2F2F2']); 
             createKpiChart('revenueChart', [1250000, 0], ['#1DDDBD', '#F2F2F2']);
-            createKpiChart('marginChart', [35.2, 100 - 35.2], ['#2978FF', '#F2F2F2']);
+            createKpiChart('salesChart', [1300000, 0], ['#2978FF', '#F2F2F2']);
+            createKpiChart('marginChart', [35.2, 100 - 35.2], ['#1DDDBD', '#F2F2F2']);
 
             // Gráfico 1: Receita vs. Custo
             const revenueCostCtx = document.getElementById('revenueCostChart').getContext('2d');
