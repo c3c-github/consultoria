@@ -57,11 +57,12 @@
 </head>
 <body class="text-black">
     <div class="container mx-auto p-4 sm:p-6 lg:p-8">
-        <!-- CABEÇALHO E FILTROS -->
+        <!-- 1. TÍTULO -->
         <header class="mb-8">
             <h1 class="text-3xl font-bold text-black">Painel de Status da Carteira</h1>
             <p class="text-c3c-text-light">Visão 360° da saúde financeira e operacional dos clientes.</p>
             
+            <!-- 2. FILTROS -->
             <div class="mt-6 p-4 bg-white rounded-lg shadow-md flex flex-wrap gap-4 items-center">
                 <div class="flex-grow">
                     <label for="period" class="block text-sm font-medium text-gray-700">Período</label>
@@ -81,9 +82,17 @@
                     </select>
                 </div>
                 <div class="flex-grow">
-                    <label for="service-line" class="block text-sm font-medium text-gray-700">Linha de Serviço</label>
-                    <select id="service-line" name="service-line" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
-                        <option>Todas as Linhas</option>
+                    <label for="project-cost-center" class="block text-sm font-medium text-gray-700">Projeto / Centro de Custo</label>
+                    <select id="project-cost-center" name="project-cost-center" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option>Todos</option>
+                        <option>Projeto Phoenix</option>
+                        <option>Projeto Titan</option>
+                    </select>
+                </div>
+                 <div class="flex-grow">
+                    <label for="service-type" class="block text-sm font-medium text-gray-700">Tipo de Serviço</label>
+                    <select id="service-type" name="service-type" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                        <option>Todos</option>
                         <option>Alocação</option>
                         <option>Projeto</option>
                         <option>Suporte</option>
@@ -92,7 +101,7 @@
             </div>
         </header>
 
-        <!-- CAMADA 1: KPIs GLOBAIS -->
+        <!-- 3. GRÁFICOS DE ANÉIS -->
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Card Horas -->
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -112,24 +121,6 @@
                     <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
                 </div>
             </div>
-            <!-- Card Receita -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Receita</h3>
-                <div class="relative w-40 h-40 mx-auto">
-                    <canvas id="revenueChart"></canvas>
-                    <div class="absolute inset-0 flex flex-col items-center justify-center">
-                        <span class="text-3xl font-bold text-black">R$1.25M</span>
-                        <span class="text-sm text-c3c-text-light">de R$1.15M</span>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <div class="flex items-center justify-center text-lg font-semibold indicator-red">
-                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                        <span class="ml-1">-2.5%</span>
-                    </div>
-                    <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
-                </div>
-            </div>
             <!-- Card Vendas -->
             <div class="bg-white p-6 rounded-lg shadow-md">
                 <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Vendas</h3>
@@ -144,6 +135,24 @@
                     <div class="flex items-center justify-center text-lg font-semibold indicator-green">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
                         <span class="ml-1">+10.0%</span>
+                    </div>
+                    <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
+                </div>
+            </div>
+            <!-- Card Receita -->
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-sm font-medium text-c3c-text-light uppercase text-center mb-4">Receita</h3>
+                <div class="relative w-40 h-40 mx-auto">
+                    <canvas id="revenueChart"></canvas>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span class="text-3xl font-bold text-black">R$1.25M</span>
+                        <span class="text-sm text-c3c-text-light">de R$1.15M</span>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <div class="flex items-center justify-center text-lg font-semibold indicator-red">
+                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                        <span class="ml-1">-2.5%</span>
                     </div>
                     <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
                 </div>
@@ -168,25 +177,209 @@
             </div>
         </section>
 
-        <!-- CAMADA 2: ANÁLISE DE RENTABILIDADE E ATIVIDADES -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Receita vs. Custo ao Longo do Tempo</h3>
-                <canvas id="revenueCostChart"></canvas>
+        <!-- 4. ANÁLISE FINANCEIRA -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-black mb-4">Análise Financeira</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-black mb-4">Receita vs. Custo ao Longo do Tempo</h3>
+                    <canvas id="revenueCostChart"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-black mb-4">Composição da Receita por Linha de Serviço</h3>
+                    <canvas id="revenueCompositionChart"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md lg:col-span-2">
+                    <h3 class="font-semibold text-black mb-4">Receita vs. Custo por Projeto</h3>
+                    <canvas id="revenueCostByProjectChart"></canvas>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md lg:col-span-2">
+                    <h3 class="font-semibold text-black mb-4">Detalhamento Financeiro por Cliente/Projeto</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-100">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Cliente / Projeto</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Horas Contrat.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Horas Consum.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Receita Prev.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Receita Receb.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Custo Prev.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Custo Real</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Margem Prev.</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Margem Real</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Margem Real (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="group-row"><td class="p-3" colspan="10">Cliente A</td></tr>
+                                <tr class="child-row"><td class="p-3">Projeto Salesforce Cloud</td><td class="p-3 text-right">300</td><td class="p-3 text-right">320</td><td class="p-3 text-right">R$ 90k</td><td class="p-3 text-right">R$ 90k</td><td class="p-3 text-right">R$ 54k</td><td class="p-3 text-right">R$ 57.6k</td><td class="p-3 text-right">R$ 36k</td><td class="p-3 text-right">R$ 32.4k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-green">36%</span></td></tr>
+                                <tr class="child-row"><td class="p-3">Suporte Mensal</td><td class="p-3 text-right">100</td><td class="p-3 text-right">95</td><td class="p-3 text-right">R$ 25k</td><td class="p-3 text-right">R$ 25k</td><td class="p-3 text-right">R$ 15k</td><td class="p-3 text-right">R$ 14.25k</td><td class="p-3 text-right">R$ 10k</td><td class="p-3 text-right">R$ 10.75k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-green">43%</span></td></tr>
+                                <tr class="group-row"><td class="p-3" colspan="10">Cliente B</td></tr>
+                                <tr class="child-row"><td class="p-3">Alocação de Arquiteto</td><td class="p-3 text-right">160</td><td class="p-3 text-right">160</td><td class="p-3 text-right">R$ 64k</td><td class="p-3 text-right">R$ 64k</td><td class="p-3 text-right">R$ 48k</td><td class="p-3 text-right">R$ 48k</td><td class="p-3 text-right">R$ 16k</td><td class="p-3 text-right">R$ 16k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-yellow">25%</span></td></tr>
+                                <tr class="child-row"><td class="p-3">Projeto Marketing Cloud</td><td class="p-3 text-right">250</td><td class="p-3 text-right">280</td><td class="p-3 text-right">R$ 87.5k</td><td class="p-3 text-right">R$ 87.5k</td><td class="p-3 text-right">R$ 52.5k</td><td class="p-3 text-right">R$ 58.8k</td><td class="p-3 text-right">R$ 35k</td><td class="p-3 text-right">R$ 28.7k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-red">32%</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Composição da Receita por Linha de Serviço</h3>
-                <canvas id="revenueCompositionChart"></canvas>
+        </section>
+
+        <!-- ANÁLISE DE CONTRATO -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-black mb-4">Análise de Contrato</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                 <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-black mb-4 text-center">Status dos Contratos</h3>
+                    <div class="relative w-48 h-48 mx-auto">
+                        <canvas id="contractsStatusChart"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                            <span class="text-4xl font-bold text-black">19</span>
+                            <span class="text-sm text-c3c-text-light">Total</span>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-center">
+                        <div class="flex items-center justify-center text-lg font-semibold indicator-green">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            <span class="ml-1">+2</span>
+                        </div>
+                        <p class="text-xs text-c3c-text-light">novos contratos no período</p>
+                    </div>
+                    <div id="contractsStatusLegend" class="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-4"></div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md lg:col-span-2">
+                    <h3 class="font-semibold text-black mb-4">Detalhes dos Contratos</h3>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm whitespace-nowrap">
+                            <thead class="bg-gray-100 sticky top-0">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Cliente</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Contrato</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Status</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Data Início</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Data Vencimento</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Custo Prev. Final</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">Custo Realizado</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">% Custo</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr><td class="p-3">Cliente A</td><td class="p-3">Sales Cloud</td><td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: var(--c3c-teal);"></span>Ativo</span></td><td class="p-3">01/01/2025</td><td class="p-3">31/12/2025</td><td class="p-3 text-right">R$ 54k</td><td class="p-3 text-right">R$ 57.6k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-red">106.7%</span></td></tr>
+                                <tr><td class="p-3">Cliente A</td><td class="p-3">Suporte</td><td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Próx. Venc.</span></td><td class="p-3">01/06/2025</td><td class="p-3">30/11/2025</td><td class="p-3 text-right">R$ 15k</td><td class="p-3 text-right">R$ 14.25k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-yellow">95.0%</span></td></tr>
+                                <tr><td class="p-3">Cliente B</td><td class="p-3">Alocação</td><td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Próx. Venc.</span></td><td class="p-3">01/03/2025</td><td class="p-3">31/08/2025</td><td class="p-3 text-right">R$ 48k</td><td class="p-3 text-right">R$ 48k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-green">100.0%</span></td></tr>
+                                <tr><td class="p-3">Cliente B</td><td class="p-3">Marketing Cloud</td><td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #ef4444;"></span>Vencido</span></td><td class="p-3">15/02/2025</td><td class="p-3">14/08/2025</td><td class="p-3 text-right">R$ 52.5k</td><td class="p-3 text-right">R$ 58.8k</td><td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-red">112.0%</span></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANÁLISE DE ALOCAÇÃO -->
+        <section class="mb-8">
+            <h2 class="text-xl font-bold text-black mb-4">Análise de Alocação</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md lg:col-span-2">
+                    <h3 class="font-semibold text-black mb-4">Alocação de Recursos</h3>
+                    <div class="overflow-y-auto h-64">
+                        <table class="min-w-full text-sm">
+                            <thead class="bg-gray-100 sticky top-0">
+                                <tr>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Recurso</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Cliente / Projeto</th>
+                                    <th class="p-3 text-left font-semibold text-gray-600">Linha de Serviço</th>
+                                    <th class="p-3 text-right font-semibold text-gray-600">% Alocação no Período</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="group-row"><td class="p-3" colspan="4">Ana Silva</td></tr>
+                                <tr class="child-row"><td class="p-3">Cliente A / Suporte Mensal</td><td>Suporte</td><td class="text-right">50%</td></tr>
+                                <tr class="child-row"><td class="p-3">Cliente B / Projeto Marketing Cloud</td><td>Projeto</td><td class="text-right">50%</td></tr>
+                                <tr class="group-row"><td class="p-3" colspan="4">Bruno Costa</td></tr>
+                                <tr class="child-row"><td class="p-3">Cliente A / Projeto Salesforce Cloud</td><td>Projeto</td><td class="text-right">100%</td></tr>
+                                <tr class="group-row"><td class="p-3" colspan="4">Carlos Dias</td></tr>
+                                <tr class="child-row"><td class="p-3">Cliente B / Alocação de Arquiteto</td><td>Alocação</td><td class="text-right">75%</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="font-semibold text-black mb-4 text-center">Horas Alocadas</h3>
+                    <div class="relative w-48 h-48 mx-auto">
+                        <canvas id="allocationChart"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                            <span class="text-3xl font-bold text-black">440h</span>
+                            <span class="text-sm text-c3c-text-light">de 480h</span>
+                        </div>
+                    </div>
+                     <div class="mt-4 text-center">
+                        <div class="flex items-center justify-center text-lg font-semibold indicator-green">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            <span class="ml-1">+8%</span>
+                        </div>
+                        <p class="text-xs text-c3c-text-light">em relação ao período anterior</p>
+                    </div>
+                </div>
             </div>
         </section>
         
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-             <div class="bg-white p-6 rounded-lg shadow-md flex flex-col">
-                <h3 class="font-semibold text-black mb-4">Atividades por Status</h3>
-                <div class="flex-grow flex items-center justify-center">
-                     <div class="w-full max-w-xs">
+        <!-- AGENDAMENTO DE FÉRIAS -->
+        <section class="mb-8">
+             <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="font-semibold text-black mb-4">Agendamento de Férias</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-sm">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="p-3 text-left font-semibold text-gray-600">Recurso</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Status</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Data de Início</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Data de Fim</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Projetos Impactados</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="p-3">Ana Silva</td>
+                                <td class="p-3"><span class="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Aprovada</span></td>
+                                <td class="p-3">01/09/2025</td>
+                                <td class="p-3">15/09/2025</td>
+                                <td class="p-3">Cliente A (Suporte), Cliente B (Mkt Cloud)</td>
+                            </tr>
+                             <tr>
+                                <td class="p-3">Daniel Oliveira</td>
+                                <td class="p-3"><span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">Pendente</span></td>
+                                <td class="p-3">20/10/2025</td>
+                                <td class="p-3">30/10/2025</td>
+                                <td class="p-3">Cliente A (Sales Cloud)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANÁLISE DE ATIVIDADES -->
+        <section>
+            <h2 class="text-xl font-bold text-black mb-4">Análise de Atividades</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                <div class="flex flex-col items-center">
+                    <h3 class="font-semibold text-black mb-4 text-center">Atividades por Status</h3>
+                    <div class="relative w-48 h-48">
                         <canvas id="taskStatusChart"></canvas>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                            <span class="text-4xl font-bold text-black">76</span>
+                            <span class="text-sm text-c3c-text-light">Total</span>
+                        </div>
                     </div>
+                    <div class="mt-4 text-center">
+                        <div class="flex items-center justify-center text-lg font-semibold indicator-green">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                            <span class="ml-1">+15</span>
+                        </div>
+                        <p class="text-xs text-c3c-text-light">novas atividades no período</p>
+                    </div>
+                    <div id="taskStatusLegend" class="flex flex-wrap justify-center gap-x-4 gap-y-2 mt-4"></div>
                 </div>
             </div>
             <div class="bg-white p-6 rounded-lg shadow-md">
@@ -196,6 +389,7 @@
                         <thead class="bg-gray-100 sticky top-0">
                             <tr>
                                 <th class="p-3 text-left font-semibold text-gray-600">Atividade</th>
+                                <th class="p-3 text-left font-semibold text-gray-600">Linha de Serviço</th>
                                 <th class="p-3 text-left font-semibold text-gray-600">Status</th>
                                 <th class="p-3 text-left font-semibold text-gray-600">Responsáveis</th>
                             </tr>
@@ -203,138 +397,40 @@
                         <tbody class="divide-y divide-gray-200">
                             <tr>
                                 <td class="p-3">Projeto Salesforce Cloud</td>
+                                <td class="p-3">Projeto</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #1DDDBD;"></span>Concluída</span></td>
                                 <td class="p-3">Ana, Bruno</td>
                             </tr>
                             <tr>
                                 <td class="p-3">Suporte Mensal</td>
+                                <td class="p-3">Suporte</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
                                 <td class="p-3">Carla</td>
                             </tr>
                             <tr>
                                 <td class="p-3">Alocação de Arquiteto</td>
+                                <td class="p-3">Alocação</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #f59e0b;"></span>Em Andamento</span></td>
                                 <td class="p-3">Carlos</td>
                             </tr>
                             <tr>
                                 <td class="p-3">Projeto Marketing Cloud</td>
+                                <td class="p-3">Projeto</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #2978FF;"></span>Em Aberto</span></td>
                                 <td class="p-3">Ana, Daniel</td>
                             </tr>
                             <tr>
                                 <td class="p-3">Integração ERP</td>
+                                <td class="p-3">Projeto</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #6b7280;"></span>Pausada</span></td>
                                 <td class="p-3">Bruno</td>
                             </tr>
                             <tr>
                                 <td class="p-3">Desenvolvimento App Mobile</td>
+                                <td class="p-3">Projeto</td>
                                 <td class="p-3"><span class="flex items-center"><span class="status-dot" style="background-color: #000000;"></span>Cancelada</span></td>
                                 <td class="p-3">Equipe Mobile</td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- CAMADA 3: ANÁLISE OPERACIONAL -->
-        <section class="space-y-8">
-            <!-- Tabela 1: Detalhamento Financeiro -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Detalhamento Financeiro por Cliente/Projeto</h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="p-3 text-left font-semibold text-gray-600">Cliente / Projeto</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Horas Contrat.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Horas Consum.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Receita Prev.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Receita Receb.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Custo Prev.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Custo Real</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Margem Prev.</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Margem Real</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">Margem Real (%)</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="group-row"><td class="p-3" colspan="10">Cliente A</td></tr>
-                            <tr class="child-row">
-                                <td class="p-3">Projeto Salesforce Cloud</td>
-                                <td class="p-3 text-right">300</td>
-                                <td class="p-3 text-right">320</td>
-                                <td class="p-3 text-right">R$ 90k</td>
-                                <td class="p-3 text-right">R$ 90k</td>
-                                <td class="p-3 text-right">R$ 54k</td>
-                                <td class="p-3 text-right">R$ 57.6k</td>
-                                <td class="p-3 text-right">R$ 36k</td>
-                                <td class="p-3 text-right">R$ 32.4k</td>
-                                <td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-green">36%</span></td>
-                            </tr>
-                            <tr class="child-row">
-                                <td class="p-3">Suporte Mensal</td>
-                                <td class="p-3 text-right">100</td>
-                                <td class="p-3 text-right">95</td>
-                                <td class="p-3 text-right">R$ 25k</td>
-                                <td class="p-3 text-right">R$ 25k</td>
-                                <td class="p-3 text-right">R$ 15k</td>
-                                <td class="p-3 text-right">R$ 14.25k</td>
-                                <td class="p-3 text-right">R$ 10k</td>
-                                <td class="p-3 text-right">R$ 10.75k</td>
-                                <td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-green">43%</span></td>
-                            </tr>
-                            <tr class="group-row"><td class="p-3" colspan="10">Cliente B</td></tr>
-                            <tr class="child-row">
-                                <td class="p-3">Alocação de Arquiteto</td>
-                                <td class="p-3 text-right">160</td>
-                                <td class="p-3 text-right">160</td>
-                                <td class="p-3 text-right">R$ 64k</td>
-                                <td class="p-3 text-right">R$ 64k</td>
-                                <td class="p-3 text-right">R$ 48k</td>
-                                <td class="p-3 text-right">R$ 48k</td>
-                                <td class="p-3 text-right">R$ 16k</td>
-                                <td class="p-3 text-right">R$ 16k</td>
-                                <td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-yellow">25%</span></td>
-                            </tr>
-                            <tr class="child-row">
-                                <td class="p-3">Projeto Marketing Cloud</td>
-                                <td class="p-3 text-right">250</td>
-                                <td class="p-3 text-right">280</td>
-                                <td class="p-3 text-right">R$ 87.5k</td>
-                                <td class="p-3 text-right">R$ 87.5k</td>
-                                <td class="p-3 text-right">R$ 52.5k</td>
-                                <td class="p-3 text-right">R$ 58.8k</td>
-                                <td class="p-3 text-right">R$ 35k</td>
-                                <td class="p-3 text-right">R$ 28.7k</td>
-                                <td class="p-3 text-right"><span class="px-2 py-1 rounded-full margin-red">32%</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabela 2: Alocação de Recursos -->
-            <div class="bg-white p-6 rounded-lg shadow-md">
-                <h3 class="font-semibold text-black mb-4">Alocação de Recursos</h3>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full text-sm">
-                        <thead class="bg-gray-100">
-                            <tr>
-                                <th class="p-3 text-left font-semibold text-gray-600">Recurso</th>
-                                <th class="p-3 text-left font-semibold text-gray-600">Cliente / Projeto</th>
-                                <th class="p-3 text-left font-semibold text-gray-600">Linha de Serviço</th>
-                                <th class="p-3 text-right font-semibold text-gray-600">% Alocação no Período</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            <tr class="group-row"><td class="p-3" colspan="4">Ana Silva</td></tr>
-                            <tr class="child-row"><td class="p-3">Cliente A / Suporte Mensal</td><td>Suporte</td><td class="text-right">50%</td></tr>
-                            <tr class="child-row"><td class="p-3">Cliente B / Projeto Marketing Cloud</td><td>Projeto</td><td class="text-right">50%</td></tr>
-                            <tr class="group-row"><td class="p-3" colspan="4">Bruno Costa</td></tr>
-                            <tr class="child-row"><td class="p-3">Cliente A / Projeto Salesforce Cloud</td><td>Projeto</td><td class="text-right">100%</td></tr>
-                             <tr class="group-row"><td class="p-3" colspan="4">Carlos Dias</td></tr>
-                            <tr class="child-row"><td class="p-3">Cliente B / Alocação de Arquiteto</td><td>Alocação</td><td class="text-right">75%</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -376,6 +472,7 @@
             createKpiChart('revenueChart', [1250000, 0], ['#1DDDBD', '#F2F2F2']);
             createKpiChart('salesChart', [1300000, 0], ['#2978FF', '#F2F2F2']);
             createKpiChart('marginChart', [35.2, 100 - 35.2], ['#1DDDBD', '#F2F2F2']);
+            createKpiChart('allocationChart', [440, 480 - 440], ['#2978FF', '#F2F2F2']);
 
             // Gráfico 1: Receita vs. Custo
             const revenueCostCtx = document.getElementById('revenueCostChart').getContext('2d');
@@ -464,33 +561,34 @@
                     }
                 }
             });
-
+            
             // Gráfico 3: Atividades por Status
             const taskStatusCtx = document.getElementById('taskStatusChart').getContext('2d');
+            const taskStatusData = {
+                labels: ['Em Aberto', 'Concluída', 'Pausada', 'Em Andamento', 'Cancelada'],
+                datasets: [{
+                    label: 'Atividades',
+                    data: [12, 35, 5, 22, 2],
+                    backgroundColor: [
+                        '#2978FF',
+                        '#1DDDBD',
+                        '#6b7280', 
+                        'rgba(41, 120, 255, 0.6)',
+                        '#000000'
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    cutout: '80%'
+                }]
+            };
             new Chart(taskStatusCtx, {
                 type: 'doughnut',
-                data: {
-                    labels: ['Em Aberto', 'Concluída', 'Pausada', 'Em Andamento', 'Cancelada'],
-                    datasets: [{
-                        label: 'Atividades',
-                        data: [12, 35, 5, 22, 2],
-                        backgroundColor: [
-                            '#2978FF',
-                            '#1DDDBD',
-                            '#6b7280', // Cinza para Pausada
-                            'rgba(41, 120, 255, 0.6)', // Azul mais claro para Em Andamento
-                            '#000000' // Preto para Cancelada
-                        ],
-                        borderColor: '#FFFFFF',
-                        borderWidth: 4,
-                        cutout: '80%'
-                    }]
-                },
+                data: taskStatusData,
                 options: {
                     responsive: true,
                     plugins: {
                         legend: {
-                           display: false
+                           display: false // Legenda será gerada manualmente
                         },
                         tooltip: {
                             enabled: true
@@ -498,6 +596,74 @@
                     }
                 }
             });
+            
+            // Gerar legenda customizada para o gráfico de status
+            const legendContainer = document.getElementById('taskStatusLegend');
+            taskStatusData.labels.forEach((label, i) => {
+                const color = taskStatusData.datasets[0].backgroundColor[i];
+                const legendItem = document.createElement('div');
+                legendItem.className = 'flex items-center text-sm';
+                legendItem.innerHTML = `<span class="status-dot" style="background-color: ${color};"></span><span class="text-c3c-text-light">${label}</span>`;
+                legendContainer.appendChild(legendItem);
+            });
+
+            // Novo gráfico de rosca para Status dos Contratos
+            const contractsStatusCtx = document.getElementById('contractsStatusChart');
+            if(contractsStatusCtx) {
+                const contractsStatusData = {
+                    labels: ['Ativos', 'Próximo Venc.', 'Vencidos'],
+                    datasets: [{
+                        label: 'Contratos',
+                        data: [15, 3, 1],
+                        backgroundColor: ['#1DDDBD', '#2978FF', '#ef4444'],
+                        borderColor: '#FFFFFF',
+                        borderWidth: 4,
+                        cutout: '80%'
+                    }]
+                };
+                createKpiChart('contractsStatusChart', contractsStatusData.datasets[0].data, contractsStatusData.datasets[0].backgroundColor);
+                
+                // Gerar legenda customizada para o gráfico de contratos
+                const contractsLegendContainer = document.getElementById('contractsStatusLegend');
+                contractsStatusData.labels.forEach((label, i) => {
+                    const color = contractsStatusData.datasets[0].backgroundColor[i];
+                    const legendItem = document.createElement('div');
+                    legendItem.className = 'flex items-center text-sm';
+                    legendItem.innerHTML = `<span class="status-dot" style="background-color: ${color};"></span><span class="text-c3c-text-light">${label}</span>`;
+                    contractsLegendContainer.appendChild(legendItem);
+                });
+            }
+
+            // Novo gráfico de barras para Receita vs Custo por Projeto
+            const revenueCostByProjectCtx = document.getElementById('revenueCostByProjectChart');
+            if (revenueCostByProjectCtx) {
+                new Chart(revenueCostByProjectCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Proj. Salesforce', 'Suporte Mensal', 'Aloc. Arquiteto', 'Proj. Marketing'],
+                        datasets: [
+                            {
+                                label: 'Receita Recebida',
+                                data: [90, 25, 64, 87.5],
+                                backgroundColor: '#2978FF',
+                            },
+                            {
+                                label: 'Custo Real',
+                                data: [57.6, 14.25, 48, 58.8],
+                                backgroundColor: '#1DDDBD',
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { labels: { color: chartTextColor } } },
+                        scales: {
+                            y: { beginAtZero: true, ticks: { callback: value => `R$${value}k`, color: chartTextColor }, grid: { color: chartGridColor } },
+                            x: { ticks: { color: chartTextColor }, grid: { color: chartGridColor } }
+                        }
+                    }
+                });
+            }
         });
     </script>
 </body>
