@@ -111,7 +111,7 @@
             width: 100%;
             max-width: 400px;
             background-color: #e5ddd5;
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAEADAAAAACh64j0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVHja7cEBDQAAAMKg909tDwcUAAAAAABwUmA2AAEFI0gIAAAAAElFTkSuQmCC'); /* Generic pattern */
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAEADAAAAACh64j0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVHja7cEBDQAAAMKg909tDwcUAAAAAABwUmA2AAEFI0gIAAAAAElFTSuQmCC'); /* Generic pattern */
             border-radius: 1rem;
             padding: 1rem;
             box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
@@ -151,6 +151,16 @@
         .message.received {
             background-color: #FFFFFF;
             align-self: flex-start;
+        }
+        .whatsapp-quick-reply {
+            background-color: #FFFFFF;
+            border: 1px solid #2978FF;
+            color: #2978FF;
+            border-radius: 1rem;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 0.5rem;
         }
         
         /* Dashboard Mockup Styles */
@@ -323,11 +333,11 @@
         </div>
     </section>
 
-    <!-- Slide 5 & 6: Jornada Motorista + Bastidores SF -->
+    <!-- Slide 5: Jornada Motorista - Início -->
     <section class="slide">
         <div class="slide-content">
             <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada</h1>
+                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada (1/4)</h1>
                 <p class="text-lg text-gray-700">A visão do Motorista e a Mágica do Salesforce</p>
             </div>
             <div class="grid md:grid-cols-2 gap-8 items-center">
@@ -387,49 +397,120 @@
         </div>
     </section>
 
-    <!-- Slide 7 & 8: Jornada Concessionária + Agendamento -->
+    <!-- Slide 6: Jornada Concessionária - Análise -->
     <section class="slide">
         <div class="slide-content">
              <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-black">Fechando o Loop da Comunicação</h1>
-                <p class="text-lg text-gray-700">Engajando a concessionária e o motorista para o próximo passo</p>
+                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada (2/4)</h1>
+                <p class="text-lg text-gray-700">Fechando o loop da comunicação com o parceiro</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8 items-start">
-                <!-- WhatsApp Mockup Concessionária -->
-                <div class="flex flex-col items-center">
-                     <h2 class="text-2xl font-bold text-black mb-4">3. Contato com a Concessionária</h2>
+            <div class="flex flex-col items-center">
+                 <h2 class="text-2xl font-bold text-black mb-4">3. Contato com a Concessionária</h2>
+                <div class="whatsapp-container">
+                    <div class="whatsapp-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
+                        <div>
+                            <div class="font-bold">Canal Parceiros 99</div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col p-4 space-y-3">
+                        <div class="message received">Olá! Temos um novo Lead qualificado da campanha 99 Car Sales: <strong>João Silva</strong>, CPF final 123.</div>
+                        <div class="message received">Por favor, realize a consulta de crédito e nos informe o resultado selecionando uma das opções abaixo.</div>
+                        <!-- Quick Replies -->
+                        <div class="flex flex-col space-y-2 mt-2">
+                            <div class="whatsapp-quick-reply text-green-600 border-green-600 hover:bg-green-50">Crédito Aprovado</div>
+                            <div class="whatsapp-quick-reply text-red-600 border-red-600 hover:bg-red-50">Crédito Reprovado</div>
+                            <div class="whatsapp-quick-reply hover:bg-gray-100">Falar com a 99</div>
+                        </div>
+                        <!-- Dealer response simulation -->
+                        <div class="message sent">Crédito Aprovado</div>
+                        <div class="message received">Excelente! A informação já foi registrada no Salesforce. Vamos prosseguir com o agendamento do test drive com o cliente. Obrigado!</div>
+                    </div>
+                </div>
+                <p class="text-center text-gray-700 mt-6 max-w-md">Os botões agilizam a resposta e padronizam os dados. A opção "Falar com a 99" aciona o <strong>Salesforce Omnichannel</strong> e transfere a conversa para um agente humano instantaneamente.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Jornada Motorista - Agendamento -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada (3/4)</h1>
+                <p class="text-lg text-gray-700">O bot agenda o test drive com o motorista</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- WhatsApp Mockup -->
+                <div class="flex flex-col items-center space-y-6 justify-center">
+                     <h2 class="text-2xl font-bold text-black mb-4 self-start text-center w-full">4. Agendamento com o Motorista</h2>
                     <div class="whatsapp-container">
                         <div class="whatsapp-header">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="99 Logo">
                             <div>
-                                <div class="font-bold">Canal Parceiros 99</div>
+                                <div class="font-bold">99 app Ofertas</div>
+                                <div class="text-sm opacity-80">online</div>
                             </div>
                         </div>
                         <div class="flex flex-col p-4 space-y-3">
-                            <div class="message received">Olá! Temos um novo Lead qualificado da campanha 99 Car Sales: <strong>João Silva</strong>, CPF final 123. Ele está interessado no BYD Dolphin.</div>
-                            <div class="message received">Por favor, realize a consulta de crédito e nos informe o resultado.</div>
-                            <div class="message sent">Crédito Aprovado.</div>
-                            <div class="message received">Excelente! A informação já foi registrada no Salesforce. Vamos prosseguir com o agendamento do test drive com o cliente. Obrigado!</div>
+                            <div class="message received">Ótima notícia, João! Sua análise de crédito foi pré-aprovada pela BYD! 🎉 Vamos agendar seu test drive?</div>
+                            <div class="message sent">Vamos!</div>
+                            <div class="message received">Perfeito. Qual período fica melhor pra você?</div>
+                            <div class="flex space-x-2"><div class="whatsapp-quick-reply">Dias de semana</div><div class="whatsapp-quick-reply">Fim de semana</div></div>
+                            <div class="message sent">Fim de semana</div>
+                            <div class="message received">Excelente escolha! Seu test drive do BYD Dolphin está confirmado para <strong>Sábado às 10h</strong> na concessionária BYD GreenVillage, no endereço: Av. das Nações Unidas, 123. Anote na sua agenda! Até lá! 🚀</div>
                         </div>
                     </div>
                 </div>
-                <!-- WhatsApp Mockup Motorista Agendamento -->
+                <!-- Salesforce Mockup -->
                 <div class="flex flex-col items-center">
-                    <h2 class="text-2xl font-bold text-black mb-4">4. Agendamento Simplificado</h2>
-                     <div class="whatsapp-container">
-                        <div class="whatsapp-header">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
-                            <div>
-                                <div class="font-bold">Canal Parceiros 99</div>
-                            </div>
+                    <h2 class="text-2xl font-bold text-black mb-4">5. Dados Sincronizados</h2>
+                     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg border">
+                         <div class="flex items-center justify-between pb-4 border-b">
+                            <h3 class="text-xl font-bold text-black">Lead: João Silva</h3>
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Qualificado</span>
                         </div>
-                        <div class="flex flex-col p-4 space-y-3">
-                            <div class="message received">Crédito do João Silva aprovado. O motorista solicitou o test drive para <strong>Sábado de manhã</strong>.</div>
-                            <div class="message received">Para facilitar, todos os agendamentos da parceria 99 estão centralizados na planilha online. Acesse aqui: <a href="#" class="text-[#2978FF] underline">planilhas.99.com/byd-agenda</a></div>
+                        <div class="py-4 border-t">
+                            <p class="text-sm text-gray-500 mb-2">Status do Funil</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-[#1DDDBD] h-2.5 rounded-full" style="width: 75%"></div>
+                            </div>
+                            <p class="text-center text-sm font-medium text-green-700 mt-1">Test Drive Agendado</p>
+                        </div>
+                        <div class="py-4 border-t">
+                            <p class="text-sm text-gray-500">Detalhes do Agendamento</p>
+                            <p class="text-md text-gray-700"><strong>Data/Hora:</strong> Sábado, 10:00</p>
+                            <p class="text-md text-gray-700"><strong>Concessionária:</strong> BYD GreenVillage</p>
+                        </div>
+                     </div>
+                     <p class="text-center text-gray-700 mt-4 max-w-md">O agendamento é salvo automaticamente no Salesforce, movendo o lead no funil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Jornada Concessionária - Notificação -->
+     <section class="slide">
+        <div class="slide-content">
+             <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada (4/4)</h1>
+                <p class="text-lg text-gray-700">Mantendo o parceiro informado, sem esforço manual</p>
+            </div>
+            <div class="flex flex-col items-center">
+                 <h2 class="text-2xl font-bold text-black mb-4">6. Notificação ao Parceiro</h2>
+                 <div class="whatsapp-container">
+                    <div class="whatsapp-header">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
+                        <div>
+                            <div class="font-bold">Canal Parceiros 99</div>
                         </div>
                     </div>
-                    <p class="text-center text-gray-700 mt-4 max-w-md">Para garantir 100% de adesão, o agendamento é enviado via WhatsApp com um link para uma planilha online, ferramenta que o parceiro já conhece e utiliza.</p>
+                    <div class="flex flex-col p-4 space-y-3">
+                        <div class="message received">Novo test drive agendado! Cliente: <strong>João Silva</strong>. Veículo: BYD Dolphin.</div>
+                        <div class="message received"><strong>Data/Hora: Sábado, 10h</strong>. Por favor, reserve o veículo e um consultor para o horário.</div>
+                        <div class="message received">Para seu controle, a agenda completa de test drives da 99 está na planilha online: <a href="#" class="text-[#2978FF] underline">planilhas.99.com/byd-agenda</a></div>
+                    </div>
                 </div>
+                <p class="text-center text-gray-700 mt-6 max-w-md">Para garantir 100% de adesão, a concessionária recebe a confirmação e o link da planilha que já conhece, eliminando a necessidade de login em portais.</p>
             </div>
         </div>
     </section>
@@ -696,4 +777,6 @@
     </script>
 </body>
 </html>
+
+
 
