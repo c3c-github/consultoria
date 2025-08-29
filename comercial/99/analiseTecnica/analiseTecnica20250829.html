@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -568,12 +569,12 @@
                 <!-- Card 2: Taxa de Conversão -->
                 <div class="dashboard-card">
                      <h3 class="font-bold text-lg mb-4 text-black">Taxa de Conversão</h3>
-                     <img src="https://placehold.co/400x200/F2F2F2/2978FF?text=Gr%C3%A1fico+de+Funil" alt="Gráfico de funil" class="rounded-md w-full h-auto object-cover">
+                     <canvas id="funnelChartCanvas"></canvas>
                 </div>
                 <!-- Card 3: Performance -->
                 <div class="dashboard-card">
                     <h3 class="font-bold text-lg mb-4 text-black">Performance por Concessionária</h3>
-                    <img src="https://placehold.co/400x200/F2F2F2/1DDDBD?text=Gr%C3%A1fico+de+Barras" alt="Gráfico de barras" class="rounded-md w-full h-auto object-cover">
+                    <canvas id="performanceChartCanvas"></canvas>
                 </div>
                  <!-- Card 4: Canal WhatsApp -->
                 <div class="dashboard-card col-span-1 md:col-span-2">
@@ -723,6 +724,11 @@
                 nextBtn.disabled = index === slides.length - 1;
 
                 currentSlide = index;
+
+                // Initialize charts only when the dashboard slide is active
+                if (index === 9) { // Slide 10 is at index 9
+                    initializeDashboardCharts();
+                }
             }
 
             function next() {
@@ -770,6 +776,69 @@
 
             // Initialize lucide icons
             lucide.createIcons();
+            
+            let funnelChart = null;
+            let performanceChart = null;
+
+            function initializeDashboardCharts() {
+                // Funnel Chart
+                const funnelCtx = document.getElementById('funnelChartCanvas').getContext('2d');
+                if (funnelChart) funnelChart.destroy();
+                funnelChart = new Chart(funnelCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Leads', 'Aprovados', 'Test Drive', 'Venda'],
+                        datasets: [{
+                            label: 'Conversão',
+                            data: [1200, 750, 400, 80],
+                            backgroundColor: '#2978FF',
+                        }]
+                    },
+                    options: {
+                        indexAxis: 'y',
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Performance Chart
+                const performanceCtx = document.getElementById('performanceChartCanvas').getContext('2d');
+                if(performanceChart) performanceChart.destroy();
+                performanceChart = new Chart(performanceCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['BYD GreenVillage', 'BYD Itaim', 'BYD Morumbi'],
+                        datasets: [{
+                            label: 'Vendas Realizadas',
+                            data: [45, 25, 10],
+                            backgroundColor: '#1DDDBD',
+                        }]
+                    },
+                    options: {
+                       responsive: true,
+                       plugins: {
+                           legend: {
+                               display: false
+                           }
+                       },
+                       scales: {
+                           y: {
+                               beginAtZero: true
+                           }
+                       }
+                    }
+                });
+            }
+
 
             // Initial setup
             showSlide(0);
@@ -777,6 +846,4 @@
     </script>
 </body>
 </html>
-
-
 

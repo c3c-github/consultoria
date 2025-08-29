@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>C3C Software — Consultoria Salesforce</title>
+  <meta name="description" content="Landing page em arquivo único, com experiência de slides e visual moderno para a C3C Software." />
+  <link rel="preconnect" href="https://images.unsplash.com" />
+  <link rel="preconnect" href="https://videos.pexels.com" />
+  <style>
+    :root{
+      --c3c-teal:#1DDDBD;
+      --c3c-blue:#2978FF;
+      --c3c-gray:#F2F2F2;
+      --c3c-black:#000000;
+      --c3c-white:#FFFFFF;
+      --radius:22px;
+      --shadow:0 10px 30px rgba(0,0,0,.15);
+      --maxw:1200px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,Ubuntu,"Apple Color Emoji","Segoe UI Emoji";
+      color:#0f172a;
+      background:linear-gradient(120deg, #ffffff 0%, var(--c3c-gray) 100%);
+      scroll-behavior:smooth;
+      overflow-y:scroll;
+    }
+
+    /* --------- NAV --------- */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;backdrop-filter:saturate(1.1) blur(10px);}
+    .nav-inner{
+      display:flex;align-items:center;justify-content:space-between;
+      gap:20px;padding:14px 20px;max-width:var(--maxw);margin:0 auto;
+    }
+    .brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit}
+    .brand svg{height:38px;width:auto;display:block}
+    .nav-links{display:flex;gap:18px;align-items:center}
+    .nav-links a{font-weight:600;text-decoration:none;color:#1f2937;padding:10px 14px;border-radius:12px}
+    .nav-links a:hover{background:rgba(41,120,255,.08)}
+    .cta-nav{background:var(--c3c-blue);color:var(--c3c-white)!important;border-radius:14px}
+    .cta-nav:hover{filter:brightness(1.05)}
+
+    /* --------- SLIDES WRAPPER --------- */
+    main{scroll-snap-type:y mandatory}
+    section.slide{min-height:100vh;display:grid;place-items:center;position:relative;scroll-snap-align:start}
+    .container{width:100%;max-width:var(--maxw);padding:24px}
+
+    /* --------- HERO --------- */
+    .hero{color:#0b1220}
+    .hero-media{position:absolute;inset:0;overflow:hidden;border-bottom-left-radius:40px;border-bottom-right-radius:40px}
+    .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(1.05);}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,255,255,0.65) 0%, rgba(242,242,242,0.85) 50%, rgba(242,242,242,1) 100%)}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center}
+    @media (max-width: 980px){.hero-inner{grid-template-columns:1fr}}
+    .badge{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(29,221,189,.15);color:#0f766e;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.08em;border:1px solid rgba(29,221,189,.35)}
+    .title{font-size:clamp(32px,5vw,56px);line-height:1.05;margin:14px 0;font-weight:900;letter-spacing:-.02em}
+    .subtitle{font-size:clamp(16px,2.2vw,20px);opacity:.8;max-width:60ch}
+    .cta-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:22px}
+    .btn{display:inline-flex;align-items:center;gap:10px;border:none;border-radius:16px;padding:14px 18px;font-weight:700;cursor:pointer;text-decoration:none}
+    .btn-primary{background:linear-gradient(135deg,var(--c3c-blue),var(--c3c-teal));color:#fff;box-shadow:var(--shadow)}
+    .btn-outline{background:#ffffff80;border:1px solid #cbd5e1;color:#0f172a}
+    .trust{
+      margin-top:26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;color:#64748b;font-size:14px
+    }
+    .trust img{height:26px;opacity:.8;filter:grayscale(1)}
+
+    /* --------- SERVICES --------- */
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    @media (max-width:980px){.cards{grid-template-columns:1fr}}
+    .card{background:#fff;border-radius:var(--radius);padding:22px;box-shadow:var(--shadow);border:1px solid #e5e7eb;transition:transform .3s ease, box-shadow .3s ease}
+    .card:hover{transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,.16)}
+    .card h3{margin:.2rem 0 .5rem;font-size:22px}
+    .card p{color:#475569}
+    .icon{
+      width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
+      background:linear-gradient(135deg, var(--c3c-teal), var(--c3c-blue));color:#fff
+    }
+
+    /* --------- CASES / SHOWCASE --------- */
+    .mosaic{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+    .mosaic > div{display:grid;gap:16px}
+    .mosaic img{width:100%;height:100%;object-fit:cover;border-radius:18px;box-shadow:var(--shadow)}
+    @media (max-width:980px){.mosaic{grid-template-columns:1fr}}
+
+    /* --------- PROCESS / TIMELINE --------- */
+    .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    @media (max-width:980px){.timeline{grid-template-columns:1fr}}
+    .step{background:#fff;border-radius:var(--radius);padding:20px;border:1px solid #e5e7eb;box-shadow:var(--shadow);position:relative}
+    .step::before{content:attr(data-step);position:absolute;top:-12px;left:20px;background:var(--c3c-blue);color:#fff;font-weight:800;border-radius:10px;padding:4px 10px;font-size:12px}
+
+    /* --------- TESTIMONIALS --------- */
+    .slider{position:relative;overflow:hidden;border-radius:var(--radius);}
+    .slides{display:flex;transition:transform .6s ease}
+    .testimonial{min-width:100%;background:#fff;padding:28px;border:1px solid #e5e7eb;box-shadow:var(--shadow)}
+    .quote{font-size:20px;line-height:1.5}
+    .who{display:flex;align-items:center;gap:12px;margin-top:18px}
+    .who img{width:48px;height:48px;border-radius:999px;object-fit:cover}
+    .dots{display:flex;gap:8px;justify-content:center;margin-top:12px}
+    .dot{width:10px;height:10px;border-radius:999px;background:#cbd5e1;border:none;cursor:pointer}
+    .dot.is-active{background:var(--c3c-blue)}
+
+    /* --------- CTA --------- */
+    .cta{background:radial-gradient(1200px 600px at 10% 10%, rgba(29,221,189,.25), transparent 50%),
+          radial-gradient(1000px 600px at 100% 0%, rgba(41,120,255,.25), transparent 50%),
+          linear-gradient(120deg, #ffffff 0%, var(--c3c-gray) 100%);
+      border-radius:32px;border:1px solid #e5e7eb;box-shadow:var(--shadow);padding:36px}
+
+    /* --------- SIDE PAGINATION DOTS --------- */
+    .side-dots{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;z-index:40}
+    .side-dots button{width:12px;height:12px;border-radius:999px;border:2px solid #94a3b8;background:#e2e8f0;opacity:.8;cursor:pointer}
+    .side-dots button.active{background:var(--c3c-blue);border-color:var(--c3c-blue);opacity:1}
+
+    /* --------- FOOTER --------- */
+    footer{padding:40px 24px;color:#334155}
+    .foot{max-width:var(--maxw);margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}
+    @media (max-width:780px){.foot{grid-template-columns:1fr}}
+
+    /* Accessibility & motion */
+    @media (prefers-reduced-motion:reduce){
+      .slides{transition:none}
+      .card:hover{transform:none}
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <nav class="nav" aria-label="Principal">
+    <div class="nav-inner">
+      <a class="brand" href="#home" aria-label="C3C Software">
+        <!-- Logo C3C (fornecido) -->
+        <span aria-hidden="true" style="display:inline-block;line-height:0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="190" height="50" viewBox="0 0 569.758 150.788" role="img">
+            <defs><style>.a{fill:#929497;font-size:60px;font-family:Montserrat-Bold, Montserrat;letter-spacing:0.13em;font-weight:700;}.b{font-family:Montserrat-Regular, Montserrat;font-weight:400;}.c{fill:url(#a);}.d{opacity:0.65;fill:url(#b);}</style><radialGradient id="a" cx="0.105" cy="0.069" r="1.044" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#1dddbd"/><stop offset="0.413" stop-color="#1ed9c0"/><stop offset="1" stop-color="#2978ff"/></radialGradient><radialGradient id="b" cx="0.397" cy="1.093" r="0.678" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient></defs><g transform="translate(-1084.242 -435)"><text class="a" transform="translate(1259 496)"><tspan x="0" y="0">C3C</tspan><tspan y="0"> </tspan><tspan class="b"><tspan x="0" y="73">SOFTWARE</tspan></tspan></text><g transform="translate(-323 211.421)"><path class="c" d="M31.738,105.346h0l0-.018c-8.117,5.747-17.1,4.395-22.937-.564-10.48-8.9-13.766-30.806,2.386-43.946L38.931,73.2h0L11.181,60.809c.254-.2.593-.47.887-.69q-.462.345-.889.688A18.387,18.387,0,0,1,.381,40.43C2.85,26.9,20.122,13.223,39.577,20.641l3.157,30.233h.005L39.59,20.628c.372.149.9.364,1.274.53a48.12,48.12,0,0,1,5.785,3.063,40.7,40.7,0,0,0-7.074-3.6A18.1,18.1,0,0,1,51.824,1.311C64.774-3.314,85.336,4.245,88.64,24.8l-.171.126.166-.116v0c8.121-5.759,17.027-3.75,22.869,1.212,10.48,8.9,13.717,30.807-2.435,43.946l-.023-.01-.016.013c9.035,4.156,12.209,12.64,10.833,20.175-2.47,13.527-19.792,27.22-39.247,19.8L77.633,79.793a46.473,46.473,0,0,0,6.109-.1,48.468,48.468,0,0,1-6.128.1l3,30.174.006,0a18.4,18.4,0,0,1-12.159,19.6,22.533,22.533,0,0,1-7.569,1.245A29.827,29.827,0,0,1,31.738,105.346Zm47.877,4.216-.12-.052q-2.037-.908-3.948-1.98A38.978,38.978,0,0,0,79.615,109.562Zm-48.118-6.3q-.2-2.277-.177-4.522A41.707,41.707,0,0,0,31.5,103.259Zm29.683-8.1a49.1,49.1,0,0,1-4.8-7.5l0,0A43.553,43.553,0,0,0,61.18,95.162ZM36.137,78.2a49.246,49.246,0,0,1,2.405-4.38A45.8,45.8,0,0,0,36.137,78.2ZM98.7,76.021a43.544,43.544,0,0,0,9.247-5.221A48.056,48.056,0,0,1,98.7,76.021Zm-86.5-16,.059-.043q.848-.616,1.713-1.188Q13.039,59.4,12.2,60.018ZM32.359,51.5a48.262,48.262,0,0,1,9.192-.671q-.79-.032-1.578-.032A42.819,42.819,0,0,0,32.359,51.5ZM63.979,43,80.336,30.926,63.976,42.992Zm-.505-.947A45.287,45.287,0,0,0,58.462,34.6,48.969,48.969,0,0,1,63.474,42.051Zm25.031-3.341c.013-.079.025-.157.037-.235a42.006,42.006,0,0,0,.441-4.5A47.582,47.582,0,0,1,88.505,38.709Zm.275-12.195q.042.4.077.795-.066-.884-.149-1.723C88.734,25.937,88.757,26.3,88.781,26.515Z" transform="translate(1417.635 233.699)"/><g transform="translate(1407 223)"><path class="d" d="M42.667,32.35,39.508,2.09C20.053-5.327,2.78,8.352.311,21.88a18.388,18.388,0,0,0,10.8,20.378C17.562,37.076,30.032,31.428,42.667,32.35Z" transform="translate(10.705 29.195)"/><path class="d" d="M42.7,32.3,39.551,2.079C20.1-5.339,2.769,8.458.3,21.985c-1.377,7.542,1.95,16,11,20.157A48.283,48.283,0,0,1,42.7,32.3Z" transform="translate(0.242 104.676) rotate(-60)"/><path class="d" d="M42.637,32.272,39.652,2.1C20.2-5.317,2.775,8.258.305,21.785A18.4,18.4,0,0,0,11.2,42.114,48.734,48.734,0,0,1,42.637,32.272Z" transform="translate(60.377 151.366) rotate(-120)"/><path class="d" d="M42.539,32.251,39.554,2.089C20.1-5.329,2.777,8.364.308,21.891c-1.377,7.542,1.8,16.034,10.856,20.186C17.42,36.94,29.1,31.582,42.539,32.251Z" transform="translate(130.807 122.689) rotate(180)"/><path class="d" d="M42.6,32.285l-2.989-30.2C20.158-5.335,2.807,8.421.337,21.948-1.039,29.49,1.676,38.21,10.729,42.362A52.849,52.849,0,0,1,22.6,35.612,49.022,49.022,0,0,1,42.6,32.285Z" transform="translate(141.316 47.356) rotate(120)"/><path class="d" d="M42.5,32.523,39.076,2.056C19.621-5.362,2.793,8.667.324,22.194a18.1,18.1,0,0,0,10.6,20.263A48.206,48.206,0,0,1,42.5,32.523Z" transform="translate(81.518 0.579) rotate(60)"/></g></g></svg>
+        </span>
+      </a>
+      <div class="nav-links" role="navigation">
+        <a href="#servicos">Serviços</a>
+        <a href="#cases">Cases</a>
+        <a href="#processo">Processo</a>
+        <a href="#depoimentos">Depoimentos</a>
+        <a class="cta-nav" href="#contato">Fale com a gente</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SIDE DOTS -->
+  <div class="side-dots" aria-hidden="true"></div>
+
+  <!-- HERO / SLIDE 1 -->
+  <section id="home" class="slide hero" aria-label="Início">
+    <div class="hero-media" aria-hidden="true">
+      <!-- Vídeo público (Pexels) -->
+      <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1529336953121-a3d2f62a4513?q=80&w=1600&auto=format&fit=crop">
+        <source src="https://videos.pexels.com/video-files/3195394/3195394-uhd_2560_1440_25fps.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+    </div>
+
+    <div class="container hero-inner">
+      <div>
+        <span class="badge">Parceiros Salesforce • Consultoria especializada</span>
+        <h1 class="title">Resultados de negócio com <span style="background:linear-gradient(90deg,var(--c3c-blue),var(--c3c-teal));-webkit-background-clip:text;background-clip:text;color:transparent">experiências digitais</span> modernas.</h1>
+        <p class="subtitle">Implementações Salesforce, evolução contínua e operações orientadas a dados. A C3C combina estratégia, design e engenharia para acelerar sua jornada.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#contato">Agendar conversa</a>
+          <a class="btn btn-outline" href="#servicos">Ver serviços</a>
+        </div>
+        <div class="trust" aria-label="Marcas atendidas">
+          <span>Confiada por times que crescem rápido</span>
+          <img alt="Logo 1" src="https://images.unsplash.com/photo-1517059224940-d4af9eec41e5?q=80&w=200&auto=format&fit=crop" loading="lazy" />
+          <img alt="Logo 2" src="https://images.unsplash.com/photo-1529612700005-e35377bf1415?q=80&w=200&auto=format&fit=crop" loading="lazy" />
+          <img alt="Logo 3" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=200&auto=format&fit=crop" loading="lazy" />
+        </div>
+      </div>
+      <div>
+        <div class="cta" role="region" aria-label="Destaques">
+          <h3 style="margin:0 0 10px">Por que C3C</h3>
+          <ul style="margin:0;padding-left:18px;color:#475569;line-height:1.7">
+            <li>Time certificado e focado em valor de negócio</li>
+            <li>Arquiteturas escaláveis e automações robustas</li>
+            <li>Design centrado no usuário para alta adoção</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS / SLIDE 2 -->
+  <section id="servicos" class="slide" aria-label="Serviços">
+    <div class="container">
+      <h2 class="title" style="font-size:clamp(28px,4vw,40px)">Soluções que conectam <span style="color:var(--c3c-blue)">estratégia</span> e <span style="color:var(--c3c-teal)">execução</span>.</h2>
+      <div class="cards" role="list">
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">⚙️</div>
+          <h3>Implementação & Evolução Salesforce</h3>
+          <p>Descoberta, configuração, integrações e sustentação contínua. Roadmaps claros para cada release.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">📈</div>
+          <h3>Dados, Analytics & Growth</h3>
+          <p>Dashboards e experimentação orientada a resultados. Mantenha o funil saudável com insights práticos.</p>
+        </article>
+        <article class="card" role="listitem">
+          <div class="icon" aria-hidden="true">🎨</div>
+          <h3>UX, Portais & Automação</h3>
+          <p>Experiências modernas, portais e flows com alto nível de adoção e eficiência operacional.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASES / SLIDE 3 -->
+  <section id="cases" class="slide" aria-label="Cases">
+    <div class="container">
+      <h2 class="title" style="font-size:clamp(28px,4vw,40px)">Resultados em destaque</h2>
+      <p class="subtitle">Alguns recortes visuais de projetos (imagens ilustrativas). Substitua pelos seus cases.</p>
+      <div class="mosaic" role="list">
+        <div>
+          <img role="listitem" alt="Dashboard moderno" loading="lazy" src="https://images.unsplash.com/photo-1551281044-8b89a5a0bfb3?q=80&w=1600&auto=format&fit=crop" />
+          <img role="listitem" alt="Equipe colaborando" loading="lazy" src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1600&auto=format&fit=crop" />
+        </div>
+        <div>
+          <img role="listitem" alt="Mobile app CRM" loading="lazy" src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=1600&auto=format&fit=crop" />
+          <img role="listitem" alt="Apresentação executiva" loading="lazy" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESSO / SLIDE 4 -->
+  <section id="processo" class="slide" aria-label="Processo">
+    <div class="container">
+      <h2 class="title" style="font-size:clamp(28px,4vw,40px)">Como trabalhamos</h2>
+      <div class="timeline">
+        <div class="step" data-step="1">
+          <h3>Descoberta</h3>
+          <p>Entendimento de objetivos (negócio, usuários, dados) e priorização de hipóteses.
+          </p>
+        </div>
+        <div class="step" data-step="2">
+          <h3>Design & Arquitetura</h3>
+          <p>Modelagem de processos e integrações. Desenho de experiências com foco em adoção.</p>
+        </div>
+        <div class="step" data-step="3">
+          <h3>Entrega Iterativa</h3>
+          <p>Releases curtas, automações robustas e qualidade de ponta a ponta.</p>
+        </div>
+        <div class="step" data-step="4">
+          <h3>Operação & Growth</h3>
+          <p>Métricas, experimentação contínua e evolução da solução no dia a dia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEPOIMENTOS / SLIDE 5 -->
+  <section id="depoimentos" class="slide" aria-label="Depoimentos">
+    <div class="container">
+      <h2 class="title" style="font-size:clamp(28px,4vw,40px)">O que clientes dizem</h2>
+      <div class="slider" aria-roledescription="carousel">
+        <div class="slides">
+          <article class="testimonial" aria-label="Depoimento 1">
+            <p class="quote">“A C3C transformou nossa operação em semanas. Adoção alta e time confiante para escalar.”</p>
+            <div class="who">
+              <img alt="Foto cliente" src="https://images.unsplash.com/photo-1544723795-3fb6469f5b39?q=80&w=240&auto=format&fit=crop"/>
+              <div>
+                <strong>Mariana A.</strong>
+                <div style="color:#64748b">Head de Operações</div>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial" aria-label="Depoimento 2">
+            <p class="quote">“Roadmap claro, integrações estáveis e resultados mensuráveis mês a mês.”</p>
+            <div class="who">
+              <img alt="Foto cliente" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?q=80&w=240&auto=format&fit=crop"/>
+              <div>
+                <strong>Felipe N.</strong>
+                <div style="color:#64748b">Diretor de Growth</div>
+              </div>
+            </div>
+          </article>
+          <article class="testimonial" aria-label="Depoimento 3">
+            <p class="quote">“Parceria verdadeira. Entregaram com qualidade e nos ajudaram a evoluir o time.”</p>
+            <div class="who">
+              <img alt="Foto cliente" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=240&auto=format&fit=crop"/>
+              <div>
+                <strong>Rafael S.</strong>
+                <div style="color:#64748b">Gerente de CRM</div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+      <div class="dots" aria-label="Navegação de depoimentos"></div>
+    </div>
+  </section>
+
+  <!-- CONTATO / SLIDE 6 -->
+  <section id="contato" class="slide" aria-label="Contato">
+    <div class="container">
+      <div class="cta">
+        <h2 class="title" style="font-size:clamp(28px,4vw,40px);margin:0 0 6px">Vamos conversar?</h2>
+        <p class="subtitle" style="margin:0 0 18px">Conte rapidamente seu contexto e retornamos com uma proposta de caminho.</p>
+        <form class="contact" onsubmit="event.preventDefault(); alert('Recebemos seu contato!');" aria-label="Formulário de contato">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:900px">
+            <label>Nome<br><input required name="nome" placeholder="Seu nome" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1" /></label>
+            <label>E-mail<br><input required type="email" name="email" placeholder="voce@empresa.com" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1" /></label>
+            <label style="grid-column:1/-1">Mensagem<br><textarea required name="mensagem" rows="4" placeholder="Fale sobre objetivos, prazos e contexto" style="width:100%;padding:12px 14px;border-radius:12px;border:1px solid #cbd5e1"></textarea></label>
+          </div>
+          <div style="margin-top:14px;display:flex;gap:10px;align-items:center">
+            <button class="btn btn-primary" type="submit">Enviar</button>
+            <a class="btn btn-outline" href="#home">Voltar ao topo</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot">
+      <small>© <span id="year"></span> C3C Software. Todos os direitos reservados.</small>
+      <div style="display:flex;gap:12px;align-items:center">
+        <a href="#servicos" style="text-decoration:none;color:#334155">Serviços</a>
+        <a href="#cases" style="text-decoration:none;color:#334155">Cases</a>
+        <a href="#processo" style="text-decoration:none;color:#334155">Processo</a>
+        <a href="#depoimentos" style="text-decoration:none;color:#334155">Depoimentos</a>
+        <a href="#contato" style="text-decoration:none;color:#334155">Contato</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Ano no rodapé
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Navegação entre slides com pontos laterais + teclado
+    const sections = [...document.querySelectorAll('section.slide')];
+    const sideDots = document.querySelector('.side-dots');
+    sections.forEach((s, i)=>{
+      const b=document.createElement('button');
+      b.setAttribute('aria-label', `Ir para a seção ${i+1}`);
+      b.addEventListener('click',()=>s.scrollIntoView({behavior:'smooth'}));
+      sideDots.appendChild(b);
+    });
+
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          const idx = sections.indexOf(e.target);
+          [...sideDots.children].forEach((dot,i)=>dot.classList.toggle('active', i===idx));
+          history.replaceState(null, '', '#' + e.target.id);
+        }
+      });
+    },{threshold:.6});
+    sections.forEach(s=>observer.observe(s));
+
+    // Teclado: setas navegam pelos slides
+    addEventListener('keydown', (ev)=>{
+      const currentIndex = sections.findIndex(s => s.getBoundingClientRect().top >= -10 && s.getBoundingClientRect().top < innerHeight/2);
+      if(ev.key === 'ArrowDown' || ev.key === 'PageDown' || ev.key === 'ArrowRight'){
+        const next = sections[Math.min(currentIndex+1, sections.length-1)];
+        next && next.scrollIntoView({behavior:'smooth'});
+      }
+      if(ev.key === 'ArrowUp' || ev.key === 'PageUp' || ev.key === 'ArrowLeft'){
+        const prev = sections[Math.max(currentIndex-1, 0)];
+        prev && prev.scrollIntoView({behavior:'smooth'});
+      }
+    });
+
+    // Slider de depoimentos
+    const track = document.querySelector('.slides');
+    const dotsWrap = document.querySelector('.dots');
+    const items = [...document.querySelectorAll('.testimonial')];
+    let idx = 0;
+    function go(i){
+      idx = (i+items.length)%items.length;
+      track.style.transform = `translateX(${idx*-100}%)`;
+      [...dotsWrap.children].forEach((d,di)=>d.classList.toggle('is-active', di===idx));
+    }
+    items.forEach((_,i)=>{
+      const d=document.createElement('button');
+      d.className='dot'+(i===0?' is-active':'');
+      d.addEventListener('click',()=>go(i));
+      dotsWrap.appendChild(d);
+    });
+    let auto = setInterval(()=>go(idx+1), 5000);
+    // Pausa ao focar
+    track.addEventListener('mouseenter',()=>clearInterval(auto));
+    track.addEventListener('mouseleave',()=>auto = setInterval(()=>go(idx+1), 5000));
+
+    // Preferência de redução de movimento
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches){
+      clearInterval(auto);
+    }
+  </script>
+</body>
+</html>
