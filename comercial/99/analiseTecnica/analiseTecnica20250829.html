@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: C3C & 99 app - Jornada Car Sales</title>
+    <link rel="icon" type="image/png" href="https://c3csoftware.com.br/wp-content/uploads/2022/06/cropped-favicon-32x32.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-color: #F2F2F2;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem; /* Reduced padding for smaller screens */
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+        @media (min-width: 768px) {
+            .slide {
+                padding: 4rem;
+            }
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
+        .slide.title-slide {
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('https://canalve.com.br/wp-content/uploads/2022/07/99_e_BYD_FotoMarcioBrunoOliveira-1024x683.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .slide-content {
+            background-color: #FFFFFF;
+            padding: 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            width: 100%;
+            max-width: 1100px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+         @media (min-width: 768px) {
+            .slide-content {
+                padding: 3rem;
+            }
+        }
+        .title-content {
+            color: #FFFFFF;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+        .nav-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 3.5rem;
+            height: 3.5rem;
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+        @media (min-width: 768px) {
+           .nav-button {
+               display: flex; /* Shown on larger screens */
+           }
+        }
+        .nav-button:hover {
+            background-color: #FFFFFF;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .nav-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        #prevBtn { left: 1rem; }
+        #nextBtn { right: 1rem; }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            background-color: #2978FF; /* C3C Blue */
+            transition: width 0.3s ease;
+            z-index: 20;
+        }
+
+        /* WhatsApp Mockup Styles */
+        .whatsapp-container {
+            width: 100%;
+            max-width: 400px;
+            background-color: #e5ddd5;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAEADAAAAACh64j0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAUSURBVHja7cEBDQAAAMKg909tDwcUAAAAAABwUmA2AAEFI0gIAAAAAElFTkSuQmCC'); /* Generic pattern */
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            border: 1px solid #d1d1d1;
+        }
+        .whatsapp-header {
+            display: flex;
+            align-items: center;
+            padding-bottom: 0.5rem;
+            color: #FFFFFF;
+            background-color: #075E54;
+            margin: -1rem -1rem 1rem -1rem;
+            padding: 1rem;
+            border-top-left-radius: 1rem;
+            border-top-right-radius: 1rem;
+        }
+        .whatsapp-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        .message {
+            margin-bottom: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            max-width: 85%;
+            word-wrap: break-word;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        .message.sent {
+            background-color: #dcf8c6;
+            align-self: flex-end;
+            margin-left: auto;
+        }
+        .message.received {
+            background-color: #FFFFFF;
+            align-self: flex-start;
+        }
+        
+        /* Dashboard Mockup Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        .dashboard-card {
+            background-color: #F2F2F2;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        .funnel-stage {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Slide 1: Título -->
+    <section class="slide active title-slide">
+        <div class="text-center title-content">
+            <h1 class="text-5xl md:text-7xl font-black text-white mb-4">De Manual a Mágico</h1>
+            <h2 class="text-xl md:text-2xl text-gray-200 font-medium mb-8">Uma Experiência Unificada para o Drive Lab</h2>
+            <p class="text-lg text-gray-300 mb-12">Como vamos automatizar a jornada "Car Sales" e gerar valor imediato com a plataforma Salesforce que vocês já possuem.</p>
+            <div class="flex justify-center items-center space-x-4 md:space-x-6 bg-white/20 backdrop-blur-sm p-4 rounded-xl">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-auto" viewBox="0 0 569.758 150.788"><defs><style>.a{fill:#929497;font-size:60px;font-family:Montserrat-Bold, Montserrat;letter-spacing:0.13em;font-weight:700;}.b{font-family:Montserrat-Regular, Montserrat;font-weight:400;}.c{fill:url(#a);}.d{opacity:0.65;fill:url(#b);}</style><radialGradient id="a" cx="0.105" cy="0.069" r="1.044" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#1dddbd"></stop><stop offset="0.413" stop-color="#1ed9c0"></stop><stop offset="1" stop-color="#2978ff"></stop></radialGradient><radialGradient id="b" cx="0.397" cy="1.093" r="0.678" gradientUnits="objectBoundingBox"><stop offset="0" stop-color="#fff"></stop><stop offset="1" stop-color="#fff" stop-opacity="0"></stop></radialGradient></defs><g><text class="a" transform="translate(174.758 61)"><tspan x="0" y="0">C3C</tspan><tspan y="0"> </tspan><tspan class="b"><tspan x="0" y="73">SOFTWARE</tspan></tspan></text><g transform="translate(10 -12.579)"><path class="c" d="M31.738,105.346h0l0-.018c-8.117,5.747-17.1,4.395-22.937-.564-10.48-8.9-13.766-30.806,2.386-43.946L38.931,73.2h0L11.181,60.809c.254-.2.593-.47.887-.69q-.462.345-.889.688A18.387,18.387,0,0,1,.381,40.43C2.85,26.9,20.122,13.223,39.577,20.641l3.157,30.233h.005L39.59,20.628c.372.149.9.364,1.274.53a48.12,48.12,0,0,1,5.785,3.063,40.7,40.7,0,0,0-7.074-3.6A18.1,18.1,0,0,1,51.824,1.311C64.774-3.314,85.336,4.245,88.64,24.8l-.171.126.166-.116v0c8.121-5.759,17.027-3.75,22.869,1.212,10.48,8.9,13.717,30.807-2.435,43.946l-.023-.01-.016.013c9.035,4.156,12.209,12.64,10.833,20.175-2.47,13.527-19.792,27.22-39.247,19.8L77.633,79.793a46.473,46.473,0,0,0,6.109-.1,48.468,48.468,0,0,1-6.128.1l3,30.174.006,0a18.4,18.4,0,0,1-12.159,19.6,22.533,22.533,0,0,1-7.569,1.245A29.827,29.827,0,0,1,31.738,105.346Zm47.877,4.216-.12-.052q-2.037-.908-3.948-1.98A38.978,38.978,0,0,0,79.615,109.562Zm-48.118-6.3q-.2-2.277-.177-4.522A41.707,41.707,0,0,0,31.5,103.259Zm29.683-8.1a49.1,49.1,0,0,1-4.8-7.5l0,0A43.553,43.553,0,0,0,61.18,95.162ZM36.137,78.2a49.246,49.246,0,0,1,2.405-4.38A45.8,45.8,0,0,0,36.137,78.2ZM98.7,76.021a43.544,43.544,0,0,0,9.247-5.221A48.056,48.056,0,0,1,98.7,76.021Zm-86.5-16,.059-.043q.848-.616,1.713-1.188Q13.039,59.4,12.2,60.018ZM32.359,51.5a48.262,48.262,0,0,1,9.192-.671q-.79-.032-1.578-.032A42.819,42.819,0,0,0,32.359,51.5ZM63.979,43,80.336,30.926,63.976,42.992Zm-.505-.947A45.287,45.287,0,0,0,58.462,34.6,48.969,48.969,0,0,1,63.474,42.051Zm25.031-3.341c.013-.079.025-.157.037-.235a42.006,42.006,0,0,0,.441-4.5A47.582,47.582,0,0,1,88.505,38.709Zm.275-12.195q.042.4.077.795-.066-.884-.149-1.723C88.734,25.937,88.757,26.3,88.781,26.515Z" transform="translate(10.393 10.12)"></path></g></g></svg>
+                <span class="text-gray-300 text-2xl">+</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Logo 99" class="h-12">
+                <span class="text-gray-300 text-2xl">|</span>
+                <img src="https://c3csoftware.com.br/wp-content/uploads/2022/09/salesforce-partner@2x.png" alt="Logo Salesforce Partner" class="h-16">
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: A Parceria -->
+    <section class="slide">
+        <div class="slide-content text-center">
+            <h1 class="text-4xl font-bold text-black mb-6">A Parceria que Já Gera Resultados</h1>
+            <p class="text-xl text-gray-700 leading-relaxed">
+                Valorizamos nossa parceria com a 99 e o sucesso que já construímos juntos. Hoje, queremos apresentar uma evolução para os resultados do Drive Lab, focando em um desafio chave que vai além do Car Sales: a otimização de processos manuais.
+            </p>
+        </div>
+    </section>
+
+    <!-- Slide 3: O Desafio Atual -->
+    <section class="slide">
+        <div class="slide-content">
+            <h1 class="text-4xl font-bold text-black mb-6 text-center">O Custo Oculto da Operação Manual</h1>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <p class="text-lg text-gray-700 mb-6">A jornada atual do Car Sales é funcional, mas depende de um esforço manual significativo, troca de ferramentas e pontos de fricção que geram custos, lentidão e potenciais perdas de oportunidade.</p>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start">
+                            <i data-lucide="shuffle" class="text-black w-6 h-6 mr-3 mt-1"></i>
+                            <div><strong class="text-black">Acionamento via Broker Externo:</strong> Mais um ponto de gestão e dependência.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="message-square-off" class="text-black w-6 h-6 mr-3 mt-1"></i>
+                            <div><strong class="text-black">Comunicação Manual com a Concessionária:</strong> Lento, sujeito a erros e não escalável.</div>
+                        </li>
+                        <li class="flex items-start">
+                             <i data-lucide="user-x" class="text-black w-6 h-6 mr-3 mt-1"></i>
+                            <div><strong class="text-black">Baixa Adesão ao Portal:</strong> Os parceiros preferem a agilidade do WhatsApp.</div>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="unlink-2" class="text-black w-6 h-6 mr-3 mt-1"></i>
+                            <div><strong class="text-black">Jornada Fragmentada:</strong> A 99 precisa conectar as pontas manualmente.</div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="p-4 bg-[#F2F2F2] rounded-lg">
+                    <!-- Visual representation of the old flow using HTML boxes -->
+                    <div class="flex justify-between items-center mb-4 text-sm font-semibold">
+                        <div class="text-center p-3 bg-white border rounded-lg shadow-sm">Motorista</div>
+                        <i data-lucide="arrow-right" class="text-gray-400 shrink-0 mx-2"></i>
+                        <div class="text-center p-3 bg-white border rounded-lg shadow-sm">TakeBlip</div>
+                        <i data-lucide="arrow-right" class="text-gray-400 shrink-0 mx-2"></i>
+                        <div class="text-center p-3 bg-blue-100 border-[#2978FF] border rounded-lg shadow-sm">Salesforce</div>
+                    </div>
+                    <div class="flex justify-center items-center my-3 text-gray-800">
+                        <i data-lucide="alert-triangle" class="w-5 h-5 animate-pulse"></i>
+                        <span class="ml-2 font-semibold">Comunicação Manual e Lenta</span>
+                        <i data-lucide="alert-triangle" class="w-5 h-5 animate-pulse ml-2"></i>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-sm text-center font-semibold">
+                        <div class="p-3 bg-white border rounded-lg shadow-sm">
+                            <p>Concessionária</p>
+                            <p class="text-xs text-gray-500 font-normal">(Acionada via WhatsApp)</p>
+                        </div>
+                        <div class="p-3 bg-red-100 border-red-300 border rounded-lg shadow-sm">
+                            <p>Portal Parceiro</p>
+                            <p class="text-xs text-red-600 font-normal">(Baixa adesão)</p>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs mt-4 text-gray-600">Dados e comunicações se perdem entre as plataformas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Slide 4: A Visão -->
+    <section class="slide">
+        <div class="slide-content text-center">
+            <h1 class="text-4xl font-bold text-black mb-6">A Experiência do Futuro, Hoje.</h1>
+            <p class="text-xl text-gray-700 mb-8 max-w-4xl mx-auto">Nossa visão é transformar o fluxo complexo em uma jornada 100% automatizada, inteligente e conversacional, gerenciada de ponta a ponta dentro do Salesforce — utilizando a tecnologia que vocês já possuem.</p>
+             <div class="p-6 bg-[#F2F2F2] rounded-2xl border-2 border-gray-200">
+                <h3 class="text-center text-xl font-bold text-black mb-6">Ecossistema Salesforce Unificado</h3>
+                <div class="flex items-center justify-between">
+                    <!-- Motorista -->
+                    <div class="flex flex-col items-center space-y-2">
+                        <i data-lucide="user-round" class="w-10 h-10 text-gray-700"></i>
+                        <div class="p-2 px-3 bg-white border rounded-lg text-sm font-semibold">Motorista</div>
+                    </div>
+            
+                    <!-- Arrows -->
+                    <div class="flex flex-col items-center px-4">
+                        <span class="text-xs text-[#1DDDBD] font-semibold flex items-center">
+                            WhatsApp
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png" alt="Logo WhatsApp" class="h-4 w-4 ml-1">
+                        </span>
+                        <i data-lucide="arrow-right" class="text-[#1DDDBD] my-1"></i>
+                        <i data-lucide="arrow-left" class="text-[#1DDDBD]"></i>
+                    </div>
+            
+                    <!-- Salesforce Core -->
+                    <div class="flex-grow mx-2 p-4 bg-white/50 rounded-xl border border-gray-300 text-center">
+                        <div class="flex justify-center items-center space-x-6">
+                             <div class="text-center">
+                                <i data-lucide="bot" class="w-10 h-10 text-[#2978FF] mx-auto"></i>
+                                <p class="text-sm font-semibold mt-1">Einstein Bot</p>
+                            </div>
+                            <div class="text-center">
+                                <i data-lucide="messages-square" class="w-10 h-10 text-[#2978FF] mx-auto"></i>
+                                <p class="text-sm font-semibold mt-1">Digital Engagement</p>
+                            </div>
+                             <div class="text-center">
+                                <i data-lucide="layout-dashboard" class="w-10 h-10 text-[#2978FF] mx-auto"></i>
+                                <p class="text-sm font-semibold mt-1">Leads & Dashboards</p>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <!-- Arrows -->
+                    <div class="flex flex-col items-center px-4">
+                         <span class="text-xs text-[#1DDDBD] font-semibold flex items-center">
+                            WhatsApp
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1022px-WhatsApp.svg.png" alt="Logo WhatsApp" class="h-4 w-4 ml-1">
+                        </span>
+                        <i data-lucide="arrow-right" class="text-[#1DDDBD] my-1"></i>
+                        <i data-lucide="arrow-left" class="text-[#1DDDBD]"></i>
+                    </div>
+                    
+                    <!-- Concessionária -->
+                    <div class="flex flex-col items-center space-y-2">
+                        <i data-lucide="building-2" class="w-10 h-10 text-gray-700"></i>
+                        <div class="p-2 px-3 bg-white border rounded-lg text-sm font-semibold">Concessionária</div>
+                    </div>
+                </div>
+            </div>
+            <div class="inline-block bg-[#F2F2F2] text-black text-lg font-semibold px-6 py-3 rounded-full mt-8">
+                Nossa proposta: MVP de alto impacto com <strong>Salesforce Digital Engagement</strong> + <strong>Einstein Bot</strong>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5 & 6: Jornada Motorista + Bastidores SF -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-black">Protótipo da Jornada</h1>
+                <p class="text-lg text-gray-700">A visão do Motorista e a Mágica do Salesforce</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <!-- WhatsApp Mockup -->
+                <div class="flex flex-col items-center space-y-6 justify-center">
+                     <h2 class="text-2xl font-bold text-black mb-4 self-start text-center w-full">1. Conversa Inteligente</h2>
+                    <div class="whatsapp-container">
+                        <div class="whatsapp-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="99 Logo">
+                            <div>
+                                <div class="font-bold">99 app Ofertas</div>
+                                <div class="text-sm opacity-80">online</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-4 space-y-3">
+                            <div class="message received">Olá, João! 🚗💨 Temos uma oferta exclusiva para você, parceiro 5 estrelas da 99: um BYD Dolphin com condições incríveis! Para saber mais e iniciar sua pré-análise de crédito sem compromisso, responda <strong>SIM</strong>.</div>
+                            <div class="message sent">SIM</div>
+                            <div class="message received">Ótimo! Para agilizar, preciso confirmar alguns dados. Seu CPF final 123 ainda é o mesmo?</div>
+                             <div class="message sent">Sim</div>
+                             <div class="message received">Perfeito! E qual o seu e-mail principal?</div>
+                             <div class="message sent">joao.silva@email.com</div>
+                            <div class="message received">Entendido. Já estamos fazendo a pré-análise com nossos parceiros da BYD na sua região. Isso leva só alguns minutos! Te aviso por aqui assim que tivermos a resposta. 😉</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Salesforce Mockup -->
+                <div class="flex flex-col items-center">
+                    <h2 class="text-2xl font-bold text-black mb-4">2. Automação em Tempo Real</h2>
+                     <div class="w-full max-w-md bg-white p-6 rounded-lg shadow-lg border">
+                         <div class="flex items-center justify-between pb-4 border-b">
+                            <h3 class="text-xl font-bold text-black">Lead: João Silva</h3>
+                            <span class="bg-[#F2F2F2] text-black text-xs font-semibold mr-2 px-2.5 py-0.5 rounded-full">Novo</span>
+                        </div>
+                        <div class="py-4">
+                            <p class="text-sm text-gray-500">Campanha</p>
+                            <p class="text-md font-semibold text-gray-700 flex items-center">
+                                BYD Car Sales
+                                <img src="https://images.seeklogo.com/logo-png/54/2/byd-logo-png_seeklogo-546145.png" alt="Logo BYD" class="h-4 ml-2">
+                            </p>
+                        </div>
+                        <div class="py-4 border-t">
+                            <p class="text-sm text-gray-500 mb-2">Status do Funil</p>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-[#2978FF] h-2.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <p class="text-center text-sm font-medium text-[#2978FF] mt-1">Pré-Análise de Crédito</p>
+                        </div>
+                        <div class="py-4 border-t">
+                            <p class="text-sm text-gray-500">Detalhes</p>
+                            <p class="text-md text-gray-700">CPF Final: ***.***.123-**</p>
+                            <p class="text-md text-gray-700">Email: joao.silva@email.com</p>
+                        </div>
+                     </div>
+                     <p class="text-center text-gray-700 mt-4 max-w-md">Em paralelo, o Einstein Bot cria o Lead no Salesforce, preenche os dados e inicia a próxima etapa do fluxo automaticamente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7 & 8: Jornada Concessionária + Agendamento -->
+    <section class="slide">
+        <div class="slide-content">
+             <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-black">Fechando o Loop da Comunicação</h1>
+                <p class="text-lg text-gray-700">Engajando a concessionária e o motorista para o próximo passo</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 items-start">
+                <!-- WhatsApp Mockup Concessionária -->
+                <div class="flex flex-col items-center">
+                     <h2 class="text-2xl font-bold text-black mb-4">3. Contato com a Concessionária</h2>
+                    <div class="whatsapp-container">
+                        <div class="whatsapp-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
+                            <div>
+                                <div class="font-bold">Canal Parceiros 99</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-4 space-y-3">
+                            <div class="message received">Olá! Temos um novo Lead qualificado da campanha 99 Car Sales: <strong>João Silva</strong>, CPF final 123. Ele está interessado no BYD Dolphin.</div>
+                            <div class="message received">Por favor, realize a consulta de crédito e nos informe o resultado.</div>
+                            <div class="message sent">Crédito Aprovado.</div>
+                            <div class="message received">Excelente! A informação já foi registrada no Salesforce. Vamos prosseguir com o agendamento do test drive com o cliente. Obrigado!</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- WhatsApp Mockup Motorista Agendamento -->
+                <div class="flex flex-col items-center">
+                    <h2 class="text-2xl font-bold text-black mb-4">4. Agendamento Simplificado</h2>
+                     <div class="whatsapp-container">
+                        <div class="whatsapp-header">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2b/99logo.png" alt="Parceiros 99 Logo">
+                            <div>
+                                <div class="font-bold">Canal Parceiros 99</div>
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-4 space-y-3">
+                            <div class="message received">Crédito do João Silva aprovado. O motorista solicitou o test drive para <strong>Sábado de manhã</strong>.</div>
+                            <div class="message received">Para facilitar, todos os agendamentos da parceria 99 estão centralizados na planilha online. Acesse aqui: <a href="#" class="text-[#2978FF] underline">planilhas.99.com/byd-agenda</a></div>
+                        </div>
+                    </div>
+                    <p class="text-center text-gray-700 mt-4 max-w-md">Para garantir 100% de adesão, o agendamento é enviado via WhatsApp com um link para uma planilha online, ferramenta que o parceiro já conhece e utiliza.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Acompanhamento Inteligente -->
+    <section class="slide">
+        <div class="slide-content text-center">
+            <h1 class="text-4xl font-bold text-black mb-6">Nunca Mais Perca um Lead Quente</h1>
+            <p class="text-xl text-gray-700 mb-8">Com uma régua de acompanhamento inteligente, o sistema age sozinho para garantir que nenhuma oportunidade seja perdida.</p>
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="bg-[#F2F2F2] p-6 rounded-lg border">
+                    <div class="flex items-center mb-3">
+                        <i data-lucide="calendar-clock" class="w-8 h-8 text-[#2978FF] mr-3"></i>
+                        <h3 class="text-xl font-bold text-black">Lembretes</h3>
+                    </div>
+                    <p class="text-gray-700">"Olá, João! Só lembrando do seu test drive amanhã às 15h."</p>
+                </div>
+                <div class="bg-[#F2F2F2] p-6 rounded-lg border">
+                    <div class="flex items-center mb-3">
+                        <i data-lucide="clipboard-check" class="w-8 h-8 text-[#1DDDBD] mr-3"></i>
+                        <h3 class="text-xl font-bold text-black">Follow-up</h3>
+                    </div>
+                    <p class="text-gray-700">"Olá, [Gerente BYD]. Gostaríamos de confirmar se o test drive do João Silva aconteceu." Se "Não", o bot pode tentar reagendar.</p>
+                </div>
+                <div class="bg-[#F2F2F2] p-6 rounded-lg border">
+                    <div class="flex items-center mb-3">
+                         <i data-lucide="shopping-cart" class="w-8 h-8 text-black mr-3"></i>
+                        <h3 class="text-xl font-bold text-black">Carrinho Abandonado</h3>
+                    </div>
+                    <p class="text-gray-700">"João, vimos que não conseguiu agendar. Que tal ver um vídeo do carro em ação?"</p>
+                </div>
+            </div>
+            <p class="mt-8 text-lg text-gray-800 font-semibold">Tudo isso é configurado uma vez e o Salesforce executa para sempre.</p>
+        </div>
+    </section>
+
+    <!-- Slide 10: Dashboard -->
+    <section class="slide">
+        <div class="slide-content">
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-black">Visão 360° para a 99</h1>
+                <p class="text-lg text-gray-700">Tenha uma visão completa e em tempo real da sua operação para tomar decisões baseadas em dados.</p>
+            </div>
+            <div class="dashboard-grid">
+                <!-- Card 1: Funil de Vendas -->
+                <div class="dashboard-card col-span-1 md:col-span-2">
+                    <h3 class="font-bold text-lg mb-4 text-black">Funil de Vendas: Car Sales</h3>
+                    <div class="space-y-2">
+                        <div class="funnel-stage"><span class="text-gray-700">Leads Contatados</span><span class="font-bold text-black">1.200</span></div>
+                        <div class="funnel-stage"><span class="text-gray-700">Crédito Aprovado</span><span class="font-bold text-black">750</span></div>
+                        <div class="funnel-stage"><span class="text-gray-700">Test Drive Agendado</span><span class="font-bold text-black">400</span></div>
+                        <div class="funnel-stage border-none"><span class="text-gray-700">Venda Realizada</span><span class="font-bold text-[#1DDDBD] text-lg">80</span></div>
+                    </div>
+                </div>
+                <!-- Card 2: Taxa de Conversão -->
+                <div class="dashboard-card">
+                     <h3 class="font-bold text-lg mb-4 text-black">Taxa de Conversão</h3>
+                     <img src="https://placehold.co/400x200/F2F2F2/2978FF?text=Gr%C3%A1fico+de+Funil" alt="Gráfico de funil" class="rounded-md w-full h-auto object-cover">
+                </div>
+                <!-- Card 3: Performance -->
+                <div class="dashboard-card">
+                    <h3 class="font-bold text-lg mb-4 text-black">Performance por Concessionária</h3>
+                    <img src="https://placehold.co/400x200/F2F2F2/1DDDBD?text=Gr%C3%A1fico+de+Barras" alt="Gráfico de barras" class="rounded-md w-full h-auto object-cover">
+                </div>
+                 <!-- Card 4: Canal WhatsApp -->
+                <div class="dashboard-card col-span-1 md:col-span-2">
+                    <h3 class="font-bold text-lg mb-4 text-black">Monitoramento do Canal WhatsApp</h3>
+                    <div class="flex justify-around text-center">
+                        <div>
+                            <p class="text-3xl font-bold text-[#2978FF]">5.6k</p>
+                            <p class="text-sm text-gray-500">Conversas Iniciadas</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-[#2978FF]">&lt; 1 min</p>
+                            <p class="text-sm text-gray-500">Tempo de 1ª Resposta</p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-[#2978FF]">95%</p>
+                            <p class="text-sm text-gray-500">Resolução pelo Bot</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Roadmap -->
+    <section class="slide">
+        <div class="slide-content">
+            <h1 class="text-4xl font-bold text-black mb-8 text-center">Uma Jornada de Evolução Contínua</h1>
+            <!-- Timeline -->
+            <div class="relative">
+                <!-- Line -->
+                <div class="absolute left-1/2 -translate-x-1/2 h-full w-1 bg-gray-200 rounded"></div>
+                <!-- Item 1: MVP -->
+                <div class="relative mb-12">
+                    <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-[#2978FF] rounded-full border-4 border-white"></div>
+                    <div class="ml-auto w-[calc(50%-2rem)] bg-[#F2F2F2] p-6 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-black mb-2">Fase 1 (MVP) - Hoje</h2>
+                        <p class="mb-2 text-gray-700"><strong>Tecnologia:</strong> Digital Engagement + Einstein Bot.</p>
+                        <p class="mb-2 text-gray-700"><strong>Entrega:</strong> Automação completa do fluxo, dashboards em tempo real, eliminação do trabalho manual.</p>
+                        <p class="font-bold text-[#2978FF]">Valor: ROI imediato com redução de custos e aumento da velocidade de vendas.</p>
+                    </div>
+                </div>
+                <!-- Item 2: Evolução -->
+                 <div class="relative">
+                    <div class="absolute left-1/2 -translate-x-1/2 w-8 h-8 bg-gray-400 rounded-full border-4 border-white"></div>
+                    <div class="mr-auto w-[calc(50%-2rem)] bg-gray-100 p-6 rounded-lg shadow-md text-right">
+                        <h2 class="text-2xl font-bold text-black mb-2">Fase 2 (Evolução)</h2>
+                        <p class="mb-2 text-gray-700"><strong>Tecnologia:</strong> Agent Force.</p>
+                        <p class="mb-2 text-gray-700"><strong>Entrega:</strong> Conversas mais naturais e humanas, com escalonamento transparente para agentes.</p>
+                        <p class="font-bold text-black">Valor: Aumento ainda maior na satisfação e conversão.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Por que a C3C -->
+    <section class="slide">
+        <div class="slide-content">
+            <h1 class="text-4xl font-bold text-black mb-8 text-center">Acelerando Seus Resultados com Quem Entende do Seu Negócio</h1>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="bg-[#F2F2F2] p-6 rounded-lg flex items-center">
+                    <i data-lucide="maximize" class="w-12 h-12 text-[#1DDDBD] mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-black">Maximizamos Seu Investimento</h3>
+                        <p class="text-gray-700">Usamos a plataforma que vocês já têm. Sem custos de novas licenças para o MVP.</p>
+                    </div>
+                </div>
+                 <div class="bg-[#F2F2F2] p-6 rounded-lg flex items-center">
+                    <i data-lucide="rocket" class="w-12 h-12 text-[#2978FF] mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-black">Velocidade e Agilidade</h3>
+                        <p class="text-gray-700">Entregamos valor em semanas, não em meses.</p>
+                    </div>
+                </div>
+                 <div class="bg-[#F2F2F2] p-6 rounded-lg flex items-center">
+                    <i data-lucide="award" class="w-12 h-12 text-black mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-black">Expertise Comprovada</h3>
+                        <p class="text-gray-700">Conhecemos o Salesforce e o negócio de vocês.</p>
+                    </div>
+                </div>
+                 <div class="bg-[#F2F2F2] p-6 rounded-lg flex items-center">
+                    <i data-lucide="target" class="w-12 h-12 text-black mr-6"></i>
+                    <div>
+                        <h3 class="text-xl font-bold text-black">Foco no Resultado</h3>
+                        <p class="text-gray-700">Nosso objetivo é resolver um problema de negócio e impulsionar seus indicadores.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 13: Próximos Passos -->
+    <section class="slide">
+        <div class="slide-content text-center">
+            <h1 class="text-4xl font-bold text-black mb-8">Próximos Passos</h1>
+            <p class="text-xl text-gray-700 mb-10">Propomos um plano de ação claro para transformar a operação de Car Sales e entregar resultados rapidamente.</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-8 md:space-y-0 md:space-x-8">
+                <div class="text-center">
+                    <div class="bg-[#F2F2F2] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4"><i data-lucide="users-2" class="w-12 h-12 text-[#2978FF]"></i></div>
+                    <h3 class="text-xl font-bold">1. Workshop de Co-criação</h3>
+                    <p class="text-gray-500">Sessão para aprofundar no fluxo.</p>
+                </div>
+                 <div class="text-center">
+                    <div class="bg-[#F2F2F2] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4"><i data-lucide="file-text" class="w-12 h-12 text-[#2978FF]"></i></div>
+                    <h3 class="text-xl font-bold">2. Proposta Técnica e Comercial</h3>
+                    <p class="text-gray-500">Plano de projeto detalhado.</p>
+                </div>
+                 <div class="text-center">
+                    <div class="bg-[#F2F2F2] rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4"><i data-lucide="play-circle" class="w-12 h-12 text-[#2978FF]"></i></div>
+                    <h3 class="text-xl font-bold">3. Início do Projeto</h3>
+                    <p class="text-gray-500">Vamos juntos transformar a operação.</p>
+                </div>
+            </div>
+            <h2 class="mt-16 text-3xl font-bold text-black">Estamos prontos para começar. Perguntas?</h2>
+        </div>
+    </section>
+
+    <!-- Navigation -->
+    <button id="prevBtn" class="nav-button">
+        <i data-lucide="arrow-left"></i>
+    </button>
+    <button id="nextBtn" class="nav-button">
+        <i data-lucide="arrow-right"></i>
+    </button>
+    <div id="progressBar" class="progress-bar"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progressBar = document.getElementById('progressBar');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+
+                // Update progress bar
+                const progress = ((index + 1) / slides.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Update button states
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === slides.length - 1;
+
+                currentSlide = index;
+            }
+
+            function next() {
+                if (currentSlide < slides.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            }
+
+            function prev() {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            }
+
+            nextBtn.addEventListener('click', next);
+            prevBtn.addEventListener('click', prev);
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    next();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                     e.preventDefault();
+                    prev();
+                }
+            });
+            
+            // Touch controls
+            let touchstartX = 0;
+            let touchendX = 0;
+                
+            function handleGesture() {
+                if (touchendX < touchstartX) next();
+                if (touchendX > touchstartX) prev();
+            }
+
+            document.body.addEventListener('touchstart', e => {
+                touchstartX = e.changedTouches[0].screenX;
+            });
+
+            document.body.addEventListener('touchend', e => {
+                touchendX = e.changedTouches[0].screenX;
+                handleGesture();
+            });
+
+            // Initialize lucide icons
+            lucide.createIcons();
+
+            // Initial setup
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
+
