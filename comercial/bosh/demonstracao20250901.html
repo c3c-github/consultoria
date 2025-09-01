@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação Salesforce para Bosch Agronegócio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'c3c-primary': '#1DDDBD',
+              'c3c-secondary': '#2978FF',
+              'c3c-light': '#F2F2F2',
+              'c3c-white': '#FFFFFF',
+              'c3c-dark': '#000000',
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            background-color: #F2F2F2;
+            color: #000000;
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(0.95);
+        }
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 8px;
+            background-color: #1DDDBD;
+            transition: width 0.3s ease-out;
+            z-index: 10;
+        }
+        
+        .nav-button {
+            position: fixed;
+            bottom: 2rem;
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 3rem;
+            height: 3rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+        .nav-button:hover {
+            background-color: rgba(29, 221, 189, 0.8);
+        }
+        .prev { left: 2rem; }
+        .next { right: 2rem; }
+        
+        .slide-counter {
+            position: fixed;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 99px;
+            font-size: 0.9rem;
+            z-index: 10;
+        }
+
+        /* Estilo para diagramas */
+        .silo-diagram { display: flex; gap: 1rem; justify-content: center; align-items: center; }
+        .silo { border: 2px solid #ccc; padding: 1rem 1.5rem; border-radius: 0.5rem; background-color: #f9fafb; }
+        .arrow { font-size: 2rem; color: #1DDDBD; font-weight: bold; }
+        .broken-arrow::after { content: '...'; letter-spacing: 0.5rem; color: #cc0000; }
+        .connected-arrow { color: #1DDDBD; }
+        
+        /* Banner styles */
+        .banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.bosch.com.br/media/products_and_services/agronegocio_1/garantia/lzp_5897_res_1280x720.webp');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(242, 242, 242, 0.85); /* c3c-light com opacidade */
+            backdrop-filter: blur(4px);
+            z-index: 0;
+        }
+        .slide-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-c3c-light text-c3c-dark">
+
+    <!-- SLIDES CONTAINER -->
+    <main id="presentation-container">
+
+        <!-- Slide 1: Título -->
+        <section class="slide active">
+            <div class="banner-bg"></div>
+            <div class="banner-overlay"></div>
+            <div class="text-center slide-content">
+                 <div class="flex justify-center items-center gap-6 mb-8">
+                    <!-- Logos -->
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Bosch-logo.svg/1280px-Bosch-logo.svg.png" alt="Logo Bosch" class="h-8">
+                    <span class="text-gray-400 text-4xl font-light">+</span>
+                    <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-14">
+                    <span class="text-gray-400 text-4xl font-light">+</span>
+                    <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Logo Salesforce Partner" class="h-16">
+                </div>
+                <h1 class="text-5xl md:text-6xl font-black text-c3c-dark mb-4">Jornada 360° no Campo</h1>
+                <p class="text-2xl md:text-3xl text-gray-700">Conectando a <span class="font-bold">Bosch</span>, Concessionárias e o Agricultor com <span class="font-bold text-c3c-secondary">Salesforce</span>.</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: Agenda -->
+        <section class="slide">
+            <div class="card w-full max-w-3xl">
+                <h2 class="text-4xl font-bold mb-8">Agenda</h2>
+                <ul class="text-left text-xl space-y-4">
+                    <li class="flex items-center"><span class="text-2xl mr-4 text-c3c-primary font-bold">1.</span> O Cenário Atual e o Desafio</li>
+                    <li class="flex items-center"><span class="text-2xl mr-4 text-c3c-primary font-bold">2.</span> A Jornada Conectada: Do Marketing ao Pós-Venda</li>
+                    <li class="flex items-center"><span class="text-2xl mr-4 text-c3c-primary font-bold">3.</span> Demonstração ao Vivo: A Plataforma em Ação</li>
+                    <li class="flex items-center"><span class="text-2xl mr-4 text-c3c-primary font-bold">4.</span> A Visão Unificada e os Benefícios</li>
+                    <li class="flex items-center"><span class="text-2xl mr-4 text-c3c-primary font-bold">5.</span> Próximos Passos</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 3: Cenário Atual -->
+        
+        <!-- Slide 4: Proposta -->
+        <section class="slide">
+            <div class="card w-full max-w-5xl text-center">
+                <h2 class="text-4xl font-bold mb-2">A Nossa Proposta</h2>
+                <p class="text-xl text-gray-600 mb-8">Um Ecossistema Conectado com o Cliente no Centro</p>
+                 <div class="silo-diagram items-center justify-center flex-wrap">
+                    <div class="silo">Marketing</div>
+                    <div class="arrow connected-arrow">➔</div>
+                    <div class="silo font-bold text-c3c-secondary border-c3c-secondary border-2">Cliente 360</div>
+                    <div class="arrow connected-arrow">➔</div>
+                    <div class="silo">Concessionária</div>
+                 </div>
+                 <div class="text-center text-3xl font-bold my-4 text-c3c-primary">↑↓</div>
+                 <div class="silo-diagram items-center justify-center flex-wrap">
+                    <div class="silo">Vendas Bosch</div>
+                    <div class="arrow connected-arrow">➔</div>
+                    <div class="silo">Pós-Venda</div>
+                 </div>
+                 <p class="mt-8 text-lg">Uma plataforma única para uma visão completa e interações inteligentes em tempo real.</p>
+            </div>
+        </section>
+
+        <!-- Slide 5: Personas -->
+        <section class="slide">
+            <div class="text-center w-full max-w-5xl">
+                <h2 class="text-4xl font-bold mb-8">As Personas da Nossa História</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card">
+                        <img src="https://placehold.co/150x150/EBF4FF/333?text=Andr%C3%A9" class="mx-auto rounded-full mb-4 border-4 border-gray-200">
+                        <h3 class="text-2xl font-bold">André, o Agricultor</h3>
+                        <p class="text-gray-600">Busca otimizar sua produção com tecnologia de ponta.</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://placehold.co/150x150/FFF0F0/333?text=Beatriz" class="mx-auto rounded-full mb-4 border-4 border-gray-200">
+                        <h3 class="text-2xl font-bold">Beatriz, a Vendedora</h3>
+                        <p class="text-gray-600">Precisa de leads qualificados para atingir suas metas na concessionária.</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://placehold.co/150x150/F0F9FF/333?text=Ricardo" class="mx-auto rounded-full mb-4 border-4 border-gray-200">
+                        <h3 class="text-2xl font-bold">Ricardo, o Gerente Bosch</h3>
+                        <p class="text-gray-600">Busca previsibilidade de vendas e performance do canal.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: DEMO 1 - Marketing -->
+        <section class="slide">
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-c3c-primary uppercase tracking-wider">Etapa 1: Marketing</h3>
+                <h2 class="text-5xl font-black my-4">Geração de Demanda Inteligente</h2>
+                <div class="my-10 p-10 border-4 border-dashed border-gray-300 rounded-2xl bg-white">
+                    <h4 class="text-2xl font-bold text-gray-700">-- DEMONSTRAÇÃO AO VIVO --</h4>
+                    <p class="text-lg text-gray-500 mt-2">Marketing Cloud em ação: Jornada do Cliente Automatizada</p>
+                </div>
+                <p class="text-xl max-w-2xl mx-auto"><strong>Valor para a Bosch:</strong> Medição de ROI de marketing e criação de um canal direto com o consumidor final.</p>
+            </div>
+        </section>
+
+        <!-- Slide 7: DEMO 2 - Conexão -->
+        <section class="slide">
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-c3c-primary uppercase tracking-wider">Etapa 2: Conexão</h3>
+                <h2 class="text-5xl font-black my-4">O Lead Certo para o Parceiro Certo</h2>
+                <div class="my-10 p-10 border-4 border-dashed border-gray-300 rounded-2xl bg-white">
+                    <h4 class="text-2xl font-bold text-gray-700">-- DEMONSTRAÇÃO AO VIVO --</h4>
+                    <p class="text-lg text-gray-500 mt-2">Sales Cloud + Experience Cloud: Roteamento e Portal de Parceiros</p>
+                </div>
+                <p class="text-xl max-w-2xl mx-auto"><strong>Valor para a Bosch:</strong> Fim da perda de leads, agilidade no atendimento e fortalecimento da parceria.</p>
+            </div>
+        </section>
+        
+        <!-- Slide 8: DEMO 3 - Vendas -->
+        <section class="slide">
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-c3c-primary uppercase tracking-wider">Etapa 3: Vendas</h3>
+                <h2 class="text-5xl font-black my-4">Visibilidade Total do Funil B2B2C</h2>
+                <div class="my-10 p-10 border-4 border-dashed border-gray-300 rounded-2xl bg-white">
+                    <h4 class="text-2xl font-bold text-gray-700">-- DEMONSTRAÇÃO AO VIVO --</h4>
+                    <p class="text-lg text-gray-500 mt-2">Sales Cloud: Oportunidades e Dashboards Gerenciais</p>
+                </div>
+                <p class="text-xl max-w-2xl mx-auto"><strong>Valor para a Bosch:</strong> Previsibilidade de receita e inteligência de mercado em tempo real.</p>
+            </div>
+        </section>
+
+        <!-- Slide 9: DEMO 4 - Pós-Venda -->
+        <section class="slide">
+            <div class="text-center">
+                <h3 class="text-xl font-bold text-c3c-primary uppercase tracking-wider">Etapa 4: Pós-Venda</h3>
+                <h2 class="text-5xl font-black my-4">Fidelização e Suporte de Excelência</h2>
+                <div class="my-10 p-10 border-4 border-dashed border-gray-300 rounded-2xl bg-white">
+                    <h4 class="text-2xl font-bold text-gray-700">-- DEMONSTRAÇÃO AO VIVO --</h4>
+                    <p class="text-lg text-gray-500 mt-2">Service Cloud: Visão 360° no Atendimento</p>
+                </div>
+                <p class="text-xl max-w-2xl mx-auto"><strong>Valor para a Bosch:</strong> Aumento da satisfação do cliente (CSAT), fidelização e insights sobre produtos.</p>
+            </div>
+        </section>
+
+        <!-- Slide 10: Plataforma Unificada -->
+        <section class="slide">
+            <div class="card w-full max-w-4xl text-center">
+                <h2 class="text-4xl font-bold mb-8">A Plataforma Unificada: Salesforce Customer 360</h2>
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-48 h-48 bg-c3c-secondary rounded-full flex flex-col items-center justify-center text-white p-4">
+                            <span class="text-2xl font-bold">Cliente</span>
+                            <span>(Fonte da Verdade)</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-x-32 gap-y-16 text-lg font-bold">
+                        <div class="p-4 bg-white/70 rounded-lg shadow-lg text-right">Marketing</div>
+                        <div class="p-4 bg-white/70 rounded-lg shadow-lg text-left">Vendas</div>
+                        <div class="p-4 bg-white/70 rounded-lg shadow-lg text-right">Parceiros</div>
+                        <div class="p-4 bg-white/70 rounded-lg shadow-lg text-left">Atendimento</div>
+                    </div>
+                </div>
+                <p class="mt-12 text-lg">Uma única fonte da verdade para uma experiência consistente e inteligente em toda a jornada.</p>
+            </div>
+        </section>
+
+        <!-- Slide 11: Benefícios -->
+        <section class="slide">
+            <div class="card w-full max-w-3xl">
+                <h2 class="text-4xl font-bold mb-8">Resumo dos Benefícios</h2>
+                <ul class="text-left text-xl space-y-4">
+                    <li class="flex items-start"><span class="text-2xl mr-4 text-c3c-primary">✓</span> <strong>Visão 360° do Cliente e do Parceiro</strong></li>
+                    <li class="flex items-start"><span class="text-2xl mr-4 text-c3c-primary">✓</span> <strong>Aumento da Geração de Leads Qualificados</strong></li>
+                    <li class="flex items-start"><span class="text-2xl mr-4 text-c3c-primary">✓</span> <strong>Previsibilidade e Acuracidade nas Vendas</strong></li>
+                    <li class="flex items-start"><span class="text-2xl mr-4 text-c3c-primary">✓</span> <strong>Fortalecimento e Padronização do Canal de Vendas</strong></li>
+                    <li class="flex items-start"><span class="text-2xl mr-4 text-c3c-primary">✓</span> <strong>Excelência e Eficiência no Atendimento Pós-Venda</strong></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Slide 12: Próximos Passos -->
+        
+        <!-- Slide 13: Obrigado -->
+        <section class="slide">
+            <div class="text-center">
+                <h2 class="text-6xl font-black text-c3c-dark mb-4">Obrigado!</h2>
+                <p class="text-3xl text-gray-700 mb-10">Perguntas?</p>
+                <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-20 mx-auto">
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- CONTROLS -->
+    <div class="progress-bar" id="progress-bar"></div>
+    <div class="slide-counter" id="slide-counter">1 / 11</div>
+    <button class="nav-button prev" id="prev-btn" title="Slide Anterior (←)">&#8592;</button>
+    <button class="nav-button next" id="next-btn" title="Próximo Slide (→)">&#8594;</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const progressBar = document.getElementById('progress-bar');
+            const slideCounter = document.getElementById('slide-counter');
+
+            let currentSlideIndex = 0;
+            const totalSlides = slides.length;
+
+            function showSlide(index) {
+                // Remove a classe 'active' de todos os slides
+                slides.forEach((slide, i) => {
+                    slide.classList.remove('active');
+                });
+
+                // Adiciona a classe 'active' ao slide atual
+                slides[index].classList.add('active');
+
+                // Atualiza a barra de progresso
+                const progress = ((index + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progress}%`;
+                
+                // Atualiza o contador de slides
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+
+                // Esconde/mostra botões de navegação
+                prevBtn.style.display = index === 0 ? 'none' : 'flex';
+                nextBtn.style.display = index === totalSlides - 1 ? 'none' : 'flex';
+            }
+
+            function nextSlide() {
+                if (currentSlideIndex < totalSlides - 1) {
+                    currentSlideIndex++;
+                    showSlide(currentSlideIndex);
+                }
+            }
+
+            function prevSlide() {
+                if (currentSlideIndex > 0) {
+                    currentSlideIndex--;
+                    showSlide(currentSlideIndex);
+                }
+            }
+
+            // Event Listeners para os botões
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+
+            // Event Listeners para o teclado (setas)
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight' || event.key === ' ') { // Barra de espaço também avança
+                    nextSlide();
+                } else if (event.key === 'ArrowLeft') {
+                    prevSlide();
+                }
+            });
+
+            // Inicializa a apresentação
+            showSlide(currentSlideIndex);
+        });
+    </script>
+</body>
+</html>
+
+
