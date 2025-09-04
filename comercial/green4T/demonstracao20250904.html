@@ -1,451 +1,376 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apresentação: Green4T & Salesforce</title>
-    
-    <!-- TailwindCSS para estilização rápida -->
+    <title>Evolução Salesforce para Green4T | Apresentação C3C Software</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Phosphor Icons para iconografia moderna -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <!-- Google Fonts: Inter -->
+    <!-- Importa a fonte Montserrat do Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* Estilos base para a apresentação */
+        /* Aplica a nova identidade visual da C3C Software */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* Fundo cinza claro */
-            color: #1e293b; /* Texto escuro */
-            overflow: hidden; /* Evita barras de rolagem */
+            font-family: 'Montserrat', sans-serif;
+            background-color: #F2F2F2; /* Cor de fundo principal */
+            color: #000000; /* Cor de texto principal */
+            overflow: hidden; /* Previne barras de rolagem indesejadas */
         }
 
         #presentation-container {
-            width: 100vw;
+            display: flex; /* Essencial para o layout dos slides em linha */
+            width: 100%;
             height: 100vh;
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.5s ease-in-out; /* Animação de transição */
         }
 
         .slide {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
+            flex-shrink: 0; /* Impede que os slides encolham */
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 4rem 2rem;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateX(20px);
-            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, visibility 0.5s;
-            background-color: #f0f4f8;
+            padding: 2rem 5rem;
+            box-sizing: border-box;
+            opacity: 0; /* Começa invisível para a transição de fade */
+            transform: scale(0.98);
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1; /* Slide ativo fica visível */
+            transform: scale(1);
+        }
+
+        /* Hierarquia de Títulos */
+        .slide-title {
+            color: #2978FF; /* Azul C3C para títulos principais */
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+        }
+
+        .slide-subtitle {
+            color: #1DDDBD; /* Verde-azulado C3C para subtítulos */
+            font-size: 1.5rem;
+            font-weight: 500;
         }
         
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(0);
+        .slide-heading {
+             color: #2978FF;
+             font-size: 2.5rem;
+             font-weight: 700;
+             margin-bottom: 0.5rem;
         }
 
-        /* Estilos personalizados para elementos dos slides */
-        .slide-title {
-            @apply text-4xl md:text-5xl font-bold text-slate-800 mb-4 text-center;
-        }
-        .slide-subtitle {
-            @apply text-xl md:text-2xl text-slate-600 mb-8 text-center;
-        }
         .slide-content {
-            @apply w-full max-w-5xl;
+            width: 100%;
+            max-width: 6xl;
         }
-
-        /* Cores inspiradas nas marcas */
-        .g4t-green { color: #00a651; }
-        .salesforce-blue { color: #00a1e0; }
-
-        /* Estilos para a navegação - removido pois será aplicado diretamente */
         
         #progress-bar {
-            @apply fixed bottom-0 left-0 h-1.5 bg-green-500 transition-all duration-300 ease-linear z-20;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            height: 6px;
+            background-color: #1DDDBD; /* Cor de destaque C3C */
+            transition: width 0.3s ease-linear;
+            z-index: 20;
         }
 
-        /* Estilos para diagramas */
         .diagram-box {
-            @apply bg-white p-6 rounded-xl shadow-md text-center flex flex-col items-center justify-center;
+            background-color: #FFFFFF;
+            border-left-width: 4px;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
         }
-        .diagram-arrow {
-            @apply text-3xl text-slate-400 mx-4;
+
+        .phase-timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background-color: #E0E0E0;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            border: 4px solid #2978FF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
-<body class="antialiased">
-
+<body class="w-screen h-screen">
     <div id="presentation-container">
         <!-- Slide 1: Título -->
-        <section class="slide active">
+        <section class="slide">
             <div class="text-center">
                 <div class="flex justify-center items-center gap-8 mb-12">
-                     <img src="https://placehold.co/200x60/00a651/FFFFFF?text=Green4T" alt="Logo Green4T" class="h-12 md:h-16">
-                     <span class="text-3xl font-light text-slate-300">+</span>
-                     <img src="https://placehold.co/200x60/00a1e0/FFFFFF?text=Salesforce" alt="Logo Salesforce" class="h-12 md:h-16">
+                     <img src="https://www.green4t.com/wp-content/uploads/2021/10/logo-green4t.svg" alt="Logo Green4T" class="h-12 md:h-16">
+                     <span class="text-3xl font-light text-black/30">&</span>
+                     <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-12 md:h-16">
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-slate-800 tracking-tight">Acelerando o Futuro:</h1>
-                <p class="slide-subtitle mt-4">Uma Jornada 360° para a Green4T com Salesforce</p>
-                <p class="text-slate-500">Apresentado por C3C Software</p>
+                <h1 class="slide-title">Evolução Salesforce:</h1>
+                <p class="slide-subtitle mt-2">Do Contrato à Execução: Potencializando a Excelência Operacional da Green4T</p>
+                <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Logo Salesforce Partner" class="h-16 md:h-20 mx-auto mt-8">
             </div>
         </section>
 
-        <!-- Slide 2: Visão Executiva -->
+        <!-- Slide 2: Ponto de Partida e Visão (COM MOCKUP) -->
         <section class="slide">
-            <h1 class="slide-title">De Funções Isoladas a um Ecossistema Inteligente</h1>
-            <p class="slide-subtitle">O desafio é transformar silos em sinergia.</p>
-            <div class="slide-content flex flex-col md:flex-row items-center justify-center gap-4 mt-8">
-                <!-- Estado "Antes" -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="diagram-box"><i class="ph ph-projector-screen-chart text-4xl g4t-green"></i><span class="mt-2 font-semibold">Marketing</span></div>
-                    <div class="diagram-box"><i class="ph ph-chart-line-up text-4xl salesforce-blue"></i><span class="mt-2 font-semibold">Vendas</span></div>
-                    <div class="diagram-box"><i class="ph ph-wrench text-4xl text-slate-500"></i><span class="mt-2 font-semibold">Operações</span></div>
-                    <div class="diagram-box"><i class="ph ph-headset text-4xl text-slate-500"></i><span class="mt-2 font-semibold">Pós-Venda</span></div>
-                </div>
-                
-                <i class="ph-bold ph-arrow-right diagram-arrow my-8 md:my-0"></i>
-
-                <!-- Estado "Depois" -->
-                <div class="relative w-64 h-64 flex items-center justify-center">
-                    <div class="absolute w-full h-full border-2 border-dashed border-green-400 rounded-full animate-spin [animation-duration:20s]"></div>
-                    <div class="absolute w-48 h-48 border-2 border-dashed border-blue-400 rounded-full animate-spin [animation-duration:15s] [animation-direction:reverse]"></div>
-                    <div class="z-10 bg-white p-8 rounded-full shadow-2xl">
-                        <i class="ph-bold ph-user-focus text-6xl salesforce-blue"></i>
-                        <p class="font-bold text-center mt-2">Cliente 360</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 3: A Jornada da "FutureCorp" -->
-        <section class="slide">
-            <h1 class="slide-title">Apresentando a Jornada do Cliente</h1>
-            <p class="slide-subtitle">Vamos acompanhar a <span class="font-bold text-slate-700">"FutureCorp"</span>, uma líder global de manufatura.</p>
-            <div class="slide-content grid md:grid-cols-3 gap-8 mt-8 text-center">
-                <div class="diagram-box">
-                    <i class="ph-bold ph-factory text-5xl g4t-green"></i>
-                    <h3 class="font-bold text-xl mt-4">Quem?</h3>
-                    <p class="text-slate-600 mt-2">Uma empresa que busca modernizar sua infraestrutura digital para a Indústria 4.0.</p>
-                </div>
-                <div class="diagram-box">
-                    <i class="ph-bold ph-leaf text-5xl g4t-green"></i>
-                    <h3 class="font-bold text-xl mt-4">A Necessidade?</h3>
-                    <p class="text-slate-600 mt-2">Um novo data center de alta eficiência e carbono zero.</p>
-                </div>
-                <div class="diagram-box">
-                    <i class="ph-bold ph-handshake text-5xl salesforce-blue"></i>
-                    <h3 class="font-bold text-xl mt-4">O Objetivo?</h3>
-                    <p class="text-slate-600 mt-2">Encontrar um parceiro estratégico que possa entregar essa visão complexa.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 4: Fase 1 - Marketing -->
-        <section class="slide">
-            <h1 class="slide-title">Fase 1: Engajamento Inteligente</h1>
-            <p class="slide-subtitle">Transformando Marketing em um motor de demanda de precisão com <span class="font-bold salesforce-blue">Marketing Cloud</span>.</p>
-            <div class="slide-content flex items-center justify-center gap-4 bg-white p-8 rounded-xl shadow-lg">
-                <div class="flex flex-col gap-4 text-center basis-1/3">
-                    <div class="p-4 border rounded-lg"><i class="ph ph-file-text text-2xl g4t-green inline-block mr-2"></i> Whitepaper</div>
-                    <div class="p-4 border rounded-lg"><i class="ph ph-presentation-chart text-2xl g4t-green inline-block mr-2"></i> Webinar</div>
-                    <div class="p-4 border rounded-lg"><i class="ph ph-article text-2xl g4t-green inline-block mr-2"></i> Blog Post</div>
-                </div>
-                <i class="ph-bold ph-arrow-right text-4xl text-slate-300"></i>
-                <div class="basis-1/3 diagram-box bg-blue-50">
-                    <i class="ph-bold ph-arrows-clockwise text-5xl salesforce-blue"></i>
-                    <h3 class="font-bold text-xl mt-4">Jornada de Nutrição</h3>
-                    <p class="text-slate-600 mt-2">E-mails e conteúdos personalizados para educar e engajar a FutureCorp.</p>
-                </div>
-                <i class="ph-bold ph-arrow-right text-4xl text-slate-300"></i>
-                <div class="basis-1/3 diagram-box bg-green-50">
-                    <i class="ph-bold ph-brain text-5xl g4t-green"></i>
-                    <h3 class="font-bold text-xl mt-4">Lead Scoring com IA</h3>
-                    <p class="text-slate-600 mt-2">Einstein identifica o lead de alto potencial e o envia para vendas.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 5: Fase 2 - Vendas -->
-        <section class="slide">
-            <h1 class="slide-title">Fase 2: Acelerando Ciclos Complexos</h1>
-            <p class="slide-subtitle">Inteligência para negociações de alto valor com <span class="font-bold salesforce-blue">Sales Cloud</span> e <span class="font-bold salesforce-blue">CPQ</span>.</p>
-            <div class="slide-content bg-white p-6 rounded-xl shadow-lg flex gap-6">
-                <!-- Painel de Oportunidade -->
-                <div class="w-2/3 border-r pr-6">
-                    <h3 class="font-bold text-lg mb-2">Oportunidade: Data Center FutureCorp</h3>
-                    <div class="bg-slate-100 p-4 rounded-lg">
-                        <div class="flex justify-between items-center">
-                            <span class="font-semibold">Score da Oportunidade (Einstein)</span>
-                            <span class="text-2xl font-bold salesforce-blue">92</span>
-                        </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5 mt-2">
-                            <div class="bg-blue-500 h-2.5 rounded-full" style="width: 92%"></div>
-                        </div>
-                    </div>
-                    <div class="mt-4 bg-amber-100 border-l-4 border-amber-500 text-amber-700 p-4 rounded-r-lg" role="alert">
-                        <p class="font-bold">Insight do Einstein</p>
-                        <p>Nenhum contato com o stakeholder de Finanças nos últimos 20 dias. Considere envolvê-lo.</p>
-                    </div>
-                </div>
-                <!-- CPQ -->
-                <div class="w-1/3">
-                    <h3 class="font-bold text-lg mb-2">Cotação Simplificada (CPQ)</h3>
-                    <div class="flex flex-col gap-2">
-                        <div class="flex items-center bg-green-50 p-2 rounded"><i class="ph ph-buildings text-green-600 mr-2"></i><span>Data Center Modular</span></div>
-                        <div class="flex items-center bg-green-50 p-2 rounded"><i class="ph ph-cloud text-green-600 mr-2"></i><span>Serviços de Cloud</span></div>
-                        <div class="flex items-center bg-green-50 p-2 rounded"><i class="ph ph-shield-check text-green-600 mr-2"></i><span>Suporte Premium</span></div>
-                        <button class="w-full mt-4 bg-green-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-600 transition">Gerar Proposta Profissional</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 6: Fase 3 - Contratos e Onboarding -->
-        <section class="slide">
-             <h1 class="slide-title">Fase 3: Transição Perfeita</h1>
-            <p class="slide-subtitle">Do "Ganhamos!" ao kickoff do projeto, sem perda de informação.</p>
-             <div class="slide-content flex items-center justify-center gap-4 mt-8">
-                 <div class="diagram-box basis-1/4">
-                     <i class="ph-bold ph-trophy text-5xl text-amber-500"></i>
-                     <h3 class="font-bold text-xl mt-4">Oportunidade Ganha</h3>
-                     <p class="text-sm text-slate-500">Vendedor atualiza o status no Sales Cloud.</p>
-                 </div>
-                 <i class="ph-bold ph-arrow-right diagram-arrow"></i>
-                 <div class="diagram-box basis-1/4">
-                     <i class="ph-bold ph-file-signature text-5xl salesforce-blue"></i>
-                     <h3 class="font-bold text-xl mt-4">Contrato Gerado</h3>
-                     <p class="text-sm text-slate-500">Dados da proposta preenchem o contrato automaticamente.</p>
-                 </div>
-                 <i class="ph-bold ph-arrow-right diagram-arrow"></i>
-                 <div class="diagram-box basis-1/4">
-                     <i class="ph-bold ph-clipboard-text text-5xl g4t-green"></i>
-                     <h3 class="font-bold text-xl mt-4">Projeto Criado</h3>
-                     <p class="text-sm text-slate-500">Equipe de operações recebe o projeto com todo o histórico.</p>
-                 </div>
-             </div>
-             <p class="mt-8 text-slate-600 max-w-2xl text-center">Este fluxo automatizado preserva a "inteligência do negócio", garantindo que a equipe de implementação entenda todas as nuances e expectativas do cliente desde o primeiro dia.</p>
-        </section>
-
-        <!-- Slide 7: Fase 4 - Operações -->
-        <section class="slide">
-            <h1 class="slide-title">Fase 4: Excelência na Entrega</h1>
-            <p class="slide-subtitle">Transparência e colaboração com <span class="font-bold salesforce-blue">Experience Cloud</span> e <span class="font-bold salesforce-blue">Field Service</span>.</p>
-            <div class="slide-content bg-white rounded-xl shadow-lg flex overflow-hidden h-[450px]">
-                <!-- Sidebar do Portal -->
-                <div class="w-1/4 bg-slate-50 p-6">
-                    <h2 class="font-bold text-slate-700">Portal FutureCorp</h2>
-                    <nav class="mt-6 flex flex-col gap-3">
-                        <a href="#" class="font-semibold bg-blue-100 text-blue-700 p-2 rounded-lg"><i class="ph ph-gauge inline-block mr-2"></i>Dashboard</a>
-                        <a href="#" class="text-slate-600 hover:bg-slate-100 p-2 rounded-lg"><i class="ph ph-files inline-block mr-2"></i>Documentos</a>
-                        <a href="#" class="text-slate-600 hover:bg-slate-100 p-2 rounded-lg"><i class="ph ph-chat-circle-dots inline-block mr-2"></i>Colaboração</a>
-                        <a href="#" class="text-slate-600 hover:bg-slate-100 p-2 rounded-lg"><i class="ph ph-question inline-block mr-2"></i>Suporte</a>
-                    </nav>
-                </div>
-                <!-- Conteúdo Principal do Portal -->
-                <div class="w-3/4 p-8">
-                    <h3 class="text-2xl font-bold text-slate-800">Status do Projeto: Data Center SP-01</h3>
-                    <p class="text-slate-500 mb-6">Acompanhe o progresso em tempo real.</p>
-                    <div>
-                        <span class="font-semibold">Progresso Geral: 75%</span>
-                        <div class="w-full bg-slate-200 rounded-full h-4 mt-2">
-                            <div class="bg-green-500 h-4 rounded-full" style="width: 75%"></div>
-                        </div>
-                    </div>
-                    <div class="mt-6">
-                        <h4 class="font-semibold mb-2">Próximos Marcos:</h4>
-                        <ul class="list-disc list-inside text-slate-600 space-y-1">
-                            <li>Instalação dos Racks de Servidores</li>
-                            <li>Configuração do Sistema de Refrigeração</li>
-                            <li>Testes de Conectividade</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 8: Fase 5 - Pós-Venda -->
-        <section class="slide">
-            <h1 class="slide-title">Fase 5: Suporte Proativo</h1>
-            <p class="slide-subtitle">De uma parceria reativa para uma preditiva e sustentável.</p>
-            <div class="slide-content flex items-center justify-center gap-6 mt-8">
-                 <div class="diagram-box text-center basis-1/4">
-                     <i class="ph-bold ph-thermometer-cold text-5xl text-blue-500"></i>
-                     <h3 class="font-bold text-xl mt-4">Sensor IoT</h3>
-                     <p class="text-sm text-slate-500">Detecta flutuação de temperatura no data center.</p>
-                 </div>
-                 <i class="ph-bold ph-arrow-right diagram-arrow"></i>
-                 <div class="diagram-box text-center basis-1/4">
-                     <i class="ph-bold ph-cloud-arrow-up text-5xl salesforce-blue"></i>
-                     <h3 class="font-bold text-xl mt-4">Salesforce Data Cloud</h3>
-                     <p class="text-sm text-slate-500">Recebe e analisa o dado do sensor em tempo real.</p>
-                 </div>
-                 <i class="ph-bold ph-arrow-right diagram-arrow"></i>
-                 <div class="diagram-box text-center basis-1/4">
-                     <i class="ph-bold ph-ticket text-5xl text-orange-500"></i>
-                     <h3 class="font-bold text-xl mt-4">Caso Proativo</h3>
-                     <p class="text-sm text-slate-500">Cria um chamado de manutenção antes que o cliente perceba.</p>
-                 </div>
-            </div>
-            <div class="mt-12 p-6 rounded-lg bg-green-50 border-l-4 border-green-500 flex items-center gap-4">
-                <i class="ph-bold ph-sun text-4xl text-green-600"></i>
-                <div>
-                    <h3 class="font-bold text-green-800">Sustentabilidade como Serviço (Net Zero Cloud)</h3>
-                    <p class="text-green-700">Ofereça um painel para o cliente rastrear sua pegada de carbono e o ROI da solução "Carbon Zero".</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 9: O Resultado -->
-        <section class="slide">
-            <h1 class="slide-title">O Resultado: O Painel Cliente 360</h1>
-            <p class="slide-subtitle">Uma única fonte da verdade para uma visão holística e decisões estratégicas.</p>
-            <div class="slide-content bg-white p-6 rounded-xl shadow-lg">
-                <h2 class="text-2xl font-bold mb-4 text-slate-800">Painel Estratégico: FutureCorp</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div class="bg-slate-50 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-500 font-semibold">Valor Total Contratado</p>
-                        <p class="text-3xl font-bold text-green-600">R$ 4.2M</p>
-                    </div>
-                     <div class="bg-slate-50 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-500 font-semibold">Progresso do Projeto</p>
-                        <p class="text-3xl font-bold text-blue-600">100%</p>
-                    </div>
-                     <div class="bg-slate-50 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-500 font-semibold">CSAT</p>
-                        <p class="text-3xl font-bold text-amber-500">9.8/10</p>
-                    </div>
-                     <div class="bg-slate-50 p-4 rounded-lg text-center">
-                        <p class="text-sm text-slate-500 font-semibold">Redução de Carbono (Anual)</p>
-                        <p class="text-3xl font-bold text-green-600">120 tCO₂e</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 10: Conclusão -->
-        <section class="slide">
-            <h1 class="slide-title">Construindo o Futuro, Juntos</h1>
             <div class="slide-content text-center">
-                <div class="grid md:grid-cols-2 gap-8 mb-12">
-                     <div class="text-left">
-                        <h3 class="font-bold text-2xl mb-4">Benefícios-Chave</h3>
-                        <ul class="space-y-3">
-                            <li class="flex items-start"><i class="ph-bold ph-rocket-launch text-2xl text-green-500 mr-3"></i><div><span class="font-semibold">Eficiência Acelerada:</span> Menos processos manuais, mais atividades de valor.</div></li>
-                            <li class="flex items-start"><i class="ph-bold ph-brain text-2xl text-blue-500 mr-3"></i><div><span class="font-semibold">Inteligência de Negócios:</span> Decisões baseadas em dados e insights preditivos.</div></li>
-                            <li class="flex items-start"><i class="ph-bold ph-user-focus text-2xl text-amber-500 mr-3"></i><div><span class="font-semibold">Experiência Excepcional:</span> Transparência e proatividade que fidelizam clientes.</div></li>
-                            <li class="flex items-start"><i class="ph-bold ph-medal text-2xl text-slate-500 mr-3"></i><div><span class="font-semibold">Diferenciação Estratégica:</span> Lidere o mercado com "Sustentabilidade como Serviço".</div></li>
-                        </ul>
-                    </div>
-                    <div class="bg-white p-8 rounded-xl shadow-lg flex flex-col items-center justify-center">
-                        <h3 class="font-bold text-2xl mb-4">Próximos Passos</h3>
-                        <p class="text-slate-600 mb-6">A C3C Software tem a expertise para traduzir esta visão em realidade. Propomos um workshop de discovery para mapear seus processos e desenhar um protótipo.</p>
-                        <button class="bg-green-500 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-600 transition text-lg">Agendar Workshop</button>
+                <h2 class="slide-heading">Nosso Ponto de Partida</h2>
+                <p class="text-xl max-w-4xl mx-auto">
+                    A Green4T já utiliza o Salesforce. Nossa missão agora é <strong class="text-[#1DDDBD]">evoluir a plataforma</strong>, transformando-a no centro de comando operacional que conecta Vendas, Receita e Projetos de forma inteligente e unificada.
+                </p>
+                <div class="mt-8 p-6 bg-white rounded-lg shadow-xl border border-gray-200">
+                    <h3 class="text-2xl font-bold text-[#2978FF] mb-4">Visão de Curto Prazo: Painel de Controle Operacional</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                        <!-- Card 1: Receita -->
+                        <div class="bg-[#F2F2F2] p-4 rounded-lg">
+                            <h4 class="font-bold text-black/80 flex items-center text-sm">
+                                <i class="ph-fill ph-chart-pie-slice text-lg mr-2 text-[#2978FF]"></i> RECEITA CONSOLIDADA
+                            </h4>
+                            <p class="text-4xl font-extrabold mt-2 text-[#2978FF]">R$ 1.8M</p>
+                            <p class="text-sm font-semibold text-[#1DDDBD]">+12% vs. Mês Anterior</p>
+                        </div>
+                        <!-- Card 2: Projetos -->
+                        <div class="bg-[#F2F2F2] p-4 rounded-lg">
+                            <h4 class="font-bold text-black/80 flex items-center text-sm">
+                                <i class="ph-fill ph-kanban text-lg mr-2 text-[#2978FF]"></i> STATUS DOS PROJETOS
+                            </h4>
+                            <p class="text-4xl font-extrabold mt-2 text-[#2978FF]">12 Ativos</p>
+                            <p class="text-sm font-semibold text-red-500">3 Em Risco</p>
+                        </div>
+                        <!-- Card 3: Pipeline -->
+                        <div class="bg-[#F2F2F2] p-4 rounded-lg">
+                           <h4 class="font-bold text-black/80 flex items-center text-sm">
+                                <i class="ph-fill ph-funnel text-lg mr-2 text-[#2978FF]"></i> PIPELINE DE VENDAS
+                            </h4>
+                            <p class="text-4xl font-extrabold mt-2 text-[#2978FF]">R$ 4.2M</p>
+                            <p class="text-sm font-semibold text-black/60">Próximos 90 dias</p>
+                        </div>
                     </div>
                 </div>
-                 <h2 class="text-2xl font-bold text-slate-700">Obrigado!</h2>
+            </div>
+        </section>
+
+        <!-- Slide 3: Roadmap de Evolução -->
+        <section class="slide">
+            <div class="slide-content">
+                <h2 class="slide-heading text-center mb-12">Roadmap Estratégico de Evolução</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Curto Prazo -->
+                    <div class="diagram-box border-l-[#1DDDBD]">
+                        <div class="flex items-center mb-4">
+                            <span class="text-xl font-bold text-[#1DDDBD] mr-4">Curto Prazo</span>
+                            <i class="ph-bold ph-rocket-launch text-3xl text-[#1DDDBD]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Fundação Operacional</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>On-going (suporte contínuo)</li>
+                            <li>Sprints de definição de fluxo</li>
+                            <li><strong>MVP:</strong> Gestão de Contratos</li>
+                            <li><strong>MVP:</strong> Gestão de Projetos</li>
+                        </ul>
+                    </div>
+                    <!-- Médio Prazo -->
+                    <div class="diagram-box border-l-[#2978FF]">
+                         <div class="flex items-center mb-4">
+                            <span class="text-xl font-bold text-[#2978FF] mr-4">Médio Prazo</span>
+                            <i class="ph-bold ph-plugs-connected text-3xl text-[#2978FF]"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Integração e Eficiência</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Integração com ERP (IFS, PGI)</li>
+                            <li>Fluxo de Atendimento otimizado</li>
+                            <li>Automação de processos chave</li>
+                        </ul>
+                    </div>
+                    <!-- Longo Prazo -->
+                     <div class="diagram-box border-l-black">
+                         <div class="flex items-center mb-4">
+                            <span class="text-xl font-bold text-black mr-4">Longo Prazo</span>
+                            <i class="ph-bold ph-brain text-3xl text-black"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Inteligência e Inovação</h3>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Revisão de Pricing (Salesforce CPQ)</li>
+                            <li>Integração avançada (MuleSoft)</li>
+                            <li>Colaboração (Slack)</li>
+                            <li>Assistente de IA (Einstein)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 4: Detalhes do Curto Prazo (COM MOCKUP) -->
+        <section class="slide">
+            <div class="slide-content">
+                 <h2 class="slide-heading mb-4">Foco Imediato: Fundação Operacional</h2>
+                 
+                 <!-- MOCKUP DO FLUXO -->
+                 <div class="flex items-center justify-center gap-2 md:gap-4 my-6 text-center">
+                    <div class="bg-white p-4 rounded-lg shadow-md w-1/3">
+                        <i class="ph-bold ph-currency-dollar text-4xl text-[#2978FF]"></i>
+                        <p class="font-bold text-sm md:text-base mt-2">Oportunidade Ganha</p>
+                    </div>
+                    <i class="ph-bold ph-arrow-right text-3xl text-gray-300"></i>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-1/3">
+                        <i class="ph-bold ph-file-text text-4xl text-[#2978FF]"></i>
+                        <p class="font-bold text-sm md:text-base mt-2">Geração do Contrato</p>
+                    </div>
+                    <i class="ph-bold ph-arrow-right text-3xl text-gray-300"></i>
+                    <div class="bg-white p-4 rounded-lg shadow-md w-1/3">
+                        <i class="ph-bold ph-kanban text-4xl text-[#2978FF]"></i>
+                        <p class="font-bold text-sm md:text-base mt-2">Criação do Projeto</p>
+                    </div>
+                 </div>
+                 
+                 <div class="relative phase-timeline mt-6">
+                     <!-- Item 1 -->
+                     <div class="timeline-item">
+                         <div class="timeline-dot"><i class="ph-bold ph-flag-checkered text-xl text-[#2978FF]"></i></div>
+                         <h3 class="text-xl font-bold text-[#1DDDBD]">On-Going & Sprints de Definição</h3>
+                         <p>Iniciamos com suporte contínuo para garantir a estabilidade e, em paralelo, rodamos sprints ágeis com seus stakeholders para mapear e validar os fluxos ideais de Contratos e Projetos.</p>
+                     </div>
+                     <!-- Item 2 -->
+                     <div class="timeline-item">
+                         <div class="timeline-dot"><i class="ph-bold ph-file-text text-xl text-[#2978FF]"></i></div>
+                         <h3 class="text-xl font-bold text-[#1DDDBD]">MVP: Gestão de Contratos</h3>
+                         <p>Criamos um processo automatizado que transforma uma "Oportunidade Ganha" em um "Contrato" no Salesforce, centralizando todos os documentos, termos e valores, eliminando a entrada manual de dados.</p>
+                     </div>
+                      <!-- Item 3 -->
+                     <div class="timeline-item">
+                         <div class="timeline-dot"><i class="ph-bold ph-kanban text-xl text-[#2978FF]"></i></div>
+                         <h3 class="text-xl font-bold text-[#1DDDBD]">MVP: Gestão de Projetos</h3>
+                         <p>O contrato assinado gera automaticamente um "Projeto", transferindo todas as informações da venda. A equipe de operações gerencia marcos, tarefas e status em um único local, visível para toda a empresa.</p>
+                     </div>
+                 </div>
+            </div>
+        </section>
+
+         <!-- Slide 5: Parceria e Próximos Passos -->
+        <section class="slide">
+            <div class="slide-content text-center">
+                <h2 class="slide-heading">Uma Parceria para a Evolução</h2>
+                <p class="text-xl max-w-4xl mx-auto">
+                   A C3C Software não entrega apenas tecnologia, entregamos <strong class="text-[#1DDDBD]">parceria estratégica</strong>. Nosso objetivo é maximizar o valor do seu investimento no Salesforce, garantindo que a plataforma evolua junto com o crescimento da Green4T.
+                </p>
+                <div class="mt-12">
+                     <h3 class="text-2xl font-bold text-[#2978FF] mb-4">Próximos Passos</h3>
+                     <div class="text-left max-w-md mx-auto space-y-2">
+                         <p><i class="ph-fill ph-check-circle text-[#1DDDBD] mr-2"></i>Alinhar prioridades do MVP.</p>
+                         <p><i class="ph-fill ph-check-circle text-[#1DDDBD] mr-2"></i>Definir cronograma dos sprints de definição.</p>
+                         <p><i class="ph-fill ph-check-circle text-[#1DDDBD] mr-2"></i>Iniciar o plano de On-Going.</p>
+                     </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 6: Contato -->
+        <section class="slide">
+             <div class="text-center">
+                <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-20 mx-auto mb-8">
+                <h2 class="text-4xl font-bold text-[#2978FF]">Vamos construir o futuro juntos.</h2>
             </div>
         </section>
     </div>
 
     <!-- Navegação -->
-    <button id="prevBtn" class="fixed top-1/2 -translate-y-1/2 p-3 bg-white/70 rounded-full shadow-lg hover:bg-white transition-colors cursor-pointer backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed z-20 left-4 md:left-8">
-        <i class="ph-bold ph-caret-left text-2xl text-slate-600"></i>
+    <button id="prevBtn" class="fixed top-1/2 -translate-y-1/2 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-colors cursor-pointer backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed z-20 left-4 md:left-8">
+        <i class="ph-bold ph-caret-left text-2xl text-[#2978FF]"></i>
     </button>
-    <button id="nextBtn" class="fixed top-1/2 -translate-y-1/2 p-3 bg-white/70 rounded-full shadow-lg hover:bg-white transition-colors cursor-pointer backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed z-20 right-4 md:right-8">
-        <i class="ph-bold ph-caret-right text-2xl text-slate-600"></i>
+    <button id="nextBtn" class="fixed top-1/2 -translate-y-1/2 p-3 bg-white/80 rounded-full shadow-lg hover:bg-white transition-colors cursor-pointer backdrop-blur-sm disabled:opacity-30 disabled:cursor-not-allowed z-20 right-4 md:right-8">
+        <i class="ph-bold ph-caret-right text-2xl text-[#2978FF]"></i>
     </button>
     
     <!-- Barra de Progresso -->
     <div id="progress-bar"></div>
 
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // Seleciona todos os elementos importantes
+            const container = document.getElementById('presentation-container');
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
             const progressBar = document.getElementById('progress-bar');
-            
             let currentSlide = 0;
             const totalSlides = slides.length;
 
-            // Função para mostrar o slide desejado
-            function showSlide(slideIndex) {
-                // Garante que o índice esteja dentro dos limites
-                if (slideIndex >= totalSlides) {
-                    slideIndex = totalSlides - 1;
-                }
-                if (slideIndex < 0) {
-                    slideIndex = 0;
-                }
+            function updatePresentation() {
+                // Move o contêiner para o slide correto
+                container.style.transform = `translateX(-${currentSlide * 100}%)`;
 
-                // Remove a classe 'active' de todos os slides
-                slides.forEach(slide => {
-                    slide.classList.remove('active');
+                // Adiciona/remove a classe 'active' para o efeito de fade/scale
+                slides.forEach((slide, index) => {
+                    if (index === currentSlide) {
+                        slide.classList.add('active');
+                    } else {
+                        slide.classList.remove('active');
+                    }
                 });
-
-                // Adiciona a classe 'active' ao slide atual
-                slides[slideIndex].classList.add('active');
-                currentSlide = slideIndex;
-
-                // Atualiza o estado dos botões de navegação
-                updateNavButtons();
-                // Atualiza a barra de progresso
-                updateProgressBar();
-            }
-
-            // Função para atualizar os botões de navegação
-            function updateNavButtons() {
+                
+                // Atualiza o estado dos botões
                 prevBtn.disabled = currentSlide === 0;
                 nextBtn.disabled = currentSlide === totalSlides - 1;
+                
+                // Atualiza a barra de progresso
+                const progressPercentage = ((currentSlide + 1) / totalSlides) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
             }
 
-            // Função para atualizar a barra de progresso
-            function updateProgressBar() {
-                const progress = ((currentSlide + 1) / totalSlides) * 100;
-                progressBar.style.width = `${progress}%`;
+            function next() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updatePresentation();
+                }
             }
 
-            // Event listeners para os botões
-            nextBtn.addEventListener('click', () => {
-                showSlide(currentSlide + 1);
-            });
+            function prev() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updatePresentation();
+                }
+            }
 
-            prevBtn.addEventListener('click', () => {
-                showSlide(currentSlide - 1);
-            });
+            nextBtn.addEventListener('click', next);
+            prevBtn.addEventListener('click', prev);
 
-            // Event listeners para as teclas de seta
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    // Evita avançar se já estiver no último slide
-                    if (currentSlide < totalSlides - 1) {
-                         showSlide(currentSlide + 1);
-                    }
-                } else if (e.key === 'ArrowLeft') {
-                    // Evita retroceder se já estiver no primeiro slide
-                    if (currentSlide > 0) {
-                        showSlide(currentSlide - 1);
-                    }
+                if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                    next();
+                } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                    prev();
                 }
             });
 
-            // Inicia a apresentação no primeiro slide
-            showSlide(0);
+            // Inicialização da apresentação
+            updatePresentation();
         });
     </script>
 </body>
