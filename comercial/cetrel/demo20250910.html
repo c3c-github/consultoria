@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cetrel - Soluções Ambientais para a Indústria</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* Estilos personalizados e configuração do Tailwind */
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 56, 68, 0.8), rgba(0, 56, 68, 0.7)), url('https://images.pexels.com/photos/8386133/pexels-photo-8386133.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .form-input {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: #00A651;
+            box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white py-4 px-6 md:px-12 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <img src="https://www.cetrel.com.br/wp-content/themes/iwwa-cetrel/img/logos/logo.webp" alt="Logo Cetrel" class="h-10">
+            <a href="#form-section" class="cta-button bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-5 rounded-lg shadow-lg">
+                Fale com um Especialista
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção Principal (Hero) -->
+        <section class="hero-bg text-white">
+            <div class="container mx-auto px-6 py-24 md:py-32 text-center">
+                <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-4">Transforme a Gestão Ambiental da sua Indústria em um Diferencial Competitivo</h1>
+                <p class="text-lg md:text-xl text-green-200 max-w-3xl mx-auto mb-8">Baixe nosso guia completo e descubra como otimizar o tratamento de efluentes, reduzir custos operacionais e garantir sua conformidade ambiental.</p>
+                <a href="#form-section" class="cta-button inline-block bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 px-10 rounded-lg shadow-xl">
+                    BAIXAR GUIA GRATUITO AGORA
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção de Desafios -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Sua indústria enfrenta desafios como?</h2>
+                <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Sabemos que a gestão ambiental industrial é complexa. Identifique seus principais desafios e veja como podemos ajudar.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <i class="ph ph-scales text-5xl text-green-600 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Conformidade Legal</h3>
+                        <p class="text-gray-600">Complexidade para atender às normas ambientais vigentes e evitar multas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <i class="ph ph-chart-line-down text-5xl text-green-600 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Custos Operacionais</h3>
+                        <p class="text-gray-600">Altos custos com tratamento de efluentes, energia e gestão de resíduos.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <i class="ph ph-warning-circle text-5xl text-green-600 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Riscos Ambientais</h3>
+                        <p class="text-gray-600">Riscos de passivos e impactos negativos à imagem da marca.</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                        <i class="ph ph-drop-half-bottom text-5xl text-green-600 mb-4"></i>
+                        <h3 class="text-lg font-semibold mb-2">Eficiência Hídrica</h3>
+                        <p class="text-gray-600">Dificuldade em otimizar o uso da água e implementar sistemas de reúso.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção da Oferta (Guia) -->
+        <section class="py-20 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2">
+                        <img src="https://placehold.co/500x600/00A651/FFFFFF?text=Guia+Cetrel" alt="Capa do Guia de Soluções Ambientais" class="rounded-lg shadow-2xl mx-auto">
+                    </div>
+                    <div class="md:w-1/2">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4">Neste Guia Exclusivo, você vai aprender a:</h2>
+                        <ul class="space-y-4 text-gray-700">
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-2xl text-green-600 mr-3 mt-1"></i>
+                                <span>Utilizar nosso <strong class="text-gray-900">checklist para um diagnóstico ambiental</strong> rápido e eficaz da sua planta.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-2xl text-green-600 mr-3 mt-1"></i>
+                                <span>Aplicar <strong class="text-gray-900">5 estratégias comprovadas</strong> para a redução de custos com tratamento de efluentes.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="ph ph-check-circle text-2xl text-green-600 mr-3 mt-1"></i>
+                                <span>Implementar um <strong class="text-gray-900">plano de reúso de água</strong> com alto retorno sobre o investimento (ROI).</span>
+                            </li>
+                             <li class="flex items-start">
+                                <i class="ph ph-check-circle text-2xl text-green-600 mr-3 mt-1"></i>
+                                <span>Conhecer as <strong class="text-gray-900">principais tecnologias de monitoramento ambiental</strong> para estar à frente em 2025.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Conversão (Formulário) -->
+        <section id="form-section" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="bg-gray-800 rounded-lg shadow-xl p-8 md:p-12 max-w-4xl mx-auto">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="text-white">
+                            <h2 class="text-3xl font-bold mb-3">Garanta seu Acesso Imediato</h2>
+                            <p class="text-green-200 mb-6">Preencha seus dados e receba o guia completo gratuitamente em seu e-mail. Dê o primeiro passo para uma gestão ambiental mais inteligente e econômica.</p>
+                             <p class="text-sm text-gray-400">Conte com a expertise de quem é referência no mercado há mais de 40 anos.</p>
+                        </div>
+
+                        <!-- FORMULÁRIO SALESFORCE INTEGRADO -->
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <form id="salesforce-form" action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Da5000001MdAD" method="POST">
+                                <input type="hidden" name="oid" value="00Da5000001MdAD">
+                                <input type="hidden" name="retURL" value="https://www.cetrel.com.br/contato/obrigado/"> <!-- NOTA: Sugiro criar uma página de "obrigado" no site da Cetrel e usar o link aqui -->
+
+                                <div class="mb-4">
+                                    <label for="first_name" class="block text-gray-700 text-sm font-bold mb-2">Primeiro Nome</label>
+                                    <input id="first_name" name="first_name" type="text" maxlength="40" required class="form-input shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="last_name" class="block text-gray-700 text-sm font-bold mb-2">Sobrenome</label>
+                                    <input id="last_name" name="last_name" type="text" maxlength="80" required class="form-input shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="email" class="block text-gray-700 text-sm font-bold mb-2">E-mail Corporativo</label>
+                                    <input id="email" name="email" type="email" maxlength="80" required class="form-input shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                <div class="mb-6">
+                                    <label for="company" class="block text-gray-700 text-sm font-bold mb-2">Empresa</label>
+                                    <input id="company" name="company" type="text" maxlength="40" required class="form-input shadow-sm appearance-none border rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                </div>
+                                
+                                <div id="error-message" class="hidden text-red-500 text-sm mb-4"></div>
+
+                                <div class="flex items-center justify-between">
+                                    <input type="submit" name="submit" value="RECEBER MEU GUIA!" class="cta-button w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg focus:outline-none focus:shadow-outline cursor-pointer">
+                                </div>
+                                <p class="text-center text-gray-500 text-xs mt-4">
+                                    Respeitamos sua privacidade. Seus dados estão seguros.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto py-6 px-6 text-center text-gray-400">
+            <p>&copy; 2025 Cetrel S.A. - Todos os direitos reservados.</p>
+            <p class="text-sm">Esta é uma página de captação de leads desenvolvida pela C3C Software.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal de Sucesso -->
+    <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-8 rounded-lg shadow-xl text-center max-w-sm mx-auto">
+            <i class="ph ph-check-circle text-6xl text-green-500 mb-4"></i>
+            <h2 class="text-2xl font-bold mb-2">Enviado com Sucesso!</h2>
+            <p class="text-gray-600">Obrigado! O guia foi enviado para o seu e-mail e em breve um de nossos especialistas entrará em contato.</p>
+        </div>
+    </div>
+
+
+    <script>
+        // --- Script de Validação do Formulário e Mensagem de Sucesso ---
+        const form = document.getElementById('salesforce-form');
+        const errorMessage = document.getElementById('error-message');
+        const successModal = document.getElementById('success-modal');
+
+        form.addEventListener('submit', function(event) {
+            // Previne o envio imediato para validar os campos
+            event.preventDefault();
+
+            // Limpa mensagens de erro anteriores
+            errorMessage.classList.add('hidden');
+            errorMessage.textContent = '';
+
+            // Coleta os valores dos campos
+            const firstName = document.getElementById('first_name').value.trim();
+            const lastName = document.getElementById('last_name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const company = document.getElementById('company').value.trim();
+
+            // Validação simples
+            if (!firstName || !lastName || !email || !company) {
+                showError('Por favor, preencha todos os campos obrigatórios.');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('Por favor, insira um endereço de e-mail válido.');
+                return;
+            }
+
+            // Se a validação passar, exibe a mensagem de sucesso e envia o formulário
+            showSuccessAndSubmit();
+        });
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.remove('hidden');
+        }
+
+        function showSuccessAndSubmit() {
+            // Mostra o modal de sucesso
+            successModal.classList.remove('hidden');
+            
+            // Aguarda um momento para o usuário ver a mensagem e então submete o formulário
+            // Isso redirecionará para a 'retURL' definida no formulário.
+            setTimeout(() => {
+                form.submit();
+            }, 2000); // Espera 2 segundos
+        }
+        
+        // --- Script para Scroll Suave ---
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
