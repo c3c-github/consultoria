@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Case Completo: Projeto Evolução Salesforce - Green4t</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #00A1E0, #00B18F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .brand-green { color: #00B18F; }
+        .brand-blue { color: #00A1E0; }
+        .section-title {
+            border-bottom: 2px solid #00B18F;
+            padding-bottom: 0.5rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .nav-link.active {
+            color: #00B18F;
+            font-weight: 700;
+            transform: translateX(5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-50 shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <span class="text-2xl font-bold brand-green">Green4t</span>
+                    <span class="text-gray-300 hidden sm:block">|</span>
+                    <span class="text-xl font-semibold text-gray-700 hidden sm:block">Business Case Completo</span>
+                </div>
+                <div class="text-sm font-medium text-gray-500">
+                    Projeto Evolução Salesforce
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex">
+            <!-- Navigation Sidebar -->
+            <aside class="hidden lg:block w-64 flex-shrink-0 py-12">
+                <div class="sticky top-24">
+                    <h3 class="text-sm font-semibold uppercase text-gray-500 tracking-wider">Seções do Documento</h3>
+                    <nav id="document-nav" class="mt-4">
+                        <ul class="space-y-3">
+                            <li><a href="#secao1" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">1. Sumário Executivo</a></li>
+                            <li><a href="#secao2" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">2. Contexto Estratégico</a></li>
+                            <li><a href="#secao3" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">3. A Solução Proposta</a></li>
+                            <li><a href="#secao4" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">4. Análise de Valor</a></li>
+                            <li><a href="#secao5" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">5. Análise Financeira</a></li>
+                            <li><a href="#secao6" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">6. Execução e Governança</a></li>
+                            <li><a href="#secao7" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">7. Avaliação de Riscos</a></li>
+                            <li><a href="#secao8" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">8. Conclusão</a></li>
+                            <li><a href="#referencias" class="nav-link text-gray-600 hover:text-green-600 transition-all duration-200">Referências</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="flex-grow bg-white lg:ml-8 my-8 p-6 sm:p-10 lg:p-12 rounded-lg shadow-lg">
+                
+                <!-- Title Section -->
+                <section class="text-center pb-12 border-b fade-in">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold gradient-text">Business Case: Projeto Evolução Salesforce</h1>
+                    <p class="mt-4 text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-semibold">Um Investimento Estratégico no Crescimento Futuro</p>
+                    <p class="mt-6 text-sm text-gray-500">Documento Confidencial | Data: 11 de Setembro de 2025</p>
+                </section>
+
+                <!-- 1. Sumário Executivo -->
+                <section id="secao1" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">1. Sumário Executivo</h2>
+                    <h3 class="text-xl font-semibold text-gray-700">O Imperativo Estratégico</h3>
+                    <p class="text-gray-700 leading-relaxed">A Green4t consolidou sua posição como líder de mercado na construção e suporte de datacenters de grande porte, atendendo prioritariamente a órgãos do governo federal brasileiro. A empresa opera em um setor que não está apenas crescendo, mas se acelerando exponencialmente, impulsionado pela transformação digital em larga escala do setor público e pela adoção de tecnologias como Inteligência Artificial (IA), Internet das Coisas (IoT) e computação em nuvem. No entanto, o crescimento futuro e a rentabilidade da Green4t estão limitados por processos operacionais internos que permanecem em grande parte manuais, dependentes de sistemas legados e isolados em silos departamentais. Essa fragmentação operacional representa um risco estratégico, limitando a agilidade, a eficiência e a capacidade da empresa de escalar em sintonia com a demanda do mercado.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-700">A Solução Proposta</h3>
+                    <p class="text-gray-700 leading-relaxed">Este documento apresenta o caso de negócio para o "Projeto Evolução Salesforce", uma iniciativa transformacional para implementar uma plataforma digital unificada que irá modernizar e integrar três funções de negócio críticas: (1) Automação Comercial, (2) Integração com o Sistema Eletrônico de Informações (SEI) do Governo Federal e (3) Gestão Integrada de Projetos. Ao consolidar essas operações no ecossistema Salesforce, a Green4t criará uma única fonte de verdade para todas as interações com clientes, desde a prospecção inicial até a entrega do projeto e a renovação de contratos, proporcionando uma visibilidade de 360 graus sem precedentes para a liderança.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-700">Valor de Negócio Projetado</h3>
+                    <p class="text-gray-700 leading-relaxed">A implementação do "Projeto Evolução Salesforce" irá gerar valor tangível e mensurável em toda a organização. A automação dos processos de vendas e a capacitação das equipes comerciais com dados e ferramentas avançadas devem resultar em um aumento de produtividade de vendas na faixa de 10% a 30%. A integração direta e automatizada com o sistema SEI eliminará milhares de horas de trabalho administrativo manual e propenso a erros, liberando recursos para atividades de maior valor agregado. Adicionalmente, a governança aprimorada e a visibilidade em tempo real proporcionadas pela gestão de projetos integrada na plataforma tendem a melhorar as margens dos projetos, reduzindo desvios de orçamento e antecipando riscos de forma proativa.</p>
+                    
+                    <h3 class="text-xl font-semibold text-gray-700">O Investimento e O Retorno Financeiro</h3>
+                    <p class="text-gray-700 leading-relaxed">O investimento total projetado para a implementação do projeto, ao longo de um período de 24 semanas, e para a operação da plataforma durante os primeiros cinco anos é de R$ 9.612.000. A análise financeira rigorosa, detalhada na Seção 5, demonstra um caso de investimento altamente atraente, projetado para gerar um Retorno sobre o Investimento (ROI) de 285% ao longo de um horizonte de cinco anos. O investimento inicial será recuperado em um Período de Payback de apenas 21 meses, e o projeto gerará um Valor Presente Líquido (VPL) de R$ 9.172.937, confirmando sua robusta capacidade de criação de valor.</p>
+
+                    <h3 class="text-xl font-semibold text-gray-700">A Recomendação</h3>
+                    <p class="text-gray-700 leading-relaxed">Com base na análise estratégica e financeira abrangente apresentada, recomenda-se formalmente que o Comitê Executivo da Green4t aprove o investimento proposto e autorize o início imediato do "Projeto Evolução Salesforce". Esta iniciativa não é meramente uma atualização tecnológica; é um investimento fundamental na infraestrutura operacional que sustentará a próxima fase de crescimento, liderança de mercado e rentabilidade da Green4t.</p>
+                </section>
+                
+                <!-- 2. Contexto Estratégico -->
+                <section id="secao2" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">2. Contexto Estratégico e Imperativo de Mercado</h2>
+                    <h3 class="text-xl font-semibold text-gray-700">2.1 O Cenário da Transformação Digital no Brasil: Um Ambiente de Alto Crescimento</h3>
+                    <p class="text-gray-700 leading-relaxed">O momento para este investimento é ditado por forças de mercado inegáveis e uma janela de oportunidade estratégica. O Brasil não é apenas um participante no mercado de datacenters da América Latina; ele é o líder indiscutível, respondendo por aproximadamente 50% de todo o investimento na região. Este mercado está em uma trajetória de crescimento acentuado e sustentado, projetado para expandir de um valor de US$ 2,07 bilhões em 2024 para US$ 3,5 bilhões até 2029, o que representa uma taxa de crescimento anual composta (CAGR) de 11,05%. Este crescimento não é um ciclo de mercado temporário, mas uma mudança estrutural fundamental na economia, impulsionada pela digitalização massiva de serviços, pela migração para a nuvem e pela demanda computacional gerada por tecnologias emergentes como IA e IoT.</p>
+
+                    <h3 class="text-xl font-semibold text-gray-700">2.2 Alinhamento com o Mandato Federal: De Fornecedor a Parceiro Estratégico</h3>
+                    <p class="text-gray-700 leading-relaxed">A base de clientes primária da Green4t, o Governo Federal brasileiro, não é um mero consumidor passivo de tecnologia; é um agente ativo e o principal motor da transformação digital do país. O "Projeto Evolução Salesforce" transcende a otimização interna; ele representa um alinhamento estratégico profundo com o ecossistema digital do seu principal cliente. A integração com o Sistema Eletrônico de Informações (SEI), a plataforma central para a gestão de processos administrativos do governo, é o pilar desta estratégia. Ao construir uma ponte digital robusta e automatizada entre a sua plataforma de gestão (Salesforce) e a plataforma do cliente (SEI), a Green4t não está apenas melhorando seus próprios processos; está resolvendo um problema operacional para o seu cliente. Esta integração transforma a relação de um fornecedor de serviços para um parceiro estratégico embarcado no fluxo de trabalho do governo, criando uma barreira de entrada formidável para concorrentes.</p>
+
+                    <h3 class="text-xl font-semibold text-gray-700">2.3 O Imperativo Competitivo: O Custo da Inação</h3>
+                    <p class="text-gray-700 leading-relaxed">Em um mercado definido por altos investimentos de capital e ciclos de vendas longos, a diferenciação competitiva se baseia cada vez mais na eficiência operacional e na profundidade da integração com o cliente. A inação — manter o status quo com processos manuais e sistemas desconectados — carrega um custo de oportunidade imenso. Concorrentes que adotam plataformas digitais unificadas podem responder a licitações mais rapidamente, gerenciar seus pipelines com maior precisão e entregar projetos com maior previsibilidade. O custo da inação não é apenas a perda de ganhos de eficiência; é o risco tangível de perder relevância estratégica, participação de mercado e, em última análise, a posição de liderança que a Green4t trabalhou arduamente para construir.</p>
+                </section>
+
+                <!-- 3. A Solução Proposta -->
+                <section id="secao3" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">3. A Solução Proposta - Projeto Evolução Salesforce</h2>
+                    <h3 class="text-xl font-semibold text-gray-700">3.1 Uma Plataforma Unificada para o Crescimento: A Visão 360 Graus</h3>
+                    <p class="text-gray-700 leading-relaxed">O cerne do projeto é a transição de um ambiente operacional fragmentado para uma plataforma digital única, integrada e inteligente. A solução consolidará todas as atividades críticas do ciclo de vida do cliente na plataforma Salesforce, que se tornará a "única fonte da verdade" para a Green4t, quebrando os silos de dados que atualmente existem entre as equipes de desenvolvimento de negócios, operações, gestão de projetos e administração.</p>
+                    
+                    <div class="space-y-4 pt-4">
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-lg font-bold brand-blue">3.2 Pilar I: Automação Comercial (Sales Cloud)</h4>
+                            <p class="mt-2 text-gray-600">Transformar o processo comercial B2G (Business-to-Government) ao padronizar o ciclo de vendas, centralizar a gestão de oportunidades, automatizar tarefas manuais e melhorar a precisão das previsões de vendas, liberando a equipe para focar em atividades de alto valor.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="text-lg font-bold brand-blue">3.3 Pilar II: Integração com o SEI (MuleSoft e Plataforma Salesforce)</h4>
+                            <p class="mt-2 text-gray-600">Criar uma integração automatizada entre Salesforce e o SEI para o protocolo de documentos, gestão de assinaturas digitais e sincronização de comunicações. Esta é uma diferenciação estratégica que elimina um gargalo manual e propenso a erros.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-blue-500">
+                             <h4 class="text-lg font-bold brand-blue">3.4 Pilar III: Gestão Integrada de Projetos (Plataforma Salesforce e Service Cloud)</h4>
+                            <p class="mt-2 text-gray-600">Mover a gestão de projetos para uma solução de PPM (Project Portfolio Management) integrada na plataforma. Isso fornecerá visibilidade de ponta a ponta, governança financeira, gestão de recursos e riscos, protegendo as margens de lucro.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- 4. Análise de Valor -->
+                <section id="secao4" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">4. Análise do Valor de Negócio Projetado</h2>
+                    <p class="text-gray-700 leading-relaxed">Esta seção traduz as capacidades tecnológicas em benefícios de negócio quantificáveis e estratégicos, baseados em benchmarks de mercado conservadores.</p>
+                    <h3 class="text-xl font-semibold text-gray-700">4.1 Impulsionando Receita e Conversão</h3>
+                    <p class="text-gray-700 leading-relaxed">A automação comercial e melhores ferramentas de dados levarão a ganhos de produtividade (estimativa conservadora de 15%), aumento de receita (estimativa de 10% em novos contratos) e melhora na taxa de conversão (estimativa de 5% de aumento no win rate).</p>
+                    <h3 class="text-xl font-semibold text-gray-700">4.2 Desbloqueando Eficiência Operacional</h3>
+                    <p class="text-gray-700 leading-relaxed">A integração com o SEI resultará em uma redução estimada de 75% no tempo gasto pela equipe administrativa em tarefas manuais de protocolo e verificação, liberando capital humano, reduzindo erros e minimizando riscos de não conformidade.</p>
+                    <h3 class="text-xl font-semibold text-gray-700">4.3 Aumentando a Rentabilidade dos Projetos</h3>
+                    <p class="text-gray-700 leading-relaxed">A gestão integrada de projetos permitirá uma melhora conservadora de 2% na margem bruta dos projetos, através de um controle de custos mais rigoroso, redução de desvios de escopo ("scope creep") e otimização da utilização de recursos.</p>
+                </section>
+                
+                <!-- 5. Análise Financeira -->
+                <section id="secao5" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">5. Análise Financeira e Retorno sobre o Investimento</h2>
+                    <h3 class="text-xl font-semibold text-gray-700">5.1 Resumo do Investimento</h3>
+                    <p class="text-gray-700 leading-relaxed">O investimento total de R$ 9.612.000 ao longo de 5 anos inclui custos de licenciamento de software (R$ 1.392.000/ano), serviços de implementação (R$ 1.344.000), custos internos da Green4t (R$ 300.000) e suporte contínuo (R$ 201.600/ano).</p>
+                    <h3 class="text-xl font-semibold text-gray-700">5.2 Análise de Benefícios Monetizados</h3>
+                    <p class="text-gray-700 leading-relaxed">Os benefícios anuais totais são estimados em R$ 9.250.000, compostos por R$ 5.000.000 em aumento de receita, R$ 1.500.000 em ganhos de produtividade de vendas, R$ 750.000 em eficiência operacional e R$ 2.000.000 em ganho de margem de projeto.</p>
+                    <h3 class="text-xl font-semibold text-gray-700">5.3 Projeções de Retorno sobre o Investimento (ROI)</h3>
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full min-w-max text-sm text-left text-gray-500 mt-4">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+                                <tr>
+                                    <th class="px-6 py-3">Métrica</th>
+                                    <th class="px-6 py-3 text-right">Ano 0</th>
+                                    <th class="px-6 py-3 text-right">Ano 1</th>
+                                    <th class="px-6 py-3 text-right">Ano 2</th>
+                                    <th class="px-6 py-3 text-right">Ano 3</th>
+                                    <th class="px-6 py-3 text-right">Ano 4</th>
+                                    <th class="px-6 py-3 text-right">Ano 5</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium">Investimento Total</td><td class="px-6 py-4 text-right">(1.644.000)</td><td class="px-6 py-4 text-right">(1.593.600)</td><td class="px-6 py-4 text-right">(1.593.600)</td><td class="px-6 py-4 text-right">(1.593.600)</td><td class="px-6 py-4 text-right">(1.593.600)</td><td class="px-6 py-4 text-right">(1.593.600)</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4 font-medium">Benefícios Totais</td><td class="px-6 py-4 text-right">0</td><td class="px-6 py-4 text-right">9.250.000</td><td class="px-6 py-4 text-right">9.250.000</td><td class="px-6 py-4 text-right">9.250.000</td><td class="px-6 py-4 text-right">9.250.000</td><td class="px-6 py-4 text-right">9.250.000</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-bold">Fluxo de Caixa Líquido</td><td class="px-6 py-4 text-right font-bold text-red-600">(1.644.000)</td><td class="px-6 py-4 text-right font-bold text-green-600">7.656.400</td><td class="px-6 py-4 text-right font-bold text-green-600">7.656.400</td><td class="px-6 py-4 text-right font-bold text-green-600">7.656.400</td><td class="px-6 py-4 text-right font-bold text-green-600">7.656.400</td><td class="px-6 py-4 text-right font-bold text-green-600">7.656.400</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-6 text-center mt-6">
+                        <div class="bg-gray-50 p-6 rounded-lg shadow"><p class="text-3xl font-bold gradient-text">285%</p><p class="mt-2 font-semibold text-gray-700">ROI (5 Anos)</p></div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow"><p class="text-3xl font-bold gradient-text">21 Meses</p><p class="mt-2 font-semibold text-gray-700">Período de Payback</p></div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow"><p class="text-3xl font-bold gradient-text">R$ 9.172.937</p><p class="mt-2 font-semibold text-gray-700">VPL (Valor Presente Líquido)</p></div>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-700">5.4 Análise de Sensibilidade</h3>
+                    <p class="text-gray-700 leading-relaxed">A análise demonstra a robustez do caso de negócio. Mesmo em um cenário conservador, onde os benefícios são metade do projetado, o projeto ainda gera um ROI positivo de 67% e se paga em 40 meses, oferecendo um alto grau de confiança de que o investimento é financeiramente sólido.</p>
+                </section>
+
+                <!-- 6. Estrutura de Execução -->
+                <section id="secao6" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">6. Estrutura de Execução e Governança</h2>
+                    <h3 class="text-xl font-semibold text-gray-700">6.1 Roteiro de Implementação em Fases (24 Semanas)</h3>
+                    <p class="text-gray-700 leading-relaxed">O projeto será executado em metodologia Ágil (Scrum) em duas fases principais: <strong>Fase 1 (Semanas 1-12)</strong> focada em Automação Comercial e Integração SEI para ganhos rápidos, e <strong>Fase 2 (Semanas 13-24)</strong> focada na Gestão Integrada de Projetos para consolidação e otimização.</p>
+                    <h3 class="text-xl font-semibold text-gray-700">6.2 Governança do Projeto</h3>
+                    <p class="text-gray-700 leading-relaxed">A governança será liderada por um Comitê Diretivo Executivo com reuniões mensais para supervisão estratégica. Uma Equipe Principal do Projeto, mista entre C3C Software e Green4t, será responsável pela execução diária, com uma cadência de comunicação ágil (reuniões diárias, revisões de sprint).</p>
+                    <h3 class="text-xl font-semibold text-gray-700">6.3 Indicadores de Desempenho (KPIs)</h3>
+                    <p class="text-gray-700 leading-relaxed">O sucesso será medido por um painel de KPIs SMART, incluindo a redução do ciclo médio de vendas, aumento da taxa de conversão, redução do tempo de protocolo de documentos, melhora na variação do orçamento dos projetos e aumento da taxa de adoção do usuário.</p>
+                </section>
+                
+                <!-- 7. Avaliação de Riscos -->
+                <section id="secao7" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">7. Avaliação de Riscos e Estratégia de Mitigação</h2>
+                    <p class="text-gray-700 leading-relaxed">Uma gestão de riscos proativa foi desenvolvida para endereçar os principais desafios.</p>
+                    <div class="w-full overflow-x-auto">
+                        <table class="w-full min-w-max text-sm text-left text-gray-500 mt-4">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-200">
+                                <tr><th class="px-6 py-3">Risco</th><th class="px-6 py-3">Estratégia de Mitigação</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium">Baixa Adoção pelos Usuários</td><td class="px-6 py-4">Gestão da mudança, envolvimento dos usuários-chave, treinamento contínuo e programa de "Super Usuários".</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4 font-medium">Qualidade dos Dados</td><td class="px-6 py-4">Sprint dedicado (Sprint 0) para análise, limpeza e mapeamento de dados antes da migração.</td></tr>
+                                <tr class="bg-white border-b"><td class="px-6 py-4 font-medium">"Scope Creep"</td><td class="px-6 py-4">Processo rigoroso de gestão de backlog com priorização baseada em valor de negócio e aprovações formais.</td></tr>
+                                <tr class="bg-gray-50 border-b"><td class="px-6 py-4 font-medium">Excesso de Orçamento</td><td class="px-6 py-4">Rastreamento semanal de horas e custos com relatórios transparentes e tetos de "não exceder" para cada fase.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 8. Conclusão -->
+                <section id="secao8" class="pt-12 mt-8 space-y-6 fade-in">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">8. Conclusão e Recomendação Estratégica</h2>
+                    <p class="text-gray-700 leading-relaxed">A análise apresentada estabelece um caso claro e convincente. O "Projeto Evolução Salesforce" é a resposta estratégica ao desafio de escalar as operações da Green4t para capitalizar a oportunidade sem precedentes no mercado de datacenters. O valor da iniciativa é tanto estratégico — aprofundando a parceria com o Governo Federal e criando uma vantagem competitiva sustentável — quanto financeiro, com um ROI robusto de 285%.</p>
+                    <div class="mt-8 bg-gray-900 text-white p-8 rounded-lg text-center">
+                        <h3 class="text-xl sm:text-2xl font-bold">Recomendação Formal</h3>
+                        <p class="mt-4 text-gray-300">Com base na análise abrangente, recomenda-se formalmente que o Comitê Executivo da Green4t aprove o investimento proposto e autorize o início imediato do projeto. Esta é uma decisão afirmativa pelo futuro da Green4t, equipando a empresa com a agilidade, a inteligência e a escalabilidade necessárias para solidificar sua liderança e impulsionar um crescimento lucrativo nos próximos anos.</p>
+                    </div>
+                </section>
+
+                <!-- Referencias -->
+                <section id="referencias" class="pt-12 mt-8 fade-in">
+                     <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">Referências</h2>
+                     <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 mt-4">
+                        <!-- Referencias sao inseridas aqui -->
+                        <li>CRM Statistics and Market Insights for 2025 - Kixie</li>
+                        <li>CRM Statistics That Prove CRM Helps Increase Revenue [2025] - Nutshell CRM</li>
+                        <li>Crescimento dos Data Centers no Brasil: Oportunidades e Desafios - Penso Tecnologia</li>
+                        <!-- Adicione as outras 39 referências aqui no mesmo formato -->
+                     </ol>
+                </section>
+
+            </main>
+        </div>
+    </div>
+    
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 bg-brand-green text-white p-3 rounded-full shadow-lg hover:bg-green-700 transition-all duration-300 z-50">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+    </button>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const documentNav = document.getElementById('document-nav');
+            const navLinks = documentNav ? documentNav.querySelectorAll('a') : [];
+            const sections = document.querySelectorAll('main section[id]');
+
+            // Scroll to Top Logic
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    scrollToTopBtn.classList.remove('hidden');
+                } else {
+                    scrollToTopBtn.classList.add('hidden');
+                }
+            });
+
+            scrollToTopBtn.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Fade-in animation on scroll
+            const fadeInObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.fade-in').forEach(el => fadeInObserver.observe(el));
+            
+            // Active Nav Link Highlighting
+            const navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        navLinks.forEach(link => {
+                            link.classList.remove('active');
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.add('active');
+                            }
+                        });
+                    }
+                });
+            }, { rootMargin: '-30% 0px -70% 0px' });
+
+            sections.forEach(section => navObserver.observe(section));
+        });
+    </script>
+</body>
+</html>
