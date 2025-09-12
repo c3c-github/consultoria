@@ -11,18 +11,20 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
-        .slide {
-            transition: transform 0.5s ease-in-out;
-        }
+
         .slide-hidden {
             transform: translateX(100%);
         }
+        
         .slide-previous {
             transform: translateX(-100%);
         }
+
+        .gradient-bg {
+            background: linear-gradient(45deg, #00A1E0, #00B18F);
+        }
+        
         .gradient-text {
             background: linear-gradient(45deg, #00A1E0, #00B18F);
             -webkit-background-clip: text;
@@ -30,194 +32,189 @@
             background-clip: text;
             text-fill-color: transparent;
         }
-        .brand-green { color: #00B18F; }
-        .brand-blue { color: #00A1E0; }
-        .bg-brand-green { background-color: #00B18F; }
-        .bg-brand-blue { background-color: #00A1E0; }
-        .border-brand-green { border-color: #00B18F; }
+
+        #video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: 0;
+            transform: translateX(-50%) translateY(-50%);
+        }
     </style>
 </head>
-<body class="bg-gray-100 p-2 sm:p-4 flex items-center justify-center min-h-screen">
+<body class="bg-gray-900 text-gray-800 overflow-hidden h-screen flex items-center justify-center">
 
-    <div class="w-full max-w-6xl h-full max-h-[800px] aspect-video bg-white shadow-2xl rounded-lg relative overflow-hidden flex flex-col">
-
+    <div class="w-full h-full max-w-6xl max-h-[800px] bg-white rounded-lg shadow-2xl relative flex flex-col">
+        
+        <!-- Header -->
+        <header class="p-4 border-b flex justify-between items-center flex-shrink-0 z-10 bg-white">
+            <img src="https://www.green4t.com/wp-content/uploads/2021/10/logo-green4t.svg" alt="Logo Green4t" class="h-8">
+            <div id="slide-counter" class="text-sm text-gray-500">Slide 1 / 8</div>
+        </header>
+        
         <!-- Slides Container -->
-        <div id="slides-container" class="flex-grow relative overflow-y-auto">
+        <main class="flex-grow relative overflow-hidden">
+            <div id="slides-wrapper" class="w-full h-full">
 
             <!-- Slide 1: Título -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center bg-gray-900 text-white">
-                <div class="absolute top-6 left-6 sm:top-8 sm:left-8 text-xl sm:text-2xl font-bold brand-green">Green4t</div>
-                <h1 class="text-3xl sm:text-4xl lg:text-6xl font-bold gradient-text">Business Case</h1>
-                <h2 class="text-xl sm:text-2xl lg:text-4xl mt-4">Projeto Evolução Salesforce</h2>
-                <p class="mt-6 text-base sm:text-lg lg:text-xl text-gray-300 max-w-3xl">Uma alavanca estratégica para acelerar o crescimento, a eficiência e a governança da Green4t no setor público.</p>
-                <p class="mt-8 sm:mt-12 text-sm text-gray-500">Apresentado ao Comitê Executivo | Setembro, 2025</p>
+            <div class="slide absolute inset-0 flex flex-col justify-center items-center text-center text-white overflow-hidden">
+                <video id="video-bg" poster="https://www.green4t.com/wp-content/uploads/2021/08/video-thumb-1-min.jpg" autoplay loop muted>
+                    <source src="https://www.green4t.com/wp-content/uploads/2021/08/video1-2.mp4" type="video/mp4">
+                </video>
+                <div class="absolute inset-0 bg-black/60 z-10"></div>
+                <div class="z-20">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold">Business Case</h1>
+                    <h2 class="mt-4 text-xl sm:text-2xl lg:text-3xl font-semibold opacity-90">Projeto Evolução Salesforce</h2>
+                    <p class="mt-6 text-base max-w-2xl opacity-80">Uma alavanca estratégica para acelerar o crescimento e a eficiência operacional.</p>
+                </div>
+                <div class="absolute bottom-12 flex items-center space-x-3 z-20">
+                    <span class="text-sm font-medium text-gray-300">Preparado por:</span>
+                    <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-7">
+                </div>
             </div>
 
-            <!-- Slide 2: O Cenário Estratégico -->
+            <!-- Slide 2: Contexto Estratégico -->
             <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">O Cenário Estratégico</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600">Nossa posição de liderança enfrenta desafios de escalabilidade e eficiência.</p>
-                <div class="mt-6 sm:mt-10 grid md:grid-cols-2 gap-4 sm:gap-8">
-                    <div class="bg-gray-50 rounded-lg p-4 sm:p-6 border-l-4 border-green-500">
-                        <h4 class="text-lg sm:text-xl font-semibold text-gray-800">🎯 A Oportunidade</h4>
-                        <p class="mt-2 text-sm sm:text-base text-gray-600">O mercado de datacenters e serviços de TI para o governo federal está em plena expansão. A Green4t está posicionada de forma única para capturar essa demanda crescente.</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">O Cenário: <span class="gradient-text">Oportunidade e Desafio</span></h3>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-green-500">
+                            <h4 class="text-xl font-bold text-gray-800 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>Mercado Aquecido</h4>
+                            <p class="mt-3 text-gray-600">O setor de datacenters no Brasil está em plena expansão, impulsionado pela transformação digital do setor público.</p>
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-red-500">
+                            <h4 class="text-xl font-bold text-gray-800 flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /></svg>A Ineficiência Oculta</h4>
+                            <p class="mt-3 text-gray-600">Processos manuais e falta de integração limitam nossa escalabilidade e rentabilidade.</p>
+                        </div>
                     </div>
-                    <div class="bg-gray-50 rounded-lg p-4 sm:p-6 border-l-4 border-red-500">
-                        <h4 class="text-lg sm:text-xl font-semibold text-gray-800">⚠️ O Desafio</h4>
-                        <p class="mt-2 text-sm sm:text-base text-gray-600">Nossos processos manuais, especialmente na interface com o SEI e na gestão de projetos, criam gargalos que limitam nosso crescimento, aumentam custos e introduzem riscos operacionais.</p>
+                    <div class="hidden md:block">
+                        <img src="https://www.green4t.com/wp-content/uploads/2021/09/data-center-services-2.jpg" alt="Servidores de Data Center" class="rounded-lg shadow-lg w-full h-full object-cover">
                     </div>
                 </div>
             </div>
             
             <!-- Slide 3: A Solução Proposta -->
             <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">A Solução: Projeto Evolução Salesforce</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600">Uma plataforma unificada para impulsionar resultados em três frentes estratégicas.</p>
-                <div class="mt-6 sm:mt-8 grid md:grid-cols-3 gap-4 sm:gap-6 text-center">
-                    <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-500">
-                        <div class="text-3xl sm:text-4xl">🚀</div>
-                        <h4 class="text-base sm:text-lg font-bold mt-3 text-gray-800">Automação Comercial</h4>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600">Acelerar o ciclo de vendas, renovações e reajustes com automações inteligentes, aumentando a produtividade e a taxa de conversão.</p>
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">A Solução: <span class="gradient-text">Três Pilares de Valor</span></h3>
+                <div class="grid md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h4 class="text-lg font-bold">Automação Comercial</h4>
+                        <p class="mt-2 text-sm text-gray-600">Unificar e automatizar o ciclo de vendas B2G para aumentar produtividade e conversão.</p>
                     </div>
-                    <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-500">
-                        <div class="text-3xl sm:text-4xl">🔗</div>
-                        <h4 class="text-base sm:text-lg font-bold mt-3 text-gray-800">Integração com o SEI</h4>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600">Eliminar retrabalho e erros de protocolo, liberando a equipe administrativa para atividades de maior valor estratégico.</p>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">🔗</div>
+                        <h4 class="text-lg font-bold">Integração com o SEI</h4>
+                        <p class="mt-2 text-sm text-gray-600">Eliminar trabalho manual de protocolo e assinatura, reduzindo erros e liberando a equipe.</p>
                     </div>
-                    <div class="bg-white rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-blue-500">
-                        <div class="text-3xl sm:text-4xl">📊</div>
-                        <h4 class="text-base sm:text-lg font-bold mt-3 text-gray-800">Gestão Integrada de Projetos</h4>
-                        <p class="mt-2 text-xs sm:text-sm text-gray-600">Visibilidade 360° (operacional e financeira) para antecipar riscos, reduzir desvios e proteger as margens de lucro.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Slide 4: Tese de Valor e Ganhos Projetados -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">Tese de Valor: Ganhos Projetados</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600 max-w-2xl">Baseado em benchmarks de mercado para implementações de CRM e automação.</p>
-                <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap justify-center gap-4 sm:gap-8">
-                    <div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center w-full sm:w-52 shadow">
-                        <p class="text-4xl sm:text-5xl font-bold brand-blue">+10-30%</p>
-                        <p class="mt-2 font-semibold text-gray-700 text-sm sm:text-base">Produtividade e Conversão em Vendas</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center w-full sm:w-52 shadow">
-                        <p class="text-4xl sm:text-5xl font-bold brand-blue">>200h</p>
-                        <p class="mt-2 font-semibold text-gray-700 text-sm sm:text-base">Horas/Mês Economizadas (Equipe Admin.)</p>
-                    </div>
-                    <div class="bg-gray-50 p-4 sm:p-6 rounded-lg text-center w-full sm:w-52 shadow">
-                        <p class="text-4xl sm:text-5xl font-bold brand-blue">>5%</p>
-                        <p class="mt-2 font-semibold text-gray-700 text-sm sm:text-base">Melhora na Margem de Projetos</p>
+                    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                        <div class="text-4xl mb-4">📊</div>
+                        <h4 class="text-lg font-bold">Gestão de Projetos</h4>
+                        <p class="mt-2 text-sm text-gray-600">Obter visibilidade 360° para melhorar a governança, antecipar riscos e proteger margens.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Slide 5: Plano de Execução Ágil -->
+            <!-- Slide 4: Tese de Valor -->
             <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">Plano de Execução Ágil: 24 Semanas</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600">Foco em entregas incrementais de valor para retorno rápido e alinhamento contínuo.</p>
-                <div class="mt-8 flex flex-col md:flex-row justify-center items-stretch gap-4 md:gap-8 w-full">
-                    <!-- Fase 1 -->
-                    <div class="flex-1 bg-gray-50 rounded-lg p-4 sm:p-6 border-t-4 md:border-t-0 md:border-l-4 border-blue-500">
-                        <p class="font-bold text-blue-600 text-lg">FASE 1: Semanas 1-12</p>
-                        <p class="mt-2 text-gray-700 text-sm sm:text-base"><strong>Foco:</strong> Ganhos rápidos de receita e eficiência.</p>
-                        <ul class="mt-2 list-disc list-inside text-sm text-gray-600">
-                            <li>Automação Comercial</li>
-                            <li>Integração com o SEI</li>
-                        </ul>
+                 <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Tese de Valor: <span class="gradient-text">Ganhos Quantificáveis</span></h3>
+                 <div class="grid sm:grid-cols-3 gap-8 text-center">
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <p class="text-5xl lg:text-6xl font-bold gradient-text">+10-30%</p>
+                        <p class="mt-3 font-semibold text-gray-700">Produtividade e Conversão</p>
                     </div>
-
-                    <!-- Connector -->
-                    <div class="flex md:hidden items-center justify-center my-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-                        </svg>
+                    <div class="bg-gray-50 p-6 rounded-lg">
+                        <p class="text-5xl lg:text-6xl font-bold gradient-text">>200h/mês</p>
+                        <p class="mt-3 font-semibold text-gray-700">Redução de Trabalho Manual</p>
                     </div>
-                    <div class="hidden md:flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 sm:h-8 sm:w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                        </svg>
+                     <div class="bg-gray-50 p-6 rounded-lg">
+                        <p class="text-5xl lg:text-6xl font-bold gradient-text">>5%</p>
+                        <p class="mt-3 font-semibold text-gray-700">Melhora na Margem de Projetos</p>
                     </div>
-
-                    <!-- Fase 2 -->
-                    <div class="flex-1 bg-gray-50 rounded-lg p-4 sm:p-6 border-t-4 md:border-t-0 md:border-l-4 border-green-500">
-                        <p class="font-bold text-green-600 text-lg">FASE 2: Semanas 13-24</p>
-                        <p class="mt-2 text-gray-700 text-sm sm:text-base"><strong>Foco:</strong> Governança e proteção de margens.</p>
-                        <ul class="mt-2 list-disc list-inside text-sm text-gray-600">
-                            <li>Consolidação da Gestão de Projetos</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="mt-8 text-center text-gray-600 text-sm sm:text-base">
-                    <strong>Metodologia:</strong> Scrum (12 Sprints quinzenais) | <strong>Modelo:</strong> Time & Material (Capacidade)
-                </div>
+                 </div>
+                 <p class="mt-10 text-center text-sm text-gray-500">Projeções baseadas em benchmarks de mercado (Deloitte, PwC) e estudos de caso análogos.</p>
             </div>
-            
-            <!-- Slide 6: Análise Financeira -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">Análise Financeira: Alto Retorno</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600">Projeções baseadas em casos de sucesso com escopo similar.</p>
-                <div class="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-12">
-                    <div class="bg-gray-50 rounded-lg p-6 sm:p-8">
-                        <p class="text-5xl sm:text-6xl font-bold gradient-text">223%</p>
-                        <p class="text-lg sm:text-xl mt-2 font-semibold text-gray-700">Retorno Sobre o Investimento (ROI)</p>
-                        <p class="text-xs sm:text-sm text-gray-500">em 3 anos</p>
-                    </div>
-                    <div class="bg-gray-50 rounded-lg p-6 sm:p-8">
-                        <p class="text-5xl sm:text-6xl font-bold gradient-text">7 meses</p>
-                        <p class="text-lg sm:text-xl mt-2 font-semibold text-gray-700">Tempo de Payback</p>
-                         <p class="text-xs sm:text-sm text-gray-500">do investimento inicial</p>
+        
+            <!-- Slide 5: Plano de Execução -->
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Plano de Execução Ágil: <span class="gradient-text">24 Semanas</span></h3>
+                <div class="relative">
+                    <div class="grid sm:grid-cols-2 gap-x-12 gap-y-8">
+                        <!-- Fase 1 -->
+                        <div class="sm:text-center p-6 bg-blue-50 rounded-lg">
+                            <div class="sm:mx-auto w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">1</div>
+                            <h4 class="text-xl font-bold text-blue-800">Fase 1: Ganhos Rápidos</h4>
+                            <p class="text-gray-600 mt-2"><strong>Semanas 1-12:</strong> Foco em Automação Comercial e Integração com o SEI para acelerar receita e gerar eficiência imediata.</p>
+                        </div>
+                        <!-- Fase 2 -->
+                        <div class="sm:text-center p-6 bg-green-50 rounded-lg">
+                            <div class="sm:mx-auto w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">2</div>
+                            <h4 class="text-xl font-bold text-green-800">Fase 2: Consolidação</h4>
+                            <p class="text-gray-600 mt-2"><strong>Semanas 13-24:</strong> Implementação da Gestão de Projetos para solidificar governança e controle de margens.</p>
+                        </div>
                     </div>
                 </div>
-                 <p class="mt-8 text-xs sm:text-sm text-gray-500 max-w-3xl">Nota: A análise detalhada, incluindo custos de licenciamento e serviços (C3C Software), está disponível no anexo.</p>
+                <p class="mt-10 text-center text-sm text-gray-600"><strong>Metodologia:</strong> Scrum (12 sprints quinzenais) | <strong>Contratação:</strong> Time & Material</p>
+            </div>
+
+
+            <!-- Slide 6: Análise Financeira -->
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Análise Financeira: <span class="gradient-text">Alto Retorno</span></h3>
+                <div class="grid sm:grid-cols-2 gap-8 text-center">
+                    <div class="bg-gray-50 p-8 rounded-lg border-t-4 border-green-500">
+                        <p class="text-5xl lg:text-7xl font-bold gradient-text">285%</p>
+                        <p class="mt-3 text-xl font-semibold text-gray-700">ROI (5 Anos)</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-lg border-t-4 border-blue-500">
+                        <p class="text-5xl lg:text-7xl font-bold gradient-text">21</p>
+                        <p class="mt-3 text-xl font-semibold text-gray-700">Meses para Payback</p>
+                    </div>
+                </div>
+                <p class="mt-8 text-xs sm:text-sm text-gray-500 max-w-3xl mx-auto text-center">Nota: A análise detalhada, incluindo custos de licenciamento e serviços (C3C Software), está disponível no <a href="https://c3c-github.github.io/consultoria/comercial/green4T/planoNegocio20250911.html" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline font-semibold">anexo</a>.</p>
             </div>
             
             <!-- Slide 7: Gestão de Riscos -->
             <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold brand-green">Gestão de Riscos e Mitigação</h3>
-                <p class="mt-2 text-base sm:text-lg text-gray-600">Antecipando desafios para garantir o sucesso do projeto.</p>
-                <div class="mt-6 sm:mt-8 space-y-3 sm:space-y-4">
-                    <div class="bg-gray-50 p-3 sm:p-4 rounded-lg flex flex-col sm:flex-row items-start">
-                        <div class="font-bold text-red-500 sm:mr-4 sm:w-1/4 mb-1 sm:mb-0">Adoção pelos Usuários:</div>
-                        <div class="text-gray-600 sm:w-3/4 text-sm sm:text-base"><span class="font-semibold text-green-600">Mitigação:</span> Envolvimento contínuo via metodologia Ágil, plano de treinamento focado em benefícios e nomeação de "campeões" internos.</div>
-                    </div>
-                    <div class="bg-gray-50 p-3 sm:p-4 rounded-lg flex flex-col sm:flex-row items-start">
-                        <div class="font-bold text-red-500 sm:mr-4 sm:w-1/4 mb-1 sm:mb-0">Qualidade dos Dados:</div>
-                        <div class="text-gray-600 sm:w-3/4 text-sm sm:text-base"><span class="font-semibold text-green-600">Mitigação:</span> Sprint dedicada para mapeamento, limpeza e preparação dos dados antes da migração, garantindo uma base sólida.</div>
-                    </div>
-                    <div class="bg-gray-50 p-3 sm:p-4 rounded-lg flex flex-col sm:flex-row items-start">
-                        <div class="font-bold text-red-500 sm:mr-4 sm:w-1/4 mb-1 sm:mb-0">Gestão da Mudança:</div>
-                        <div class="text-gray-600 sm:w-3/4 text-sm sm:text-base"><span class="font-semibold text-green-600">Mitigação:</span> Comunicação transparente e constante, com patrocínio visível do comitê executivo para reforçar a importância estratégica do projeto.</div>
-                    </div>
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Gestão de Riscos e <span class="gradient-text">Mitigação</span></h3>
+                <div class="space-y-4">
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Adoção:</span> <span class="text-gray-700">Plano de gestão da mudança, treinamento contínuo e envolvimento dos usuários-chave desde o início.</span></div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Dados:</span> <span class="text-gray-700">Sprint dedicado para mapeamento, limpeza e preparação dos dados existentes antes da migração.</span></div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Escopo:</span> <span class="text-gray-700">Processo rigoroso de gestão de backlog com priorização baseada em valor de negócio.</span></div>
                 </div>
             </div>
-
+            
             <!-- Slide 8: Recomendação Final -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center bg-gray-900 text-white slide-hidden">
-                <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold">Decisão Estratégica</h3>
-                <p class="mt-6 text-lg sm:text-xl text-gray-300 max-w-3xl">Este projeto não é um custo, mas um investimento direto na <span class="gradient-text font-semibold">capacidade competitiva, escalabilidade e excelência operacional</span> da Green4t.</p>
-                <div class="mt-12 bg-green-600 text-white font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-lg text-lg sm:text-2xl shadow-lg">
-                    Recomendamos a aprovação do Projeto Evolução Salesforce.
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center slide-hidden bg-cover bg-center" style="background-image: url('https://www.green4t.com/wp-content/uploads/2022/12/bg-nova-pagina-de-materiais-ricos-destaquesv1.png');">
+                <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
+                <div class="relative z-10">
+                    <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800">Decisão Estratégica</h3>
+                    <p class="mt-6 text-lg text-gray-600 max-w-3xl">Este projeto não é apenas um investimento em software, mas um passo fundamental na evolução da <span class="font-bold gradient-text">capacidade competitiva e da excelência operacional</span> da Green4t.</p>
+                    <div class="mt-10 bg-green-600 text-white font-bold py-4 px-8 rounded-lg text-xl shadow-lg">
+                        Recomendamos a aprovação do Projeto Evolução Salesforce.
+                    </div>
                 </div>
             </div>
 
-        </div>
+            </div>
+        </main>
 
-        <!-- Footer & Navigation -->
-        <div class="flex-shrink-0 p-2 sm:p-4 bg-white border-t flex justify-between items-center">
-            <div class="text-xs sm:text-sm text-gray-600">
-                <span class="font-bold brand-green">Green4t</span> | Confidencial
+        <!-- Navigation -->
+        <footer class="p-4 border-t flex justify-end items-center flex-shrink-0 z-10 bg-white">
+            <div class="flex gap-4">
+                <button id="prevBtn" class="px-5 py-2 text-sm font-medium text-gray-600 bg-gray-200 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
+                <button id="nextBtn" class="px-5 py-2 text-sm font-medium text-white gradient-bg rounded-md hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed">Próximo</button>
             </div>
-            <div class="flex items-center gap-2 sm:gap-4">
-                <button id="prevBtn" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed">Anterior</button>
-                <div id="slide-counter" class="text-xs sm:text-sm text-gray-500">1 / 8</div>
-                <button id="nextBtn" class="px-3 py-1.5 sm:px-4 sm:py-2 text-sm bg-brand-green text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed">Próximo</button>
-            </div>
-        </div>
+        </footer>
+
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
@@ -225,55 +222,55 @@
             let currentSlide = 0;
             const totalSlides = slides.length;
 
-            function updateSlideView() {
-                slides.forEach((slide, index) => {
-                    slide.classList.add('slide-hidden');
-                    slide.classList.remove('slide-previous');
-                    if (index > currentSlide) {
-                        slide.style.transform = 'translateX(100%)';
-                    } else if (index < currentSlide) {
-                        slide.style.transform = 'translateX(-100%)';
-                        slide.classList.add('slide-previous');
-                    }
+            function updateSlideCounter() {
+                slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
+            }
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    const transitionClass = i < index ? 'slide-previous' : 'slide-hidden';
+                    slide.classList.add(transitionClass);
                 });
-                slides[currentSlide].classList.remove('slide-hidden', 'slide-previous');
-                slides[currentSlide].style.transform = 'translateX(0)';
-                updateControls();
+
+                slides[index].classList.remove('slide-hidden', 'slide-previous');
+
+                prevBtn.disabled = index === 0;
+                nextBtn.disabled = index === totalSlides - 1;
+                updateSlideCounter();
             }
 
-            function updateControls() {
-                prevBtn.disabled = currentSlide === 0;
-                nextBtn.disabled = currentSlide === totalSlides - 1;
-                slideCounter.textContent = `${currentSlide + 1} / ${totalSlides}`;
-            }
-
-            function goToNext() {
+            function nextSlide() {
                 if (currentSlide < totalSlides - 1) {
                     currentSlide++;
-                    updateSlideView();
+                    showSlide(currentSlide);
                 }
             }
 
-            function goToPrev() { 
+            function prevSlide() {
                 if (currentSlide > 0) {
                     currentSlide--;
-                    updateSlideView();
+                    showSlide(currentSlide);
                 }
             }
 
-            nextBtn.addEventListener('click', goToNext);
-            prevBtn.addEventListener('click', goToPrev);
-
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    goToNext();
+                if (e.key === 'ArrowRight' || e.key === ' ') {
+                    e.preventDefault();
+                    nextSlide();
                 } else if (e.key === 'ArrowLeft') {
-                    goToPrev();
+                    e.preventDefault();
+                    prevSlide();
                 }
             });
 
-            // Initial setup
-            updateSlideView();
+            // A little delay for the video to load before showing the first slide
+            setTimeout(() => {
+                 showSlide(currentSlide);
+            }, 100);
+           
         });
     </script>
 </body>
