@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Comissões do Corretor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Estilo para abas ativas e inativas */
+        .tab-button.active {
+            border-color: #2563eb;
+            color: #2563eb;
+            background-color: #eff6ff;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        /* Estilo para inputs de data preenchidos */
+        .date-input-filled {
+            background-color: #f0f9ff;
+            font-weight: 500;
+            color: #0284c7;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans p-4 sm:p-6 md:p-8">
+
+    <div class="max-w-7xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="p-6 md:p-8">
+            <div class="flex justify-between items-start mb-4">
+                <div>
+                    <h1 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">Painel de Comissões</h1>
+                    <p class="text-gray-500">Gestão de comissões e carteira do corretor.</p>
+                </div>
+                 <!-- Ação Global de Relatório -->
+                <button id="btn-emitir-relatorio-global" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 whitespace-nowrap">
+                    Emitir Relatório
+                </button>
+            </div>
+
+
+            <!-- Navegação por Abas -->
+            <div class="border-b border-gray-200 mb-6">
+                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                    <button id="tab-comissoes-btn" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-600 hover:border-blue-300" data-tab="comissoes">
+                        Lançamentos de Comissão
+                    </button>
+                    <button id="tab-carteira-btn" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm text-gray-500 hover:text-blue-600 hover:border-blue-300" data-tab="carteira">
+                        Carteira do Corretor
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Conteúdo da Aba de Comissões -->
+            <div id="tab-comissoes" class="tab-content active">
+                <!-- Filtros -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 p-4 bg-gray-50 rounded-lg border">
+                    <div>
+                        <label for="filtro-corretor" class="block text-sm font-medium text-gray-700">Corretor</label>
+                        <select id="filtro-corretor" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                            <option value="">Todos</option>
+                            <option>João Silva</option>
+                            <option>Maria Oliveira</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filtro-proposta" class="block text-sm font-medium text-gray-700">Nº da Proposta</label>
+                        <input type="text" id="filtro-proposta" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="PROP-001">
+                    </div>
+                    <div>
+                        <label for="filtro-data" class="block text-sm font-medium text-gray-700">Data do Lançamento</label>
+                        <input type="date" id="filtro-data" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                    </div>
+                    <div class="flex items-end space-x-2">
+                        <button id="btn-filtrar" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Filtrar
+                        </button>
+                         <button id="btn-limpar-filtros" class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Limpar
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Tabela de Lançamentos de Comissão -->
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Proposta</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome Cliente</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Parcela</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Vencimento</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor Parcela</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor Recebido</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Corretor</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comissão Prevista</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Relatório</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Relatório</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Pagamento</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Pagamento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-comissoes-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Linhas inseridas via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Conteúdo da Aba de Carteira -->
+            <div id="tab-carteira" class="tab-content">
+                <!-- Formulário para Adicionar Lançamento na Carteira -->
+                <div class="mb-6 p-4 bg-gray-50 rounded-lg border">
+                    <h3 class="text-lg font-medium text-gray-800 mb-4">Novo Lançamento na Carteira</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
+                        <!-- Corretor -->
+                        <div class="lg:col-span-1">
+                            <label for="carteira-corretor" class="block text-sm font-medium text-gray-700">Corretor</label>
+                            <select id="carteira-corretor" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>João Silva</option>
+                                <option>Maria Oliveira</option>
+                            </select>
+                        </div>
+                        <!-- Tipo -->
+                        <div class="lg:col-span-1">
+                            <label for="carteira-tipo" class="block text-sm font-medium text-gray-700">Tipo</label>
+                            <select id="carteira-tipo" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md">
+                                <option>Crédito</option>
+                                <option>Débito</option>
+                            </select>
+                        </div>
+                        <!-- Justificativa -->
+                        <div class="lg:col-span-2">
+                            <label for="carteira-justificativa" class="block text-sm font-medium text-gray-700">Justificativa</label>
+                            <input type="text" id="carteira-justificativa" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="Ex: Bônus de performance">
+                        </div>
+                        <!-- Valor -->
+                        <div class="lg:col-span-1">
+                            <label for="carteira-valor" class="block text-sm font-medium text-gray-700">Valor (R$)</label>
+                            <input type="number" id="carteira-valor" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" placeholder="250.00">
+                        </div>
+                         <!-- Botão Adicionar -->
+                        <div class="lg:col-span-1">
+                            <button id="btn-add-carteira" class="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                Adicionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                 <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Corretor</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Lançamento</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Justificativa</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Relatório</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Relatório</th>
+                                <th class="px-4 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Pagamento</th>
+                                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Pagamento</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabela-carteira-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Linhas inseridas via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    // --- DADOS MOCKADOS (EXEMPLO) ---
+    const comissaoCorretorPercentual = 5; // 5%
+
+    let mockComissoes = [
+        { id: 1, proposta: 'PROP-001', nome: 'Cliente Alpha LTDA', parcela: '1/12', vencimento: '2025-09-15', valorParcela: 1500.75, valorRecebido: 1500.75, corretor: 'João Silva', dataLancamento: '2025-09-01', relatorio: true, dataRelatorio: '10/09/2025', pagamento: false, dataPagamento: '' },
+        { id: 2, proposta: 'PROP-002', nome: 'Empresa Beta S/A', parcela: '3/6', vencimento: '2025-09-20', valorParcela: 850.00, valorRecebido: 850.00, corretor: 'Maria Oliveira', dataLancamento: '2025-09-02', relatorio: true, dataRelatorio: '10/09/2025', pagamento: true, dataPagamento: '11/09/2025' },
+        { id: 3, proposta: 'PROP-003', nome: 'Cliente Gama', parcela: '1/1', vencimento: '2025-10-01', valorParcela: 2300.50, valorRecebido: 2300.50, corretor: 'João Silva', dataLancamento: '2025-09-05', relatorio: false, dataRelatorio: '', pagamento: false, dataPagamento: '' },
+        { id: 4, proposta: 'PROP-001', nome: 'Cliente Alpha LTDA', parcela: '2/12', vencimento: '2025-10-15', valorParcela: 1500.75, valorRecebido: 1500.75, corretor: 'João Silva', dataLancamento: '2025-10-01', relatorio: true, dataRelatorio: '10/10/2025', pagamento: false, dataPagamento: '' },
+        { id: 5, proposta: 'PROP-004', nome: 'Indústria Delta', parcela: '2/2', vencimento: '2025-09-18', valorParcela: 1200.00, valorRecebido: 1200.00, corretor: 'Maria Oliveira', dataLancamento: '2025-09-10', relatorio: false, dataRelatorio: '', pagamento: false, dataPagamento: '' }
+    ];
+
+    let mockCarteira = [
+        { id: 1, corretor: 'João Silva', dataLancamento: '2025-09-10', tipo: 'Crédito', justificativa: 'Bônus de performance', valor: 250.00, relatorio: true, dataRelatorio: '10/09/2025', pagamento: false, dataPagamento: '' },
+        { id: 2, corretor: 'Maria Oliveira', dataLancamento: '2025-08-25', tipo: 'Débito', justificativa: 'Adiantamento de comissão', valor: -100.00, relatorio: true, dataRelatorio: '26/08/2025', pagamento: true, dataPagamento: '01/09/2025' },
+        { id: 3, corretor: 'João Silva', dataLancamento: '2025-09-11', tipo: 'Débito', justificativa: 'Desconto material de escritório', valor: -25.50, relatorio: false, dataRelatorio: '', pagamento: false, dataPagamento: '' }
+    ];
+
+    // --- REFERÊNCIAS DO DOM ---
+    const tabComissoesBtn = document.getElementById('tab-comissoes-btn');
+    const tabCarteiraBtn = document.getElementById('tab-carteira-btn');
+    const tabComissoesContent = document.getElementById('tab-comissoes');
+    const tabCarteiraContent = document.getElementById('tab-carteira');
+    const tabelaComissoesBody = document.getElementById('tabela-comissoes-body');
+    const tabelaCarteiraBody = document.getElementById('tabela-carteira-body');
+    const btnEmitirRelatorioGlobal = document.getElementById('btn-emitir-relatorio-global');
+
+    // Filtros
+    const filtroCorretor = document.getElementById('filtro-corretor');
+    const filtroProposta = document.getElementById('filtro-proposta');
+    const filtroData = document.getElementById('filtro-data');
+    const btnFiltrar = document.getElementById('btn-filtrar');
+    const btnLimpar = document.getElementById('btn-limpar-filtros');
+
+    // Formulário Carteira
+    const carteiraCorretor = document.getElementById('carteira-corretor');
+    const carteiraTipo = document.getElementById('carteira-tipo');
+    const carteiraJustificativa = document.getElementById('carteira-justificativa');
+    const carteiraValor = document.getElementById('carteira-valor');
+    const btnAddCarteira = document.getElementById('btn-add-carteira');
+
+
+    // --- FUNÇÕES ---
+
+    const formatCurrency = (value) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
+    const formatDate = (dateString) => {
+        if (!dateString) return '';
+        const [year, month, day] = dateString.split('-');
+        return `${day}/${month}/${year}`;
+    };
+    const getCurrentDateFormatted = () => new Date().toLocaleDateString('pt-BR');
+    const getCurrentDateISO = () => new Date().toISOString().split('T')[0];
+
+    // Função para renderizar a tabela de comissões
+    const renderComissoes = (data) => {
+        tabelaComissoesBody.innerHTML = '';
+        if (data.length === 0) {
+            tabelaComissoesBody.innerHTML = `<tr><td colspan="12" class="text-center py-10 text-gray-500">Nenhum lançamento encontrado.</td></tr>`;
+            return;
+        }
+        data.forEach(item => {
+            const comissaoPrevista = (item.valorRecebido * comissaoCorretorPercentual) / 100;
+            const row = `
+                <tr class="text-sm text-gray-700">
+                    <td class="px-4 py-3 whitespace-nowrap font-medium text-gray-900">${item.proposta}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${item.nome}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${item.parcela}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${formatDate(item.vencimento)}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${formatCurrency(item.valorParcela)}</td>
+                    <td class="px-4 py-3 whitespace-nowrap font-semibold text-blue-600">${formatCurrency(item.valorRecebido)}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${item.corretor}</td>
+                    <td class="px-4 py-3 whitespace-nowrap font-semibold text-green-600">${formatCurrency(comissaoPrevista)}</td>
+                    <td class="px-4 py-3 text-center"><input type="checkbox" data-id="${item.id}" data-type="relatorio" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${item.relatorio ? 'checked' : ''}></td>
+                    <td class="px-4 py-3 whitespace-nowrap"><input type="text" value="${item.dataRelatorio}" class="date-output text-xs p-1 border-0 bg-transparent rounded-md ${item.dataRelatorio ? 'date-input-filled' : ''}" readonly></td>
+                    <td class="px-4 py-3 text-center"><input type="checkbox" data-id="${item.id}" data-type="pagamento" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${item.pagamento ? 'checked' : ''}></td>
+                    <td class="px-4 py-3 whitespace-nowrap"><input type="text" value="${item.dataPagamento}" class="date-output text-xs p-1 border-0 bg-transparent rounded-md ${item.dataPagamento ? 'date-input-filled' : ''}" readonly></td>
+                </tr>
+            `;
+            tabelaComissoesBody.innerHTML += row;
+        });
+    };
+
+    // Função para renderizar a tabela de carteira
+    const renderCarteira = (data) => {
+        tabelaCarteiraBody.innerHTML = '';
+        if (data.length === 0) {
+            tabelaCarteiraBody.innerHTML = `<tr><td colspan="9" class="text-center py-10 text-gray-500">Nenhum lançamento encontrado.</td></tr>`;
+            return;
+        }
+        data.forEach(item => {
+            const isCredito = item.tipo === 'Crédito';
+            const valorClass = isCredito ? 'text-green-600' : 'text-red-600';
+            const row = `
+                <tr class="text-sm text-gray-700">
+                    <td class="px-4 py-3 whitespace-nowrap">${item.corretor}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">${formatDate(item.dataLancamento)}</td>
+                    <td class="px-4 py-3 whitespace-nowrap"><span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${isCredito ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">${item.tipo}</span></td>
+                    <td class="px-4 py-3">${item.justificativa}</td>
+                    <td class="px-4 py-3 whitespace-nowrap font-semibold ${valorClass}">${formatCurrency(item.valor)}</td>
+                    <td class="px-4 py-3 text-center"><input type="checkbox" data-id="${item.id}" data-type="relatorio" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${item.relatorio ? 'checked' : ''}></td>
+                    <td class="px-4 py-3 whitespace-nowrap"><input type="text" value="${item.dataRelatorio}" class="date-output text-xs p-1 border-0 bg-transparent rounded-md ${item.dataRelatorio ? 'date-input-filled' : ''}" readonly></td>
+                    <td class="px-4 py-3 text-center"><input type="checkbox" data-id="${item.id}" data-type="pagamento" class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" ${item.pagamento ? 'checked' : ''}></td>
+                    <td class="px-4 py-3 whitespace-nowrap"><input type="text" value="${item.dataPagamento}" class="date-output text-xs p-1 border-0 bg-transparent rounded-md ${item.dataPagamento ? 'date-input-filled' : ''}" readonly></td>
+                </tr>
+            `;
+            tabelaCarteiraBody.innerHTML += row;
+        });
+    };
+    
+    // --- LÓGICA DOS EVENTOS ---
+    
+    // Troca de abas
+    [tabComissoesBtn, tabCarteiraBtn].forEach(btn => {
+        btn.addEventListener('click', () => {
+            tabComissoesBtn.classList.toggle('active', btn === tabComissoesBtn);
+            tabCarteiraBtn.classList.toggle('active', btn === tabCarteiraBtn);
+            tabComissoesContent.classList.toggle('active', btn === tabComissoesBtn);
+            tabCarteiraContent.classList.toggle('active', btn === tabCarteiraBtn);
+        });
+    });
+
+    // Lógica para marcar data nos checkboxes
+    const handleCheckboxChange = (e) => {
+        if (e.target.matches('input[type="checkbox"]')) {
+            const checkbox = e.target;
+            const dateInput = checkbox.closest('td').nextElementSibling.querySelector('input');
+            if (checkbox.checked) {
+                dateInput.value = getCurrentDateFormatted();
+                dateInput.classList.add('date-input-filled');
+            } else {
+                dateInput.value = '';
+                dateInput.classList.remove('date-input-filled');
+            }
+        }
+    };
+    tabelaComissoesBody.addEventListener('change', handleCheckboxChange);
+    tabelaCarteiraBody.addEventListener('change', handleCheckboxChange);
+
+    // Lógica de Filtragem
+    btnFiltrar.addEventListener('click', () => {
+        const corretor = filtroCorretor.value.toLowerCase();
+        const proposta = filtroProposta.value.toLowerCase();
+        const data = filtroData.value;
+
+        const filteredData = mockComissoes.filter(item => {
+            const matchCorretor = !corretor || item.corretor.toLowerCase().includes(corretor);
+            const matchProposta = !proposta || item.proposta.toLowerCase().includes(proposta);
+            const matchData = !data || item.dataLancamento === data;
+            return matchCorretor && matchProposta && matchData;
+        });
+        renderComissoes(filteredData);
+    });
+
+    // Limpar Filtros
+    btnLimpar.addEventListener('click', () => {
+        filtroCorretor.value = '';
+        filtroProposta.value = '';
+        filtroData.value = '';
+        renderComissoes(mockComissoes);
+    });
+
+    // Adicionar Lançamento na Carteira
+    btnAddCarteira.addEventListener('click', () => {
+        const corretor = carteiraCorretor.value;
+        const tipo = carteiraTipo.value;
+        const justificativa = carteiraJustificativa.value.trim();
+        let valor = parseFloat(carteiraValor.value);
+
+        if (!justificativa || isNaN(valor)) {
+            alert('Por favor, preencha a justificativa e um valor válido.');
+            return;
+        }
+
+        if (tipo === 'Débito' && valor > 0) {
+            valor = -valor;
+        }
+
+        const newEntry = {
+            id: mockCarteira.length > 0 ? Math.max(...mockCarteira.map(item => item.id)) + 1 : 1,
+            corretor: corretor,
+            dataLancamento: getCurrentDateISO(),
+            tipo: tipo,
+            justificativa: justificativa,
+            valor: valor,
+            relatorio: false,
+            dataRelatorio: '',
+            pagamento: false,
+            dataPagamento: ''
+        };
+
+        mockCarteira.push(newEntry);
+        renderCarteira(mockCarteira);
+
+        // Limpar formulário
+        carteiraJustificativa.value = '';
+        carteiraValor.value = '';
+    });
+
+    // Emitir Relatório
+    btnEmitirRelatorioGlobal.addEventListener('click', () => {
+        // Armazena os dados originais para restauração
+        const originalComissoes = [...mockComissoes];
+        const originalCarteira = [...mockCarteira];
+
+        const comissoesParaRelatorio = originalComissoes.filter(item => item.relatorio && !item.pagamento);
+        const carteiraParaRelatorio = originalCarteira.filter(item => item.relatorio && !item.pagamento);
+        
+        renderComissoes(comissoesParaRelatorio);
+        renderCarteira(carteiraParaRelatorio);
+        
+        alert(`Relatório de Pagamento Emitido!\n\nExibindo ${comissoesParaRelatorio.length} lançamento(s) de comissão e ${carteiraParaRelatorio.length} lançamento(s) da carteira pendentes de pagamento.\n\n(Os filtros serão limpos para restaurar a visão completa.)`);
+        
+        // Limpa os filtros da aba de comissões para não confundir o usuário
+        btnLimpar.click();
+    });
+
+    // --- INICIALIZAÇÃO ---
+    renderComissoes(mockComissoes);
+    renderCarteira(mockCarteira);
+});
+</script>
+
+</body>
+</html>
+

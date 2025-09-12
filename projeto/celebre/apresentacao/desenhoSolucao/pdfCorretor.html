@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extrato de Comissões</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 8.5in;
+            min-height: 11in;
+            padding: 1in;
+            background-color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+            border: 1px solid #dee2e6;
+        }
+
+        h1, h2, h3, h4 {
+            color: #212529;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 {
+            font-size: 28px;
+            text-align: center;
+            border-bottom: 2px solid #0070d2; /* Cor Salesforce */
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            color: #495057;
+            border-bottom: 1px solid #ced4da;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+
+        h4 {
+            font-size: 16px;
+            color: #0070d2;
+            margin-top: 25px;
+        }
+        
+        .header-info {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #6c757d;
+        }
+        
+        .summary-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        
+        .summary-section strong {
+            color: #343a40;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        th {
+            background-color: #f3f2f2; /* Cor Salesforce */
+            color: #3e3e3c;
+            font-weight: 600;
+        }
+        
+        .total-row {
+            font-weight: bold;
+            background-color: #f8f9fa;
+        }
+
+        .total-row td:last-child {
+            color: #28a745;
+        }
+        
+        .grand-total {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #0070d2;
+            text-align: right;
+        }
+
+        .grand-total h3 {
+            border: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .grand-total h2 {
+            font-size: 26px;
+            color: #0070d2;
+            margin: 5px 0 0 0;
+        }
+
+        .divider {
+            margin: 30px 0;
+            border: 0;
+            border-top: 1px solid #ced4da;
+        }
+        
+        @media print {
+            body {
+                background-color: #fff;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                min-height: auto;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Extrato de Comissões para Aceite</h1>
+        <p class="header-info"><strong>Data de Emissão:</strong> 05 de Setembro de 2025</p>
+
+        <div class="summary-section">
+            <h3>Resumo do Corretor</h3>
+            <p><strong>Corretor:</strong> Carlos Pereira</p>
+            <p><strong>Supervisor:</strong> Ana Souza</p>
+        </div>
+
+        <div class="details-section">
+            <h3>Detalhamento por Operadora</h3>
+
+            <h4>Operadora: Amil</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proposta</th>
+                        <th>Cliente</th>
+                        <th>Parcela</th>
+                        <th>Vlr. Comissão Recebido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PROP-001254</td>
+                        <td>Tech Inova Soluções</td>
+                        <td>2/12 (15/09/2025)</td>
+                        <td>R$ 450,00</td>
+                    </tr>
+                    <tr>
+                        <td>PROP-001261</td>
+                        <td>Digital Way</td>
+                        <td>5/12 (25/09/2025)</td>
+                        <td>R$ 255,00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3">Total da Operadora</td>
+                        <td>R$ 705,00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Operadora: Bradesco Saúde</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proposta</th>
+                        <th>Cliente</th>
+                        <th>Parcela</th>
+                        <th>Vlr. Comissão Recebido</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PROP-001271</td>
+                        <td>Tech Inova Soluções</td>
+                        <td>2/12 (15/09/2025)</td>
+                        <td>R$ 450,00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3">Total da Operadora</td>
+                        <td>R$ 450,00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="grand-total">
+            <h3>Total Geral a Receber</h3>
+            <h2>R$ 1.155,00</h2>
+        </div>
+    </div>
+
+</body>
+</html>
