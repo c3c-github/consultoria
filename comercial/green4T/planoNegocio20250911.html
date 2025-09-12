@@ -93,23 +93,50 @@
                     <p class="mt-6 text-sm text-gray-500">Documento Confidencial | Data: 11 de Setembro de 2025</p>
                 </section>
 
-                <!-- 1. Sumário Executivo -->
-                <section id="secao1" class="pt-12 mt-8 space-y-6 fade-in">
+                <!-- 1. Sumário Executivo (Mobile-First Redesign) -->
+                <section id="secao1" class="pt-12 mt-8 space-y-8 fade-in">
                     <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">1. Sumário Executivo</h2>
-                    <h3 class="text-xl font-semibold text-gray-700">O Imperativo Estratégico</h3>
-                    <p class="text-gray-700 leading-relaxed">A Green4t consolidou sua posição como líder de mercado na construção e suporte de datacenters de grande porte, atendendo prioritariamente a órgãos do governo federal brasileiro. A empresa opera em um setor que não está apenas crescendo, mas se acelerando exponencialmente, impulsionado pela transformação digital em larga escala do setor público e pela adoção de tecnologias como Inteligência Artificial (IA), Internet das Coisas (IoT) e computação em nuvem. No entanto, o crescimento futuro e a rentabilidade da Green4t estão limitados por processos operacionais internos que permanecem em grande parte manuais, dependentes de sistemas legados e isolados em silos departamentais. Essa fragmentação operacional representa um risco estratégico, limitando a agilidade, a eficiência e a capacidade da empresa de escalar em sintonia com a demanda do mercado.</p>
                     
-                    <h3 class="text-xl font-semibold text-gray-700">A Solução Proposta</h3>
-                    <p class="text-gray-700 leading-relaxed">Este documento apresenta o caso de negócio para o "Projeto Evolução Salesforce", uma iniciativa transformacional para implementar uma plataforma digital unificada que irá modernizar e integrar três funções de negócio críticas: (1) Automação Comercial, (2) Integração com o Sistema Eletrônico de Informações (SEI) do Governo Federal e (3) Gestão Integrada de Projetos. Ao consolidar essas operações no ecossistema Salesforce, a Green4t criará uma única fonte de verdade para todas as interações com clientes, desde a prospecção inicial até a entrega do projeto e a renovação de contratos, proporcionando uma visibilidade de 360 graus sem precedentes para a liderança.</p>
-                    
-                    <h3 class="text-xl font-semibold text-gray-700">Valor de Negócio Projetado</h3>
-                    <p class="text-gray-700 leading-relaxed">A implementação do "Projeto Evolução Salesforce" irá gerar valor tangível e mensurável em toda a organização. A automação dos processos de vendas e a capacitação das equipes comerciais com dados e ferramentas avançadas devem resultar em um aumento de produtividade de vendas na faixa de 10% a 30%. A integração direta e automatizada com o sistema SEI eliminará milhares de horas de trabalho administrativo manual e propenso a erros, liberando recursos para atividades de maior valor agregado. Adicionalmente, a governança aprimorada e a visibilidade em tempo real proporcionadas pela gestão de projetos integrada na plataforma tendem a melhorar as margens dos projetos, reduzindo desvios de orçamento e antecipando riscos de forma proativa.</p>
-                    
-                    <h3 class="text-xl font-semibold text-gray-700">O Investimento e O Retorno Financeiro</h3>
-                    <p class="text-gray-700 leading-relaxed">O investimento total projetado para a implementação do projeto, ao longo de um período de 24 semanas, e para a operação da plataforma durante os primeiros cinco anos é de R$ 9.612.000. A análise financeira rigorosa, detalhada na Seção 5, demonstra um caso de investimento altamente atraente, projetado para gerar um Retorno sobre o Investimento (ROI) de 285% ao longo de um horizonte de cinco anos. O investimento inicial será recuperado em um Período de Payback de apenas 21 meses, e o projeto gerará um Valor Presente Líquido (VPL) de R$ 9.172.937, confirmando sua robusta capacidade de criação de valor.</p>
+                    <!-- Key Financial Metrics -->
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 text-center">
+                        <div class="bg-gray-50 p-4 rounded-lg shadow"><p class="text-2xl sm:text-3xl font-bold gradient-text">285%</p><p class="mt-1 text-sm sm:text-base font-semibold text-gray-700">ROI (5 Anos)</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg shadow"><p class="text-2xl sm:text-3xl font-bold gradient-text">21 Meses</p><p class="mt-1 text-sm sm:text-base font-semibold text-gray-700">Payback</p></div>
+                        <div class="bg-gray-50 p-4 rounded-lg shadow col-span-2 md:col-span-1"><p class="text-2xl sm:text-3xl font-bold gradient-text">R$ 9.1M</p><p class="mt-1 text-sm sm:text-base font-semibold text-gray-700">VPL</p></div>
+                    </div>
 
-                    <h3 class="text-xl font-semibold text-gray-700">A Recomendação</h3>
-                    <p class="text-gray-700 leading-relaxed">Com base na análise estratégica e financeira abrangente apresentada, recomenda-se formalmente que o Comitê Executivo da Green4t aprove o investimento proposto e autorize o início imediato do "Projeto Evolução Salesforce". Esta iniciativa não é meramente uma atualização tecnológica; é um investimento fundamental na infraestrutura operacional que sustentará a próxima fase de crescimento, liderança de mercado e rentabilidade da Green4t.</p>
+                    <!-- Scannable Summary Points -->
+                    <div class="space-y-6 pt-4">
+                        <div class="flex items-start space-x-4">
+                            <div><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg></div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">O Imperativo Estratégico</h3>
+                                <p class="text-gray-600 leading-relaxed mt-1">Processos manuais e fragmentados estão limitando nosso crescimento e rentabilidade em um mercado de datacenters em alta velocidade.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start space-x-4">
+                            <div><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg></div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">A Solução Proposta</h3>
+                                <p class="text-gray-600 leading-relaxed mt-1">Implementar uma plataforma Salesforce unificada para modernizar e integrar Automação de Vendas, Integração com o SEI e Gestão de Projetos.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start space-x-4">
+                            <div><svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg></div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-gray-800">Valor de Negócio</h3>
+                                <ul class="list-disc list-inside text-gray-600 mt-1 space-y-1">
+                                    <li>Aumento de 10-30% na produtividade de vendas.</li>
+                                    <li>Eliminação de trabalho administrativo manual (integração SEI).</li>
+                                    <li>Melhora nas margens com governança de projetos aprimorada.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-800 text-white p-6 rounded-lg text-center">
+                        <h3 class="text-lg font-bold">Recomendação</h3>
+                        <p class="mt-2 text-gray-300">Aprovar o investimento para esta iniciativa fundamental, que sustentará a próxima fase de crescimento, liderança e rentabilidade da Green4t.</p>
+                    </div>
                 </section>
                 
                 <!-- 2. Contexto Estratégico -->
@@ -239,12 +266,49 @@
                 <!-- Referencias -->
                 <section id="referencias" class="pt-12 mt-8 fade-in">
                      <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 section-title">Referências</h2>
-                     <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 mt-4">
-                        <!-- Referencias sao inseridas aqui -->
+                     <ol class="list-decimal list-inside text-sm text-gray-600 space-y-2 mt-4 break-words">
                         <li>CRM Statistics and Market Insights for 2025 - Kixie</li>
                         <li>CRM Statistics That Prove CRM Helps Increase Revenue [2025] - Nutshell CRM</li>
                         <li>Crescimento dos Data Centers no Brasil: Oportunidades e Desafios - Penso Tecnologia</li>
-                        <!-- Adicione as outras 39 referências aqui no mesmo formato -->
+                        <li>Tendências de tecnologia para 2025 nos Data Centers do Brasil - Ascenty</li>
+                        <li>Brasil reúne condições atrativas para receber investimentos em ... - EY</li>
+                        <li>Mais Inovação vai investir R$ 66 bilhões em projetos até 2026 - Portal Gov.br</li>
+                        <li>Governo Federal vai investir mais de R$ 58 milhões em tecnologias de ponta para telecomunicações - Portal Gov.br</li>
+                        <li>Sistema Eletrônico de Informações - SEI — Serviços Compartilhados - Portal Gov.br</li>
+                        <li>A IMPLANTAÇÃO DO SISTEMA ELETRÔNICO DE INFORMAÇÃO... - Periódicos UFMS</li>
+                        <li>Por Que os Softwares de Gestão de Projetos são Fundamentais para a Rentabilidade... - COR</li>
+                        <li>Setor de Data Centers no Brasil: fundamentos, perspectivas e tendências - Moodys Local</li>
+                        <li>Data Centers no Brasil: Desafios, oportunidades e políticas públicas... - ABES</li>
+                        <li>Government Contractor Software | Salesforce US</li>
+                        <li>How US Government Entities Are Using Salesforce In 2022 - S-Docs</li>
+                        <li>Case Study - HigherEchelon</li>
+                        <li>(PDF) Sistema Eletrônico de Informações (SEI) como ferramenta para modernização... - ResearchGate</li>
+                        <li>problemas e desafios na integração de sistemas e dados... - UCB</li>
+                        <li>Project Portfolio Management Case Studies Collection - CIO Portal</li>
+                        <li>15 examples of process improvement with a PPM solution - Triskell Software</li>
+                        <li>How to Measure ROI (Return of Investment) of Salesforce Implementation... - TTMS</li>
+                        <li>Estudos de caso — IBM Robotic Process Automation</li>
+                        <li>A IMPLEMENTAÇÃO DO SEI - SISTEMA ELETRÔNICO DE... - Repositório ENAP</li>
+                        <li>A Influência da Gestão do Tempo para o Aumento da Lucratividade... - NPPG</li>
+                        <li>Salesforce ROI case study: Matouk - Nucleus Research</li>
+                        <li>Post-Implementation Strategies: Measuring ROI On Salesforce Investments... - Vertex</li>
+                        <li>2025 Salesforce CRM Pricing Guide - Cargas</li>
+                        <li>Preços dos softwares de atendimento ao cliente... - Salesforce BR</li>
+                        <li>Time & Material Billing Model – a flexible solution in IT projects - TTMS</li>
+                        <li>Análise do Valor-Hora em Consultorias no Brasil (2024-2025) - RDD10+</li>
+                        <li>Maximizing Salesforce ROI in 2025: Strategies & Metrics... - Veloxy</li>
+                        <li>Falhas na implementação de CRM? Principais erros e como evitar - blink-iT</li>
+                        <li>Fatores críticos de sucesso na implantação da governança da tecnologia... - Repositório ENAP</li>
+                        <li>6 riscos de implementação de CRM mais comuns... - Close.com</li>
+                        <li>32 CRM Statistics You NEED To Know For 2025 And Beyond - Breakcold</li>
+                        <li>Os impactos da adoção de soluções digitais na otimização da gestão pública... - Cognitionis</li>
+                        <li>Pesquisa do Gartner revela que projetos de IA estão em risco - IT Forum</li>
+                        <li>Como criar uma estratégia de IA inovadora? - Salesforce</li>
+                        <li>Conheça as melhores práticas para gerenciar projetos de tecnologia - Salesforce</li>
+                        <li>Segurança do Salesforce</li>
+                        <li>Segurança da Informação na era dos dados... - Salesforce</li>
+                        <li>UNIVERSIDADE PRESBITERIANA MACKENZIE... CUSTOS EM PROJETOS DE TI...</li>
+                        <li>Developing an Effective Trust Strategy for AI Projects - Trailhead Salesforce</li>
                      </ol>
                 </section>
 
@@ -298,7 +362,7 @@
                             if (link.getAttribute('href') === `#${id}`) {
                                 link.classList.add('active');
                             }
-                        }); 
+                        });
                     }
                 });
             }, { rootMargin: '-30% 0px -70% 0px' });
@@ -308,3 +372,4 @@
     </script>
 </body>
 </html>
+
