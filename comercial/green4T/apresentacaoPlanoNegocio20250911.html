@@ -44,11 +44,16 @@
             z-index: 0;
             transform: translateX(-50%) translateY(-50%);
         }
+        /* Garante que o container principal ocupe a tela sem estourar */
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-gray-800 overflow-hidden h-screen flex items-center justify-center">
+<body class="bg-gray-900 text-gray-800 overflow-hidden flex items-center justify-center">
 
-    <div class="w-full h-full max-w-6xl max-h-[800px] bg-white rounded-lg shadow-2xl relative flex flex-col">
+    <div class="presentation-container max-w-6xl max-h-[800px] bg-white rounded-lg shadow-2xl relative flex flex-col">
         
         <!-- Header -->
         <header class="p-4 border-b flex justify-between items-center flex-shrink-0 z-10 bg-white">
@@ -62,24 +67,24 @@
 
             <!-- Slide 1: Título -->
             <div class="slide absolute inset-0 flex flex-col justify-center items-center text-center text-white overflow-hidden">
-                <video id="video-bg" poster="https://www.green4t.com/wp-content/uploads/2021/08/video-thumb-1-min.jpg" autoplay loop muted>
+                <video id="video-bg" poster="https://www.green4t.com/wp-content/uploads/2021/08/video-thumb-1-min.jpg" autoplay loop muted playsinline>
                     <source src="https://www.green4t.com/wp-content/uploads/2021/08/video1-2.mp4" type="video/mp4">
                 </video>
                 <div class="absolute inset-0 bg-black/60 z-10"></div>
-                <div class="z-20">
+                <div class="z-20 p-4">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold">Business Case</h1>
                     <h2 class="mt-4 text-xl sm:text-2xl lg:text-3xl font-semibold opacity-90">Projeto Evolução Salesforce</h2>
                     <p class="mt-6 text-base max-w-2xl opacity-80">Uma alavanca estratégica para acelerar o crescimento e a eficiência operacional.</p>
                 </div>
-                <div class="absolute bottom-12 flex items-center space-x-3 z-20">
+                <div class="absolute bottom-4 sm:bottom-12 flex items-center space-x-3 z-20">
                     <span class="text-sm font-medium text-gray-300">Preparado por:</span>
                     <img src="https://c3csoftware.com.br/wp-content/uploads/2022/06/Logocerta.png" alt="Logo C3C Software" class="h-7">
                 </div>
             </div>
 
             <!-- Slide 2: Contexto Estratégico -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">O Cenário: <span class="gradient-text">Oportunidade e Desafio</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">O Cenário: <span class="gradient-text">Oportunidade e Desafio</span></h3>
                 <div class="grid md:grid-cols-2 gap-8 items-center">
                     <div class="space-y-6">
                         <div class="bg-gray-50 p-6 rounded-lg border-l-4 border-green-500">
@@ -98,8 +103,8 @@
             </div>
             
             <!-- Slide 3: A Solução Proposta -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">A Solução: <span class="gradient-text">Três Pilares de Valor</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">A Solução: <span class="gradient-text">Três Pilares de Valor</span></h3>
                 <div class="grid md:grid-cols-3 gap-6 text-center">
                     <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
                         <div class="text-4xl mb-4">🎯</div>
@@ -120,8 +125,8 @@
             </div>
 
             <!-- Slide 4: Tese de Valor -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                 <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Tese de Valor: <span class="gradient-text">Ganhos Quantificáveis</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                 <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">Tese de Valor: <span class="gradient-text">Ganhos Quantificáveis</span></h3>
                  <div class="grid sm:grid-cols-3 gap-8 text-center">
                     <div class="bg-gray-50 p-6 rounded-lg">
                         <p class="text-5xl lg:text-6xl font-bold gradient-text">+10-30%</p>
@@ -140,17 +145,15 @@
             </div>
         
             <!-- Slide 5: Plano de Execução -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Plano de Execução Ágil: <span class="gradient-text">24 Semanas</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">Plano de Execução Ágil: <span class="gradient-text">24 Semanas</span></h3>
                 <div class="relative">
                     <div class="grid sm:grid-cols-2 gap-x-12 gap-y-8">
-                        <!-- Fase 1 -->
                         <div class="sm:text-center p-6 bg-blue-50 rounded-lg">
                             <div class="sm:mx-auto w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">1</div>
                             <h4 class="text-xl font-bold text-blue-800">Fase 1: Ganhos Rápidos</h4>
                             <p class="text-gray-600 mt-2"><strong>Semanas 1-12:</strong> Foco em Automação Comercial e Integração com o SEI para acelerar receita e gerar eficiência imediata.</p>
                         </div>
-                        <!-- Fase 2 -->
                         <div class="sm:text-center p-6 bg-green-50 rounded-lg">
                             <div class="sm:mx-auto w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl mb-4">2</div>
                             <h4 class="text-xl font-bold text-green-800">Fase 2: Consolidação</h4>
@@ -163,8 +166,8 @@
 
 
             <!-- Slide 6: Análise Financeira -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Análise Financeira: <span class="gradient-text">Alto Retorno</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">Análise Financeira: <span class="gradient-text">Alto Retorno</span></h3>
                 <div class="grid sm:grid-cols-2 gap-8 text-center">
                     <div class="bg-gray-50 p-8 rounded-lg border-t-4 border-green-500">
                         <p class="text-5xl lg:text-7xl font-bold gradient-text">285%</p>
@@ -179,19 +182,19 @@
             </div>
             
             <!-- Slide 7: Gestão de Riscos -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center slide-hidden">
-                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10">Gestão de Riscos e <span class="gradient-text">Mitigação</span></h3>
+            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center overflow-y-auto slide-hidden">
+                <h3 class="text-2xl sm:text-3xl font-bold text-center mb-10 flex-shrink-0">Gestão de Riscos e <span class="gradient-text">Mitigação</span></h3>
                 <div class="space-y-4">
-                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Adoção:</span> <span class="text-gray-700">Plano de gestão da mudança, treinamento contínuo e envolvimento dos usuários-chave desde o início.</span></div>
-                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Dados:</span> <span class="text-gray-700">Sprint dedicado para mapeamento, limpeza e preparação dos dados existentes antes da migração.</span></div>
-                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3">Escopo:</span> <span class="text-gray-700">Processo rigoroso de gestão de backlog com priorização baseada em valor de negócio.</span></div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3 flex-shrink-0">Adoção:</span> <span class="text-gray-700">Plano de gestão da mudança, treinamento contínuo e envolvimento dos usuários-chave desde o início.</span></div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3 flex-shrink-0">Dados:</span> <span class="text-gray-700">Sprint dedicado para mapeamento, limpeza e preparação dos dados existentes antes da migração.</span></div>
+                    <div class="bg-gray-50 p-4 rounded-lg flex items-start"><span class="font-bold text-yellow-600 mr-3 flex-shrink-0">Escopo:</span> <span class="text-gray-700">Processo rigoroso de gestão de backlog com priorização baseada em valor de negócio.</span></div>
                 </div>
             </div>
             
             <!-- Slide 8: Recomendação Final -->
-            <div class="slide absolute inset-0 p-6 sm:p-12 lg:p-16 flex flex-col justify-center items-center text-center slide-hidden bg-cover bg-center" style="background-image: url('https://www.green4t.com/wp-content/uploads/2022/12/bg-nova-pagina-de-materiais-ricos-destaquesv1.png');">
+            <div class="slide absolute inset-0 flex flex-col justify-center items-center text-center slide-hidden bg-cover bg-center" style="background-image: url('https://www.green4t.com/wp-content/uploads/2022/12/bg-nova-pagina-de-materiais-ricos-destaquesv1.png');">
                 <div class="absolute inset-0 bg-white/80 backdrop-blur-sm"></div>
-                <div class="relative z-10">
+                <div class="relative z-10 p-4">
                     <h3 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800">Decisão Estratégica</h3>
                     <p class="mt-6 text-lg text-gray-600 max-w-3xl">Este projeto não é apenas um investimento em software, mas um passo fundamental na evolução da <span class="font-bold gradient-text">capacidade competitiva e da excelência operacional</span> da Green4t.</p>
                     <div class="mt-10 bg-green-600 text-white font-bold py-4 px-8 rounded-lg text-xl shadow-lg">
@@ -215,6 +218,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const slidesWrapper = document.getElementById('slides-wrapper');
             const slides = document.querySelectorAll('.slide');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
@@ -222,12 +226,19 @@
             let currentSlide = 0;
             const totalSlides = slides.length;
 
+            // Variáveis para o gesto de swipe
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+
             function updateSlideCounter() {
                 slideCounter.textContent = `Slide ${currentSlide + 1} / ${totalSlides}`;
             }
 
             function showSlide(index) {
                 slides.forEach((slide, i) => {
+                    slide.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
                     const transitionClass = i < index ? 'slide-previous' : 'slide-hidden';
                     slide.classList.add(transitionClass);
                 });
@@ -253,9 +264,11 @@
                 }
             }
 
+            // Lógica dos botões
             nextBtn.addEventListener('click', nextSlide);
             prevBtn.addEventListener('click', prevSlide);
             
+            // Lógica do teclado
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowRight' || e.key === ' ') {
                     e.preventDefault();
@@ -266,9 +279,39 @@
                 }
             });
 
-            // A little delay for the video to load before showing the first slide
+            // Lógica do Swipe
+            slidesWrapper.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+
+            slidesWrapper.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            });
+
+            function handleSwipe() {
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+                const swipeThreshold = 50; // Mínimo de pixels para considerar um swipe
+
+                // Verifica se o movimento foi mais horizontal do que vertical
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+                    if (deltaX < 0) {
+                        // Swipe para a esquerda
+                        nextSlide();
+                    } else {
+                        // Swipe para a direita
+                        prevSlide();
+                    }
+                }
+            }
+
+            // Atraso inicial para carregar vídeo antes de mostrar o primeiro slide
             setTimeout(() => {
                  showSlide(currentSlide);
+                 slides.forEach(slide => slide.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)');
             }, 100);
            
         });
