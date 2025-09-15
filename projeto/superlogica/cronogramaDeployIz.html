@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cronograma de Deploy - Superlógica</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        .task-card {
+            transition: all 0.3s ease;
+            border-left-width: 4px;
+        }
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .filter-btn {
+            transition: all 0.2s ease;
+        }
+        .filter-btn.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px white, 0 0 0 4px #4f46e5;
+        }
+        .status-badge {
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8">
+        <!-- Cabeçalho -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800">Cronograma de Homologação e Deploy</h1>
+            <p class="text-lg text-gray-500 mt-2">Cliente: Superlógica | Parceiro: C3C Software</p>
+        </header>
+
+        <!-- Legenda e Filtros -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-8">
+            <h3 class="text-lg font-semibold text-gray-700 mb-4">Equipe e Filtros</h3>
+            <div id="team-legend" class="flex flex-wrap gap-3 items-center">
+                 <button id="filter-all" class="filter-btn active text-sm font-medium px-4 py-2 rounded-full bg-indigo-600 text-white shadow-sm">Todos</button>
+            </div>
+        </div>
+
+        <!-- Linha do Tempo do Projeto -->
+        <main id="project-timeline" class="space-y-12">
+            <!-- Os dias serão inseridos aqui pelo JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const team = {
+                'Priscila': { color: 'border-pink-500', bgColor: 'bg-pink-50', name: 'Priscila (Consultora)' },
+                'Diego': { color: 'border-blue-500', bgColor: 'bg-blue-50', name: 'Diego (Desenvolvedor)' },
+                'Renan': { color: 'border-purple-500', bgColor: 'bg-purple-50', name: 'Renan (Desenvolvedor)' },
+                'Leopoldo': { color: 'border-gray-500', bgColor: 'bg-gray-50', name: 'Leopoldo (Scrum Master)' },
+                'Equipe': { color: 'border-orange-500', bgColor: 'bg-orange-50', name: 'Toda a Equipe' },
+            };
+
+            const statuses = {
+                'Pendente': { bg: 'bg-gray-200', text: 'text-gray-800' },
+                'Em Andamento': { bg: 'bg-blue-200', text: 'text-blue-800' },
+                'Concluído': { bg: 'bg-green-200', text: 'text-green-800' },
+                'Bloqueado': { bg: 'bg-red-200', text: 'text-red-800' },
+            };
+            const statusOrder = ['Pendente', 'Em Andamento', 'Concluído', 'Bloqueado'];
+
+            // Cronograma focado na semana do deploy
+            const tasks = [
+                // Segunda-feira
+                { day: { id: 1, title: 'Segunda-feira (15/09)' }, name: 'Análise e Correção de Integrações', assignee: 'Diego', estimate: 8, status: 'Em Andamento', details: 'Verificar integração com pipe no fluxo de crédito e erro na nova tarifa de boleto (com Vini).' },
+                { day: { id: 1, title: 'Segunda-feira (15/09)' }, name: 'Configuração: Perfis e Layouts', assignee: 'Priscila', estimate: 8, status: 'Em Andamento', details: 'Limpar perfil IZ, definir home page e revisar list views. Agendar papo com Karla.' },
+                { day: { id: 1, title: 'Segunda-feira (15/09)' }, name: 'Dev: Análise de Processos', assignee: 'Renan', estimate: 6, status: 'Pendente', details: 'Verificar trigger de Oportunidade e possibilidade de melhoria no fluxo de criação de solicitações.' },
+                { day: { id: 1, title: 'Segunda-feira (15/09)' }, name: 'Gerenciamento', assignee: 'Leopoldo', estimate: 2, status: 'Em Andamento', details: 'Kick-off da semana, alinhar prioridades e comunicação com o cliente.' },
+
+                // Terça-feira
+                { day: { id: 2, title: 'Terça-feira (16/09)' }, name: 'Dev: Processo de Crédito', assignee: 'Diego', estimate: 8, status: 'Pendente', details: 'Remover edição do pipe, aplicar obrigatoriedade e lógica de status "Pendência de crédito".' },
+                { day: { id: 2, title: 'Terça-feira (16/09)' }, name: 'Config: Estrutura de Aprovações e Campos', assignee: 'Priscila', estimate: 8, status: 'Pendente', details: 'Criar campo "Definição de canal", path de ADM e iniciar configuração do processo de aprovação.' },
+                { day: { id: 2, title: 'Terça-feira (16/09)' }, name: 'Dev: Bloqueio de Edição', assignee: 'Renan', estimate: 6, status: 'Pendente', details: 'Bloquear edição de campos do caso de nova tarifa e reprecificação para o executivo.' },
+                { day: { id: 2, title: 'Terça-feira (16/09)' }, name: 'Gerenciamento', assignee: 'Leopoldo', estimate: 2, status: 'Em Andamento', details: 'Daily e acompanhamento dos bloqueios.' },
+                
+                // Quarta-feira
+                { day: { id: 3, title: 'Quarta-feira (17/09)' }, name: 'Dev: Batch "Definição de Canal"', assignee: 'Diego', estimate: 8, status: 'Pendente', details: 'Criar batch e schedule para definir o campo de canal de acordo com as regras.' },
+                { day: { id: 3, title: 'Quarta-feira (17/09)' }, name: 'Config: Processo de Aprovação e Funis', assignee: 'Priscila', estimate: 8, status: 'Pendente', details: 'Finalizar workflow de aprovação e criar funis (geral, carteira, task manager).' },
+                { day: { id: 3, title: 'Quarta-feira (17/09)' }, name: 'Dev: Análise Governança Pricing', assignee: 'Renan', estimate: 6, status: 'Pendente', details: 'Verificar motivo da separação da solicitação "Governança Pricing".' },
+                { day: { id: 3, title: 'Quarta-feira (17/09)' }, name: 'Testes Integrados (Equipe)', assignee: 'Equipe', estimate: 4, status: 'Pendente', details: 'Validar os ajustes desenvolvidos de forma integrada no ambiente de testes.' },
+
+                // Quinta-feira
+                { day: { id: 4, title: 'Quinta-feira (18/09)' }, name: 'Validação Final e UAT com Cliente', assignee: 'Equipe', estimate: 8, status: 'Pendente', details: 'Sessão de validação dos ajustes com os usuários chave (Karla e time).' },
+                { day: { id: 4, title: 'Quinta-feira (18/09)' }, name: 'Preparação para Deploy', assignee: 'Diego', estimate: 4, status: 'Pendente', details: 'Verificar e rodar classes de teste, preparar pacote de implantação.' },
+                { day: { id: 4, title: 'Quinta-feira (18/09)' }, name: 'Documentação: Plano de Rollback', assignee: 'Priscila', estimate: 4, status: 'Pendente', details: 'Criar e validar o plano de rollback para o deploy.' },
+                { day: { id: 4, title: 'Quinta-feira (18/09)' }, name: 'Comunicação do Deploy', assignee: 'Leopoldo', estimate: 2, status: 'Pendente', details: 'Alinhar janela de deploy e comunicar todos os stakeholders.' },
+
+                // Sexta-feira
+                { day: { id: 5, title: 'Sexta-feira (19/09) - DEPLOY' }, name: 'Atividades Pré-Deploy', assignee: 'Equipe', estimate: 2, status: 'Pendente', details: 'Backup, comunicação de início da janela e validações finais.' },
+                { day: { id: 5, title: 'Sexta-feira (19/09) - DEPLOY' }, name: 'Execução do Deploy em Produção', assignee: 'Diego', estimate: 4, status: 'Pendente', details: 'Implantação do pacote no ambiente de produção.' },
+                { day: { id: 5, title: 'Sexta-feira (19/09) - DEPLOY' }, name: 'Atividades Pós-Deploy (Validação)', assignee: 'Priscila', estimate: 4, status: 'Pendente', details: 'Smoke test em produção para garantir a integridade da aplicação.' },
+
+                // Fim de Semana
+                { day: { id: 6, title: 'Fim de Semana (20-21/09)' }, name: 'Monitoramento Pós Go-Live', assignee: 'Equipe', estimate: 4, status: 'Pendente', details: 'Acompanhamento do ambiente e suporte a chamados críticos.' },
+                
+                // Próxima Semana
+                { day: { id: 7, title: 'Próxima Semana (22-26/09)' }, name: 'Operação Assistida', assignee: 'Equipe', estimate: 16, status: 'Pendente', details: 'Suporte intensivo aos usuários, resolução de dúvidas e acompanhamento da nova versão.' },
+            ];
+            
+            const timelineContainer = document.getElementById('project-timeline');
+            const teamLegendContainer = document.getElementById('team-legend');
+            let activeFilter = 'all';
+
+            Object.keys(team).forEach(assignee => {
+                const button = document.createElement('button');
+                button.id = `filter-${assignee}`;
+                button.className = 'filter-btn text-sm font-medium px-4 py-2 rounded-full shadow-sm';
+                const teamColor = team[assignee].color.replace('border-', 'bg-').replace('-500', '-100');
+                const teamTextColor = team[assignee].color.replace('border-', 'text-').replace('-500', '-800');
+                button.classList.add(teamColor, teamTextColor);
+                button.textContent = team[assignee].name;
+                button.onclick = () => filterTasks(assignee);
+                teamLegendContainer.appendChild(button);
+            });
+            
+            document.getElementById('filter-all').onclick = () => filterTasks('all');
+
+            function renderTasks() {
+                timelineContainer.innerHTML = '';
+                const days = [...new Map(tasks.map(item => [item.day.id, item.day])).values()];
+
+                days.forEach(day => {
+                    const daySection = document.createElement('section');
+                    daySection.innerHTML = `
+                        <div class="flex items-center mb-4">
+                            <div class="w-8 h-8 flex items-center justify-center bg-indigo-600 text-white font-bold rounded-full mr-4">${day.id}</div>
+                            <h2 class="text-2xl font-bold text-gray-700">${day.title}</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="day-${day.id}-tasks"></div>
+                    `;
+                    timelineContainer.appendChild(daySection);
+                    
+                    const dayTasksContainer = document.getElementById(`day-${day.id}-tasks`);
+                    tasks.filter(t => t.day.id === day.id).forEach(task => {
+                        const taskData = team[task.assignee];
+                        const statusData = statuses[task.status];
+                        
+                        const taskCard = document.createElement('div');
+                        taskCard.className = `task-card bg-white p-4 rounded-lg shadow-sm ${taskData.color} ${taskData.bgColor}`;
+                        taskCard.dataset.assignee = task.assignee;
+
+                        taskCard.innerHTML = `
+                            <div class="flex justify-between items-start">
+                                <h4 class="font-bold text-gray-800 pr-2">${task.name}</h4>
+                                <span class="status-badge text-xs font-semibold px-2.5 py-0.5 rounded-full ${statusData.bg} ${statusData.text}" data-task-name="${task.name}">${task.status}</span>
+                            </div>
+                            <p class="text-sm text-gray-600 mt-2">${task.details}</p>
+                            <div class="mt-4 pt-3 border-t border-gray-200 flex justify-between items-center">
+                                <span class="text-sm font-medium text-gray-700">Estimativa: ${task.estimate}h</span>
+                                <span class="text-sm font-semibold ${taskData.color.replace('border', 'text')}">${taskData.name}</span>
+                            </div>
+                        `;
+                        
+                        if (activeFilter !== 'all' && task.assignee !== activeFilter) {
+                            taskCard.classList.add('hidden');
+                        }
+                        
+                        dayTasksContainer.appendChild(taskCard);
+                    });
+                });
+                
+                document.querySelectorAll('.status-badge').forEach(badge => {
+                    badge.addEventListener('click', (e) => {
+                        const taskName = e.target.dataset.taskName;
+                        const task = tasks.find(t => t.name === taskName);
+                        if(task) {
+                            const currentStatusIndex = statusOrder.indexOf(task.status);
+                            const nextStatusIndex = (currentStatusIndex + 1) % statusOrder.length;
+                            task.status = statusOrder[nextStatusIndex];
+                            filterTasks(activeFilter); 
+                        }
+                    });
+                });
+            }
+
+            function filterTasks(assignee) {
+                activeFilter = assignee;
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                document.getElementById(`filter-${assignee}`).classList.add('active');
+
+                document.querySelectorAll('.task-card').forEach(card => {
+                    if (assignee === 'all' || card.dataset.assignee === assignee) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            renderTasks();
+        });
+    </script>
+</body>
+</html>
+
