@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Validação e KT | Projeto Salesforce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Cores customizadas */
+        .celebre-purple {
+            color: #4F008C;
+        }
+        .bg-celebre-purple {
+            background-color: #4F008C;
+        }
+        /* Animação de fade-in */
+        .fade-in-card {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+        .fade-in-card.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Estilo da tabela */
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Cabeçalho -->
+    <header class="bg-celebre-purple shadow-md p-6">
+        <div class="container mx-auto max-w-6xl flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl md:text-3xl font-bold text-white">C3C & Celebre | Validação e KT Salesforce</h1>
+                <p class="text-purple-200">Checklist para as Sessões de Validação e KT</p>
+            </div>
+            <div class="flex items-center space-x-6">
+                 <img src="https://celebrecorretora.com.br/wp-content/uploads/2023/11/cropped-logo.png" alt="Logo Celebre Corretora" class="h-12" onerror="this.onerror=null;this.src='https://placehold.co/200x50/FFFFFF/4F008C?text=Celebre';">
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto max-w-6xl p-6 md:p-8">
+
+        <!-- Título da Seção -->
+        <section class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-extrabold celebre-purple mb-4">Checklist para as Sessões de Validação</h2>
+            <p class="max-w-3xl mx-auto text-slate-600">
+                Para garantir a produtividade de cada sessão de validação e transferência de conhecimento (KT), detalhamos os artefatos e atividades que cada equipe deve preparar com antecedência.
+            </p>
+        </section>
+
+        <!-- Container dos Checklists -->
+        <div class="space-y-8">
+
+            <!-- Fase 1 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Fase 1: Higienização e Parametrização do Sistema</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Quarta-feira, 17/09</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[ARTEFATO]</strong> Lista final de operadoras a serem unificadas.</li>
+                                        <li><strong>[ARTEFATO]</strong> Planilha com as grades de recebimento (comissão) por operadora, por tipo de venda e por tipo de plano.</li>
+                                        <li><strong>[ARTEFATO]</strong> Regras de negócio definidas para faixa etária e reajuste anual (para propostas de 2024+).</li>
+                                        <li><strong>[DECISÃO]</strong> Definição de quem serão os usuários-chave responsáveis pela validação dos dados.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[AMBIENTE]</strong> Ambiente de produção Salesforce preparado e com acesso liberado para os usuários-chave para a validação.</li>
+                                        <li><strong>[FERRAMENTA]</strong> Scripts de importação de dados prontos para a carga inicial.</li>
+                                        <li><strong>[DOCUMENTO]</strong> Roteiro de perguntas e pontos de validação para guiar a sessão.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fase Acessória -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Fase Acessória: Validação da Tela de Comissão do Corretor</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Quinta-feira, 18/09</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li>Nenhum pré-requisito necessário para esta sessão.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[SISTEMA]</strong> Protótipo funcional ou mockup de alta fidelidade da tela de comissão do corretor.</li>
+                                        <li><strong>[DADOS]</strong> Massa de dados de exemplo (fictícia) carregada para demonstrar o funcionamento da tela.</li>
+                                        <li><strong>[DOCUMENTO]</strong> Roteiro de apresentação focado na jornada do usuário corretor.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fase 2 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Fase 2: Parametrização do Time de Vendas</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Sexta-feira, 19/09</p>
+                 <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[ARTEFATO]</strong> Planilha detalhada com as regras de comissionamento por corretor e por supervisor para todas as operadoras.</li>
+                                        <li><strong>[PESSOAS]</strong> Presença do gestor comercial ou responsável pela definição das regras de comissão.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                       <li><strong>[SISTEMA]</strong> Estrutura de comissionamento (níveis, regras) configurada no Salesforce com base na Fase 1.</li>
+                                       <li><strong>[SISTEMA]</strong> Mecanismo de atribuição de comissão pronto para receber a carga de dados.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Fase 3 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Fase 3: Lançamentos e Relatórios</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Terça-feira, 23/09</p>
+                 <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[DADOS]</strong> Extratos ou lançamentos reais das operadoras referentes ao mês de agosto para teste.</li>
+                                        <li><strong>[PESSOAS]</strong> Responsável financeiro disponível para validar a lógica dos relatórios de "Previsto vs. Recebido".</li>
+                                        <li><strong>[EXEMPLO]</strong> Modelos de relatórios financeiros utilizados atualmente para comparação.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                       <li><strong>[SISTEMA]</strong> Funcionalidade de lançamentos financeiros (baixas) implementada e pronta para uso.</li>
+                                       <li><strong>[SISTEMA]</strong> Relatórios de "Previsto vs. Recebido" desenvolvidos e prontos para validação.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Fase 4 -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Fase 4: Relatório e Pagamento de Comissão</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Quinta-feira, 25/09</p>
+                 <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[DADOS]</strong> Casos de teste para gestão de débitos e créditos (ex: adiantamentos, estornos).</li>
+                                        <li><strong>[PESSOAS]</strong> Responsável pela aprovação final dos pagamentos de comissão presente na reunião.</li>
+                                        <li><strong>[PROCESSO]</strong> Fluxo de aprovação de pagamentos definido.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                       <li><strong>[SISTEMA]</strong> Fluxo completo de comissão (do previsto ao pago) funcionando no ambiente de produção para validação.</li>
+                                       <li><strong>[SISTEMA]</strong> Geração dos relatórios de pagamento por corretor implementada.</li>
+                                       <li><strong>[SISTEMA]</strong> Funcionalidade de gestão de débitos e créditos pronta para teste.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Encerramento -->
+            <div class="bg-white p-6 md:p-8 rounded-2xl shadow-lg border border-slate-200 fade-in-card">
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Encerramento e Validação Final</h3>
+                <p class="text-sm text-slate-500 mb-6 font-medium">Sessão: Sexta-feira, 26/09</p>
+                 <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-slate-50 border-b">
+                            <tr>
+                                <th class="w-1/4">Equipe</th>
+                                <th>Pré-requisitos e Artefatos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b">
+                                <td class="font-semibold">👥 Celebre</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                        <li><strong>[DOCUMENTO]</strong> Checklist interno de validação de todas as fases preenchido e com "OK" dos responsáveis.</li>
+                                        <li><strong>[DECISÃO]</strong> Gestores com poder de decisão presentes para dar o aceite final da fase de validação e KT.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="font-semibold">💻 C3C</td>
+                                <td>
+                                    <ul class="list-disc list-inside space-y-2 text-slate-600">
+                                       <li><strong>[DOCUMENTO]</strong> Apresentação consolidada com os resultados da validação (KT), pontos confirmados e próximos passos.</li>
+                                       <li><strong>[DOCUMENTO]</strong> Documento de encerramento da fase de KT e plano de suporte pós-validação.</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="text-center py-8 mt-12 border-t">
+        <p class="text-slate-500 text-sm">C3C Software | Transformando negócios com Salesforce</p>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const cards = document.querySelectorAll('.fade-in-card');
+
+            if ("IntersectionObserver" in window) {
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    root: null,
+                    rootMargin: '0px',
+                    threshold: 0.1
+                });
+
+                cards.forEach(card => {
+                    observer.observe(card);
+                });
+            } else {
+                // Fallback para navegadores sem IntersectionObserver
+                cards.forEach(card => {
+                    card.classList.add('is-visible');
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
+
