@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encerramento do Projeto IZ & VC no Salesforce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow: hidden;
+        }
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+            position: absolute;
+            width: 100%;
+            top: 0;
+            left: 0;
+            padding: 2rem;
+            visibility: hidden;
+        }
+        .slide.active {
+            opacity: 1;
+            z-index: 1;
+            position: relative;
+            visibility: visible;
+        }
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        .nav-arrow:hover {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #prevBtn { left: 20px; }
+        #nextBtn { right: 20px; }
+        .timeline { border-left: 3px solid; }
+        .timeline-item { position: relative; }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -11px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            border: 3px solid;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <div id="presentation-container">
+        <!-- Slide 1: Capa -->
+        <section id="slide1" class="slide active bg-white text-gray-800">
+            <div class="text-center">
+                <div class="flex justify-center items-center gap-8 mb-10">
+                    <img src="https://superlogica.com/wp-content/uploads/2014/10/logo-sl-normal.png" alt="Logo da Superlógica" class="h-12">
+                    <span class="text-4xl font-light text-gray-400">+</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ6R0m-kez5GVjKMiySOHt3olz3cogEnFZ8Vg&s" alt="Logo da C3C Software" class="h-16">
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-4 text-blue-600">Encerramento das Fases 1 e 2</h1>
+                <p class="text-2xl md:text-3xl font-light text-gray-600">A Jornada de Transformação Comercial no Salesforce</p>
+                <p class="mt-8 text-lg text-gray-500">Resultados, Aprendizados e Próximos Passos | Setembro de 2025</p>
+            </div>
+        </section>
+
+        <!-- Slide 2: A Missão Cumprida -->
+        <section id="slide2" class="slide">
+            <div class="text-center max-w-4xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-6">Concluímos as Duas Grandes Etapas da Nossa Jornada</h2>
+                <p class="text-xl md:text-2xl font-light text-gray-600 leading-relaxed">
+                    Hoje, celebramos a finalização das fases de <span class="font-semibold text-gray-800">Melhorias no Value Creation (VC)</span> e da <span class="font-semibold text-gray-800">Integração do time de IZ</span> no Salesforce. Unificamos a operação comercial em uma única plataforma, entregando a tão desejada visão 360º.
+                </p>
+                <div class="flex justify-center items-center gap-4 md:gap-8 mt-12">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <span class="text-5xl">👥</span>
+                        <p class="mt-2 font-semibold text-lg">Value Creation</p>
+                    </div>
+                    <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Salesforce.com_logo.svg/2560px-Salesforce.com_logo.svg.png" alt="Logo da Salesforce" class="h-20">
+                    <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path></svg>
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+                        <span class="text-5xl">📈</span>
+                        <p class="mt-2 font-semibold text-lg">Time de IZ</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: A Jornada do Projeto: Planejado vs. Real -->
+        <section id="slide3" class="slide">
+            <div class="w-full max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-4">A Jornada do Projeto: Planejado vs. Real</h2>
+                <p class="text-center text-lg text-gray-600 mb-12">"Todo projeto de inovação é uma jornada de descobertas. Nosso plano inicial era um mapa, mas a realidade do negócio exigiu que navegássemos juntos por novos caminhos."</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Planejado -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6 pb-2 border-b-2 border-gray-300">Planejado</h3>
+                        <div class="timeline border-gray-300">
+                            <div class="timeline-item mb-8 ml-8">
+                                <div class="border-gray-300"></div>
+                                <h4 class="font-bold text-lg">26/05: Início do Refinamento</h4>
+                                <p class="text-gray-500">4 semanas de duração</p>
+                            </div>
+                            <div class="timeline-item mb-8 ml-8">
+                                <div class="border-gray-300"></div>
+                                <h4 class="font-bold text-lg">23/06: Início do Desenvolvimento</h4>
+                            </div>
+                            <div class="timeline-item ml-8">
+                                <div class="border-gray-300"></div>
+                                <h4 class="font-bold text-lg">22/08: Fim do Dev & Início UAT</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Real -->
+                    <div>
+                        <h3 class="text-2xl font-semibold text-center mb-6 pb-2 border-b-2 border-blue-500">Real</h3>
+                        <div class="timeline border-blue-500">
+                            <div class="timeline-item mb-8 ml-8">
+                                <div class="border-blue-500"></div>
+                                <h4 class="font-bold text-lg text-blue-700">26/05 a 12/09: Refinamento Contínuo</h4>
+                                <p class="text-gray-600 text-sm italic">A dinâmica do negócio exigiu ajustes constantes para garantir a entrega de valor real.</p>
+                            </div>
+                            <div class="timeline-item mb-8 ml-8">
+                                <div class="border-blue-500"></div>
+                                <h4 class="font-bold text-lg text-blue-700">09/06: Início do Desenvolvimento</h4>
+                                <p class="text-gray-600 text-sm italic">Priorizamos a estabilização da fase 1 (VC) em produção para garantir a continuidade da operação.</p>
+                            </div>
+                            <div class="timeline-item mb-8 ml-8">
+                                <div class="border-blue-500"></div>
+                                <h4 class="font-bold text-lg text-blue-700">12/09: Entrega para Homologação</h4>
+                            </div>
+                            <div class="timeline-item ml-8">
+                                <div class="border-blue-500"></div>
+                                <h4 class="font-bold text-lg text-blue-700">16/09 a 03/10: Operação Assistida</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Análise dos Desafios -->
+        <section id="slide4" class="slide">
+            <div class="w-full max-w-5xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-4">Análise dos Desafios: Por que o Caminho Mudou?</h2>
+                <p class="text-center text-lg text-gray-600 mb-12">"A transparência é a base da nossa parceria. É importante entendermos os desafios que enfrentamos juntos e como eles impactaram o cronograma, mas também enriqueceram o resultado final."</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <h3 class="font-bold text-xl mb-2">Complexidade da Solução</h3>
+                        <p class="text-gray-600">A integração com o Pipefy e a profundidade das regras de negócio se mostraram mais complexas que o estimado, exigindo mais tempo de arquitetura e desenvolvimento.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <h3 class="font-bold text-xl mb-2">Disponibilidade do Negócio</h3>
+                        <p class="text-gray-600">Eventos e outras prioridades operacionais exigiram o afastamento pontual da área de negócio, impactando o ritmo das validações.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <h3 class="font-bold text-xl mb-2">Refinamento Contínuo</h3>
+                        <p class="text-gray-600">Os requisitos evoluíram durante o desenvolvimento. Abraçamos essa mudança para garantir que o produto final atendesse às necessidades reais.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg border-l-4 border-blue-500">
+                        <h3 class="font-bold text-xl mb-2">Desafios Internos (C3C)</h3>
+                        <p class="text-gray-600">Assumimos nossa parcela de responsabilidade. A alocação de um time com senioridade mais baixa em alguns momentos impactou a velocidade desejada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Slide 5: O Valor Entregue -->
+        <section id="slide5" class="slide">
+            <div class="w-full max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-4">O Valor Entregue: A Transformação na Prática</h2>
+                <p class="text-center text-lg text-gray-600 mb-12">Principais Conquistas da Fase 2 (IZ)</p>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-blue-600 text-white p-6 rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300">
+                        <h3 class="font-extrabold text-xl mb-2">Integração Total do Time IZ</h3>
+                        <p class="font-light">O time de IZ agora opera 100% dentro do Salesforce, proporcionando uma visão 360º completa.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">Novos Usuários e Áreas Conectadas</h3>
+                        <p class="text-gray-600">Expandimos o uso para Executivos, Coordenadores, Gestores, Pricing e Backoffice, quebrando silos.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">Processos-Chave Otimizados</h3>
+                        <p class="text-gray-600">Garantimos a continuidade e melhoria do pipeline, acompanhamento de assembleias e aprovações.</p>
+                    </div>
+                     <div class="bg-white p-6 rounded-lg shadow-lg">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">Novas Capacidades Estratégicas</h3>
+                        <p class="text-gray-600">Fomos além do escopo para entregar mais valor com gestão de cross-sell, carteiras e importação facilitada.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Status Pós-Deploy e Compromissos Finais -->
+        <section id="slide6" class="slide">
+             <div class="w-full max-w-6xl mx-auto">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-blue-600 mb-6">100% Entregue: Foco na Transição e Estabilização</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="text-left">
+                        <p class="text-lg text-gray-600 mb-4">Reafirmamos que <strong>100% das funcionalidades planejadas foram entregues e estão em produção</strong>. O status atual reflete a gestão dos bugs e ajustes finos identificados durante a operação assistida.</p>
+                        <h3 class="font-semibold text-xl text-gray-800 mt-6 mb-4">Plano de Ação e Compromissos para Esta Semana:</h3>
+                        <ul class="list-disc list-inside space-y-3 text-gray-700">
+                            <li><strong>Finalização das Pendências:</strong> Nosso compromisso é zerar todos os pontos em aberto (QA e Desenvolvimento) até o final desta semana.</li>
+                            <li><strong>Knowledge Transfer (KT) com Suporte:</strong> Realizaremos uma sessão de transferência de conhecimento com o time de suporte sobre as soluções de VC e IZ, garantindo sua autonomia.</li>
+                            <li><strong>Entrega da Documentação Final:</strong> Consolidaremos toda a documentação do projeto para o histórico e consulta da Superlógica.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-md border overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Prioridade</th>
+                                    <th scope="col" class="px-6 py-3">Status</th>
+                                    <th scope="col" class="px-6 py-3 text-right">Contagem</th>
+                                    <th scope="col" class="px-6 py-3 text-right">% do Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">(vazio)</td>
+                                    <td class="px-6 py-4">Em produção</td>
+                                    <td class="px-6 py-4 text-right">14</td>
+                                    <td class="px-6 py-4 text-right">77,78%</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">(vazio)</td>
+                                    <td class="px-6 py-4">Em Homologação QA</td>
+                                    <td class="px-6 py-4 text-right">2</td>
+                                    <td class="px-6 py-4 text-right">11,11%</td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold border-b">
+                                    <td colspan="2" class="px-6 py-4 text-gray-800">(vazio) Total</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">16</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">88,89%</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Média</td>
+                                    <td class="px-6 py-4">Novo</td>
+                                    <td class="px-6 py-4 text-right">1</td>
+                                    <td class="px-6 py-4 text-right">5,56%</td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold border-b">
+                                    <td colspan="2" class="px-6 py-4 text-gray-800">Média Total</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">1</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">5,56%</td>
+                                </tr>
+                                <tr class="bg-white border-b">
+                                    <td class="px-6 py-4">Baixa</td>
+                                    <td class="px-6 py-4">Em desenvolvimento</td>
+                                    <td class="px-6 py-4 text-right">1</td>
+                                    <td class="px-6 py-4 text-right">5,56%</td>
+                                </tr>
+                                <tr class="bg-gray-50 font-bold border-b">
+                                    <td colspan="2" class="px-6 py-4 text-gray-800">Baixa Total</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">1</td>
+                                    <td class="px-6 py-4 text-right text-gray-800">5,56%</td>
+                                </tr>
+                            </tbody>
+                            <tfoot class="bg-gray-200 font-extrabold text-gray-900">
+                                <tr>
+                                    <td colspan="2" class="px-6 py-4">Total Geral</td>
+                                    <td class="px-6 py-4 text-right">18</td>
+                                    <td class="px-6 py-4 text-right">100,00%</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 7: A Visão de Futuro -->
+        <section id="slide7" class="slide">
+            <div class="text-center max-w-5xl">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">A Visão de Futuro: O Próximo Nível da Parceria</h2>
+                <p class="text-lg text-gray-600 mb-12">Com a base operacional sólida que construímos, agora podemos focar em evoluir o Salesforce de uma ferramenta de controle para um motor de inteligência e eficiência.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="bg-white p-5 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-blue-700 mb-2">Hiperautomação</h3>
+                        <p class="text-sm text-gray-600">Integração com Cortex e Slack para aprovações e notificações, conectando ainda mais as áreas.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-blue-700 mb-2">Experiência Unificada</h3>
+                        <p class="text-sm text-gray-600">Criar uma jornada fluida entre Salesforce e Raio X, seja integrando ou migrando funcionalidades.</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-blue-700 mb-2">Visão do Atendimento</h3>
+                        <p class="text-sm text-gray-600">Trazer a área de Atendimento para o Salesforce, unificando a jornada do cliente com a visão do VC (Pós-Venda).</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-md">
+                        <h3 class="font-bold text-lg text-blue-700 mb-2">Inteligência de Dados</h3>
+                        <p class="text-sm text-gray-600">Incorporar Data Cloud e <strong>Agentforce</strong> para gerar insights preditivos e otimizar estratégias.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 8: Nossa Proposta para a Evolução Contínua -->
+        <section id="slide8" class="slide">
+            <div class="w-full max-w-4xl text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-blue-600 mb-4">Nossa Proposta para a Evolução Contínua</h2>
+                 <p class="text-lg text-gray-600 mb-10">Para transformar essa visão em realidade, propomos um modelo de parceria contínua, onde a C3C atua como uma extensão do time da Superlógica.</p>
+                <div class="bg-white p-8 rounded-lg shadow-xl border-t-4 border-blue-500">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Time Dedicado para:</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        <div>
+                            <span class="text-4xl">🚀</span>
+                            <h4 class="font-semibold text-lg mt-2">Acelerar a Entrega</h4>
+                            <p class="text-gray-600 text-sm">Criar soluções mais rápidas com um time que já conhece o ambiente.</p>
+                        </div>
+                        <div>
+                            <span class="text-4xl">🎧</span>
+                            <h4 class="font-semibold text-lg mt-2">Atuar como Suporte Nível 0</h4>
+                            <p class="text-gray-600 text-sm">Liberar o time de CRM da Superlógica das demandas do dia a dia.</p>
+                        </div>
+                        <div>
+                            <span class="text-4xl">🎯</span>
+                            <h4 class="font-semibold text-lg mt-2">Focar em Valor</h4>
+                            <p class="text-gray-600 text-sm">Permitir que o time interno se concentre em iniciativas de maior impacto estratégico.</p>
+                        </div>
+                    </div>
+                     <hr class="my-6">
+                    <p class="text-lg font-semibold">Time Sugerido: <span class="text-blue-600">1 Desenvolvedor Pleno + 1 Consultor Sênior</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9: Agradecimento -->
+        <section id="slide9" class="slide bg-gray-900 text-white">
+            <div class="text-center">
+                <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Logo Salesforce Partner" class="h-20 mx-auto mb-8">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Obrigado!</h2>
+                <p class="text-2xl font-light text-gray-300 mb-8">Agradecemos a parceria e a confiança durante toda esta jornada. Estamos entusiasmados com os resultados e ainda mais com o futuro que podemos construir juntos.</p>
+                <p class="text-xl">Perguntas e Discussão?</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- Navigation Arrows -->
+    <button id="prevBtn" class="nav-arrow" aria-label="Slide anterior">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="nextBtn" class="nav-arrow" aria-label="Próximo slide">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+                
+                prevBtn.style.display = index === 0 ? 'none' : 'flex';
+                nextBtn.style.display = index === slides.length - 1 ? 'none' : 'flex';
+            }
+
+            function changeSlide(direction) {
+                const newIndex = currentSlide + direction;
+                if (newIndex >= 0 && newIndex < slides.length) {
+                    currentSlide = newIndex;
+                    showSlide(currentSlide);
+                }
+            }
+
+            prevBtn.addEventListener('click', () => changeSlide(-1));
+            nextBtn.addEventListener('click', () => changeSlide(1));
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    changeSlide(1);
+                } else if (e.key === 'ArrowLeft') {
+                    changeSlide(-1);
+                }
+            });
+
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
+
