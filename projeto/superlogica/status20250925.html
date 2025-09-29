@@ -58,19 +58,31 @@
         }
         #prevBtn { left: 20px; }
         #nextBtn { right: 20px; }
-        .timeline { border-left: 3px solid; }
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: currentColor;
+        }
         .timeline-item { position: relative; }
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -11px;
+            left: -2.5rem; /* Adjust based on padding and border */
             top: 50%;
             transform: translateY(-50%);
             width: 20px;
             height: 20px;
             border-radius: 50%;
             background-color: white;
-            border: 3px solid;
+            border: 3px solid currentColor;
         }
     </style>
 </head>
@@ -123,42 +135,40 @@
                     <!-- Planejado -->
                     <div>
                         <h3 class="text-2xl font-semibold text-center mb-6 pb-2 border-b-2 border-gray-300">Planejado</h3>
-                        <div class="timeline border-gray-300">
-                            <div class="timeline-item mb-8 ml-8">
-                                <div class="border-gray-300"></div>
+                        <div class="flex flex-col space-y-6">
+                            <div class="bg-white p-4 rounded-lg shadow">
                                 <h4 class="font-bold text-lg">26/05: Início do Refinamento</h4>
                                 <p class="text-gray-500">4 semanas de duração</p>
                             </div>
-                            <div class="timeline-item mb-8 ml-8">
-                                <div class="border-gray-300"></div>
+                            <div class="bg-white p-4 rounded-lg shadow">
                                 <h4 class="font-bold text-lg">23/06: Início do Desenvolvimento</h4>
+                                <p class="text-gray-500">4 semanas de duração</p>
                             </div>
-                            <div class="timeline-item ml-8">
-                                <div class="border-gray-300"></div>
-                                <h4 class="font-bold text-lg">22/08: Fim do Dev & Início UAT</h4>
+                            <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg">23/07: Início do UAT</h4>
+                                <p class="text-gray-500">4 semanas de duração</p>
+                            </div>
+                             <div class="bg-white p-4 rounded-lg shadow">
+                                <h4 class="font-bold text-lg">22/08: Deploy e Início do Pós Go-Live</h4>
                             </div>
                         </div>
                     </div>
                     <!-- Real -->
                     <div>
                         <h3 class="text-2xl font-semibold text-center mb-6 pb-2 border-b-2 border-blue-500">Real</h3>
-                        <div class="timeline border-blue-500">
-                            <div class="timeline-item mb-8 ml-8">
-                                <div class="border-blue-500"></div>
+                        <div class="flex flex-col space-y-6">
+                           <div class="bg-blue-50 p-4 rounded-lg shadow border-l-4 border-blue-500">
                                 <h4 class="font-bold text-lg text-blue-700">26/05 a 12/09: Refinamento Contínuo</h4>
                                 <p class="text-gray-600 text-sm italic">A dinâmica do negócio exigiu ajustes constantes para garantir a entrega de valor real.</p>
                             </div>
-                            <div class="timeline-item mb-8 ml-8">
-                                <div class="border-blue-500"></div>
+                            <div class="bg-blue-50 p-4 rounded-lg shadow border-l-4 border-blue-500">
                                 <h4 class="font-bold text-lg text-blue-700">09/06: Início do Desenvolvimento</h4>
                                 <p class="text-gray-600 text-sm italic">Priorizamos a estabilização da fase 1 (VC) em produção para garantir a continuidade da operação.</p>
                             </div>
-                            <div class="timeline-item mb-8 ml-8">
-                                <div class="border-blue-500"></div>
+                            <div class="bg-blue-50 p-4 rounded-lg shadow border-l-4 border-blue-500">
                                 <h4 class="font-bold text-lg text-blue-700">12/09: Entrega para Homologação</h4>
                             </div>
-                            <div class="timeline-item ml-8">
-                                <div class="border-blue-500"></div>
+                            <div class="bg-blue-50 p-4 rounded-lg shadow border-l-4 border-blue-500">
                                 <h4 class="font-bold text-lg text-blue-700">16/09 a 03/10: Operação Assistida</h4>
                             </div>
                         </div>
@@ -237,7 +247,6 @@
                         <table class="w-full text-sm text-left text-gray-500">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3">Prioridade</th>
                                     <th scope="col" class="px-6 py-3">Status</th>
                                     <th scope="col" class="px-6 py-3 text-right">Contagem</th>
                                     <th scope="col" class="px-6 py-3 text-right">% do Total</th>
@@ -245,48 +254,29 @@
                             </thead>
                             <tbody>
                                 <tr class="bg-white border-b">
-                                    <td class="px-6 py-4">(vazio)</td>
-                                    <td class="px-6 py-4">Em produção</td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">Em produção</td>
                                     <td class="px-6 py-4 text-right">14</td>
                                     <td class="px-6 py-4 text-right">77,78%</td>
                                 </tr>
                                 <tr class="bg-white border-b">
-                                    <td class="px-6 py-4">(vazio)</td>
-                                    <td class="px-6 py-4">Em Homologação QA</td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">Em Homologação QA</td>
                                     <td class="px-6 py-4 text-right">2</td>
                                     <td class="px-6 py-4 text-right">11,11%</td>
                                 </tr>
-                                <tr class="bg-gray-50 font-bold border-b">
-                                    <td colspan="2" class="px-6 py-4 text-gray-800">(vazio) Total</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">16</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">88,89%</td>
-                                </tr>
                                 <tr class="bg-white border-b">
-                                    <td class="px-6 py-4">Média</td>
-                                    <td class="px-6 py-4">Novo</td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">Novo</td>
                                     <td class="px-6 py-4 text-right">1</td>
                                     <td class="px-6 py-4 text-right">5,56%</td>
                                 </tr>
-                                <tr class="bg-gray-50 font-bold border-b">
-                                    <td colspan="2" class="px-6 py-4 text-gray-800">Média Total</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">1</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">5,56%</td>
-                                </tr>
                                 <tr class="bg-white border-b">
-                                    <td class="px-6 py-4">Baixa</td>
-                                    <td class="px-6 py-4">Em desenvolvimento</td>
+                                    <td class="px-6 py-4 font-medium text-gray-900">Em desenvolvimento</td>
                                     <td class="px-6 py-4 text-right">1</td>
                                     <td class="px-6 py-4 text-right">5,56%</td>
-                                </tr>
-                                <tr class="bg-gray-50 font-bold border-b">
-                                    <td colspan="2" class="px-6 py-4 text-gray-800">Baixa Total</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">1</td>
-                                    <td class="px-6 py-4 text-right text-gray-800">5,56%</td>
                                 </tr>
                             </tbody>
                             <tfoot class="bg-gray-200 font-extrabold text-gray-900">
                                 <tr>
-                                    <td colspan="2" class="px-6 py-4">Total Geral</td>
+                                    <td class="px-6 py-4">Total Geral</td>
                                     <td class="px-6 py-4 text-right">18</td>
                                     <td class="px-6 py-4 text-right">100,00%</td>
                                 </tr>
