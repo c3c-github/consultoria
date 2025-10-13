@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise de Custos - Infraestrutura Google Cloud</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .icon-bg {
+            background-color: #eef2ff;
+        }
+        .highlight {
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-4xl w-full mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 md:p-12">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800 tracking-tight">Custos de Infraestrutura Google Cloud</h1>
+            <p class="mt-3 text-lg text-gray-600">Uma análise para a volumetria de ~960.000 eventos/mês</p>
+        </header>
+
+        <main class="grid md:grid-cols-2 gap-8 mb-10">
+            
+            <!-- Card de Custo de Armazenamento -->
+            <div class="card p-8">
+                <div class="flex items-center mb-4">
+                    <div class="icon-bg p-3 rounded-full mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4M4 7v10m16-10v10m-8 4v-4m0 0a4 4 0 100-8 4 4 0 000 8z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-700">Armazenamento</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Custo para manter os dados salvos no BigQuery. O volume é cumulativo.</p>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <p class="font-bold text-xl text-gray-800">10 GB <span class="text-base font-normal text-gray-500">/ mês</span></p>
+                    <p class="text-sm font-semibold text-green-600">NÍVEL GRATUITO</p>
+                </div>
+                 <p class="text-sm text-gray-500 mt-4">Com ~1 GB de novos dados por mês, você só começaria a exceder a cota gratuita <span class="font-bold">após o 10º mês</span>.</p>
+            </div>
+
+            <!-- Card de Custo de Análise -->
+            <div class="card p-8">
+                <div class="flex items-center mb-4">
+                    <div class="icon-bg p-3 rounded-full mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-semibold text-gray-700">Análise (Queries)</h2>
+                </div>
+                <p class="text-gray-600 mb-4">Custo para processar os dados quando um dashboard é atualizado ou uma consulta é executada.</p>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                    <p class="font-bold text-xl text-gray-800">1 TB <span class="text-base font-normal text-gray-500">/ mês</span></p>
+                    <p class="text-sm font-semibold text-green-600">NÍVEL GRATUITO</p>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">Sua base de dados anual (~12 GB) representa apenas <span class="font-bold">~1.2% da sua cota mensal gratuita</span>. É uma margem enorme.</p>
+            </div>
+
+        </main>
+
+        <footer class="bg-indigo-600 text-white p-8 rounded-xl text-center">
+            <h3 class="text-xl md:text-2xl font-bold mb-2">Conclusão: Custo Praticamente Zero</h3>
+            <p class="text-indigo-200 text-base">Para a volumetria de 960.000 eventos por mês, a arquitetura proposta operará confortavelmente dentro dos níveis gratuitos do Google Cloud. Isso garante acesso a uma poderosa ferramenta de análise de dados sem custos recorrentes de infraestrutura, permitindo um investimento focado na geração de insights de negócio.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
