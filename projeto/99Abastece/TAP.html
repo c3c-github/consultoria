@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAP - Projeto Implementação Salesforce para 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal do TAP */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem; /* Maior para o título do documento */
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Hover state para botão Voltar ao Topo */
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+
+        .logo-container {
+             width: auto;
+             max-width: 80%;
+             height: auto;
+             display: flex;
+             align-items: center;
+             justify-content: flex-start; /* Alinhar logo à esquerda no header */
+        }
+         .logo-container img {
+             max-height: 35px; /* Altura ajustada para o header */
+             width: auto;
+         }
+
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; } /* Pode não ser usado no TAP */
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem; /* Smaller table text */}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         /* Remove margem superior do primeiro título H2/H3 de uma seção prose */
+         main section.prose > *:is(h2, h3):first-child {
+            margin-top: 0 !important;
+        }
+        /* Ajuste para remover margem superior extra se a seção prose for a primeira */
+        main > section.prose:first-child {
+             padding-top: 1rem; /* Adicionar um pouco de padding em vez de margem */
+        }
+        /* Para evitar que prose afete elementos não textuais */
+        .not-prose {
+             all: unset;
+             display: block;
+             box-sizing: border-box;
+        }
+         .section-title.not-prose {
+             border-bottom: 2px solid var(--c3c-blue);
+             padding-bottom: 0.5rem;
+             color: var(--c3c-blue);
+             font-size: 1.75rem;
+             font-weight: 700;
+             margin-bottom: 2rem;
+             margin-top: 0;
+         }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header (Igual ao do repositório, sem botão hamburguer) -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Termo de Abertura do Projeto</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção do TAP -->
+             <section id="tap-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Termo de Abertura do Projeto (TAP) / Project Charter</h2>
+                 <!-- Conteúdo COMPLETO do TAP inserido aqui -->
+                 <h3>1. Informações Gerais do Projeto</h3>
+                 <ul>
+                    <li><strong>Título do Projeto:</strong> Implementação do Salesforce para Otimização do Processo de Contato – 99 Abastece</li>
+                    <li><strong>Data de Elaboração:</strong> 23 de Outubro de 2025</li>
+                    <li><strong>Versão:</strong> 1.0</li>
+                    <li><strong>Gerente do Projeto (C3C):</strong> Karine Cunha (a confirmar)</li>
+                    <li><strong>Patrocinadores (Sponsors - 99):</strong> Pedro (Head de Operações), Victoria Candelario (Líder de Negócio - Operações/Growth)</li>
+                    <li><strong>Cliente Principal:</strong> 99 (Unidade de Negócio 99 Abastece)</li>
+                 </ul>
+                 <h3>2. Justificativa do Projeto</h3>
+                 <p>O processo atual de contato com motoristas <em>Churn</em> (que deixaram de usar o serviço) e <em>Never Used</em> (que nunca usaram) do 99 Abastece depende fortemente de ferramentas descentralizadas e processos manuais, incluindo planilhas Google Sheets e scripts Python locais. Essa abordagem resulta em:</p>
+                 <ul>
+                    <li><strong>Ineficiência Operacional:</strong> Limitação na capacidade de contatos diários por analista (atualmente ~135), dificultando a escalabilidade da operação. O processo manual de extração, limpeza, distribuição e atualização da base consome tempo significativo da equipe interna (Roberta).</li>
+                    <li><strong>Falta de Controle e Visibilidade:</strong> Inexistência de rastreabilidade sobre as interações via WhatsApp entre a equipe terceirizada (Adecco) e os motoristas, impossibilitando a auditoria de qualidade e o controle efetivo da comunicação.</li>
+                    <li><strong>Riscos Operacionais:</strong>
+                        <ul>
+                            <li>Problemas de duplicidade de contatos devido a cargas manuais e atualizações complexas de elegibilidade.</li>
+                            <li>Dependência de chips de WhatsApp físicos/pessoais pela equipe terceirizada, levando a banimentos frequentes, perda de histórico e dificuldade na transferência de atendimentos.</li>
+                            <li>Falta de credibilidade percebida pelos motoristas ao serem contatados por múltiplos números não verificados.</li>
+                            <li>Dependência da atualização diária de abastecimentos em uma máquina específica (Roberta), representando um ponto único de falha.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Oportunidade de Melhoria:</strong> A centralização do processo no Salesforce, com integração ao WhatsApp e automações, permitirá escalar a operação, melhorar a eficiência, aumentar o controle e a confiabilidade dos dados, alinhando-se à estratégia da 99 de otimizar suas frentes de negócio.</li>
+                 </ul>
+                 <h3>3. Objetivos do Projeto (SMART)</h3>
+                 <ul>
+                    <li><strong>O1:</strong> Centralizar 100% do processo de gestão de contatos (Churn e Never Used), interações via WhatsApp e acompanhamento de metas na plataforma Salesforce até [Data Estimada de Go-Live - ex: 01/Dez/2025].</li>
+                    <li><strong>O2:</strong> Implementar um canal de comunicação via WhatsApp Business API com número único e verificado para toda a equipe terceirizada até [Data Estimada de Go-Live].</li>
+                    <li><strong>O3:</strong> Aumentar a capacidade de <strong>respostas</strong> gerenciadas por analista (métrica a refinar pós-automação dos disparos) em [Percentual X]% em até 3 meses após o Go-Live. (Nota: A meta de <em>acionamentos</em> será redefinida).</li>
+                    <li><strong>O4:</strong> Reduzir em >95% o tempo gasto pela equipe interna (Roberta) com tarefas manuais de preparação, atualização e distribuição da base de contatos até 1 mês após o Go-Live.</li>
+                    <li><strong>O5:</strong> Eliminar (>99%) a ocorrência de contatos duplicados apresentados aos analistas a partir do Go-Live.</li>
+                    <li><strong>O6:</strong> Prover 100% de visibilidade e rastreabilidade das conversas via WhatsApp entre analistas e motoristas para a gestão (Victoria, Roberta, Thaís) a partir do Go-Live.</li>
+                    <li><strong>O7:</strong> Automatizar a geração de relatórios de acompanhamento de metas de conversão e performance da equipe no Salesforce até o Go-Live.</li>
+                 </ul>
+                 <h3>4. Escopo do Projeto</h3>
+                 <h4>4.1. Incluso (Entregáveis Principais):</h4>
+                 <ul>
+                    <li>Configuração do Salesforce (Sales Cloud/Service Cloud - a definir) para suportar o processo do 99 Abastece na <em>org</em> existente da 99.</li>
+                    <li>Mapeamento e configuração do objeto Conta (Motorista), utilizando o objeto existente e o Driver ID como chave principal.</li>
+                    <li>Configuração do objeto Oportunidade (ou similar) para representar o ciclo de contato de 7 dias.</li>
+                    <li>Desenvolvimento/Configuração de funcionalidade para carga manual (arquivo CSV/Excel) da base mestra de motoristas (aprox. 40k registros, 1-2x por mês).</li>
+                    <li>Especificação e suporte no desenvolvimento (pela 99) de API para receber atualizações diárias de abastecimento (Driver ID, Data, Hora) do script Python externo.</li>
+                    <li>Integração com a API do WhatsApp Business (via solução Salesforce ou parceira) utilizando número único a ser providenciado pela 99.</li>
+                    <li>Configuração de regras/fluxos para:
+                        <ul>
+                            <li>Distribuição automática das <em>respostas</em> dos motoristas aos analistas disponíveis (modelo fila/ociosidade inicial, seguido de alocação fixa na carteira).</li>
+                            <li>Disparo automático e agendado de mensagens de follow-up (2ª, 3ª... tentativa) para motoristas que não responderam.</li>
+                            <li>Atualização automática do status da Oportunidade para "Ganha" (baseado na API de abastecimento) ou "Perdida" (após 7 dias sem ganho).</li>
+                        </ul>
+                    </li>
+                    <li>Criação de interface no Salesforce para visualização e interação dos analistas com as conversas do WhatsApp.</li>
+                    <li>Configuração de perfis de acesso distintos: Equipe 99 (visão completa), Supervisão Adecco (visão da equipe), Analistas Adecco (visão da própria carteira/conversas).</li>
+                    <li>Desenvolvimento de funcionalidade para transferência manual de Oportunidades/conversas entre analistas (pela Supervisão/Equipe 99).</li>
+                    <li>Criação de relatórios e dashboards básicos para:
+                        <ul>
+                            <li>Acompanhamento da meta de conversão (individual e equipe).</li>
+                            <li>Visão do funil de contatos (status das oportunidades).</li>
+                            <li>Performance individual dos analistas (conversão, tempo de resposta - se definido).</li>
+                        </ul>
+                    </li>
+                    <li>Configuração da lógica parametrizável para cálculo de bonificação baseada na meta de conversão (faixas e percentuais).</li>
+                    <li>Treinamento para a equipe interna (Roberta, Victoria) e equipe terceirizada (Thaís e analistas).</li>
+                    <li>Suporte pós Go-Live (Hypercare) por [Período Y - ex: 2 semanas].</li>
+                 </ul>
+                 <h4>4.2. Fora do Escopo (Fase 1):</h4>
+                 <ul>
+                    <li>Carga de histórico de contatos ou conversas anteriores ao Go-Live.</li>
+                    <li>Funcionalidade de "Repescagem" (reativação automática de contatos perdidos dentro do mesmo mês/campanha).</li>
+                    <li>Funcionalidade complexa de Teste A/B de scripts iniciais (além do uso de templates diferentes).</li>
+                    <li>Integração direta com o Data Lake da 99.</li>
+                    <li>Alterações na lógica de cálculo de elegibilidade ou extração de dados no Data Lake/Queries SQL da Roberta.</li>
+                    <li>Desenvolvimento de novas métricas de performance (além da conversão) para bonificação (Ex: SLA de resposta).</li>
+                    <li>Gestão de contatos receptivos (motoristas que entram em contato espontaneamente fora da campanha ativa) - <em>Pode ser avaliado se a plataforma permitir tratamento simples</em>.</li>
+                    <li>Integração com outras ferramentas mencionadas (Magello, Looker Studio de descontos, Mapa de Postos) - <em>Continuarão sendo acessadas externamente</em>.</li>
+                    <li>Gestão de outros produtos/frentes da 99 dentro da mesma solução.</li>
+                 </ul>
+                 <h3>5. Stakeholders Principais</h3>
+                 <table>
+                    <thead><tr><th>Nome</th><th>Papel</th><th>Influência/Interesse</th></tr></thead>
+                    <tbody>
+                        <tr><td>Pedro</td><td>Head de Operações 99 (Sponsor)</td><td>Alto / Estratégico</td></tr>
+                        <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor / Product Owner)</td><td>Alto / Estratégico</td></tr>
+                        <tr><td>Roberta</td><td>Analista de Operações 99 (SME / Key User)</td><td>Alto / Operacional</td></tr>
+                        <tr><td>Isaac</td><td>Analista Técnico 99 (Suporte Python/API)</td><td>Médio / Técnico</td></tr>
+                        <tr><td>Thaís Santana</td><td>Coordenadora Adecco (Supervisora / Key User)</td><td>Alto / Operacional</td></tr>
+                        <tr><td>Analistas Adecco (3+)</td><td>Usuários Finais</td><td>Alto / Operacional</td></tr>
+                        <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td>Alto / Execução</td></tr>
+                        <tr><td>Priscila G. Petroni</td><td>Consultora Funcional C3C</td><td>Alto / Execução</td></tr>
+                        <tr><td>Tarcísio A. de Paula</td><td>Desenvolvedor C3C</td><td>Alto / Execução</td></tr>
+                        <tr><td>Equipe de Telecom 99</td><td>Aquisição do Número WhatsApp</td><td>Médio / Técnico</td></tr>
+                        <tr><td>Equipe Salesforce 99 (outras áreas)</td><td>Alinhamento da Org / Padrões</td><td>Médio / Técnico</td></tr>
+                    </tbody>
+                 </table>
+                 <h3>6. Requisitos de Alto Nível</h3>
+                 <ul>
+                    <li>Plataforma única para gestão de contatos e interações WhatsApp.</li>
+                    <li>Capacidade de carregar/atualizar dados de motoristas (CSV/API).</li>
+                    <li>Envio e recebimento de mensagens WhatsApp via número único verificado.</li>
+                    <li>Distribuição automática de respostas para analistas disponíveis.</li>
+                    <li>Gestão de "carteira" de contatos por analista após primeira resposta.</li>
+                    <li>Fluxo automatizado para follow-ups de não respondidos.</li>
+                    <li>Ciclo de vida do contato limitado a 7 dias para conversão (status Ganho/Perdido).</li>
+                    <li>Visibilidade diferenciada por perfil (99 vs Adecco).</li>
+                    <li>Cálculo de meta de conversão e bonificação parametrizável.</li>
+                    <li>Relatórios de performance e acompanhamento.</li>
+                    <li>Possibilidade de transferência de atendimentos.</li>
+                 </ul>
+                 <h3>7. Premissas (Assumptions)</h3>
+                 <ul>
+                    <li>A 99 adquirirá e validará um número de WhatsApp Business API em tempo hábil para o projeto.</li>
+                    <li>A 99 (Roberta/Isaac) adaptará/desenvolverá o script Python para enviar dados de abastecimento ao Salesforce via API conforme especificação da C3C.</li>
+                    <li>A <em>org</em> Salesforce existente da 99 possui capacidade técnica e de licenciamento para acomodar a solução proposta (incluindo integração WhatsApp e volume de dados/automações).</li>
+                    <li>A C3C terá os acessos necessários ao ambiente Salesforce da 99 para configuração e desenvolvimento.</li>
+                    <li>A equipe da Adecco estará disponível para treinamento e adoção da nova ferramenta.</li>
+                    <li>O Driver ID é uma chave suficientemente confiável para identificação dos motoristas na <em>org</em> Salesforce.</li>
+                 </ul>
+                 <h3>8. Restrições (Constraints)</h3>
+                 <ul>
+                    <li><strong>Prazo:</strong> Go-Live desejado ainda em 2025 (aproximadamente 2 meses de projeto).</li>
+                    <li><strong>Integração Data Lake:</strong> Impossibilidade de conexão direta, dependência da carga manual e API Python.</li>
+                    <li><strong>Orçamento:</strong> [A definir/Não detalhado nas atas].</li>
+                    <li><strong>Recursos 99:</strong> Disponibilidade de Roberta, Victoria e Isaac para definições, validações e desenvolvimento da API.</li>
+                    <li><strong>LGPD:</strong> Restrição de visibilidade de dados da base completa para a equipe terceirizada.</li>
+                    <li><strong>Dependência Externa:</strong> Processo de aquisição do número WhatsApp junto à Meta/Facebook.</li>
+                 </ul>
+                 <h3>9. Riscos Iniciais e Mitigações</h3>
+                 <table>
+                    <thead><tr><th>Risco</th><th>Probabilidade</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+                    <tbody>
+                        <tr><td>Atraso na aquisição/liberação do número WhatsApp</td><td>Média</td><td>Alta</td><td>Iniciar processo imediatamente (Victoria); Acompanhamento C3C; Ter plano de contingência (se aplicável).</td></tr>
+                        <tr><td>Falha ou atraso na adaptação/desenvolvimento da API Python</td><td>Média</td><td>Alta</td><td>Especificação clara da API pela C3C; Acompanhamento próximo com Isaac/Roberta; Testes antecipados.</td></tr>
+                        <tr><td>Dependência da atualização diária (ponto único de falha)</td><td>Média</td><td>Média</td><td>99 buscar solução robusta (nuvem/VM); C3C garantir flexibilidade da API; Definir plano de contingência manual.</td></tr>
+                        <tr><td>Baixa adoção ou resistência à mudança pela equipe Adecco</td><td>Média</td><td>Alta</td><td>Envolvimento da Thaís desde o início; Treinamento claro e prático; Coleta de feedback pós Go-Live.</td></tr>
+                        <tr><td>Dificuldades no mapeamento/match do Driver ID na Org Salesforce</td><td>Baixa/Média</td><td>Média</td><td>Análise prévia do campo pela C3C; Definição de regras claras de tratamento (criar vs. atualizar).</td></tr>
+                        <tr><td>Problemas de performance com volume de automações/API</td><td>Baixa</td><td>Média</td><td>Boas práticas de desenvolvimento Salesforce; Testes de carga/volume; Monitoramento pós Go-Live.</td></tr>
+                    </tbody>
+                 </table>
+                 <h3>10. Cronograma de Alto Nível (Estimado)</h3>
+                 <ul>
+                    <li><strong>Inception & Planejamento:</strong> 2 semanas (Concluído: 13/Out - 24/Out)</li>
+                    <li><strong>Desenho Técnico & Configuração/Desenvolvimento:</strong> [~4-5 semanas]</li>
+                    <li><strong>Testes (SIT, UAT) & Treinamento:</strong> [~2-3 semanas]</li>
+                    <li><strong>Implantação & Go-Live:</strong> [~1 semana] (Meta: Dezembro 2025)</li>
+                    <li><strong>Hypercare:</strong> 2 semanas pós Go-Live</li>
+                 </ul>
+                 <h3>11. Orçamento Estimado</h3>
+                 <p>[Detalhar custos de licenças Salesforce, pacote de mensagens WhatsApp, serviços C3C, custos internos 99, aquisição número WhatsApp - Informações não disponíveis nas atas]</p>
+                 <h3>12. Critérios de Sucesso do Projeto</h3>
+                 <ul>
+                    <li>Go-Live da solução dentro do prazo estabelecido (Dezembro 2025).</li>
+                    <li>Aumento mensurável na capacidade de gestão de respostas por analista (meta a definir).</li>
+                    <li>Redução significativa (>90%) do esforço manual da equipe interna na gestão da base.</li>
+                    <li>Plataforma estável e funcional, com atualizações diárias via API operando corretamente.</li>
+                    <li>Visibilidade completa das interações via WhatsApp pela gestão.</li>
+                    <li>Taxa de adoção da ferramenta pela equipe Adecco superior a 80% após 1 mês do Go-Live.</li>
+                    <li>Feedback positivo dos stakeholders (Victoria, Roberta, Thaís) sobre a nova solução.</li>
+                 </ul>
+                 <h3>13. Aprovações</h3>
+                 <table>
+                    <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+                    <tbody>
+                        <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor)</td><td></td><td></td></tr>
+                        <tr><td>Pedro</td><td>Head de Operações 99 (Sponsor)</td><td></td><td></td></tr>
+                        <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C (Executor)</td><td></td><td></td></tr>
+                    </tbody>
+                 </table>
+                 <!-- Fim do Conteúdo do TAP -->
+             </section>
+
+        </main>
+         <!-- Footer (Igual ao do repositório) -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Feather Icons Activation
+            try {
+                feather.replace();
+            } catch (e) {
+                console.error("Feather icons failed to load or replace:", e);
+            }
+
+            // --- Seletores Globais ---
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+
+            // --- Scroll to Top Button Logic ---
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => {
+                     scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300);
+                 });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            // --- Fade-in animation on scroll ---
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            // Opcional: parar de observar após a primeira vez
+                            // fadeInObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => {
+                    // Start animation slightly delayed or ensure it's visible initially if already in viewport
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                         setTimeout(() => el.classList.add('visible'), 100); // Pequeno delay
+                    } else {
+                        fadeInObserver.observe(el);
+                    }
+                });
+            } else {
+                 fadeInElements.forEach(el => el.classList.add('visible')); // Fallback
+            }
+
+            // --- Logo error handling ---
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none'; // Hide broken image
+                     const placeholder = logoImg.closest('.flex.items-center')?.querySelector('.logo-placeholder');
+                     if(placeholder) placeholder.style.display = 'flex'; // Show text/icon fallback
+                     else { // Simple text fallback if structure is different
+                         const textFallback = document.createElement('span');
+                         textFallback.className = 'font-bold brand-color text-lg'; // Ajustado
+                         textFallback.textContent = 'C3C';
+                         // Evitar adicionar múltiplos fallbacks
+                         if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) {
+                            logoImg.parentElement?.appendChild(textFallback);
+                         }
+                     }
+                 };
+            });
+
+        });
+    </script>
+</body>
+</html>

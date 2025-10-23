@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 7 (20/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 7 (20/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 7 (20/Out/2025)</h2>
+                 <!-- Conteúdo da Ata 7 -->
+                 <h3>Sessão 7: Decisões Finais e Alinhamento To-Be</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Victoria Candelario</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Líder de Negócio/Estratégia</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Validar com Victoria os pontos de discussão pendentes levantados por Roberta na sessão anterior.</li>
+                     <li>Apresentar e alinhar a estrutura inicial da solução To-Be proposta pela C3C.</li>
+                     <li>Confirmar requisitos chave e tomar decisões finais sobre o fluxo de trabalho no Salesforce.</li>
+                     <li>Definir os próximos passos para a fase de construção.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão e Decisões (Validação com Victoria)</h4>
+                 <ul>
+                     <li><strong>Risco da Atualização via Python (Máquina da Roberta):</strong>
+                         <ul>
+                             <li><strong>Victoria:</strong> Concorda que é um risco e que a solução ideal não é depender da máquina da Roberta. Prioridade é buscar uma solução mais robusta (nuvem ou VM interna, a ser discutido com Isaac/TI 99).</li>
+                             <li><strong>Decisão:</strong> Manter o processo atual via Python API como plano A para o Go-Live, mas a 99 buscará internamente uma alternativa mais estável em paralelo. A C3C deve garantir que a API seja flexível para apontar para a nova origem no futuro.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Força-Tarefa:</strong>
+                         <ul>
+                             <li><strong>Victoria:</strong> Concorda com a necessidade de manter a possibilidade de ajudar um analista que está com dificuldades, mas prefere o modelo de transferência de <em>contatos não trabalhados</em> ou <em>em andamento</em> pela supervisora (Thaís), em vez de um analista "roubar" a conversão do outro.</li>
+                             <li><strong>Decisão:</strong> A funcionalidade de transferência manual de oportunidades/conversas pela supervisora atende à necessidade. A meta permanece com quem recebeu o 1º retorno.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Metas Separadas ou Juntas (Churn vs. Never Used):</strong>
+                         <ul>
+                             <li><strong>Victoria:</strong> Confirmou que as metas de conversão DEVEM ser <strong>separadas</strong> por perfil (Churn e Never Used), pois as taxas esperadas são diferentes.</li>
+                             <li><strong>Trabalho Híbrido (Analista trabalhar com ambos perfis):</strong>
+                                 <ul>
+                                     <li>Confirmou o desejo de ter essa <strong>flexibilidade futura</strong> (parametrizável).</li>
+                                     <li><strong>Decisão Fase 1:</strong> No início, cada analista trabalhará com <strong>apenas um perfil</strong> por campanha/mês (ou Churn ou Never Used) para simplificar a adaptação. A C3C deve preparar a estrutura para permitir a configuração híbrida no futuro (ex: via tipo de registro ou campo na Oportunidade/Lead).</li>
+                                 </ul>
+                             </li>
+                         </ul>
+                     </li>
+                     <li><strong>Reativar Contato Expirado (Repescagem):</strong>
+                         <ul>
+                             <li><strong>Victoria:</strong> Concorda com a análise de complexidade vs. prazo. É um "nice to have", não essencial para a Fase 1.</li>
+                             <li><strong>Decisão:</strong> Repescagem fica <strong>fora do escopo</strong> da Fase 1.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Nova Estrutura de Metas (Pós-Automação):</strong>
+                         <ul>
+                             <li><strong>Victoria/Roberta:</strong> Concordam que a meta de acionamento (80%) perderá o sentido. Precisam discutir internamente e testar novas métricas (Ex: SLA de tempo de resposta, nº de retornos obtidos, taxa de contato efetivo).</li>
+                             <li><strong>Decisão Fase 1:</strong> O cálculo de bonificação no Salesforce será focado inicialmente <strong>apenas na meta de conversão</strong> (com faixas parametrizáveis). A 99 definirá posteriormente como (ou se) irá incorporar novas métricas de esforço/qualidade no bônus.</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h4>4. Apresentação e Alinhamento Solução To-Be (C3C)</h4>
+                 <ul>
+                     <li><strong>Estrutura Geral:</strong>
+                         <ul>
+                             <li><strong>Carga:</strong> Manual (Base Mestra 1-2x/mês) + API Diária (Abastecimentos).</li>
+                             <li><strong>Objetos Principais:</strong> Conta (Motorista - usando existente), Oportunidade (Ciclo de contato/conversão), Tarefa/Evento (Registro de interações).</li>
+                             <li><strong>Campanha Salesforce:</strong> Usada para agrupar os motoristas do mês e gerenciar os disparos.</li>
+                             <li><strong>Distribuição:</strong> Regra de atribuição automática baseada em resposta e ociosidade do analista.</li>
+                             <li><strong>Carteira:</strong> Oportunidade associada ao analista que recebeu o 1º retorno.</li>
+                             <li><strong>Comunicação:</strong> Integração com WhatsApp (número único BAPI).</li>
+                             <li><strong>Follow-ups (Não Respondidos):</strong> Fluxo automático/agendado (ex: a cada 24h, até 5-7 tentativas), gerenciado centralmente.</li>
+                             <li><strong>Relatórios/Dashboards:</strong> Para acompanhamento de metas (Conversão), performance individual/equipe, status do funil.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Fluxo Detalhado (Validado):</strong>
+                         <ul>
+                             <li>Roberta carrega base mestra -> Cria/ativa Campanha do Mês.</li>
+                             <li>Roberta/Thaís configura regras de disparo diário (volume, horário, template inicial, prioridade Churn).</li>
+                             <li>Sistema dispara 1ª abordagem.</li>
+                             <li>Motorista Responde -> Mensagem chega no Salesforce -> Sistema identifica analista ocioso -> Cria Oportunidade e associa ao analista -> Analista recebe notificação/tarefa.</li>
+                             <li>Analista interage via Salesforce (interface WhatsApp).</li>
+                             <li>Se Motorista NÃO Responde -> Sistema dispara 2ª abordagem (agendada) -> ... -> até limite de tentativas. Se responder em qualquer etapa, vai para o fluxo de resposta acima.</li>
+                             <li>Roberta envia atualização de abastecimento via API -> Salesforce atualiza Oportunidade correspondente para "Ganha".</li>
+                             <li>Se Oportunidade atinge 7 dias sem "Ganha" -> Sistema atualiza para "Perdida".</li>
+                             <li>No fim do mês -> Fecha Campanha -> Roberta/Victoria extraem relatórios para cálculo de bônus (focado em conversão).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Pontos de Atenção Técnicos (Tarcísio):</strong>
+                         <ul>
+                             <li>Mapeamento correto do Driver ID.</li>
+                             <li>Lógica robusta para distribuição por ociosidade e gestão de capacidade.</li>
+                             <li>Tratamento de erros na API de abastecimento.</li>
+                             <li>Configuração dos fluxos automáticos de follow-up e expiração de oportunidade.</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h4>5. Próximos Passos</h4>
+                 <ol>
+                     <li>C3C finalizará a documentação do Inception (Fluxo As-Is, To-Be detalhado, Requisitos).</li>
+                     <li>C3C iniciará a fase de Desenho Técnico e Configuração/Desenvolvimento no Salesforce.</li>
+                     <li>99 (Roberta/Isaac) trabalhará na adaptação do script Python para enviar dados de abastecimento via API (C3C fornecerá especificações da API).</li>
+                     <li>99 (Victoria) acompanhará o processo de aquisição e validação do número WhatsApp Business API.</li>
+                     <li>C3C agendará sessões de demonstração parciais (sprints) para validação da construção com Roberta/Victoria.</li>
+                 </ol>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Tipo:</strong> Reunião de Acompanhamento Semanal (início da fase de construção).</li>
+                     <li><strong>Data:</strong> 27 de outubro de 2025 (a confirmar).</li>
+                     <li><strong>Hora:</strong> A definir.</li>
+                     <li><strong>Tópico:</strong> Status da construção, dúvidas, próximos passos.</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

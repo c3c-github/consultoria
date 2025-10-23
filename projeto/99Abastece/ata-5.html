@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 5 (16/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 5 (16/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 5 (16/Out/2025)</h2>
+                 <!-- Conteúdo da Ata 5 -->
+                 <h3>Sessão 5: Metas, Bonificação e Validação CPF</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Victoria Candelario (parcial)</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Líder de Negócio/Estratégia</td>
+                         </tr>
+                         <tr>
+                             <td>Thaís Santana</td>
+                             <td>Adecco (Equipe Terceirizada)</td>
+                             <td>Coordenadora/Supervisora</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Detalhar o processo de cálculo de bonificação da equipe terceirizada.</li>
+                     <li>Validar as regras e parâmetros utilizados nas metas atuais.</li>
+                     <li>Discutir e decidir sobre a chave única a ser utilizada para identificação dos motoristas no Salesforce (CPF vs. Driver ID).</li>
+                     <li>Revisar pontos pendentes das sessões anteriores.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Prioridade de Contatos (Roberta/Thaís/Victoria)</h5>
+                 <ul>
+                     <li><strong>Roberta vs. Thaís:</strong> Roberta reforçou que, para a 99 (estratégia de Pedro/Victoria), não há prioridade de <em>nível</em> (Level Driver 2, 3, 4) ou <em>cidade</em> na distribuição inicial. A única prioridade é o <em>tipo de Churn</em> (30-60 > 60-90 > 90+), para usar os mais recentes primeiro. A preferência da Thaís por Nível 2 SP/RJ é uma estratégia <em>dela</em> para otimizar a meta, mas não deve ser uma regra imposta pelo sistema na distribuição.</li>
+                     <li><strong>Victoria:</strong> Confirmou a visão da Roberta. A estratégia da 99 é abordar todos os perfis elegíveis, e a distribuição deve ser randômica dentro da prioridade de Churn definida. As preferências da Thaís são gerenciamento dela, não regra de sistema.</li>
+                 </ul>
+                 <h5>3.2. Cálculo de Bonificação (Roberta/Victoria)</h5>
+                 <ul>
+                     <li><strong>Processo Atual:</strong>
+                         <ul>
+                             <li>No final do mês, Roberta analisa a aba "Tracking" da planilha.</li>
+                             <li>Verifica se cada analista atingiu as <strong>duas metas</strong>:
+                                 <ul>
+                                     <li><strong>Meta 1 (Peso 20% do Bônus):</strong> Acionar >= 80% dos contatos totais disponibilizados (meta de volume/atingimento).</li>
+                                     <li><strong>Meta 2 (Peso 80% do Bônus):</strong> Atingir a taxa de conversão (%) definida para o mês (ex: 10%).</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Cálculo do Bônus (Individual):</strong>
+                                 <ul>
+                                     <li>Se Meta 1 NÃO atingida (< 80%): Recebe R$ 0 pela parte de volume.</li>
+                                     <li>Se Meta 1 atingida (>= 80%): Recebe 100% da parte de volume (ex: R$ 200).</li>
+                                     <li>Cálculo da parte de Conversão (Ex: Meta 10%):
+                                         <ul>
+                                             <li>Se >= 10%: Recebe 100% da parte de conversão (ex: R$ 800).</li>
+                                             <li>Se entre 6% e 9.99%: Recebe 60% da parte de conversão (ex: R$ 480).</li>
+                                             <li>Se < 6%: Recebe 20% da parte de conversão (ex: R$ 160). <em>(Faixas e % são parametrizáveis mensalmente)</em>.</li>
+                                         </ul>
+                                     </li>
+                                     <li>Bônus Total = (Parte Volume) + (Parte Conversão).</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Bônus da Supervisora (Thaís):</strong> Recebe 100% do bônus se a <strong>média geral da equipe</strong> atingir ambas as metas (>=80% acionados E >= Meta % conversão).</li>
+                             <li><strong>Exceções (Colher de Chá):</strong> Victoria decide se concede 100% do bônus em casos excepcionais (ex: primeiro mês do analista, problemas pessoais graves). Roberta apresenta os dados, Victoria decide.</li>
+                             <li><strong>Formalização:</strong> Victoria envia e-mail para o contato na Adecco (RH/Financeiro) com os valores de bônus de cada membro da equipe.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Discussão To-Be (Impacto da Automação):</strong>
+                         <ul>
+                             <li><strong>Meta de Acionamento (80%):</strong> Provavelmente <strong>deixará de existir</strong> ou será reformulada, pois o disparo inicial será automático/massivo, não dependendo do esforço individual do analista para "acionar".</li>
+                             <li><strong>Nova Métrica Possível:</strong> Talvez uma meta de "Retorno Obtido" ou SLA de tempo de resposta possa complementar a meta de Conversão. <em>(A ser definido pela 99 após período de testes/adaptação).</em></li>
+                             <li><strong>Solução Salesforce:</strong> Deve calcular automaticamente o % de conversão e aplicar as faixas de bonificação (que precisam ser parametrizáveis). O atingimento da "Meta 1" (seja ela qual for no futuro) também precisa ser verificável pelo sistema.</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h5>3.3. Chave Única: CPF vs. Driver ID (Todos)</h5>
+                 <ul>
+                     <li><strong>Contexto C3C:</strong> Explicado novamente a necessidade de uma chave confiável para evitar duplicidade na base de Contas/Motoristas do Salesforce, que é compartilhada com outras áreas da 99. A base atual possui duplicidades. Driver ID existe na base, mas não há 100% de certeza se o campo mapeado é o correto e se está preenchido em todos os registros legados. CPF seria ideal pela sua natureza única.</li>
+                     <li><strong>Posição 99 (Victoria/Roberta):</strong>
+                         <ul>
+                             <li><strong>CPF é INVIÁVEL.</strong> Acesso restrito, burocrático (aprovação na China), não é a chave padrão da 99 para cruzar dados entre áreas. Implementar dependência do CPF quebraria o processo ou o tornaria extremamente lento/impraticável.</li>
+                             <li><strong>Driver ID é a CHAVE OFICIAL</strong> da 99 para motoristas. É gerado unicamente no cadastro inicial. Mesmo que o motorista troque de telefone, o Driver ID permanece o mesmo (pode haver múltiplas linhas com mesmo Driver ID e telefones diferentes em tabelas de histórico, mas a query da Roberta já busca o mais recente/ativo).</li>
+                             <li><strong>Telefone:</strong> Não confiável como chave (pode mudar, pode ser compartilhado).</li>
+                             <li><strong>Nome:</strong> Não confiável (homônimos, mascaramento de dados recentes pela Didi).</li>
+                             <li><strong>Conclusão 99:</strong> A solução DEVE usar o <strong>Driver ID</strong> como chave principal. A 99 assume o risco residual de possíveis falhas de match com a base legada do Salesforce se o Driver ID não estiver presente ou correto lá. A responsabilidade de garantir a unicidade do Driver ID na carga de dados do 99 Abastece é da query/processo da Roberta.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Decisão:</strong> A solução Salesforce utilizará o <strong>Driver ID</strong> como chave única para identificar e atualizar/criar os registros de motoristas oriundos do 99 Abastece. A C3C fará o mapeamento com o campo ID existente na base Salesforce e validará a consistência.</li>
+                 </ul>
+                 <h5>3.4. Revisão de Pontos Pendentes</h5>
+                 <ul>
+                     <li><strong>Histórico de Contatos:</strong> Confirmado que NÃO será feita carga de histórico de contatos/conversas anteriores à implantação. O histórico começará a partir do Go-Live.</li>
+                     <li><strong>Transferência de Contatos (Saída de Analista):</strong> Confirmado o requisito de poder transferir contatos/oportunidades em andamento de um analista que saiu para outro.</li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos</h4>
+                 <ol>
+                     <li><strong>Chave Única:</strong> Driver ID.</li>
+                     <li><strong>Bonificação To-Be:</strong> Meta de acionamento provavelmente será extinta/substituída. Foco principal em Conversão. Sistema deve calcular % e aplicar faixas parametrizáveis.</li>
+                     <li><strong>Distribuição de Contatos (Prioridade):</strong> Seguirá apenas a prioridade de tipo de Churn (30-60 > 60-90 > 90+), sem filtro de nível ou cidade na distribuição inicial automática.</li>
+                     <li><strong>Não Carregar Histórico:</strong> Confirmado.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Validar com a equipe C3C/99 o mapeamento exato do campo Driver ID no objeto Conta do Salesforce.</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>17/10</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Iniciar o desenho da lógica de cálculo de bonificação no Salesforce (considerando parametrização).</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>17/10</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Apresentar/Validar o fluxo To-Be desenhado no Miro (incluindo distribuição, tratamento de respostas, follow-ups automáticos/manuais).</td>
+                             <td>Priscila</td>
+                             <td>17/10</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Discutir internamente (99) a nova estrutura de metas pós-Salesforce (substituição da meta de acionamento).</td>
+                             <td>Victoria/Roberta</td>
+                             <td>Próximos dias</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 17 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 09:00 - 11:00</li>
+                     <li><strong>Tópico:</strong> Sessão 6: Apresentação e validação do fluxo To-Be proposto; Discussão de pontos de atenção e próximos passos para o desenvolvimento.</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

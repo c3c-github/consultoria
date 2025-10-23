@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 6 (17/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 6 (17/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 6 (17/Out/2025)</h2>
+                 <!-- Conteúdo da Ata 6 -->
+                 <h3>Sessão 6: Alinhamento Final "As-Is" e Discussão "To-Be"</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Recapitular e validar o entendimento completo do processo As-Is.</li>
+                     <li>Discutir e refinar a proposta de fluxo To-Be no Salesforce, abordando pontos levantados nas sessões anteriores.</li>
+                     <li>Esclarecer dúvidas sobre a distribuição de contatos, gestão de carteiras e tratamento de exceções no novo modelo.</li>
+                     <li>Definir próximos passos para a fase de desenho e construção.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Validação Final do Processo As-Is</h5>
+                 <ul>
+                     <li>Roberta e Priscila revisaram o fluxo mapeado no Miro, confirmando as etapas desde a definição da estratégia até o cálculo da bonificação.</li>
+                     <li>Pontos chave reforçados: dependência da atualização diária via Python na máquina da Roberta, processo manual de carga inicial, filtros de prioridade (Churn 30-60 > 60-90 > 90+), necessidade de segunda carga mensal em alguns cenários, lógica de cálculo de bônus (80% volume + conversão por faixas), importância do Driver Level para o script de desconto.</li>
+                 </ul>
+                 <h5>3.2. Discussão e Refinamento do Fluxo To-Be</h5>
+                 <ul>
+                     <li><strong>Distribuição de Contatos (Decisão Pós-Reunião Anterior - Pedro):</strong>
+                         <ul>
+                             <li>Confirmado por Roberta (após conversa com Pedro): A distribuição <strong>não</strong> deve permitir escolha pelo analista.</li>
+                             <li>O modelo será: Sistema distribui aleatoriamente (respeitando a prioridade de Churn) a carga diária de contatos para os analistas de forma equitativa.</li>
+                             <li><strong>Visibilidade:</strong> Analista <strong>não</strong> verá a base completa (40k), apenas os contatos designados para ele no dia (ou em sua carteira ativa).</li>
+                             <li><strong>Formato Carrossel/Equitativo:</strong> Sistema deve garantir que perfis prioritários (ex: 30-60) sejam distribuídos igualmente entre os analistas antes de passar para o próximo perfil (60-90), para evitar injustiças na meta de conversão.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Modelo de Carteira vs. Fila por Ociosidade:</strong>
+                         <ul>
+                             <li><strong>Proposta C3C (Inicial):</strong> Disparo inicial pela Thaís -> Resposta do motorista -> Sistema aloca ao analista mais ocioso -> Analista assume ("vira dono") até o fim. Follow-ups automáticos para quem não responde (gerenciados pela Thaís).</li>
+                             <li><strong>Ajuste (Após Discussão):</strong>
+                                 <ul>
+                                     <li>Mantém-se a ideia do disparo inicial (automático/agendado ou manual pela Thaís/Roberta).</li>
+                                     <li>Mantém-se a alocação da <strong>primeira resposta</strong> para o analista mais ocioso.</li>
+                                     <li><strong>Definição Crucial:</strong> Uma vez que o analista recebe a primeira resposta, aquele motorista <strong>entra na sua carteira</strong> e todas as interações subsequentes (respostas do motorista, necessidade de follow-up manual pelo analista) ficam vinculadas a ele.</li>
+                                     <li>Follow-ups automáticos para quem não respondeu ao disparo inicial continuam sendo gerenciados centralmente (Thaís/Roberta/Sistema) e <strong>não</strong> entram na carteira de ninguém até que haja uma resposta.</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Gestão de Ociosidade (Ponto Aberto):</strong> Como garantir que analistas não fiquem ociosos se houver poucos retornos no dia? <em>(Ainda a ser detalhado na solução técnica - pode envolver limites de carteira, relatórios de tempo ou liberação controlada de mais disparos).</em></li>
+                         </ul>
+                     </li>
+                     <li><strong>Tratamento de Contatos Expirados (7 dias sem conversão):</strong>
+                         <ul>
+                             <li>Oportunidade no Salesforce será marcada como "Perdida".</li>
+                             <li><strong>Repescagem (Decisão):</strong> Roberta (após avaliar complexidade vs. prazo com Priscila/Tarcísio) definiu que a funcionalidade de "repescar" (tentar recontactar automaticamente após X dias) <strong>não</strong> será incluída nesta fase inicial do projeto para evitar atrasos. Ficará como possível melhoria futura. O contato perdido simplesmente não será mais trabalhado ativamente naquela campanha/mês.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Visibilidade de Histórico:</strong>
+                         <ul>
+                             <li>Confirmado que o histórico de conversas ficará registrado no Salesforce.</li>
+                             <li>Se um motorista Churn for contactado novamente em meses futuros, o analista terá acesso ao histórico anterior (mesmo que tenha sido com outro colega).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Teste A/B de Scripts:</strong>
+                         <ul>
+                             <li>Roberta solicitou a possibilidade de enviar scripts diferentes para grupos diferentes de motoristas (teste A/B).</li>
+                             <li>Priscila/Tarcísio explicaram a necessidade de aprovação de templates pela Meta para mensagens ativas (disparos iniciais), o que pode burocratizar o teste A/B rápido. Respostas e follow-ups manuais não têm essa restrição.</li>
+                             <li><strong>Decisão:</strong> A funcionalidade de Teste A/B não será priorizada agora, mas a estrutura deve permitir o uso de diferentes templates (previamente aprovados) se necessário.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Atualização de Abastecimento na Carteira:</strong>
+                         <ul>
+                             <li>Roberta reforçou a necessidade de que a atualização diária de abastecimento reflita também nos contatos que já estão na carteira do analista.</li>
+                             <li>Priscila/Tarcísio confirmaram que, quando um abastecimento for registrado para um motorista com oportunidade aberta, a oportunidade será automaticamente movida para o status "Ganha" e sairá da visão de trabalho ativa do analista (mas ficará visível em relatórios/listas de "ganhos").</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h5>3.3. Flags e Controle (Roberta)</h5>
+                 <ul>
+                     <li>Roberta expressou a necessidade de ter "flags" ou status claros no Salesforce para cada etapa do contato (ex: "Não Contactado", "1ª Abordagem Enviada", "Resposta Recebida", "Em Conversa", "Convertido (Ganho)", "Perdido (Expirado)", "Orgânico"), para permitir filtros e relatórios detalhados e ter maior controle sobre o funil.</li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos Finais</h4>
+                 <ol>
+                     <li><strong>Distribuição:</strong> Automática, equitativa por perfil prioritário (Churn 30-60 > 60-90 > 90+), sem escolha do analista, liberando apenas a carga diária.</li>
+                     <li><strong>Modelo Híbrido Fila/Carteira:</strong> Disparo centralizado -> 1ª Resposta -> Alocado ao analista ocioso -> Motorista entra na carteira deste analista até o fim (Ganho/Perda).</li>
+                     <li><strong>Follow-ups (Não Respondidos):</strong> Disparos automáticos/agendados centralizados.</li>
+                     <li><strong>Repescagem:</strong> Fora do escopo da Fase 1.</li>
+                     <li><strong>Força-Tarefa/Transferência:</strong> Permitir transferência manual de contatos/oportunidades entre carteiras (pela Thaís/Roberta/Victoria). Meta segue quem recebeu o 1º retorno.</li>
+                     <li><strong>Controle/Flags:</strong> Necessidade de status claros para acompanhamento do ciclo de vida do contato/oportunidade.</li>
+                     <li><strong>Teste A/B:</strong> Não prioritário na Fase 1.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Validar com Victoria na segunda-feira os pontos de discussão pendentes (Força-tarefa, Metas Juntas/Separadas NeverUsed/Churn, Risco Atualização Python).</td>
+                             <td>Roberta</td>
+                             <td>20/10</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Iniciar o detalhamento do desenho da solução To-Be (objetos, campos, fluxos, regras de distribuição, status) com base nas definições.</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>Semana 21/10</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Preparar protótipos/mockups iniciais das telas principais (visão do analista, visão da supervisora).</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>Semana 21/10</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Enviar exemplo da base Never Used para análise da C3C.</td>
+                             <td>Roberta</td>
+                             <td>20/10</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 20 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 09:00 - 11:00</li>
+                     <li><strong>Tópico:</strong> Sessão 7: Validação dos pontos com Victoria; Apresentação inicial da estrutura da solução To-Be e protótipos.</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

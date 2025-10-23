@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 4 (15/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 4 (15/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 4 (15/Out/2025)</h2>
+                 <!-- Conteúdo da Ata 4 -->
+                 <h3>Sessão 4: Mapeamento da Rotina da Equipe Terceirizada</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Victoria Candelario</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Líder de Negócio/Estratégia</td>
+                         </tr>
+                         <tr>
+                             <td>Thaís Santana</td>
+                             <td>Adecco (Equipe Terceirizada)</td>
+                             <td>Coordenadora/Supervisora</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                         <tr>
+                             <td>Karine Cunha</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Gerente de Projeto</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Mapear o processo da equipe terceirizada (Adecco), desde o recebimento da base até o contato com o motorista e registro das informações.</li>
+                     <li>Entender as estratégias de priorização, distribuição de contatos e abordagens utilizadas pela Coordenadora Thaís e sua equipe.</li>
+                     <li>Identificar as ferramentas utilizadas (WhatsApp, planilhas, scripts, mapa de postos, dashboard de descontos).</li>
+                     <li>Compreender o tratamento de diferentes cenários: retornos, não retornos, reclamações, banimentos, férias.</li>
+                     <li>Discutir requisitos e expectativas para a solução Salesforce sob a ótica da equipe de ponta.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Aquisição do Número WhatsApp (Victoria/Priscila)</h5>
+                 <ul>
+                     <li><strong>Alinhamento:</strong> Victoria confirmou que a 99 precisará adquirir o número de WhatsApp Business API. Processo já iniciado internamente com a equipe de Telecom da 99 (pode levar 1-2 semanas).</li>
+                     <li><strong>Contratação Pacote Mensagens:</strong> Victoria alinhou com a Salesforce (Karine Kiko) sobre a necessidade de um pacote de mensagens (provavelmente via Marketing Cloud) para os <strong>disparos iniciais/templates</strong> (mensagens ativas para novos contatos).
+                         <ul>
+                             <li>A 99 Abastece já possui pacotes contratados para outras frentes que podem ser alavancados.</li>
+                             <li>Conversas subsequentes (follow-ups manuais, respostas) não consomem esse pacote da mesma forma.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Ação C3C:</strong> Priscila auxiliará Victoria com informações sobre o processo de aquisição/validação do número junto à Meta (Facebook).</li>
+                 </ul>
+                 <h5>3.2. Rotina Diária da Equipe Adecco (Thaís)</h5>
+                 <ul>
+                     <li><strong>Recebimento/Acesso à Base:</strong> Acessam a planilha Google Sheet compartilhada pela Roberta (mesmo link, atualizado mensalmente).</li>
+                     <li><strong>Análise e Estratégia Diária (Thaís):</strong>
+                         <ul>
+                             <li>Consulta a aba "Tracking" para ver resultados individuais e da equipe.</li>
+                             <li>Analisa a aba principal (ex: "Outubro") <strong>após a atualização diária</strong> da Roberta (para saber quem já abasteceu).</li>
+                             <li>Define a <strong>prioridade de perfis</strong> a serem contactados no dia, com base nos que estão dando mais retorno (abastecimento rápido). Ex: Churn 30-60, Nível 2, São Paulo é a prioridade atual.</li>
+                             <li>Verifica o volume disponível de cada perfil prioritário.</li>
+                             <li>Comunica a estratégia e as metas de acionamento do dia para os analistas (via grupo interno).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Distribuição/Seleção de Contatos pelos Analistas:</strong>
+                         <ul>
+                             <li><strong>Não há distribuição formal pela Thaís.</strong></li>
+                             <li>Os analistas recebem a diretriz (ex: "Hoje, 180 contatos; prioridade Nível 2 SP 30-60; se acabar, Nível 3 SP 30-60").</li>
+                             <li>Os próprios analistas <strong>filtram a planilha</strong> e <strong>selecionam</strong> os contatos que vão abordar, registrando seu nome e a data da 1ª abordagem na linha correspondente. <em>Autonomia com direcionamento.</em></li>
+                         </ul>
+                     </li>
+                     <li><strong>Processo de Contato (Analista):</strong>
+                         <ul>
+                             <li><strong>Início:</strong> Filtra a planilha conforme a diretriz da Thaís.</li>
+                             <li><strong>Verificação WhatsApp:</strong> Clica no link gerado na planilha ou copia/cola o número no WhatsApp Web/Desktop. Se o número não tiver WhatsApp, marca na coluna "Data 1ª Abordagem" como "Sem WhatsApp" (importante para não tentar recontactar).</li>
+                             <li><strong>Primeira Abordagem:</strong> Envia a mensagem inicial via WhatsApp, usando o <strong>script</strong> adequado para:
+                                 <ul>
+                                     <li><strong>Perfil:</strong> Churn ou Never Used (textos diferentes).</li>
+                                     <li><strong>Região/Cidade:</strong> Linguajar adaptado (SP vs. RJ vs. Nordeste). Scripts ficam em arquivo Word, analistas copiam/colam (geralmente no Bloco de Notas para agilidade). <em>Analista identifica a região pelo DDD ou pela coluna Cidade.</em></li>
+                                 </ul>
+                             </li>
+                             <li><strong>Gerenciamento de Respostas:</strong>
+                                 <ul>
+                                     <li><strong>Prioridade:</strong> Se um motorista responde (hoje, ontem, etc.), o analista <strong>para</strong> os novos acionamentos e responde imediatamente ou o mais rápido possível.</li>
+                                     <li><strong>Senso de Urgência:</strong> Prioriza respostas de motoristas com problemas urgentes (ex: "estou no posto agora").</li>
+                                     <li><strong>Comunicação:</strong> Exclusivamente por <strong>texto</strong>. Áudios de motoristas são ouvidos, mas respostas são sempre por texto (para registro, auditoria e devido ao analista homem usar perfil feminino).</li>
+                                     <li><strong>Casos Atípicos:</strong> Se a resposta foge do script, analista envia print para Thaís para orientação.</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Follow-ups (Abordagens Subsequentes):</strong>
+                                 <ul>
+                                     <li><strong>Se Não Respondeu:</strong> Analista filtra a planilha pela data da abordagem anterior (ex: D-1) e envia o script da abordagem seguinte (2ª, 3ª, etc.), geralmente com intervalo de ~24h.</li>
+                                     <li><strong>Se Respondeu, Mas Não Abasteceu:</strong> Analista envia mensagem <strong>personalizada</strong>, retomando a conversa anterior e tentando quebrar objeções ou tirar dúvidas.</li>
+                                     <li><strong>Ação Final do Dia ("Lembrete"):</strong> Estrategicamente (geralmente após 16h/17h), analistas enviam uma mensagem com o passo-a-passo de como abastecer para motoristas contactados há ~6 dias (que ainda estão na janela de 7 dias da meta), para incentivar o abastecimento nos horários de pico (noite e manhã cedo).</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Registro na Planilha:</strong> Após cada interação relevante, o analista atualiza as colunas apropriadas (Data da X Abordagem, Houve Retorno, Data Retorno, Motivo Não Uso, Detalhes da Resposta, etc.).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Ferramentas Auxiliares:</strong>
+                         <ul>
+                             <li><strong>Mapa de Postos:</strong> Link para um Google My Maps (atualizado mensalmente pela Roberta) com todos os postos parceiros pinados, usado para indicar postos próximos ao motorista.</li>
+                             <li><strong>Dashboard de Descontos:</strong> Acesso a um Looker Studio (também atualizado pela Roberta) que mostra os descontos disponíveis por cidade/posto/nível do motorista.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Tratamento de Banimentos/Restrições:</strong>
+                         <ul>
+                             <li>Analistas usam 2 chips simultaneamente para mitigar o risco e aumentar o volume.</li>
+                             <li><strong>Restrição (24h):</strong> Só pode responder quem já respondeu antes. Não pode enviar novas abordagens ou follow-ups para quem não respondeu.</li>
+                             <li><strong>Banimento (+24h):</strong> Perde o acesso ao chip. Histórico pode ser perdido.</li>
+                             <li><strong>Gestão (Thaís):</strong> Replaneja a rotina do analista focado no chip funcional, priorizando 1ªs abordagens. Se os 2 chips forem banidos, comunica a gestão 99 e o dia é descontado da meta de acionamento.</li>
+                             <li><strong>Estratégias Anti-Banimento:</strong> Alterar texto do script (3 modelos por abordagem), manter chips "aquecidos" com conversas internas (figurinhas, áudios), não usar ferramentas de automação de disparos.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Contatos Receptivos (Fora da Base Ativa):</strong>
+                         <ul>
+                             <li>Ocasionalmente, motoristas contactados em meses anteriores chamam o número (que ficou salvo).</li>
+                             <li><strong>Se for sobre 99 Abastece:</strong> Analista responde (sem prioridade, não conta para meta). Casos atípicos são escalados para Thaís.</li>
+                             <li><strong>Se for Outro Assunto 99:</strong> Analista envia script padrão direcionando para o suporte oficial da 99 (link/Casa 99).</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h5>3.3. Discussão Sobre Solução To-Be (Salesforce)</h5>
+                 <ul>
+                     <li><strong>Disparos Automáticos vs. Manuais:</strong>
+                         <ul>
+                             <li><strong>Victoria/Roberta:</strong> Preferência por disparos <strong>automáticos e agendados</strong> (com opção de pausa/edição) para 1ª, 2ª, 3ª... abordagens (para quem não respondeu), definidos pela estratégia 99 (Roberta/Victoria).</li>
+                             <li><strong>Thaís:</strong> Preocupação com a perda da "humanização" se a 1ª mensagem já contiver botões/opções. Sugere testar. Concorda que follow-ups para quem não respondeu podem ser automáticos.</li>
+                             <li><strong>C3C:</strong> Apresentou o fluxo: Thaís/Roberta agenda os disparos automáticos; motorista responde -> cai na fila -> sistema distribui para analista ocioso -> analista assume a conversa ("vira dono") até o fim (ganho/perda).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Distribuição de Contatos:</strong>
+                         <ul>
+                             <li><strong>Alinhamento:</strong> Modelo preferido é a distribuição baseada em <strong>quem responde</strong>, direcionada ao analista <strong>mais ocioso</strong> (para agilidade na resposta), mas garantindo que, uma vez iniciada a conversa, aquele analista siga com o motorista até o fim.</li>
+                             <li><strong>Capacidade:</strong> O sistema deve ter um limite de conversas simultâneas por analista (a ser definido/testado). Novas respostas ficam em fila se todos estiverem na capacidade máxima.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Follow-ups:</strong>
+                         <ul>
+                             <li><strong>Para quem Respondeu:</strong> Fica a cargo do analista "dono" da conversa fazer os follow-ups personalizados.</li>
+                             <li><strong>Para quem NÃO Respondeu:</strong> Idealmente, disparos automáticos agendados (ex: a cada 24h), com scripts diferentes para cada tentativa (2ª, 3ª...), gerenciados por Roberta/Victoria/Thaís. O sistema precisa ter um controle para pausar esses disparos se o limite de 80% de acionamentos for atingido.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Força-Tarefa vs. Férias/Ausências:</strong>
+                         <ul>
+                             <li><strong>Transferência de Contatos:</strong> A solução deve permitir a transferência manual de conversas/oportunidades em andamento entre analistas (pela Thaís ou Roberta/Victoria).</li>
+                             <li><strong>Regra da Meta:</strong> Confirmado que a meta de conversão deve ser atribuída ao analista que recebeu o <strong>primeiro retorno</strong> do motorista, mesmo que outro analista finalize a conversão (em caso de força-tarefa ou transferência por ausência).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Teste A/B de Scripts:</strong>
+                         <ul>
+                             <li>Roberta questionou a possibilidade de testar diferentes scripts (ex: Mensagem A para 50% dos disparos, Mensagem B para 50%).</li>
+                             <li><strong>Tarcísio/Priscila:</strong> Tecnicamente possível, mas mensagens enviadas como "template" (disparos iniciais ativos) precisam de aprovação prévia da Meta (Facebook), o que pode adicionar tempo/burocracia ao teste A/B rápido. Mensagens de resposta/follow-up manual não têm essa exigência.</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos</h4>
+                 <ol>
+                     <li><strong>Número WhatsApp:</strong> Processo de aquisição iniciado pela 99.</li>
+                     <li><strong>Pacote de Mensagens:</strong> Necessidade confirmada para disparos iniciais, a ser gerenciado pela 99 (possivelmente usando pacotes existentes).</li>
+                     <li><strong>Fluxo To-Be (Alto Nível):</strong> Disparos automáticos/agendados (gerenciados por 99/Thaís) -> Motorista responde -> Cai na fila -> Distribuído para analista ocioso -> Analista assume e trabalha até o fim. Follow-ups para quem não responde também automáticos/agendados.</li>
+                     <li><strong>Transferência de Contatos:</strong> Funcionalidade necessária para gestão de ausências e força-tarefa.</li>
+                     <li><strong>Regra da Meta:</strong> Conversão atribuída a quem recebeu o 1º retorno.</li>
+                     <li><strong>Prioridade de Perfil (Disparos):</strong> Roberta/Victoria definirão a ordem (ex: Churn 30-60 primeiro). O sistema deve seguir essa ordem ao selecionar contatos para os disparos diários.</li>
+                     <li><strong>Visibilidade:</strong> Analista vê apenas suas conversas/oportunidades ativas. Thaís tem visão do time. Roberta/Victoria têm visão completa.</li>
+                     <li><strong>Teste A/B:</strong> Viabilidade depende das regras de aprovação de templates da Meta. A ser avaliado.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Confirmar/detalhar processo de aprovação de templates de WhatsApp pela Meta.</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>16/10</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Iniciar desenho do fluxo To-Be no Miro com base no alinhamento.</td>
+                             <td>Priscila</td>
+                             <td>16/10</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Validar tecnicamente a solução de distribuição por ociosidade e gestão de capacidade.</td>
+                             <td>Tarcísio</td>
+                             <td>16/10</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Validar tecnicamente a funcionalidade de transferência de oportunidades/conversas.</td>
+                             <td>Tarcísio</td>
+                             <td>16/10</td>
+                         </tr>
+                         <tr>
+                             <td>5</td>
+                             <td>Levantar scripts atuais por região/abordagem (para análise).</td>
+                             <td>Thaís</td>
+                             <td>17/10</td>
+                         </tr>
+                         <tr>
+                             <td>6</td>
+                             <td>Discutir internamente (99) a necessidade/viabilidade de Teste A/B.</td>
+                             <td>Roberta/Victoria</td>
+                             <td>17/10</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 16 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 10:00 - 12:00</li>
+                     <li><strong>Tópico:</strong> Sessão 5: Detalhamento das Metas e Bonificação; Validação final sobre CPF/Chave Única.</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

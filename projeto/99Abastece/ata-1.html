@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 1 (13/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Hover state para botão Voltar ao Topo */
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+
+        .logo-container {
+             width: auto;
+             max-width: 80%;
+             height: auto;
+             display: flex;
+             align-items: center;
+             justify-content: flex-start; /* Alinhar logo à esquerda no header */
+        }
+         .logo-container img {
+             max-height: 35px; /* Altura ajustada para o header */
+             width: auto;
+         }
+
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         /* Remove margem superior do primeiro título H2/H3 de uma seção prose */
+         main section.prose > *:is(h2, h3):first-child {
+            margin-top: 0 !important;
+        }
+        main > section.prose:first-child {
+             padding-top: 1rem;
+        }
+        .not-prose {
+             all: unset;
+             display: block;
+             box-sizing: border-box;
+        }
+         .section-title.not-prose {
+             border-bottom: 2px solid var(--c3c-blue);
+             padding-bottom: 0.5rem;
+             color: var(--c3c-blue);
+             font-size: 1.75rem;
+             font-weight: 700;
+             margin-bottom: 2rem;
+             margin-top: 0;
+         }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 1 (13/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 1 (13/Out/2025)</h2>
+                 <!-- Conteúdo da Ata 1 -->
+                 <h3>Sessão 1: Kick-off e Mapeamento Inicial</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Victoria Candelario</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Líder de Negócio/Estratégia</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li><strong>Alinhamento Inicial:</strong> Apresentar os objetivos do <em>inception</em>, o papel da C3C e combinar as regras de trabalho para as sessões.</li>
+                     <li><strong>Mapeamento do Processo Atual (As-Is):</strong> Iniciar o entendimento do fluxo de trabalho atual da equipe 99 Abastece para contactar motoristas (Churn e Never Used), identificando ferramentas, etapas manuais e desafios.</li>
+                     <li><strong>Captura de Expectativas:</strong> Compreender os principais objetivos da 99 Abastece com a implementação do Salesforce.</li>
+                     <li><strong>Identificação de Dores:</strong> Levantar os principais problemas e dificuldades enfrentados no processo atual.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Introdução e Objetivos (Priscila)</h5>
+                 <ul>
+                     <li><strong>Objetivo do Inception:</strong> Entender o processo atual ("As-Is"), identificar desafios e oportunidades de melhoria (processuais e com Salesforce), desenhar a solução futura ("To-Be") e alinhar com a equipe 99.</li>
+                     <li><strong>Papel da C3C:</strong> Apoiar na identificação, desenho da solução e garantir o alinhamento antes da construção no Salesforce. Nenhuma funcionalidade será desenvolvida sem a validação da 99.</li>
+                     <li><strong>Contexto Inicial:</strong> O processo atual envolve etapas manuais, uso de planilhas (Google Sheets), scripts Python, e informações descentralizadas, motivando a migração para o Salesforce.</li>
+                     <li><strong>Governança:</strong> A solução será desenvolvida na <em>org</em> Salesforce existente da 99, garantindo que não haja impacto nas outras frentes já em produção e respeitando o acesso de cada área às suas informações. A C3C trabalhará em proximidade com as outras equipes.</li>
+                 </ul>
+                 <h5>3.2. Explicação do Processo Atual (Roberta)</h5>
+                 <ul>
+                     <li><strong>Seleção da Base:</strong>
+                         <ul>
+                             <li>Decisão inicial: trabalhar com base <code>Churn</code> (motoristas que usaram e pararam) ou <code>Never Used</code> (motoristas que nunca usaram o 99 Abastece).</li>
+                             <li>A base <code>Churn</code> tem apresentado melhores resultados de conversão recentemente.</li>
+                             <li>A extração da base do Data Lake da 99 é <strong>manual</strong> (via query SQL), devido a limitações do script Python com funções SQL específicas.</li>
+                             <li><strong>Desafio:</strong> Limite de download (100k linhas), exigindo às vezes múltiplas extrações e concatenação manual.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Preparação da Base (Manual/Parcialmente Python):</strong>
+                         <ul>
+                             <li><strong>Verificação de Cidade:</strong> Checagem manual (via outra query) para identificar motoristas que rodam em cidades diferentes da cidade de cadastro. Esses são removidos da base de contacto principal e movidos para uma planilha secundária ("base de reposição"). <em>Motivo: Evitar erros de contacto e garantir informação correta para a equipe terceira (Adecco).</em></li>
+                             <li><strong>Cálculo de Volume:</strong> Determinação da quantidade de contactos diários (ex: 135/dia/analista) e cálculo do volume total necessário para o mês (considerando dias úteis). Ex: 10.000 contactos.</li>
+                             <li><strong>Seleção Inicial:</strong> Os primeiros ~10.000 motoristas (após limpeza de cidade) são copiados para a planilha principal da Adecco. O restante (ex: ~30.000) fica na planilha de reposição.</li>
+                             <li><strong>Obtenção de Celular e Nome:</strong> Execução de queries separadas para obter número de celular e nome, que são então juntados à base.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Atualização de Elegibilidade e Duplicidade (Desafio):</strong>
+                         <ul>
+                             <li>A elegibilidade/nível do motorista (influencia desconto e script de abordagem) muda no <strong>último dia do mês</strong>.</li>
+                             <li>A query de extração da Roberta trabalha com <strong>"semana fechada"</strong> (termina no domingo anterior).</li>
+                             <li><strong>Problema:</strong> Se o mês vira no meio da semana (ex: dia 30 é terça), a extração inicial (ex: dia 1 ou 2) pega dados da semana fechada anterior (ex: até 28/Set), <strong>sem a elegibilidade atualizada</strong>.</li>
+                             <li><strong>Solução Atual (Retrabalho):</strong> Roberta precisa rodar a base duas vezes: uma no início do mês (com dados de elegibilidade defasados) e outra após o fechamento da primeira semana do novo mês (com dados atualizados).</li>
+                             <li><strong>Risco:</strong> Essa segunda carga pode gerar <strong>duplicidade</strong> se a limpeza não for perfeita (ex: motorista contactado na 1ª carga reaparece como novo na 2ª), causando atrito com o motorista. <em>Meta da Solução Salesforce: Eliminar duplicidade.</em></li>
+                         </ul>
+                     </li>
+                     <li><strong>Atualização Diária (Python):</strong>
+                         <ul>
+                             <li>Script Python roda <strong>diariamente</strong> (agendado na máquina da Roberta, ~9:30).</li>
+                             <li><strong>Função 1:</strong> Busca a data do <strong>último abastecimento</strong> do motorista no Data Lake e atualiza <strong>ambas as planilhas</strong> (principal da Adecco e de reposição da Roberta).</li>
+                             <li><strong>Função 2:</strong> Identifica motoristas na planilha da Adecco que <strong>abasteceram "organicamente"</strong> (têm data de abastecimento, mas nenhum analista atribuído/data de abordagem registrada).</li>
+                             <li><strong>Função 3:</strong> <strong>Exclui</strong> esses motoristas orgânicos da planilha da Adecco.</li>
+                             <li><strong>Função 4:</strong> <strong>Repõe</strong> a mesma quantidade de contactos excluídos, buscando novos motoristas na planilha de reposição (seguindo filtros como Churn 30-60, cidade correta, sem abastecimento). <em>Usa API do Google Sheets; pode ter limites/pausas.</em></li>
+                         </ul>
+                     </li>
+                     <li><strong>Interação da Equipe Terceirizada (Adecco):</strong>
+                         <ul>
+                             <li>Recebem a planilha principal (Google Sheet).</li>
+                             <li><strong>Inputs Principais:</strong> Data da 1ª abordagem (crucial para meta), 2ª, 3ª, 4ª abordagens.</li>
+                             <li><strong>Outros Inputs:</strong> Nome do analista responsável, status do contacto (Houve retorno? Sim/Não), motivo do não uso, motivo do retorno, campo de observações (copiar/colar resposta do motorista), etc. <em>Detalhes a serem explorados.</em></li>
+                         </ul>
+                     </li>
+                 </ul>
+                  <h5>3.3. Dores e Expectativas com Salesforce</h5>
+                 <ul>
+                     <li><strong>Objetivo Principal (Roberta):</strong> <strong>Eliminar o uso de planilhas</strong> e centralizar toda a gestão do processo (extração, limpeza, distribuição, acompanhamento, atualização) no Salesforce, tornando-o mais simples e confiável.</li>
+                     <li><strong>Objetivo Principal (Victoria - Estratégico):</strong>
+                         <ul>
+                             <li><strong>Ganhar Eficiência:</strong> Aumentar drasticamente a capacidade de contactos diários por analista (ex: de 135 para 500+), superando a limitação atual do chip físico (bloqueio por volume) e do processo manual.</li>
+                             <li><strong>Ganhar Controle/Visibilidade:</strong> Ter rastreabilidade sobre as interações dos analistas (terceiros) com os motoristas via WhatsApp, o que hoje é inexistente (depende da confiança e de prints esporádicos enviados pela coordenadora). Poder auditar a qualidade e o conteúdo das conversas.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Dores da Equipe Terceirizada (Mapeadas por Roberta/Victoria):</strong>
+                         <ul>
+                             <li><strong>Banimento de Chips:</strong> Uso de chips físicos pessoais leva a bloqueios frequentes pelo WhatsApp (por volume ou denúncia), interrompendo o trabalho e <strong>perdendo o histórico/continuidade</strong> das conversas (motorista responde no chip bloqueado).</li>
+                             <li><strong>Múltiplos Números / Falta de Credibilidade:</strong> Cada analista usa 2 chips; motoristas recebem contacto de números diferentes ao longo do tempo, gerando desconfiança (acham que é golpe), especialmente por não ser um número verificado/oficial da 99.</li>
+                             <li><strong>Transferência Impossível:</strong> Impossibilidade de transferir uma conversa em andamento para outro colega (em caso de doença, férias, banimento) ou para a supervisora dar suporte.</li>
+                             <li><strong>Uso de Nomes/Fotos Falsas:</strong> Necessidade de usar nomes femininos e fotos geradas por IA (mesmo para analista homem) para aumentar a taxa de resposta, o que impede o envio de áudios. <em>Expectativa Salesforce: Número único e verificado pode eliminar essa necessidade.</em></li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h5>3.4. Definições e Conceitos</h5>
+                 <ul>
+                     <li><strong>Churn:</strong> Motorista que usou o 99 Abastece e parou por 30 dias ou mais.
+                         <ul>
+                             <li><strong>Classificações:</strong> 30-60 dias (mais recente, maior potencial), 60-90 dias, 90+ dias (mais difícil converter).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Never Used:</strong> Motorista ativo na 99 (corridas), mas nunca utilizou o benefício 99 Abastece.</li>
+                     <li><strong>Level Driver (Nível):</strong> Classificação de 1 a 4 (ou 0 = inelegível) baseada no engajamento do motorista com a <strong>mobilidade 99</strong> (quantidade de corridas). Quanto maior o nível, maior o desconto no 99 Abastece. <em>Não é definido pela equipe Abastece, vem da área de Mobilidade.</em></li>
+                     <li><strong>Meta de Conversão:</strong> Percentual de motoristas contactados (1ª abordagem registrada) que abastecem em <strong>até 7 dias corridos</strong> após esse contacto. <em>Regra dos 7 dias é recente (últimos 2 meses), antes não havia prazo.</em></li>
+                     <li><strong>Meta de Acionamento:</strong> Contactar (registrar 1ª abordagem) pelo menos <strong>80%</strong> do volume total de contactos disponibilizados no mês. <em>Penalidade: Não atingir 80% anula a parte da bonificação referente a volume.</em></li>
+                     <li><strong>Abastecimento Orgânico:</strong> Motorista que abastece sem ter sido contactado pela equipe ou sem que o contacto tenha sido registrado a tempo. São excluídos da base ativa e da contagem de metas.</li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos</h4>
+                 <ol>
+                     <li><strong>Foco Inicial:</strong> O mapeamento detalhado seguirá a estrutura de caixinhas do processo já documentado pela Roberta.</li>
+                     <li><strong>Próxima Sessão:</strong> Focar na primeira etapa: "Definição da Estratégia do Mês".</li>
+                     <li><strong>Necessidade de Flexibilidade:</strong> A solução Salesforce precisa ser parametrizável para acomodar mudanças frequentes na estratégia (metas, perfis prioritários, volumes).</li>
+                     <li><strong>CPF como Chave:</strong> Roberta irá verificar internamente a viabilidade de obter o CPF para garantir a unicidade do motorista ao carregar dados no Salesforce. <em>(Pendente para Sessão 7)</em></li>
+                     <li><strong>Compartilhamento de Materiais:</strong> Roberta enviará exemplos das planilhas (principal e reposição), mesmo com dados fictícios, para análise da C3C.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Enviar exemplos das planilhas (principal e de reposição) com estrutura e dados fictícios para a C3C.</td>
+                             <td>Roberta</td>
+                             <td>14/10 (EOD)</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Preparar o detalhamento da etapa "Definição da Estratégia do Mês" para a próxima sessão.</td>
+                             <td>Roberta</td>
+                             <td>Antes de 14/10</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Iniciar a documentação/rascunho do fluxo "As-Is" no Miro com base na discussão.</td>
+                             <td>Priscila</td>
+                             <td>Antes de 14/10</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Agendar sessão com a Coordenadora da Adecco (Thaís) para mapear a etapa de distribuição/contacto.</td>
+                             <td>Roberta</td>
+                             <td>ASAP</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 14 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 10:00 - 12:00</li>
+                     <li><strong>Tópico:</strong> Sessão 2: Detalhamento da "Definição da Estratégia do Mês" e início do mapeamento da "Extração e Preparação da Base".</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Feather Icons Activation
+            try {
+                feather.replace();
+            } catch (e) {
+                console.error("Feather icons failed to load or replace:", e);
+            }
+
+            // --- Seletores Globais ---
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+
+            // --- Scroll to Top Button Logic ---
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => {
+                     scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300);
+                 });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            // --- Fade-in animation on scroll ---
+             if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => { // Adicionado observer
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            observer.unobserve(entry.target); // Parar de observar após animar
+                        }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => {
+                   fadeInObserver.observe(el);
+                });
+            } else {
+                 // Fallback para navegadores sem IntersectionObserver
+                 fadeInElements.forEach(el => el.classList.add('visible'));
+            }
+
+            // --- Logo error handling ---
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none'; // Hide broken image
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     // Evitar adicionar múltiplos fallbacks
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) {
+                        logoImg.parentElement?.appendChild(fallbackText);
+                     }
+                 };
+            });
+
+        });
+    </script>
+</body>
+</html>

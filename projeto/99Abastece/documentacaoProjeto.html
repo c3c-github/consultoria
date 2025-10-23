@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repositório de Documentação - Inception 99 Abastece & Salesforce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title {
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Estilos para links ativos no menu */
+        .nav-link.active .nav-link-text {
+            color: var(--c3c-blue);
+            font-weight: 700;
+        }
+         .nav-sublink.active {
+             font-weight: 600;
+             color: var(--c3c-teal); /* Teal para subitem ativo */
+             background-color: #f0f9ff; /* Fundo azul claro para subitem ativo */
+         }
+        .nav-link.active .nav-link-icon {
+            color: var(--c3c-blue);
+        }
+         /* Hover states */
+        .nav-link:not(.active):hover .nav-link-text,
+        .nav-link:not(.active):hover .nav-link-icon {
+            color: var(--c3c-blue-darker);
+        }
+         .nav-sublink:not(.active):hover {
+             color: var(--c3c-teal-darker);
+             background-color: #f9fafb;
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+
+        /* Sidebar Colapsada */
+        .sidebar-collapsed .nav-link-text, .sidebar-collapsed .sidebar-title, .sidebar-collapsed #collapse-text, .sidebar-collapsed .submenu, .sidebar-collapsed .submenu-toggle-icon, .sidebar-collapsed .logo-container img {
+            display: none;
+        }
+         .sidebar-collapsed .logo-placeholder {
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            color: var(--c3c-blue);
+         }
+
+        /* Estilo Submenu */
+        .submenu {
+            margin-left: 0rem;
+            padding-left: 0.75rem;
+            border-left: 1px solid #e5e7eb;
+            display: none; /* Começa fechado */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+            margin-top: 0.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .submenu.open {
+            display: block;
+            max-height: 1500px; /* Suficiente para expandir */
+        }
+        .submenu-toggle-icon {
+            transition: transform 0.3s ease;
+            margin-left: auto;
+        }
+        .submenu-toggle-icon.open {
+            transform: rotate(90deg);
+        }
+
+        /* Iframe styling */
+        .sharepoint-embed {
+            width: 100%;
+            height: calc(100vh - 160px); /* Ajustar altura conforme necessário */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        .placeholder-text {
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            background-color: #f9fafb;
+            border: 1px dashed #d1d5db;
+            border-radius: 8px;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Classe auxiliar para IDs e rolagem */
+        .document-section {
+             padding-top: 80px; /* Espaço para header fixo */
+             margin-top: -64px; /* Offset para compensar header fixo */
+        }
+        /* Ajuste específico para o primeiro item não ficar tão colado no título geral */
+        main > section:first-of-type {
+            margin-top: 0; /* Remove a margem negativa do primeiro item */
+        }
+
+        .logo-container {
+             width: auto;
+             max-width: 80%;
+             height: auto;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+        }
+         .logo-container img {
+             max-height: 40px;
+             width: auto;
+         }
+
+         .fase-projeto-label {
+             display: inline-block;
+             background-color: var(--c3c-blue);
+             color: white;
+             padding: 0.2rem 0.6rem;
+             border-radius: 9999px; /* Pill shape */
+             font-size: 0.7rem; /* Smaller */
+             font-weight: 600;
+             margin-bottom: 0.75rem; /* More space below */
+             text-transform: uppercase;
+             letter-spacing: 0.05em;
+         }
+         /* Remove prose styles from non-content elements */
+         .not-prose {
+             all: unset; /* Reset styles applied by prose */
+             display: block; /* Ensure it behaves like a block */
+             box-sizing: border-box; /* Maintain box model */
+         }
+         /* Specific resets if needed */
+         .section-title.not-prose {
+             border-bottom: 2px solid var(--c3c-blue);
+             padding-bottom: 0.5rem;
+             color: var(--c3c-blue);
+             font-size: 1.5rem; /* Ajuste o tamanho da fonte conforme necessário */
+             font-weight: 700;
+             margin-bottom: 1.5rem; /* Espaçamento abaixo do título */
+             margin-top: 0; /* Remover margem superior */
+         }
+         .fase-projeto-label.not-prose {
+             display: inline-block;
+             background-color: var(--c3c-blue);
+             color: white;
+             padding: 0.2rem 0.6rem;
+             border-radius: 9999px;
+             font-size: 0.7rem;
+             font-weight: 600;
+             margin-bottom: 0.75rem;
+             text-transform: uppercase;
+             letter-spacing: 0.05em;
+         }
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex">
+        <!-- Desktop Sidebar -->
+        <aside id="desktop-sidebar" class="hidden lg:flex lg:flex-col lg:w-72 bg-white h-screen fixed top-0 left-0 border-r border-gray-200 transition-all duration-300 z-30">
+            <div class="flex items-center justify-center h-16 border-b flex-shrink-0 px-4 space-x-2">
+                 <div class="logo-container sidebar-title">
+                     <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" onerror="this.onerror=null; this.alt='Logo C3C'; this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                 </div>
+                 <div class="logo-placeholder sidebar-collapsed" style="display: none;">
+                     <i data-feather="box" class="h-6 w-6"></i>
+                 </div>
+            </div>
+            <nav id="document-nav" class="flex-grow p-4 overflow-y-auto">
+                 <ul class="space-y-1">
+                    <!-- Fases e Documentos -->
+                    <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="play-circle" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Iniciação & Descoberta</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-tap" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Termo de Abertura (TAP)</a></li>
+                            <li><a href="#doc-stakeholders" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Mapa de Stakeholders</a></li>
+                            <li><a href="#doc-plano-gerenciamento" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Gerenciamento</a></li>
+                            <li><a href="#doc-brd" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Requisitos de Negócio (BRD)</a></li>
+                            <li><a href="#doc-map-as-is" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Mapeamento As-Is</a></li>
+                            <li><a href="#doc-map-to-be" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Mapeamento To-Be</a></li>
+                        </ul>
+                    </li>
+                    <!-- Repetir para outras fases... -->
+                     <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="edit-3" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Desenho & Concepção</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-sdd" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Desenho da Solução (SDD)</a></li>
+                            <li><a href="#doc-fds" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Desenho Funcional (FDS)</a></li>
+                            <li><a href="#doc-tds" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Desenho Técnico (TDS)</a></li>
+                            <li><a href="#doc-erd" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Modelo de Dados (ERD)</a></li>
+                            <li><a href="#doc-integracoes" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Desenho de Integrações</a></li>
+                            <li><a href="#doc-migracao" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Migração de Dados</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="settings" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Construção & Configuração</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-config-workbook" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Planilha de Configuração</a></li>
+                            <li><a href="#doc-codigo-fonte" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Código-Fonte e Componentes</a></li>
+                            <li><a href="#doc-scripts-teste-unit" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Scripts de Teste Unitário</a></li>
+                            <li><a href="#doc-scripts-migracao-etl" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Scripts de Migração (ETL)</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="check-square" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Teste & Treinamento</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-plano-testes" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Testes</a></li>
+                            <li><a href="#doc-casos-teste" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Casos de Teste (SIT / UAT)</a></li>
+                            <li><a href="#doc-defect-log" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Registro de Defeitos</a></li>
+                            <li><a href="#doc-plano-treinamento" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Treinamento</a></li>
+                            <li><a href="#doc-materiais-treinamento" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Materiais de Treinamento</a></li>
+                            <li><a href="#doc-uat-signoff" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Termo de Aceite (UAT Sign-off)</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="send" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Implantação & Go-Live</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-plano-golive" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Go-Live (Cutover)</a></li>
+                            <li><a href="#doc-plano-comunicacao" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano de Comunicação (Go-Live)</a></li>
+                            <li><a href="#doc-relatorio-validacao-mig" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Relatório Validação Migração</a></li>
+                            <li><a href="#doc-checklist-prontidao" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Checklist de Prontidão</a></li>
+                        </ul>
+                    </li>
+                     <li>
+                        <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                            <i data-feather="life-buoy" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                            <span class="nav-link-text flex-grow font-semibold">Pós-Implantação & Suporte</span>
+                            <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                        </button>
+                        <ul class="submenu space-y-1 pl-4">
+                            <li><a href="#doc-plano-hypercare" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Plano Pós Go-Live (Hypercare)</a></li>
+                            <li><a href="#doc-issue-log" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Registro de Problemas (Issue Log)</a></li>
+                            <li><a href="#doc-t2s" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Documento Transição p/ Suporte</a></li>
+                            <li><a href="#doc-lessons-learned" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Lições Aprendidas</a></li>
+                            <li><a href="#doc-termo-encerramento" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Termo de Encerramento</a></li>
+                        </ul>
+                    </li>
+                    <!-- Seção Atas e Anexos (Simplificada) -->
+                    <li>
+                         <button class="submenu-toggle nav-link w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors text-sm text-left">
+                             <i data-feather="archive" class="nav-link-icon w-4 h-4 mr-3 flex-shrink-0"></i>
+                             <span class="nav-link-text flex-grow font-semibold">Atas e Anexos</span>
+                             <i data-feather="chevron-right" class="submenu-toggle-icon w-4 h-4 text-gray-400 flex-shrink-0"></i>
+                         </button>
+                         <ul class="submenu space-y-1 pl-4">
+                             <li><a href="#sessao1" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 1 (13/Out)</a></li>
+                             <li><a href="#sessao2" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 2 (14/Out Manhã)</a></li>
+                             <li><a href="#sessao3" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 3 (14/Out Tarde)</a></li>
+                             <li><a href="#sessao4" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 4 (15/Out)</a></li>
+                             <li><a href="#sessao5" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 5 (16/Out)</a></li>
+                             <li><a href="#sessao6" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 6 (17/Out)</a></li>
+                             <li><a href="#sessao7" class="nav-sublink block p-1.5 rounded-md text-gray-500 hover:text-[var(--c3c-teal-darker)] transition-colors text-xs">Ata Reunião 7 (20/Out)</a></li>
+                             <!-- Adicionar links para anexos aqui -->
+                         </ul>
+                     </li>
+                </ul>
+            </nav>
+            <div class="border-t p-2">
+                <button id="sidebar-collapse-btn" class="w-full flex items-center p-2 rounded-md text-gray-600 hover:bg-gray-100">
+                    <i data-feather="chevrons-left" class="h-5 w-5 mr-3"></i>
+                    <span id="collapse-text" class="text-sm">Recolher</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu-overlay" class="lg:hidden fixed inset-0 bg-black/50 z-40 hidden"></div>
+        <div id="mobile-menu" class="lg:hidden fixed top-0 left-0 h-full w-64 bg-white z-50 transform -translate-x-full transition-transform duration-300 overflow-y-auto">
+             <div class="flex items-center justify-between h-16 border-b px-4 sticky top-0 bg-white">
+                  <div class="logo-container">
+                     <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='C3C';">
+                 </div>
+                <button id="close-mobile-menu-btn" class="p-2 text-gray-600">
+                    <i data-feather="x" class="h-6 w-6"></i>
+                </button>
+            </div>
+            <nav id="mobile-document-nav" class="p-4"><ul class="space-y-1"><!-- Mobile nav links here --></ul></nav>
+        </div>
+
+        <div id="main-content" class="flex-1 lg:ml-72 transition-all duration-300">
+            <!-- Header -->
+            <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                     <div class="flex justify-between items-center h-16">
+                          <button id="hamburger-btn" class="lg:hidden p-2 text-gray-600">
+                            <i data-feather="menu" class="h-6 w-6"></i>
+                         </button>
+                         <div class="text-lg font-semibold text-gray-700 hidden sm:block">Repositório de Documentação</div>
+                         <div class="text-sm font-medium text-gray-500">Projeto Inception 99 Abastece</div>
+                     </div>
+                 </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+                <!-- Title Section -->
+                <section class="text-center pb-12 border-b fade-in not-prose">
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold brand-gradient-text !mt-0">Repositório de Documentação</h1>
+                    <p class="mt-4 text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto font-semibold">Projeto Inception 99 Abastece & Salesforce</p>
+                    <p class="mt-6 text-sm text-gray-500">Outubro de 2025</p>
+                </section>
+
+                 <!-- Seções de Documentos (Iniciação e Descoberta) -->
+                 <section id="doc-tap" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Termo de Abertura do Projeto (TAP) ou Project Charter</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                     <!-- Iframe para TAP -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_TAP"
+                             title="Termo de Abertura do Projeto (TAP)">
+                         <p class="placeholder-text">Seu navegador não suporta iframes ou o documento não pôde ser carregado. Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                 <section id="doc-stakeholders" class="document-section fade-in">
+                      <h2 class="section-title not-prose">Mapa de Stakeholders</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                      <!-- Iframe para Mapa de Stakeholders -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_STAKEHOLDERS"
+                             title="Mapa de Stakeholders">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                 <section id="doc-plano-gerenciamento" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Plano de Gerenciamento do Projeto</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                      <!-- Iframe para Plano de Gerenciamento -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_PLANO_GER"
+                             title="Plano de Gerenciamento do Projeto">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                 <section id="doc-brd" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Documento de Requisitos de Negócio (BRD)</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                      <!-- Iframe para BRD -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_BRD"
+                             title="Documento de Requisitos de Negócio (BRD)">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                 <section id="doc-map-as-is" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Mapeamento de Processos As-Is</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                      <!-- Iframe para Mapeamento As-Is -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_AS_IS"
+                             title="Mapeamento de Processos As-Is">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                 <section id="doc-map-to-be" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Mapeamento de Processos To-Be</h2>
+                     <p class="fase-projeto-label not-prose">Iniciação & Descoberta</p>
+                      <!-- Iframe para Mapeamento To-Be -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_TO_BE"
+                             title="Mapeamento de Processos To-Be">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+
+                 <!-- Seções para Desenho & Concepção -->
+                 <section id="doc-sdd" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Documento de Desenho da Solução (SDD)</h2>
+                     <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                     <!-- Iframe para SDD -->
+                     <iframe class="sharepoint-embed"
+                             src="URL_DO_SHAREPOINT_PARA_SDD"
+                             title="Documento de Desenho da Solução (SDD)">
+                         <p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p>
+                     </iframe>
+                 </section>
+                <section id="doc-fds" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Especificação de Desenho Funcional (FDS)</h2>
+                    <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_FDS" title="Especificação de Desenho Funcional (FDS)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-tds" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Especificação de Desenho Técnico (TDS)</h2>
+                    <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_TDS" title="Especificação de Desenho Técnico (TDS)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-erd" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Modelo de Dados (ERD)</h2>
+                    <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_ERD" title="Modelo de Dados (ERD)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-integracoes" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Desenho de Integrações</h2>
+                    <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_INTEGRACOES" title="Desenho de Integrações"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-migracao" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Migração de Dados</h2>
+                    <p class="fase-projeto-label not-prose">Desenho & Concepção</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_MIGRACAO" title="Plano de Migração de Dados"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+
+                <!-- Construção & Configuração -->
+                <section id="doc-config-workbook" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Planilha de Configuração (Configuration Workbook)</h2>
+                    <p class="fase-projeto-label not-prose">Construção & Configuração</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_CONFIG" title="Planilha de Configuração (Configuration Workbook)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-codigo-fonte" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Código-Fonte e Componentes (Apex, LWC)</h2>
+                    <p class="fase-projeto-label not-prose">Construção & Configuração</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_CODIGO" title="Código-Fonte e Componentes (Apex, LWC)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint ou link para repositório.</p></iframe>
+                </section>
+                <section id="doc-scripts-teste-unit" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Scripts de Teste Unitário</h2>
+                    <p class="fase-projeto-label not-prose">Construção & Configuração</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_TESTE_UNIT" title="Scripts de Teste Unitário"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-scripts-migracao-etl" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Scripts de Migração de Dados (ETL)</h2>
+                    <p class="fase-projeto-label not-prose">Construção & Configuração</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_ETL" title="Scripts de Migração de Dados (ETL)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+
+                <!-- Teste & Treinamento -->
+                <section id="doc-plano-testes" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Testes</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_PLANO_TESTES" title="Plano de Testes"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-casos-teste" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Casos de Teste (SIT / UAT)</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_CASOS_TESTE" title="Casos de Teste (SIT / UAT)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-defect-log" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Registro de Defeitos (Defect Log)</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_DEFECT_LOG" title="Registro de Defeitos (Defect Log)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-plano-treinamento" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Treinamento</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_PLANO_TREIN" title="Plano de Treinamento"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-materiais-treinamento" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Materiais de Treinamento</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_MAT_TREIN" title="Materiais de Treinamento"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-uat-signoff" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Termo de Aceite (UAT Sign-off)</h2>
+                    <p class="fase-projeto-label not-prose">Teste & Treinamento</p>
+                     <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_UAT_SIGNOFF" title="Termo de Aceite (UAT Sign-off)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+
+                <!-- Implantação & Go-Live -->
+                 <section id="doc-plano-golive" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Go-Live (Cutover Plan)</h2>
+                    <p class="fase-projeto-label not-prose">Implantação & Go-Live</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_PLANO_GOLIVE" title="Plano de Go-Live (Cutover Plan)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-plano-comunicacao" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Comunicação (Go-Live)</h2>
+                    <p class="fase-projeto-label not-prose">Implantação & Go-Live</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_PLANO_COM" title="Plano de Comunicação (Go-Live)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-relatorio-validacao-mig" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Relatório de Validação da Migração de Dados</h2>
+                    <p class="fase-projeto-label not-prose">Implantação & Go-Live</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_VALID_MIG" title="Relatório de Validação da Migração de Dados"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-checklist-prontidao" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Checklist de Prontidão (Go/No-Go)</h2>
+                    <p class="fase-projeto-label not-prose">Implantação & Go-Live</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_CHECKLIST" title="Checklist de Prontidão (Go/No-Go)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+
+                <!-- Pós-Implantação & Suporte -->
+                 <section id="doc-plano-hypercare" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Plano de Suporte Pós Go-Live (Hypercare)</h2>
+                    <p class="fase-projeto-label not-prose">Pós-Implantação & Suporte</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_HYPERCARE" title="Plano de Suporte Pós Go-Live (Hypercare)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-issue-log" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Registro de Problemas Pós-Go-Live (Issue Log)</h2>
+                    <p class="fase-projeto-label not-prose">Pós-Implantação & Suporte</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_ISSUE_LOG" title="Registro de Problemas Pós-Go-Live (Issue Log)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-t2s" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Documento de Transição para Suporte (T2S)</h2>
+                    <p class="fase-projeto-label not-prose">Pós-Implantação & Suporte</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_T2S" title="Documento de Transição para Suporte (T2S)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-lessons-learned" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Relatório de Lições Aprendidas (Lessons Learned)</h2>
+                    <p class="fase-projeto-label not-prose">Pós-Implantação & Suporte</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_LESSONS" title="Relatório de Lições Aprendidas (Lessons Learned)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                <section id="doc-termo-encerramento" class="document-section fade-in">
+                    <h2 class="section-title not-prose">Termo de Encerramento do Projeto</h2>
+                    <p class="fase-projeto-label not-prose">Pós-Implantação & Suporte</p>
+                    <iframe class="sharepoint-embed" src="URL_DO_SHAREPOINT_PARA_ENCERRAMENTO" title="Termo de Encerramento do Projeto"><p class="placeholder-text">Substitua o SRC pelo link de incorporação do SharePoint.</p></iframe>
+                </section>
+                 <!-- Fim das Seções Placeholder -->
+
+                 <!-- Seção Separada para Cada Ata -->
+                 <section id="sessao1" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 1 (13/Out/2025)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                     <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_1" title="Ata Reunião 1 (13/Out/2025)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 1 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao2" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 2 (14/Out Manhã)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                     <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_2" title="Ata Reunião 2 (14/Out Manhã)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 2 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao3" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 3 (14/Out Tarde)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                     <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_3" title="Ata Reunião 3 (14/Out Tarde)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 3 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao4" class="document-section fade-in">
+                      <h2 class="section-title not-prose">Ata Reunião 4 (15/Out)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                     <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_4" title="Ata Reunião 4 (15/Out)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 4 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao5" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 5 (16/Out)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                     <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_5" title="Ata Reunião 5 (16/Out)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 5 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao6" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 6 (17/Out)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                      <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_6" title="Ata Reunião 6 (17/Out)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 6 no SharePoint.</p></iframe>
+                 </section>
+                 <section id="sessao7" class="document-section fade-in">
+                     <h2 class="section-title not-prose">Ata Reunião 7 (20/Out)</h2>
+                     <p class="fase-projeto-label not-prose">Atas e Anexos</p>
+                      <iframe class="sharepoint-embed" src="URL_SHAREPOINT_ATA_7" title="Ata Reunião 7 (20/Out)"><p class="placeholder-text">Substitua o SRC pelo link de incorporação da Ata 7 no SharePoint.</p></iframe>
+                 </section>
+
+            </main>
+             <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white">
+                Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+            </footer>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        // Debounce function
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Feather Icons Activation
+            try {
+                feather.replace();
+            } catch (e) {
+                console.error("Feather icons failed to load or replace:", e);
+            }
+
+            // --- Seletores Globais ---
+            const desktopSidebar = document.getElementById('desktop-sidebar');
+            const mainContent = document.getElementById('main-content');
+            const collapseBtn = document.getElementById('sidebar-collapse-btn');
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const closeMobileMenuBtn = document.getElementById('close-mobile-menu-btn');
+            const header = document.querySelector('header');
+            let headerHeight = header ? header.offsetHeight : 64;
+            const desktopNavList = desktopSidebar ? desktopSidebar.querySelector('#document-nav > ul') : null;
+            const mobileNavListContainer = mobileMenu ? mobileMenu.querySelector('#mobile-document-nav > ul') : null;
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            const sections = document.querySelectorAll('main section[id]'); // Observa todas as seções com ID
+            const allNavLinks = document.querySelectorAll('.nav-link');
+            const allSubLinks = document.querySelectorAll('.nav-sublink');
+
+            // Recalculate header height on resize
+            window.addEventListener('resize', () => {
+                headerHeight = header ? header.offsetHeight : 64;
+                 // Reajustar altura do iframe ao redimensionar (opcional)
+                document.querySelectorAll('.sharepoint-embed').forEach(iframe => {
+                    iframe.style.height = `calc(100vh - ${headerHeight + 96}px)`; // Exemplo de ajuste
+                });
+            });
+
+             // Definir altura inicial do iframe
+             document.querySelectorAll('.sharepoint-embed').forEach(iframe => {
+                iframe.style.height = `calc(100vh - ${headerHeight + 96}px)`; // Ajuste para header + padding/margins
+             });
+
+
+            // --- Sidebar collapse logic ---
+            if (collapseBtn && desktopSidebar && mainContent) {
+                 collapseBtn.addEventListener('click', () => {
+                    const isCollapsed = desktopSidebar.classList.contains('lg:w-20');
+                    const logoPlaceholder = desktopSidebar.querySelector('.logo-placeholder');
+                    const logoContainer = desktopSidebar.querySelector('.logo-container');
+                    const collapseIcon = collapseBtn.querySelector('i');
+                    const collapseText = collapseBtn.querySelector('#collapse-text');
+
+                    if (isCollapsed) { // Expand
+                        desktopSidebar.classList.remove('lg:w-20', 'sidebar-collapsed');
+                        desktopSidebar.classList.add('lg:w-72');
+                        mainContent.classList.remove('lg:ml-20');
+                        mainContent.classList.add('lg:ml-72');
+                        if (collapseIcon) collapseIcon.setAttribute('data-feather', 'chevrons-left');
+                        if (collapseText) collapseText.textContent = 'Recolher';
+                        if (logoPlaceholder) logoPlaceholder.style.display = 'none';
+                        if (logoContainer) logoContainer.style.display = 'flex';
+                    } else { // Collapse
+                        // Fecha submenus abertos antes de colapsar
+                        document.querySelectorAll('#desktop-sidebar .submenu.open').forEach(openSubmenu => {
+                            openSubmenu.classList.remove('open');
+                            const otherIcon = openSubmenu.previousElementSibling?.querySelector('.submenu-toggle-icon');
+                            if(otherIcon) {
+                                otherIcon.classList.remove('open');
+                                otherIcon.setAttribute('data-feather', 'chevron-right');
+                            }
+                        });
+                        desktopSidebar.classList.remove('lg:w-72');
+                        desktopSidebar.classList.add('lg:w-20', 'sidebar-collapsed');
+                        mainContent.classList.remove('lg:ml-72');
+                        mainContent.classList.add('lg:ml-20');
+                        if (collapseIcon) collapseIcon.setAttribute('data-feather', 'chevrons-right');
+                        if (collapseText) collapseText.textContent = 'Expandir';
+                        if (logoContainer) logoContainer.style.display = 'none';
+                        if (logoPlaceholder) logoPlaceholder.style.display = 'flex';
+                    }
+                    try { feather.replace(); } catch(e){ console.error(e); } // Re-renderiza ícones
+                 });
+            }
+
+            // --- Mobile menu logic ---
+            const toggleMobileMenu = (forceClose = false) => {
+                 if(!mobileMenu || !mobileMenuOverlay) return;
+                 if(forceClose){
+                     mobileMenu.classList.add('-translate-x-full');
+                     mobileMenuOverlay.classList.add('hidden');
+                 } else {
+                     mobileMenu.classList.toggle('-translate-x-full');
+                     mobileMenuOverlay.classList.toggle('hidden');
+                 }
+            };
+            if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => toggleMobileMenu());
+            if (closeMobileMenuBtn) closeMobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
+            if (mobileMenuOverlay) mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(true));
+
+            // --- Function to handle smooth scrolling ---
+            const handleSmoothScroll = (event, href) => {
+                 if (!href || !href.startsWith('#')) return;
+                 const targetId = href.substring(1);
+                 const targetElement = document.getElementById(targetId);
+                 if (targetElement) {
+                     event.preventDefault();
+                     const elementPosition = targetElement.getBoundingClientRect().top;
+                     // Ajuste para rolar um pouco acima do título
+                     const offsetPosition = elementPosition + window.pageYOffset - headerHeight - 20;
+
+                     window.scrollTo({
+                         top: offsetPosition < 0 ? 0 : offsetPosition,
+                         behavior: "smooth"
+                     });
+                 }
+             };
+
+            // --- Populate and handle mobile nav ---
+             if (desktopNavList && mobileNavListContainer) {
+                 mobileNavListContainer.innerHTML = desktopNavList.innerHTML; // Clona a estrutura
+
+                 // Adiciona listeners aos links e botões clonados no mobile
+                 mobileNavListContainer.querySelectorAll('a, button.submenu-toggle').forEach(el => {
+                     if (el.tagName === 'A') { // Sublinks (documentos/atas)
+                         el.addEventListener('click', (e) => {
+                             const href = el.getAttribute('href');
+                             handleSmoothScroll(e, href);
+                             setTimeout(() => toggleMobileMenu(true), 150); // Fecha o menu
+                         });
+                     } else if (el.classList.contains('submenu-toggle')) { // Botões principais (fases)
+                         const submenu = el.nextElementSibling;
+                         const icon = el.querySelector('.submenu-toggle-icon');
+                         if (!submenu || !icon) return;
+
+                         el.addEventListener('click', (e) => {
+                             e.preventDefault();
+                             // Fecha outros submenus no mobile
+                             mobileNavListContainer.querySelectorAll('.submenu.open').forEach(openSub => {
+                                 if (openSub !== submenu) {
+                                     openSub.classList.remove('open');
+                                     const otherIcon = openSub.previousElementSibling?.querySelector('.submenu-toggle-icon');
+                                     if (otherIcon) {
+                                         otherIcon.classList.remove('open');
+                                         otherIcon.setAttribute('data-feather', 'chevron-right');
+                                     }
+                                 }
+                             });
+                             // Alterna o submenu atual
+                             submenu.classList.toggle('open');
+                             icon.classList.toggle('open');
+                             icon.setAttribute('data-feather', icon.classList.contains('open') ? 'chevron-down' : 'chevron-right');
+                             try { feather.replace(); } catch(e){ console.error(e); } // Atualiza ícone
+                         });
+                     }
+                 });
+                 try { feather.replace(); } catch(e){ console.error(e); } // Renderiza ícones no menu mobile clonado
+             }
+
+
+            // --- Submenu toggle logic for Desktop ---
+            if (desktopSidebar) {
+                desktopSidebar.querySelectorAll('.submenu-toggle').forEach(button => {
+                    const submenu = button.nextElementSibling;
+                    const icon = button.querySelector('.submenu-toggle-icon');
+                    if (!submenu || !icon) return;
+
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        if (desktopSidebar.classList.contains('sidebar-collapsed')) return; // Não abre se colapsado
+
+                        // Fecha outros submenus no desktop
+                        desktopSidebar.querySelectorAll('.submenu.open').forEach(openSubmenu => {
+                            if (openSubmenu !== submenu) {
+                                openSubmenu.classList.remove('open');
+                                const otherIcon = openSubmenu.previousElementSibling?.querySelector('.submenu-toggle-icon');
+                                if(otherIcon) {
+                                    otherIcon.classList.remove('open');
+                                    otherIcon.setAttribute('data-feather', 'chevron-right');
+                                }
+                            }
+                        });
+                        // Alterna o submenu atual
+                        submenu.classList.toggle('open');
+                        icon.classList.toggle('open');
+                        icon.setAttribute('data-feather', icon.classList.contains('open') ? 'chevron-down' : 'chevron-right');
+                        try { feather.replace(); } catch(e){ console.error(e); } // Atualiza ícone
+                    });
+                });
+            }
+
+            // --- Scroll to Top Button Logic ---
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => {
+                     scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300);
+                 });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            // --- Fade-in animation on scroll ---
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => fadeInObserver.observe(el));
+            } else {
+                 fadeInElements.forEach(el => el.classList.add('visible')); // Fallback
+            }
+
+             // --- Active Nav Link Highlighting (Scrollspy) ---
+             const updateActiveLink = () => {
+                 if (!desktopSidebar || !allNavLinks || !allSubLinks || sections.length === 0) return;
+
+                 let currentBestMatchId = null;
+                 let minDistance = Infinity;
+                 const triggerPoint = headerHeight + 60; // Ponto de ativação mais abaixo
+
+                 sections.forEach(section => { // Itera sobre todas as <section> com ID
+                     const rect = section.getBoundingClientRect();
+                     const elementTop = rect.top;
+                     const elementBottom = rect.bottom;
+                     // Considera ativo se o topo estiver acima do ponto de trigger
+                     // E o fundo estiver abaixo do ponto de trigger OU
+                     // Se o topo estiver abaixo do ponto de trigger mas visível na metade superior
+                     const isActive = (elementTop <= triggerPoint && elementBottom > triggerPoint + 20) || // +20 para garantir visibilidade
+                                      (elementTop > triggerPoint && elementTop < window.innerHeight / 1.5); // Metade superior da tela
+
+                     if (isActive) {
+                         const distanceToTrigger = Math.abs(elementTop - triggerPoint);
+                         if (distanceToTrigger < minDistance) {
+                             minDistance = distanceToTrigger;
+                             currentBestMatchId = section.getAttribute('id');
+                         }
+                     }
+                 });
+
+                 // Fallbacks
+                 if (!currentBestMatchId) {
+                     if (window.scrollY < headerHeight + 50) {
+                         currentBestMatchId = sections[0]?.getAttribute('id'); // Pega o primeiro se existir
+                     } else if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+                         currentBestMatchId = sections[sections.length - 1]?.getAttribute('id'); // Pega o último se existir
+                     }
+                 }
+
+                 // Reset active states
+                 allNavLinks.forEach(link => link.classList.remove('active'));
+                 allSubLinks.forEach(link => link.classList.remove('active'));
+                 // Fecha submenus que não estão ativos
+                 if(!desktopSidebar.classList.contains('sidebar-collapsed')) {
+                     desktopSidebar.querySelectorAll('.submenu.open').forEach(openSubmenu => {
+                         const parentButton = openSubmenu.previousElementSibling;
+                         if (parentButton && !parentButton.classList.contains('active')) {
+                              openSubmenu.classList.remove('open');
+                              const icon = parentButton.querySelector('.submenu-toggle-icon');
+                              if (icon) {
+                                  icon.classList.remove('open');
+                                  icon.setAttribute('data-feather', 'chevron-right');
+                              }
+                         }
+                     });
+                 }
+
+
+                 if (!currentBestMatchId) return;
+
+                 let targetHref = `#${currentBestMatchId}`;
+
+                 // Encontra o sublink correspondente
+                 const activeSublink = document.querySelector(`.nav-sublink[href="${targetHref}"]`);
+
+                 if (activeSublink) {
+                     activeSublink.classList.add('active'); // Ativa o sublink
+                     // Encontra o botão pai (fase ou Atas/Anexos)
+                     const parentLi = activeSublink.closest('ul.submenu')?.parentElement;
+                     if (parentLi) {
+                         const parentButton = parentLi.querySelector('button.nav-link');
+                         if (parentButton) {
+                             parentButton.classList.add('active'); // Ativa o botão pai
+                             // Auto-abrir submenu no desktop
+                             const submenu = parentButton.nextElementSibling;
+                             const icon = parentButton.querySelector('.submenu-toggle-icon');
+                             if (submenu && icon && !submenu.classList.contains('open') && !desktopSidebar.classList.contains('sidebar-collapsed')) {
+                                  submenu.classList.add('open');
+                                  icon.classList.add('open');
+                                  icon.setAttribute('data-feather', 'chevron-down');
+                                  try { feather.replace(); } catch(e){ console.error(e); }
+                             }
+                         }
+                     }
+                 }
+                 try { feather.replace(); } catch(e){ console.error(e); } // Garante que ícones sejam re-renderizados após fechamento
+             };
+
+             window.addEventListener('scroll', debounce(updateActiveLink, 100)); // Debounce menor
+             setTimeout(updateActiveLink, 300); // Execução inicial para destacar o link correto ao carregar
+
+            // --- Smooth scrolling para todos os links da sidebar ---
+             document.querySelectorAll('#desktop-sidebar a, #mobile-document-nav a').forEach(link => {
+                 link.addEventListener('click', (e) => handleSmoothScroll(e, link.getAttribute('href')));
+             });
+
+            // Logo error handling
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none'; // Hide broken image
+                     const placeholder = logoImg.closest('.flex.items-center')?.querySelector('.logo-placeholder');
+                     if(placeholder) placeholder.style.display = 'flex'; // Show text/icon fallback
+                     else { // Simple text fallback if structure is different
+                         const textFallback = document.createElement('span');
+                         textFallback.className = 'sidebar-title font-bold brand-color';
+                         textFallback.textContent = 'C3C';
+                         logoImg.parentElement?.appendChild(textFallback);
+                     }
+                 };
+            });
+
+             // Observer para re-renderizar ícones no menu mobile quando ele abre
+             if (mobileNavListContainer && "MutationObserver" in window) {
+                 const observer = new MutationObserver(mutations => {
+                     for(let mutation of mutations) {
+                         if (mutation.type === 'childList' || mutation.type === 'attributes') { // Observe changes in attributes too (like class for open/close)
+                             try { feather.replace(); } catch(e){ console.error(e); }
+                             break;
+                         }
+                     }
+                 });
+                 observer.observe(mobileNavListContainer, { childList: true, subtree: true, attributes: true });
+             }
+
+
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 3 (14/Out Tarde) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 3 (14/Out Tarde)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 3 (14/Out/2025 Tarde)</h2>
+                 <!-- Conteúdo da Ata 3 -->
+                 <h3>Sessão 3: Extração, Tratamento e Carga da Base</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Mapear em detalhes o processo de extração da base de motoristas (Churn) do Data Lake da 99.</li>
+                     <li>Entender o processo de tratamento e limpeza dos dados realizado pela Roberta (manual e via Python).</li>
+                     <li>Discutir a mecânica de carga inicial dos dados no Salesforce e as atualizações subsequentes.</li>
+                     <li>Validar as colunas e informações essenciais que compõem a "base mestra" e a base enviada à equipe terceirizada.</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Extração da Base (Roberta)</h5>
+                 <ul>
+                     <li><strong>Ferramenta:</strong> Interface web da Didi (matriz) para execução de queries SQL salvas.</li>
+                     <li><strong>Processo:</strong>
+                         <ul>
+                             <li>Roberta executa uma query SQL específica para Churn (geralmente uma vez por mês, no início).</li>
+                             <li>A query já contém a lógica para classificar o Churn (30-60, 60-90, 90+) e filtrar por Level Driver (2, 3, 4).</li>
+                             <li><strong>Output da Query:</strong> Tabela com colunas: <code>Driver ID</code>, <code>City ID</code>, <code>Driver Level</code>, <code>Classificação Churn</code>, <code>Dia da Semana</code> (último domingo da semana fechada).</li>
+                             <li><strong>Download:</strong> O resultado da query é baixado como arquivo CSV/Excel.</li>
+                             <li><strong>Desafio da Elegibilidade Semanal vs. Mensal:</strong>
+                                 <ul>
+                                     <li>Algumas cidades têm elegibilidade atualizada semanalmente, outras mensalmente.</li>
+                                     <li>A query, dependendo de como é rodada (ex: pegando o mês inteiro para evitar erros), pode trazer múltiplas linhas para o mesmo <code>Driver ID</code> com <code>Driver Level</code> diferentes para cada semana.</li>
+                                     <li><strong>Tratamento Atual:</strong> Roberta filtra manualmente o resultado para manter apenas a linha referente à última semana fechada do período desejado, garantindo o nível mais recente.</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Segunda Extração (Necessidade):</strong> Confirmado que a segunda extração no mês (quando o mês vira no meio da semana) é necessária para capturar a <strong>mudança de elegibilidade</strong> que ocorre no último dia do mês (para cidades mensais) e também para incluir <strong>novos motoristas</strong> que se tornaram Churn ou elegíveis (ex: subiram do Nível 0/1 para 2+) após a primeira extração.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Consulta Individual:</strong> Existe outra ferramenta interna (Magello) onde é possível consultar dados de um motorista específico (histórico de abastecimento, etc.), usada para análises pontuais/investigações.</li>
+                 </ul>
+                 <h5>3.2. Tratamento e Limpeza da Base (Roberta - Planilha "Mãe"/Reposição)</h5>
+                 <ul>
+                     <li><strong>Criação da Base Mestra (Google Sheet):</strong>
+                         <ul>
+                             <li>Cria uma cópia da planilha do mês anterior ("Grupo Controle [Mês]").</li>
+                             <li>Limpa todos os dados de motoristas da aba principal.</li>
+                             <li>Cola os dados da extração (<code>Driver ID</code>, <code>City ID</code>, <code>Driver Level</code>, <code>Classificação Churn</code>).</li>
+                         </ul>
+                     </li>
+                     <li><strong>Enriquecimento (Dependência Externa/PROCV):</strong>
+                         <ul>
+                             <li><strong>Telefone e Nome:</strong> Roberta não tem acesso direto a esses dados. Ela envia a lista de <code>Driver ID</code>s para outra colega (com acesso), que retorna uma planilha com <code>Driver ID</code>, <code>Telefone</code> e <code>Nome</code>. Roberta faz PROCV para trazer essas informações para a base mestra. <em>(Ponto de atrito/burocracia).</em> Formato do telefone: Inclui DDI (55) e DDD.</li>
+                             <li><strong>Nome da Cidade (City Name):</strong> Roberta possui uma tabela auxiliar (aba na planilha ou arquivo separado) com a relação <code>City ID</code> -> <code>Nome da Cidade</code>. Faz PROCV para trazer o nome da cidade. <em>Importante: <code>City ID</code> pode agrupar múltiplas cidades (ex: Região Metropolitana).</em></li>
+                         </ul>
+                     </li>
+                     <li><strong>Checagem de Cidade (Validação Manual/PROCV):</strong>
+                         <ul>
+                             <li>Roberta roda <strong>outra query SQL</strong> para obter a <strong>cidade da última corrida</strong> de cada motorista (colunas: <code>Driver ID</code>, <code>City Name Última Corrida</code>, <code>Data Última Corrida</code>).</li>
+                             <li>Importa esse resultado para uma aba temporária na planilha mestra.</li>
+                             <li>Faz PROCV para trazer a <code>City Name Última Corrida</code> para a aba principal.</li>
+                             <li>Cria uma coluna de checagem ("Check True/False"): Compara se a <code>City Name Cadastro</code> é igual à <code>City Name Última Corrida</code>. Se diferente, marca como <code>FALSE</code>. <em>Motivo: Motorista só pode usar o benefício na região de cadastro. Se está rodando fora, o contato é improdutivo.</em></li>
+                             <li>Faz PROCV final para trazer o resultado <code>TRUE/FALSE</code> para a coluna de checagem definitiva na base mestra.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Preenchimento Inicial das Colunas de Controle:</strong>
+                         <ul>
+                             <li><strong>Status Inicial:</strong> Coluna "Grupo/Status" preenchida inicialmente como "Controle" para todos os ~40.000 registros. Significa que ainda não foram enviados para a Adecco.</li>
+                             <li><strong>Abasteceu (Sim/Não):</strong> Fórmula <code>=SE(J2<>""; "Sim"; "Não")</code> (Coluna J = Data 1º Abastecimento).</li>
+                             <li><strong>Data 1º Abastecimento:</strong> Atualizada diariamente pelo Python. No dia 1 (carga manual), Roberta pode fazer um PROCV com o último arquivo gerado pelo Python para já trazer abastecimentos recentes.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Resultado:</strong> Base mestra ("Grupo Controle") completa com ~40.000 linhas, contendo dados do motorista, status inicial e checagens.</li>
+                 </ul>
+                 <h5>3.3. Preparação da Base para Adecco (Planilha "Driver Feedback")</h5>
+                 <ul>
+                     <li><strong>Criação da Planilha do Mês:</strong>
+                         <ul>
+                             <li>Cria uma cópia da planilha "Driver Feedback" do mês anterior.</li>
+                             <li>Limpa todos os dados de motoristas da aba principal (ex: "Outubro").</li>
+                             <li>Atualiza a aba "Meta [Mês]" com os parâmetros definidos na etapa de estratégia.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Seleção e Carga Manual (Dia 1):</strong>
+                         <ul>
+                             <li>Na base mestra ("Grupo Controle"), aplica os filtros de prioridade inicial: <code>Churn 30-60</code>, <code>Check = TRUE</code>, <code>Abasteceu = Não</code>. (Eventualmente filtra Nível 2 apenas SP/RJ, mas isso foi identificado como erro manual recente).</li>
+                             <li>Calcula o volume total necessário para a Adecco (Meta diária * Dias Úteis * Nº Analistas + 20% gordura = ~11.000).</li>
+                             <li>Copia as <strong>primeiras N linhas</strong> (N = volume necessário) que atendem aos filtros da base mestra. <em>Se 30-60 não for suficiente, complementa com 60-90, e assim por diante.</em></li>
+                             <li>Cola essas N linhas na planilha "Driver Feedback [Mês]".</li>
+                             <li>Na base mestra ("Grupo Controle"), atualiza a coluna "Grupo/Status" dessas N linhas de "Controle" para "Driver Feedback", indicando que foram enviadas.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Disponibilização:</strong> Avisa a Coordenadora (Thaís) via WhatsApp que a base está pronta.</li>
+                     <li><strong>Atualização Diária (Python):</strong> O script Python atualiza a data de abastecimento nesta planilha "Driver Feedback" e também realiza a exclusão dos orgânicos e reposição a partir da base mestra (buscando status "Controle" e seguindo filtros).</li>
+                 </ul>
+                 <h5>3.4. Carga e Atualização no Salesforce (Discussão To-Be)</h5>
+                 <ul>
+                     <li><strong>Carga Inicial/Base Mestra:</strong>
+                         <ul>
+                             <li>Roberta gerará o arquivo CSV/Excel da base mestra (~40k linhas) após tratamento.</li>
+                             <li>Esse arquivo será carregado <strong>manualmente</strong> no Salesforce no início do mês.</li>
+                             <li><strong>Segunda Carga (Atualização Elegibilidade):</strong> Se necessária, Roberta gera o novo arquivo da base mestra e carrega novamente. O Salesforce deve:
+                                 <ul>
+                                     <li>Identificar registros existentes pelo <code>Driver ID</code>.</li>
+                                     <li><strong>Sobrescrever</strong> as informações (principalmente <code>Driver Level</code>) com os dados da carga mais recente.</li>
+                                     <li><strong>Adicionar</strong> novos <code>Driver ID</code>s que não existiam na primeira carga.</li>
+                                     <li><em>Necessidade:</em> Regra clara para lidar com <code>Driver ID</code> repetido com telefones diferentes na mesma carga (idealmente, query da Roberta já deve tratar isso com MAX/último registro).</li>
+                                 </ul>
+                             </li>
+                         </ul>
+                     </li>
+                     <li><strong>Atualização Diária (Abastecimento):</strong>
+                         <ul>
+                             <li>O script Python da Roberta rodará diariamente.</li>
+                             <li>Ele buscará os abastecimentos do dia anterior (D-1) no Data Lake.</li>
+                             <li>Enviará esses dados (<code>Driver ID</code>, <code>Data Abastecimento</code>, <code>Hora Abastecimento</code>) via <strong>API</strong> para o Salesforce.</li>
+                             <li>O Salesforce receberá esses dados e atualizará os registros correspondentes na base carregada.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Visibilidade da Base para Adecco:</strong>
+                         <ul>
+                             <li>Decisão (Pedro/Victoria/Roberta): A equipe Adecco <strong>não</strong> terá visibilidade da base mestra completa (40k) no Salesforce por questões de LGPD/segurança.</li>
+                             <li>A solução será liberar/distribuir <strong>diariamente</strong> apenas o volume de contatos necessários para a capacidade da equipe naquele dia.</li>
+                         </ul>
+                     </li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos</h4>
+                 <ol>
+                     <li><strong>Chave Única:</strong> Driver ID será a chave principal para identificar motoristas no Salesforce, apesar das preocupações sobre duplicidades na base de contas existente. CPF não é viável obter. Telefone pode mudar. A query de extração da Roberta deve garantir a unicidade do Driver ID na carga.</li>
+                     <li><strong>Processo de Carga Confirmado:</strong> Carga manual da base mestra (1 ou 2x por mês) e atualização diária de abastecimentos via API Python.</li>
+                     <li><strong>Visibilidade Limitada para Terceiros:</strong> Confirmado que a equipe Adecco só verá os contatos liberados diariamente, não a base completa.</li>
+                     <li><strong>Prioridade de Filtros para Reposição (Python):</strong> A lógica atual do Python (pegar Churn prioritário, Check=TRUE, Abasteceu=Não) será mantida inicialmente para a seleção automática de contatos a serem liberados diariamente.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Enviar exemplo da query SQL de checagem da cidade da última corrida.</td>
+                             <td>Roberta</td>
+                             <td>15/10</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Preparar detalhamento da etapa "Divisão de Contatos" e "Contato com Motoristas" (envolver Thaís).</td>
+                             <td>Priscila/Roberta</td>
+                             <td>Antes de 15/10</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Iniciar o desenho da solução técnica para carga manual e API de atualização.</td>
+                             <td>Tarcísio</td>
+                             <td>ASAP</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Mapear no Miro o fluxo detalhado de Extração e Tratamento da Base.</td>
+                             <td>Priscila</td>
+                             <td>Antes de 15/10</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 15 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 09:15 - 11:00 (Ajustado)</li>
+                     <li><strong>Tópico:</strong> Sessão 4: Mapeamento da rotina da equipe terceirizada (distribuição, contato, scripts, tratamento de respostas) - Com Thaís.</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

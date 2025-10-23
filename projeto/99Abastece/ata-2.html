@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 2 (14/Out Manhã) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 2 (14/Out Manhã)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 2 (14/Out/2025 Manhã)</h2>
+                 <!-- Conteúdo da Ata 2 -->
+                 <h3>Sessão 2: Revisão de Objetivos, Personas e Estratégia</h3>
+                 <h4>1. Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa/Equipe</th>
+                             <th>Papel</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>Roberta</td>
+                             <td>99 (99 Abastece - Operações/Growth)</td>
+                             <td>Especialista de Negócio (SME)</td>
+                         </tr>
+                         <tr>
+                             <td>Priscila Gallinari Petroni</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Facilitadora / Arquiteta de Solução</td>
+                         </tr>
+                         <tr>
+                             <td>Tarcísio Alex Almeida de Paula</td>
+                             <td>C3C (Consultoria)</td>
+                             <td>Consultor Técnico/Funcional</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>2. Objetivos da Reunião</h4>
+                 <ol>
+                     <li>Revisar e validar os objetivos do projeto, personas e problemas/necessidades mapeados na sessão anterior.</li>
+                     <li>Iniciar o mapeamento detalhado da primeira etapa do processo As-Is: "Definição da Estratégia do Mês".</li>
+                 </ol>
+                 <h4>3. Pontos de Discussão Principais</h4>
+                 <h5>3.1. Revisão do Mapeamento Inicial (Miro)</h5>
+                 <ul>
+                     <li><strong>Objetivos Validados:</strong>
+                         <ul>
+                             <li>Eficiência e Automação: Centralizar no Salesforce, aumentar eficiência operacional, automatizar tarefas manuais, melhorar qualidade/confiabilidade da base.</li>
+                             <li>Governança e Confiabilidade: Garantir rastreabilidade/controle das conversas, aumentar autonomia da equipe 99, controlar acesso (interno vs. terceiro), proteger dados sensíveis, utilizar número único/verificado de WhatsApp.</li>
+                             <li>Crescimento e Estratégia: Gerar insights/dashboards de ROI, monitorar desempenho (KPIs), mensurar conversão/efetividade, acompanhar metas individuais.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Personas Validadas:</strong>
+                         <ul>
+                             <li>Victoria (Líder Operações)</li>
+                             <li>Roberta (Analista Operações - SME)</li>
+                             <li>Coordenador(a) Terceirizado(a) (Ex: Thaís)</li>
+                             <li>Analistas Terceirizados (Ex: 3 atualmente)</li>
+                             <li><em>Isaac (Técnico 99):</em> Considerado como suporte técnico pontual para API/Python, não um usuário direto do Salesforce neste escopo.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Problemas/Necessidades Validados:</strong>
+                         <ul>
+                             <li>Base grande/limite de extração, necessidade de rodar base 2x (elegibilidade), problemas com chip físico (bloqueio, múltiplos números, credibilidade, intransferibilidade), falta de visão das conversas, necessidade de automatizar limpeza/centralizar dados, número único/verificado.</li>
+                         </ul>
+                     </li>
+                     <li><strong>Feedback sobre Duplicidade:</strong> Roberta relatou um caso recente de motorista contactado duas vezes por analistas diferentes devido à segunda carga da base, reforçando a necessidade de controle de duplicidade na solução.</li>
+                 </ul>
+                 <h5>3.2. Detalhamento: Definição da Estratégia do Mês</h5>
+                 <ul>
+                     <li><strong>Processo:</strong>
+                         <ul>
+                             <li>Realizado nos últimos dias do mês anterior.</li>
+                             <li>Baseado principalmente na análise dos <strong>resultados do mês corrente/anterior</strong> (planilha Excel, aba "Tracking").</li>
+                             <li>Decisão principal: Qual base usar (Churn vs. Never Used) - Roberta verifica se há volume suficiente da base escolhida (normalmente Churn).</li>
+                             <li>Ajuste de parâmetros da meta (Excel, aba "Meta [Mês]"):
+                                 <ul>
+                                     <li><strong>Taxa de Conversão (%):</strong> Ajustada com base no desempenho anterior (se bateram muito acima da meta, pode aumentar). Ex: Passou de 15% para 10% quando a regra dos 7 dias foi implementada.</li>
+                                     <li><strong>Contatos Diários por Analista:</strong> Pode ser ajustado para "forçar" maior volume e dificultar manipulação. Ex: Aumentou de 120 para 135 recentemente.</li>
+                                     <li><strong>Volume Total de Contatos:</strong> Calculado com base na capacidade diária, nº de analistas e <strong>dias úteis no mês</strong> (contados a partir da disponibilização da base pela Roberta, no início do dia). <em>Feriados e férias de analistas reduzem os dias úteis/nº de analistas no cálculo.</em></li>
+                                     <li><strong>Gordura (%):</strong> Adiciona um percentual (ex: 20%) ao volume calculado para gerar a quantidade final de contatos a serem disponibilizados na planilha (para cobrir orgânicos, sem WhatsApp, etc.).</li>
+                                     <li><strong>Regras de Bonificação:</strong> Faixas de % de conversão e valores/percentuais associados (parametrizável).</li>
+                                     <li><strong>Data de Corte:</strong> Definição da data limite para registrar a 1ª abordagem (para garantir que haja tempo para conversão dentro do mês).</li>
+                                 </ul>
+                             </li>
+                             <li><strong>Outros Critérios Estratégicos (Input da Victoria/Negócio):</strong>
+                                 <ul>
+                                     <li><strong>Cidades Foco:</strong> Atualmente, todas as cidades com 99 Abastece.</li>
+                                     <li><strong>Níveis Prioritários (Level Driver):</strong> Atualmente, 2, 3 e 4. Nível 2 restrito a SP/RJ (decisão estratégica, pode mudar). Nível 1 não é trabalhado hoje. <em>Importante: Roberta não filtra por nível ao preparar a base para a Adecco, apenas por Churn 30-60 (prioridade inicial).</em></li>
+                                     <li><strong>Tipo de Veículo:</strong> Atualmente, apenas 4 rodas (carros). <em>Alerta: Há planos futuros para incluir 2 rodas (motos), o que exigiria filtros adicionais.</em></li>
+                                 </ul>
+                             </li>
+                         </ul>
+                     </li>
+                     <li><strong>Ferramentas:</strong> Planilha Excel (abas Tracking, Meta, Base de Contatos).</li>
+                     <li><strong>Responsáveis:</strong> Roberta (análise de dados, execução) e Victoria (decisão estratégica final, exceções de bonificação).</li>
+                 </ul>
+                 <h5>3.3. Coleta de Feedbacks (Processo Atual)</h5>
+                 <ul>
+                     <li>Analistas (Adecco) recebem feedbacks dos motoristas durante as conversas (ex: problemas com postos, dúvidas sobre app, elogios).</li>
+                     <li>Feedbacks pontuais/críticos são enviados via print de WhatsApp para a Coordenadora (Thaís), que repassa para Roberta/Victoria.</li>
+                     <li>Não há um processo formalizado de coleta/relatório consolidado de feedbacks pela Adecco.</li>
+                 </ul>
+                 <h4>4. Decisões e Alinhamentos</h4>
+                 <ol>
+                     <li><strong>Parametrização é Essencial:</strong> A solução Salesforce deve permitir que a equipe 99 (Roberta/Victoria) edite facilmente os parâmetros da "campanha" mensal (Taxa de conversão, Contatos diários, Volume total ou % de gordura, Faixas de bonificação, Data de corte, Níveis elegíveis, Cidades elegíveis).</li>
+                     <li><strong>Visibilidade da Meta para Analistas:</strong> A equipe terceirizada (analistas e coordenadora) precisa visualizar os parâmetros da meta do mês dentro do Salesforce.</li>
+                     <li><strong>Dashboard de Resultados:</strong> Os gráficos de acompanhamento que Roberta usa para apresentar resultados devem ser replicados como dashboards no Salesforce, acessíveis para Roberta/Victoria (não para a equipe Adecco).</li>
+                     <li><strong>Conexão com Data Lake:</strong> Confirmada a impossibilidade de conexão direta Salesforce -> Data Lake 99 devido a restrições de segurança (matriz chinesa). A alternativa via Python API é o caminho a ser seguido.</li>
+                     <li><strong>Carga Inicial vs. Diária:</strong> A primeira carga da base no mês (potencialmente grande) será via upload manual de arquivo (Excel/CSV gerado pela Roberta). As atualizações diárias (abastecimentos) serão via API Python -> Salesforce.</li>
+                 </ol>
+                 <h4>5. Próximos Passos (Itens de Ação)</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>#</th>
+                             <th>Ação</th>
+                             <th>Responsável</th>
+                             <th>Prazo</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr>
+                             <td>1</td>
+                             <td>Preparar/Compartilhar exemplos das queries SQL (Churn e Never Used) usadas para extração inicial (para C3C entender a lógica).</td>
+                             <td>Roberta</td>
+                             <td>15/10</td>
+                         </tr>
+                         <tr>
+                             <td>2</td>
+                             <td>Iniciar o detalhamento da etapa "Baixar Base Mestre" e "Limpeza/Tratamento" para a próxima sessão (mostrar query, processo manual/Python).</td>
+                             <td>Roberta</td>
+                             <td>Antes de 14/10 (Tarde)</td>
+                         </tr>
+                         <tr>
+                             <td>3</td>
+                             <td>Avançar na documentação do fluxo "As-Is" no Miro, incluindo a etapa "Definição da Estratégia".</td>
+                             <td>Priscila</td>
+                             <td>Antes de 14/10 (Tarde)</td>
+                         </tr>
+                         <tr>
+                             <td>4</td>
+                             <td>Confirmar participação da Coordenadora Thaís na sessão de 15/10.</td>
+                             <td>Roberta</td>
+                             <td>14/10 (EOD)</td>
+                         </tr>
+                         <tr>
+                             <td>5</td>
+                             <td>Verificar internamente (C3C) detalhes sobre licenciamento/funcionalidades para envio massivo de WhatsApp e gestão de templates.</td>
+                             <td>Priscila/Tarcísio</td>
+                             <td>ASAP</td>
+                         </tr>
+                     </tbody>
+                 </table>
+                 <h4>6. Próxima Reunião</h4>
+                 <ul>
+                     <li><strong>Data:</strong> 14 de outubro de 2025</li>
+                     <li><strong>Hora:</strong> 15:00 - 17:00</li>
+                     <li><strong>Tópico:</strong> Sessão 3: Detalhamento da "Extração da Base", "Tratamento Manual/Python" e "Carga Inicial".</li>
+                 </ul>
+                 <!-- Fim do Conteúdo da Ata -->
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>
