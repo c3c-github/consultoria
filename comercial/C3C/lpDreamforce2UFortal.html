@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DREAMFORCE 2U FORTALEZA | C3C & Salesforce</title>
+    
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind (para fontes e cores customizadas) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Paleta de cores baseada no briefing
+                        'salesforce-blue': '#00A1E0', // Azul vibrante da Salesforce
+                        'c3c-dark': '#0D2244',       // Azul escuro/corporativo (premium)
+                        'c3c-dark-hover': '#1A3663',
+                    },
+                    fontFamily: {
+                        // Usa a fonte Inter, padrão do Tailwind, que é moderna e limpa
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Estilos customizados -->
+    <style>
+        /* Um gradiente sutil para o fundo do hero, dando um ar tecnológico */
+        .hero-gradient {
+            background-color: #0D2244;
+            background-image: radial-gradient(at 80% 20%, hsla(210, 60%, 25%, 0.5) 0px, transparent 50%),
+                              radial-gradient(at 20% 80%, hsla(197, 100%, 44%, 0.3) 0px, transparent 50%);
+        }
+
+        /* Animação sutil para o CTA */
+        .cta-button {
+            transition: all 0.3s ease-in-out;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 161, 224, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-c3c-dark font-sans antialiased text-gray-200">
+
+    <!-- Cabeçalho com Logos -->
+    <header class="py-6 px-4 md:px-12 absolute top-0 left-0 right-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo C3C (Substitua pelo seu) -->
+            <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" 
+                 alt="Logo C3C Software" 
+                 class="h-10 md:h-12 w-auto">
+            
+            <!-- Logo Salesforce (Substitua pelo seu) -->
+            <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" 
+                 alt="Logo Salesforce Partner" 
+                 class="h-10 md:h-12 w-auto">
+        </div>
+    </header>
+
+    <main>
+        <!-- Seção 1: Hero (Topo) -->
+        <section class="min-h-screen hero-gradient flex items-center pt-32 pb-20 px-6">
+            <div class="container mx-auto max-w-5xl text-center">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight">
+                    DREAMFORCE 2U FORTALEZA
+                </h1>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-light text-salesforce-blue mt-4">
+                    A Era da Empresa de Agentes
+                </h2>
+                <p class="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto mt-8">
+                    Descubra a 'Era da Empresa de Agentes', em um evento com conteúdo estratégico, networking de alto nível e um coquetel especial.
+                </p>
+                <div class="text-2xl font-semibold text-white mt-10">
+                    <p>13 de Novembro | 16h</p>
+                    <p class="text-lg text-gray-300 mt-2">(Local a definir - exclusivo para convidados)</p>
+                </div>
+                
+                <a href="#inscricao" class="cta-button inline-block bg-salesforce-blue text-white text-lg font-bold py-4 px-12 mt-10 rounded-lg shadow-lg">
+                    GARANTA SUA VAGA AGORA
+                </a>
+            </div>
+        </section>
+
+        <!-- Seção 2: Benefícios -->
+        <section class="py-20 md:py-28 bg-white text-gray-800">
+            <div class="container mx-auto px-6 max-w-6xl">
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Benefício 1: Insights -->
+                    <div class="text-center">
+                        <div class="flex justify-center items-center mb-6">
+                            <!-- Ícone: Insights (SVG) -->
+                            <svg class="w-16 h-16 text-salesforce-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h12A2.25 2.25 0 0020.25 14.25V3M3.75 3h-1.5m1.5 0h16.5m-16.5 0V1.5A1.5 1.5 0 015.25 0h13.5A1.5 1.5 0 0120.25 1.5v1.5m-16.5 0h16.5m-16.5 0h16.5M3.75 6H7.5m3 0h3.75m3 0h3.75m-16.5 3H7.5m3 0h3.75m3 0h3.75M3.75 12H7.5m3 0h3.75m3 0h3.75m-16.5 3H7.5m3 0h3.75m3 0h3.75M3.75 16.5h16.5" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-c3c-dark mb-3">Insights do Dreamforce</h3>
+                        <p class="text-gray-600 text-lg">
+                            Tendências de IA, Dados e CRM direto do maior evento de tecnologia do mundo.
+                        </p>
+                    </div>
+                    
+                    <!-- Benefício 2: Estratégia -->
+                    <div class="text-center">
+                        <div class="flex justify-center items-center mb-6">
+                            <!-- Ícone: Estratégia (SVG) -->
+                            <svg class="w-16 h-16 text-salesforce-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.83-5.83M11.42 15.17l.38-3.83c.208-2.066-1.043-4.113-3.1-5.182A4.504 4.504 0 005.131 4.218a4.503 4.503 0 00-2.08 2.081c-1.07 2.057-.872 4.37.52 6.096l3.83.38m0 0l-3.83-.38m3.83.38l-3.83 3.83" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-c3c-dark mb-3">Estratégia para Líderes</h3>
+                        <p class="text-gray-600 text-lg">
+                            Conteúdo de alto nível focado em resultados de negócios e cases de sucesso.
+                        </p>
+                    </div>
+
+                    <!-- Benefício 3: Networking -->
+                    <div class="text-center">
+                        <div class="flex justify-center items-center mb-6">
+                            <!-- Ícone: Networking (SVG) -->
+                            <svg class="w-16 h-16 text-salesforce-blue" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 00-12 0m12 0a9.094 9.094 0 01-12 0m12 0v-4.5m-12 4.5v-4.5m12 0a9.094 9.094 0 00-12 0m12 0a9.094 9.094 0 01-12 0M9 21v-4.5m6 4.5v-4.5m-12-3a9 9 0 0118 0v-4.5a9 9 0 00-18 0v4.5z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-c3c-dark mb-3">Networking Premium</h3>
+                        <p class="text-gray-600 text-lg">
+                            Conexão com os principais líderes do Ceará e especialistas C3C e Salesforce.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: Agenda -->
+        <section class="py-20 md:py-28 bg-gray-100 text-gray-800">
+            <div class="container mx-auto px-6 max-w-3xl">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-c3c-dark mb-16">
+                    Agenda do Evento
+                </h2>
+                
+                <div class="relative">
+                    <!-- Linha do tempo vertical -->
+                    <div class="absolute left-4 md:left-1/2 top-0 h-full w-0.5 bg-salesforce-blue opacity-30"></div>
+
+                    <!-- Item 1: Welcome -->
+                    <div class="relative mb-12">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 bg-salesforce-blue rounded-full border-4 border-gray-100"></div>
+                        <div class="md:text-right md:w-1/2 md:pr-16 ml-12 md:ml-0">
+                            <h3 class="text-3xl font-bold text-c3c-dark">16h00</h3>
+                            <p class="text-xl text-gray-700 mt-1">Welcome Coffee & Credenciamento</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Conteúdo -->
+                    <div class="relative mb-12">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 bg-salesforce-blue rounded-full border-4 border-gray-100"></div>
+                        <div class="md:w-1/2 md:pl-16 ml-12 md:ml-auto">
+                            <h3 class="text-3xl font-bold text-c3c-dark">16h30</h3>
+                            <p class="text-xl text-gray-700 mt-1">Conteúdo "A Era da Empresa de Agentes"</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3: Coquetel -->
+                    <div class="relative">
+                        <div class="absolute left-4 md:left-1/2 -translate-x-1/2 w-8 h-8 bg-salesforce-blue rounded-full border-4 border-gray-100"></div>
+                        <div class="md:text-right md:w-1/2 md:pr-16 ml-12 md:ml-0">
+                            <h3 class="text-3xl font-bold text-c3c-dark">17h45</h3>
+                            <p class="text-xl text-gray-700 mt-1">Coquetel & Networking</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 4: Formulário de Inscrição -->
+        <section id="inscricao" class="py-20 md:py-28 bg-c3c-dark hero-gradient">
+            <div class="container mx-auto px-6 max-w-2xl">
+                <h2 class="text-4xl md:text-5xl font-bold text-center text-white mb-4">
+                    Confirme sua Presença
+                </h2>
+                <p class="text-xl text-gray-300 text-center mb-12">
+                    As vagas são limitadas e exclusivas para convidados.
+                </p>
+
+                <form id="rsvp-form" class="space-y-6">
+                    <!-- Nome -->
+                    <div>
+                        <label for="nome" class="sr-only">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" placeholder="Nome Completo" required
+                               class="w-full bg-c3c-dark-hover border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-salesforce-blue">
+                    </div>
+                    
+                    <!-- Cargo -->
+                    <div>
+                        <label for="cargo" class="sr-only">Cargo</label>
+                        <input type="text" id="cargo" name="cargo" placeholder="Cargo (Ex: CEO, Diretor de TI)" required
+                               class="w-full bg-c3c-dark-hover border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-salesforce-blue">
+                    </div>
+
+                    <!-- Empresa -->
+                    <div>
+                        <label for="empresa" class="sr-only">Empresa</label>
+                        <input type="text" id="empresa" name="empresa" placeholder="Empresa" required
+                               class="w-full bg-c3c-dark-hover border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-salesforce-blue">
+                    </div>
+
+                    <!-- E-mail -->
+                    <div>
+                        <label for="email" class="sr-only">E-mail Corporativo</label>
+                        <input type="email" id="email" name="email" placeholder="E-mail Corporativo" required
+                               class="w-full bg-c3c-dark-hover border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-salesforce-blue">
+                    </div>
+
+                    <!-- Telefone -->
+                    <div>
+                        <label for="telefone" class="sr-only">Telefone/WhatsApp</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="Telefone/WhatsApp" required
+                               class="w-full bg-c3c-dark-hover border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-salesforce-blue">
+                    </div>
+
+                    <!-- Botão de Envio -->
+                    <div>
+                        <button type="submit" class="cta-button w-full bg-salesforce-blue text-white text-lg font-bold py-4 px-12 mt-4 rounded-lg shadow-lg">
+                            CONFIRMAR INSCRIÇÃO
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="py-10 bg-black text-center text-gray-400">
+        <p>&copy; 2025 C3C Software & Salesforce. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Modal de Sucesso (Oculto por padrão) -->
+    <div id="overlay" class="fixed inset-0 bg-black bg-opacity-70 hidden z-40"></div>
+    <div id="success-modal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-gray-800 p-10 rounded-lg shadow-2xl hidden z-50 w-11/12 max-w-md">
+        <div class="text-center">
+            <svg class="w-16 h-16 text-green-500 mx-auto mb-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <h3 class="text-2xl font-bold text-c3c-dark mb-4">Inscrição Recebida!</h3>
+            <p class="text-lg text-gray-600 mb-6">
+                Sua inscrição foi enviada com sucesso. Aguarde a confirmação oficial no seu e-mail.
+            </p>
+            <button id="close-modal" class="w-full bg-c3c-dark text-white text-lg font-bold py-3 px-8 rounded-lg">
+                Fechar
+            </button>
+        </div>
+    </div>
+
+
+    <!-- JavaScript para interatividade -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('rsvp-form');
+            const modal = document.getElementById('success-modal');
+            const overlay = document.getElementById('overlay');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            // --- Manipulação do Formulário ---
+            form.addEventListener('submit', (e) => {
+                e.preventDefault(); // Impede o envio real (para este exemplo)
+                
+                // Exibe o modal e o overlay
+                modal.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+                
+                // Reseta o formulário
+                form.reset();
+            });
+
+            // --- Fechar o Modal ---
+            const closeModal = () => {
+                modal.classList.add('hidden');
+                overlay.classList.add('hidden');
+            };
+
+            closeModalBtn.addEventListener('click', closeModal);
+            overlay.addEventListener('click', closeModal);
+
+            // --- Scroll Suave para Âncoras ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    // Previne o comportamento padrão de clique
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Calcula a posição do elemento
+                        const headerOffset = 0; // Se tivesse um header fixo, ajustaria aqui
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                
+                        // Rola suavemente até a posição
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
