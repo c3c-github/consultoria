@@ -49,14 +49,14 @@
         
         <header class="text-center mb-12">
             <h1 class="text-3xl md:text-4xl font-bold text-slate-800 tracking-tight">Cronograma Detalhado do Projeto de BI</h1>
-            <p class="mt-3 text-lg text-slate-500">Plano de implementação da solução de Business Intelligence, do planejamento à manutenção.</p>
+            <p class="mt-3 text-lg text-slate-500">Plano de implementação ágil com entregas de valor em Sprints de 2 semanas.</p>
         </header>
 
         <!-- Navegação das Abas -->
         <div class="mb-8 border-b border-slate-200">
             <nav class="-mb-px flex space-x-6" aria-label="Tabs">
                 <button id="tab-desc" class="tab-button active whitespace-nowrap py-4 px-1 border-b-2 font-semibold text-base transition-colors duration-200" onclick="switchTab('desc')">
-                    Descrição Detalhada
+                    Descrição Detalhada (Sprints)
                 </button>
                 <button id="tab-planner" class="tab-button whitespace-nowrap py-4 px-1 border-b-2 border-transparent text-slate-500 hover:text-indigo-600 hover:border-indigo-300 font-semibold text-base transition-colors duration-200" onclick="switchTab('planner')">
                     Cronograma Semanal (Planner)
@@ -71,80 +71,50 @@
                 <!-- Linha Vertical -->
                 <div class="absolute border-l-2 border-indigo-200 h-full" style="left: 3.5rem;"></div>
 
-                <!-- Fase 1: Planejamento e Definição -->
+                <!-- Ciclo 1: Primeira Entrega -->
                 <div id="fase-1" class="mb-12 timeline-item">
                     <div class="flex items-center w-full mb-4">
                         <div class="z-10 flex items-center bg-indigo-500 shadow-xl w-14 h-14 rounded-full">
                             <h3 class="mx-auto text-white font-semibold text-lg">1</h3>
                         </div>
                         <div class="flex-1 pl-6">
-                            <h2 class="text-2xl font-bold text-slate-800">Planejamento e Definição</h2>
-                            <p class="text-sm text-indigo-500 font-semibold">Duração: ~1 semana</p>
+                            <h2 class="text-2xl font-bold text-slate-800">Ciclo 1: Primeira Entrega (MVP do MVP)</h2>
+                            <p class="text-sm text-indigo-500 font-semibold">Duração: 2 semanas</p>
                         </div>
                     </div>
                     <div class="ml-14 pl-6 space-y-4">
                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300">
-                            <h4 class="font-bold text-slate-800">1. Reunião de Kickoff e Alinhamento de Requisitos</h4>
-                            <p class="mt-2 text-sm text-slate-600">Reunião oficial com stakeholders para definir objetivos, KPIs e critérios de sucesso do MVP, garantindo alinhamento entre as áreas técnica e de negócio.</p>
+                            <h4 class="font-bold text-slate-800">Semana 1: Alinhamento e Setup</h4>
+                            <p class="mt-2 text-sm text-slate-600">Kickoff focado em 1 KPI prioritário. Setup da infraestrutura (BigQuery, Service Account) e criação da primeira View de dados.</p>
                         </div>
                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300">
-                            <h4 class="font-bold text-slate-800">2. Mapeamento e Dicionário de Dados</h4>
-                            <p class="mt-2 text-sm text-slate-600">Criar um documento que "traduz" cada evento técnico em termos de negócio para garantir consistência e evitar ambiguidades nas métricas.</p>
-                        </div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300">
-                            <h4 class="font-bold text-slate-800">3. Seleção dos Eventos e Categorias para o MVP</h4>
-                            <p class="mt-2 text-sm text-slate-600">Com base nos KPIs e no dicionário de dados, selecionar formalmente o escopo de eventos que farão parte da primeira versão.</p>
-                        </div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300">
-                            <h4 class="font-bold text-slate-800">4. Criação de Protótipo do Dashboard Final</h4>
-                            <p class="mt-2 text-sm text-slate-600">Desenhar um mockup de baixa fidelidade do dashboard para validação visual rápida com a área de negócio antes da construção técnica.</p>
+                            <h4 class="font-bold text-slate-800">Semana 2: Construção e Apresentação</h4>
+                            <p class="mt-2 text-sm text-slate-600">Construção de 1 dashboard focado no KPI definido. Validação rápida dos dados e apresentação da primeira entrega parcial para a diretoria.</p>
                         </div>
                     </div>
                 </div>
-                <!-- Outras fases aqui -->
+
+                <!-- Ciclo 2: Evolução do MVP -->
                 <div id="fase-2" class="mb-12 timeline-item">
                     <div class="flex items-center w-full mb-4">
                         <div class="z-10 flex items-center bg-indigo-500 shadow-xl w-14 h-14 rounded-full"><h3 class="mx-auto text-white font-semibold text-lg">2</h3></div>
-                        <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Implementação Técnica</h2><p class="text-sm text-indigo-500 font-semibold">Duração: ~1 semana</p></div>
+                        <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Ciclo 2: Evolução do MVP e Lançamento</h2><p class="text-sm text-indigo-500 font-semibold">Duração: ~2 semanas</p></div>
                     </div>
                     <div class="ml-14 pl-6 space-y-4">
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">5. Setup de Infraestrutura e Acessos</h4><p class="mt-2 text-sm text-slate-600">Criar a conta de serviço, configurar permissões no Google Cloud (Firebase, BigQuery, Analytics) e ativar a exportação de dados.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">6. Modelagem dos Dados no BigQuery (Views)</h4><p class="mt-2 text-sm text-slate-600">Criar `Views` (consultas salvas) no BigQuery para limpar, transformar e pré-calcular métricas, centralizando a lógica de negócio e otimizando a performance.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">7. Validação de Custos e Performance</h4><p class="mt-2 text-sm text-slate-600">Executar as queries principais para validar o volume de dados processado e garantir performance aceitável.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">8. Aprovação das Queries e Custos</h4><p class="mt-2 text-sm text-slate-600">Apresentar formalmente a projeção de custos e a lógica das queries para aprovação final da área de negócio.</p></div>
+                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">Semana 3: Construção e Validação</h4><p class="mt-2 text-sm text-slate-600">Com base no feedback, expandir o dashboard com mais métricas e eventos. Iniciar a homologação formal com a área de negócio.</p></div>
+                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">Semana 4: Governança e Lançamento</h4><p class="mt-2 text-sm text-slate-600">Implementar as tarefas adiadas: políticas de retenção (6 meses), alertas de custo, treinamento de usuários e o Go-Live oficial do MVP completo.</p></div>
                     </div>
                 </div>
+               
+                <!-- Ciclo 3: Manutenção e Evolução -->
                 <div id="fase-3" class="mb-12 timeline-item">
                     <div class="flex items-center w-full mb-4">
                         <div class="z-10 flex items-center bg-indigo-500 shadow-xl w-14 h-14 rounded-full"><h3 class="mx-auto text-white font-semibold text-lg">3</h3></div>
-                        <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Construção e Validação</h2><p class="text-sm text-indigo-500 font-semibold">Duração: ~1-2 semanas</p></div>
+                        <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Ciclo 3: Evolução e Manutenção</h2><p class="text-sm text-indigo-500 font-semibold">Contínuo</p></div>
                     </div>
                     <div class="ml-14 pl-6 space-y-4">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">9. Construção dos Dashboards</h4><p class="mt-2 text-sm text-slate-600">Conectar o Looker Studio às `Views` do BigQuery e construir os painéis conforme o protótipo aprovado.</p></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">10. Homologação do MVP</h4><p class="mt-2 text-sm text-slate-600">A área de negócio realiza testes nos dashboards para validar a correção dos dados, o funcionamento dos filtros e a aderência às expectativas.</p></div>
-                    </div>
-                </div>
-                <div id="fase-4" class="mb-12 timeline-item">
-                     <div class="flex items-center w-full mb-4">
-                         <div class="z-10 flex items-center bg-indigo-500 shadow-xl w-14 h-14 rounded-full"><h3 class="mx-auto text-white font-semibold text-lg">4</h3></div>
-                         <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Governança e Lançamento</h2><p class="text-sm text-indigo-500 font-semibold">Duração: ~1 semana</p></div>
-                     </div>
-                     <div class="ml-14 pl-6 space-y-4">
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">11. Configuração de Políticas de Retenção de Dados</h4><p class="mt-2 text-sm text-slate-600">Configurar a expiração automática de partições no BigQuery após 6 meses para controlar custos de armazenamento.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">12. Configuração de Alertas de Custo e Monitoramento</h4><p class="mt-2 text-sm text-slate-600">Criar alertas de orçamento no Google Cloud Billing para notificar caso o uso se aproxime dos limites gratuitos.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">13. Treinamento e Capacitação dos Usuários</h4><p class="mt-2 text-sm text-slate-600">Realizar uma sessão de treinamento com os usuários finais para ensinar a leitura dos dashboards, uso de filtros e extração de insights. Adoção é chave para o sucesso.</p></div>
-                         <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">14. Lançamento Oficial (Go-Live)</h4><p class="mt-2 text-sm text-slate-600">Disponibilização dos links dos dashboards para todos os usuários autorizados.</p></div>
-                     </div>
-                </div>
-                <div id="fase-5" class="mb-12 timeline-item">
-                    <div class="flex items-center w-full mb-4">
-                        <div class="z-10 flex items-center bg-indigo-500 shadow-xl w-14 h-14 rounded-full"><h3 class="mx-auto text-white font-semibold text-lg">5</h3></div>
-                        <div class="flex-1 pl-6"><h2 class="text-2xl font-bold text-slate-800">Evolução e Manutenção</h2><p class="text-sm text-indigo-500 font-semibold">Contínuo</p></div>
-                    </div>
-                    <div class="ml-14 pl-6 space-y-4">
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">15. Suporte e Manutenção Corretiva</h4><p class="mt-2 text-sm text-slate-600">Plano de suporte para corrigir eventuais bugs ou inconsistências nos dados que possam surgir.</p></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">16. Backlog de Evolução</h4><p class="mt-2 text-sm text-slate-600">Criar e gerenciar um backlog com novas solicitações (novos eventos, gráficos, etc.) para planejar as próximas versões do produto.</p></div>
-                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">17. Documentação Final do Projeto</h4><p class="mt-2 text-sm text-slate-600">Consolidar toda a documentação (dicionário de dados, lógica das métricas, links) para garantir a transferência de conhecimento e a longevidade do projeto.</p></div>
+                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">Suporte e Documentação</h4><p class="mt-2 text-sm text-slate-600">Plano de suporte para corrigir bugs e consolidar a documentação (dicionário de dados, lógica das métricas).</p></div>
+                        <div class="bg-white p-6 rounded-lg shadow-md border border-slate-200 hover:shadow-lg transition-shadow duration-300"><h4 class="font-bold text-slate-800">Backlog de Evolução</h4><p class="mt-2 text-sm text-slate-600">Gerenciar o backlog com novas solicitações (novos eventos, filtros, categorias) para planejar os próximos Sprints de desenvolvimento.</p></div>
                     </div>
                 </div>
             </div>
@@ -155,62 +125,54 @@
                 <!-- Semana 1 -->
                 <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
                     <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">Semana 1: 27 de Outubro - 31 de Outubro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 1: Planejamento e Definição</p>
+                    <p class="text-sm font-semibold text-slate-500 mb-4">CICLO 1: Foco na Base</p>
                     <ul class="space-y-3 list-disc list-inside text-slate-600">
-                        <li><span class="font-semibold">Kickoff e Alinhamento:</span> Definir KPIs e objetivos com stakeholders.</li>
-                        <li><span class="font-semibold">Dicionário de Dados:</span> Iniciar documentação e mapeamento dos eventos.</li>
-                        <li><span class="font-semibold">Escopo do MVP:</span> Selecionar os eventos prioritários.</li>
-                        <li><span class="font-semibold">Protótipo:</span> Desenhar o rascunho visual do dashboard para validação.</li>
+                        <li><span class="font-semibold">Kickoff e Alinhamento:</span> Definir o 1º KPI prioritário (ex: Usuários Ativos Diários).</li>
+                        <li><span class="font-semibold">Infraestrutura:</span> Configurar conta de serviço e exportação para o BigQuery.</li>
+                        <li><span class="font-semibold">Modelagem de Dados:</span> Criar a 1ª View no BigQuery para o KPI prioritário.</li>
+                        <li><span class="font-semibold">Validação de Custos:</span> Executar query da View e validar performance.</li>
                     </ul>
                 </div>
 
                 <!-- Semana 2 -->
                 <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
                     <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">Semana 2: 03 de Novembro - 07 de Novembro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 2: Implementação Técnica</p>
+                    <p class="text-sm font-semibold text-slate-500 mb-4">CICLO 1: Foco na Entrega Parcial</p>
                     <ul class="space-y-3 list-disc list-inside text-slate-600">
-                        <li><span class="font-semibold">Infraestrutura:</span> Configurar conta de serviço e exportação para o BigQuery.</li>
-                        <li><span class="font-semibold">Modelagem de Dados:</span> Criar as Views principais no BigQuery.</li>
-                        <li><span class="font-semibold">Validação de Custos:</span> Executar queries e documentar o consumo projetado.</li>
-                        <li><span class="font-semibold">Aprovação Final:</span> Apresentar projeção de custos para a área de negócio.</li>
+                        <li><span class="font-semibold">Construção do Dashboard (v0.1):</span> Criar 1 dashboard no Looker Studio com o KPI.</li>
+                        <li><span class="font-semibold">Validação Rápida:</span> Garantir que o número no dashboard bate com o BigQuery.</li>
+                        <li><span class="font-semibold text-red-600">Apresentação da Primeira Entrega (Parcial):</span> Apresentar o dashboard funcional para a diretoria.</li>
+                        <li><span class="font-semibold">Coleta de Feedback:</span> Levantar próximos KPIs prioritários.</li>
                     </ul>
                 </div>
                 
                 <!-- Semana 3 -->
                 <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
                     <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">Semana 3: 10 de Novembro - 14 de Novembro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 3: Construção e Validação (Parte 1)</p>
+                    <p class="text-sm font-semibold text-slate-500 mb-4">CICLO 2: Evolução do MVP</p>
                      <ul class="space-y-3 list-disc list-inside text-slate-600">
-                        <li><span class="font-semibold">Construção do Dashboard:</span> Iniciar a criação dos visuais no Looker Studio.</li>
-                        <li><span class="font-semibold">Desenvolvimento (cont.):</span> Conectar todas as fontes de dados e criar os gráficos principais.</li>
+                        <li><span class="font-semibold">Iteração 1:</span> Adicionar o 2º e 3º KPIs prioritários (ex: Funil de Eventos).</li>
+                        <li><span class="font-semibold">Modelagem (cont.):</span> Criar/Ajustar Views no BigQuery para os novos KPIs.</li>
+                        <li><span class="font-semibold">Homologação (Parcial):</span> Iniciar testes formais com a área de negócio sobre os novos gráficos.</li>
                      </ul>
                 </div>
                 
                 <!-- Semana 4 -->
                 <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
                     <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">Semana 4: 17 de Novembro - 21 de Novembro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 3: Construção e Validação (Parte 2)</p>
+                    <p class="text-sm font-semibold text-slate-500 mb-4">CICLO 2: Governança e Lançamento</p>
                     <ul class="space-y-3 list-disc list-inside text-slate-600">
-                        <li><span class="font-semibold">Refinamento:</span> Ajustar filtros, layout e interatividade do dashboard.</li>
-                        <li><span class="font-semibold">Homologação do MVP:</span> Disponibilizar para testes da área de negócio e coletar feedbacks.</li>
-                    </ul>
-                </div>
-
-                <!-- Semana 5 -->
-                <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
-                    <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">Semana 5: 24 de Novembro - 28 de Novembro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 4: Governança e Lançamento</p>
-                    <ul class="space-y-3 list-disc list-inside text-slate-600">
-                        <li><span class="font-semibold">Políticas de Retenção e Alertas:</span> Configurar a governança de dados e custos.</li>
+                        <li><span class="font-semibold">Governança (Débito Técnico):</span> Configurar políticas de retenção (6 meses) e alertas de custo.</li>
+                        <li><span class="font-semibold">Refinamento:</span> Ajustar filtros, layout e interatividade do dashboard completo.</li>
                         <li><span class="font-semibold">Treinamento:</span> Capacitar os usuários finais para a utilização da ferramenta.</li>
-                        <li><span class="font-semibold">Go-Live:</span> Lançamento oficial do MVP.</li>
+                        <li><span class="font-semibold">Lançamento Oficial (MVP v1.0):</span> Go-Live do MVP completo.</li>
                     </ul>
                 </div>
                 
                 <!-- Pós-Lançamento -->
                 <div class="p-6 bg-white rounded-xl shadow-lg border border-slate-200">
-                    <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">A partir de 01 de Dezembro</h3>
-                    <p class="text-sm font-semibold text-slate-500 mb-4">FASE 5: Evolução e Manutenção</p>
+                    <h3 class="text-xl font-bold text-indigo-600 border-b pb-2 mb-4">A partir de 24 de Novembro</h3>
+                    <p class="text-sm font-semibold text-slate-500 mb-4">CICLO 3: Evolução e Manutenção</p>
                     <ul class="space-y-3 list-disc list-inside text-slate-600">
                         <li><span class="font-semibold">Suporte Contínuo:</span> Monitoramento e correção de eventuais problemas.</li>
                         <li><span class="font-semibold">Gestão do Backlog:</span> Planejamento das próximas melhorias e funcionalidades.</li>
@@ -260,7 +222,18 @@
         }
        
         // Inicia a observação quando a página carrega
-        document.addEventListener('DOMContentLoaded', observeTimelineItems);
+        // Precisamos garantir que isso funcione mesmo quando a aba está escondida
+        // Vamos observar assim que a aba for trocada
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!document.getElementById('content-desc').classList.contains('hidden')) {
+                observeTimelineItems();
+            }
+
+            document.getElementById('tab-desc').addEventListener('click', () => {
+                // Pequeno delay para garantir que os itens estão no DOM antes de observar
+                setTimeout(observeTimelineItems, 50); 
+            });
+        });
     </script>
 </body>
 </html>
