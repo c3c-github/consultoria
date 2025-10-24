@@ -32,13 +32,7 @@
             background-color: #0A1931; /* Um tom mais escuro que o body */
         }
 
-        /* Estilo de Botão Premium */
-        .btn-premium {
-            @apply bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out;
-            @apply hover:bg-blue-700 hover:shadow-xl transform hover:-translate-y-0.5;
-        }
-
-        /* Estilos do Formulário - REMOVIDO DAQUI E APLICADO DIRETAMENTE */
+        /* Estilo de Botão Premium - REMOVIDO DAQUI E APLICADO DIRETAMENTE */
         
         /* Fallback para logo da C3C (se o link quebrar) */
         .logo-c3c {
@@ -49,7 +43,7 @@
         
         /* Fallback para logo Salesforce */
         .logo-salesforce {
-            height: 55px;
+            height: 65px; /* Aumentado de 55px */
             width: auto;
             object-fit: contain;
         }
@@ -89,7 +83,8 @@
             <p class="text-xl md:text-2xl font-bold text-white mb-10">
                 13 de Novembro | 16h | Local a Definir
             </p>
-            <a href="#inscricao" class="btn-premium text-lg">
+            <!-- Botão com classes diretas do Tailwind -->
+            <a href="#inscricao" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:shadow-xl transform hover:-translate-y-0.5 text-lg">
                 GARANTA SUA VAGA AGORA
             </a>
         </div>
@@ -207,7 +202,8 @@
                     <input type="tel" id="telefone" name="telefone" class="w-full px-4 py-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="(00) 90000-0000" required>
                 </div>
                 <div class="text-center pt-4">
-                    <button type="submit" id="submitButton" class="btn-premium w-full md:w-auto text-lg">
+                    <!-- Botão com classes diretas do Tailwind -->
+                    <button type="submit" id="submitButton" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:shadow-xl transform hover:-translate-y-0.5 w-full md:w-auto text-lg">
                         GARANTA SUA VAGA AGORA
                     </button>
                 </div>
@@ -220,7 +216,8 @@
         <div class="max-w-6xl mx-auto px-4">
             <div class="flex justify-center items-center space-x-6 mb-6">
                 <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="h-8 w-auto">
-                <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Salesforce Partner Logo" class="h-10 w-auto">
+                <!-- Logo Salesforce aumentado no Rodapé -->
+                <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Salesforce Partner Logo" class="h-12 w-auto">
             </div>
             <p class="text-gray-400 text-sm">&copy; 2024 C3C Software & Salesforce. Todos os direitos reservados.</p>
             <p class="text-gray-500 text-xs mt-2">Um evento exclusivo para líderes e decisores.</p>
