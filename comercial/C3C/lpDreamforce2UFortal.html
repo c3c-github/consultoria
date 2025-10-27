@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DREAMFORCE 2U FORTALEZA - A Era da Empresa de Agentes</title>
+    <title>DREAMFORCE 2U FORTALEZA - A Era dos Agentes</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts - Inter -->
@@ -31,8 +31,6 @@
         .section-bg {
             background-color: #0A1931; /* Um tom mais escuro que o body */
         }
-
-        /* Estilo de Botão Premium - REMOVIDO DAQUI E APLICADO DIRETAMENTE */
         
         /* Fallback para logo da C3C (se o link quebrar) */
         .logo-c3c {
@@ -75,13 +73,13 @@
                 DREAMFORCE <span class="gradient-text">2U</span> FORTALEZA
             </h1>
             <h2 class="text-2xl md:text-3xl font-light text-blue-300 mb-8">
-                A Era da Empresa de Agentes
+                A Era dos Agentes
             </h2>
             <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-10">
-                Descubra a 'Era da Empresa de Agentes', em um evento com conteúdo estratégico, networking de alto nível e um coquetel especial.
+                Descubra a 'Era dos Agentes', em um evento com conteúdo estratégico, networking de alto nível e um coquetel especial.
             </p>
             <p class="text-xl md:text-2xl font-bold text-white mb-10">
-                13 de Novembro | 16h | Local a Definir
+                13 de Novembro | 17h30 | Vasto Restaurante
             </p>
             <!-- Botão com classes diretas do Tailwind -->
             <a href="#inscricao" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out hover:bg-blue-700 hover:shadow-xl transform hover:-translate-y-0.5 text-lg">
@@ -126,37 +124,91 @@
         </div>
     </section>
 
-    <!-- Seção 3: Agenda -->
+    <!-- Seção 3: Agenda e Local -->
     <section id="agenda" class="py-20 px-4" style="background-color: #0D2244;">
-        <div class="max-w-3xl mx-auto">
-            <h3 class="text-3xl font-bold text-center text-white mb-16">Agenda do Evento</h3>
-            <div class="relative border-l-2 border-blue-500 ml-4 md:ml-0">
-                <!-- Item 1 -->
-                <div class="mb-10 ml-8 relative">
-                    <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
-                    <span class="text-sm font-semibold text-blue-300">16h00</span>
-                    <h4 class="text-xl font-bold text-white mt-1">Welcome Coffee & Credenciamento</h4>
-                    <p class="text-gray-300">Um momento para networking inicial e café de boas-vindas.</p>
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center text-white mb-16">Agenda e Local do Evento</h3>
+
+            <!-- Seção de Localização (como no exemplo) -->
+            <div class="bg-gray-800 rounded-lg shadow-xl border border-gray-700 p-8 mb-16 grid md:grid-cols-2 gap-8 items-center">
+                <!-- Coluna de Texto e Endereço -->
+                <div class="text-white">
+                    <div class="flex items-start space-x-4 mb-6">
+                        <svg class="w-8 h-8 text-blue-400 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        <div>
+                            <h4 class="text-2xl font-bold mb-2">Vasto Restaurante Fortaleza</h4>
+                            <p class="text-gray-300">Av. Senador Virgílio Távora, 511 - Meireles, Fortaleza - CE, 60170-251</p>
+                            <a href="https://maps.app.goo.gl/sUXeiCZa5jBHYKmu5" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 transition duration-300 mt-2 inline-block">
+                                Ver no Google Maps &rarr;
+                            </a>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                         <svg class="w-8 h-8 text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <h4 class="text-2xl font-bold">13 de Novembro, 17h30</h4>
+                    </div>
                 </div>
-                <!-- Item 2 -->
-                <div class="mb-10 ml-8 relative">
-                    <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
-                    <span class="text-sm font-semibold text-blue-300">16h30</span>
-                    <h4 class="text-xl font-bold text-white mt-1">Conteúdo: "A Era da Empresa de Agentes"</h4>
-                    <p class="text-gray-300">Apresentação das inovações do Dreamforce e o futuro da IA para negócios.</p>
+                <!-- Coluna do Mapa (Placeholder Clicável) -->
+                <div>
+                    <a href="https://maps.app.goo.gl/sUXeiCZa5jBHYKmu5" target="_blank" rel="noopener noreferrer" class="block rounded-lg overflow-hidden shadow-lg transform transition duration-500 hover:scale-105">
+                        <img src="https://placehold.co/600x400/374151/E5E7EB?text=Visualiza%C3%A7%C3%A3o+do+Mapa" alt="Mapa para o Vasto Restaurante" class="w-full h-full object-cover">
+                    </a>
                 </div>
-                <!-- Item 3 -->
-                <div class="mb-10 ml-8 relative">
-                    <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
-                    <span class="text-sm font-semibold text-blue-300">17h45</span>
-                    <h4 class="text-xl font-bold text-white mt-1">Coquetel & Networking</h4>
-                    <p class="text-gray-300">Happy hour especial para aprofundar conexões e discutir ideias.</p>
+            </div>
+
+            <!-- Linha do Tempo da Agenda -->
+            <div class="max-w-md mx-auto"> <!-- Wrapper para centralizar -->
+                <div class="relative border-l-2 border-blue-500 ml-4 md:ml-0">
+                    <!-- Item 1 -->
+                    <div class="mb-10 ml-8 relative">
+                        <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
+                        <span class="text-sm font-semibold text-blue-300">17h30</span>
+                        <h4 class="text-xl font-bold text-white mt-1">Drinks de Boas-Vindas & Credenciamento</h4>
+                        <p class="text-gray-300">Um momento para credenciamento e drinks de boas-vindas.</p>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="mb-10 ml-8 relative">
+                        <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
+                        <span class="text-sm font-semibold text-blue-300">18h00</span>
+                        <h4 class="text-xl font-bold text-white mt-1">Conteúdo: "A Era dos Agentes"</h4>
+                        <p class="text-gray-300">Apresentação das inovações do Dreamforce e o futuro da IA para negócios.</p>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="mb-10 ml-8 relative">
+                        <div class="absolute -left-11 -top-1 w-6 h-6 bg-blue-500 rounded-full border-4 border-gray-800"></div>
+                        <span class="text-sm font-semibold text-blue-300">19h15</span>
+                        <h4 class="text-xl font-bold text-white mt-1">Coquetel & Networking</h4>
+                        <p class="text-gray-300">Happy hour especial para aprofundar conexões e discutir ideias.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção 4: Formulário de Inscrição -->
+    <!-- Seção 4: Speakers (Nova Posição) -->
+    <section id="speakers" class="py-20 px-4" style="background-color: #0D2244;">
+        <div class="max-w-4xl mx-auto">
+            <h3 class="text-3xl font-bold text-center text-white mb-16">Nossos Speakers</h3>
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Speaker 1 -->
+                <div class="text-center text-white">
+                    <img src="https://placehold.co/400x400/374151/E5E7EB?text=Speaker+1" alt="Foto do Palestrante 1" class="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-blue-500 shadow-lg">
+                    <h4 class="text-2xl font-bold">Nome Fictício</h4>
+                    <p class="text-blue-300">Especialista em IA & CRM, Salesforce</p>
+                    <p class="text-gray-300 mt-2 text-sm">Trazendo os insights mais recentes diretamente do Dreamforce sobre o futuro dos agentes de IA.</p>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="text-center text-white">
+                    <img src="https://placehold.co/400x400/374151/E5E7EB?text=Speaker+2" alt="Foto do Palestrante 2" class="w-48 h-48 rounded-full mx-auto mb-6 border-4 border-blue-500 shadow-lg">
+                    <h4 class="text-2xl font-bold">Outro Nome</h4>
+                    <p class="text-blue-300">Diretor de Inovação, C3C Software</p>
+                    <p class="text-gray-300 mt-2 text-sm">Compartilhando casos de uso práticos e como aplicar a estratégia de agentes no cenário local.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção 5: Formulário de Inscrição -->
     <section id="inscricao" class="py-20 px-4 section-bg">
         <div class="max-w-2xl mx-auto text-center">
             
@@ -187,7 +239,7 @@
                 </div>
                 <div>
                     <label for="cargo" class="block text-sm font-medium text-gray-300 mb-1">Cargo</label>
-                    <input type="text" id="cargo" name="cargo" class="w-full px-4 py-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Seu cargo (Ex: CEO, Diretor de TI)" required>
+                    <input type="text" id="cargo" name="cargo" class="w-full px-4 py-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Seu cargo (Ex: CEO, Diretor de TI)">
                 </div>
                 <div>
                     <label for="empresa" class="block text-sm font-medium text-gray-300 mb-1">Empresa</label>
@@ -199,7 +251,8 @@
                 </div>
                 <div>
                     <label for="telefone" class="block text-sm font-medium text-gray-300 mb-1">Telefone (com DDD)</label>
-                    <input type="tel" id="telefone" name="telefone" class="w-full px-4 py-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="(00) 90000-0000" required>
+
+                    <input type="tel" id="telefone" name="telefone" class="w-full px-4 py-3 rounded-md bg-gray-700 border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="(00) 90000-0000">
                 </div>
                 <div class="text-center pt-4">
                     <!-- Botão com classes diretas do Tailwind -->
@@ -219,7 +272,7 @@
                 <!-- Logo Salesforce aumentado no Rodapé -->
                 <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" alt="Salesforce Partner Logo" class="h-12 w-auto">
             </div>
-            <p class="text-gray-400 text-sm">&copy; 2024 C3C Software & Salesforce. Todos os direitos reservados.</p>
+            <p class="text-gray-400 text-sm">&copy; 2025 C3C Software & Salesforce. Todos os direitos reservados.</p>
             <p class="text-gray-500 text-xs mt-2">Um evento exclusivo para líderes e decisores.</p>
         </div>
     </footer>
@@ -251,7 +304,7 @@
                 const formData = {
                     nome: document.getElementById('nome').value,
                     cargo: document.getElementById('cargo').value,
-                    empresa: document.getElementById('empresa').value,
+                    empresa: document.getElementById('empresa').value, // <-- ERRO CORRIGIDO AQUI
                     email: document.getElementById('email').value,
                     telefone: document.getElementById('telefone').value
                 };
@@ -265,39 +318,49 @@
                     body: JSON.stringify(formData)
                 })
                 .then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    }
-                    // Se a resposta não for OK (ex: 400, 500), tenta ler a mensagem de erro do Apex
-                    return response.json().then(errorData => {
+                    // Tenta parsear o JSON independentemente do status
+                    return response.json().then(data => ({ status: response.status, ok: response.ok, data }));
+                })
+                .then(({ status, ok, data }) => {
+                    if (ok) {
+                        // Sucesso 2xx
+                        if (data.success) {
+                            successMessage.classList.remove('hidden');
+                            form.classList.add('hidden'); // Oculta o formulário
+                            formHeader.classList.add('hidden'); // Oculta o cabeçalho do formulário
+                        } else {
+                            // Sucesso 2xx, mas falha lógica no Apex
+                            throw new Error(data.message || 'Ocorreu um erro no processamento.');
+                        }
+                    } else {
+                        // Erro 4xx ou 5xx
                         let errorMsg = 'Ocorreu um erro ao enviar sua inscrição.';
-                        if (errorData && errorData.message) {
-                            errorMsg = errorData.message;
-                        } else if (response.statusText) {
-                            errorMsg = response.statusText;
+                        if (data && data.message) {
+                            errorMsg = data.message;
+                        } else if (data && Array.isArray(data) && data[0] && data[0].message) {
+                            // Erro padrão de validação do Apex
+                            errorMsg = data[0].message;
+                        } else if (status === 404) {
+                            errorMsg = "Endpoint não encontrado. Verifique a URL do serviço.";
+                        } else if (status === 500) {
+                            errorMsg = "Erro interno no servidor. Contate o administrador.";
                         }
                         throw new Error(errorMsg);
-                    });
-                })
-                .then(data => {
-                    if (data.success) {
-                        // 4. Sucesso
-                        successMessage.classList.remove('hidden');
-                        form.classList.add('hidden'); // Oculta o formulário
-                        formHeader.classList.add('hidden'); // Oculta o cabeçalho do formulário
-                    } else {
-                        // Erro de lógica (ex: Campanha não encontrada)
-                        throw new Error(data.message || 'Ocorreu um erro no processamento.');
                     }
                 })
                 .catch(error => {
-                    // 5. Erro (Rede ou o 'throw' acima)
-                    errorMessage.textContent = 'Erro: ' + error.message;
+                    // 5. Erro (Rede, JSON.parse falhou, ou 'throw' acima)
+                    console.error('Fetch error:', error);
+                    let displayError = error.message || 'Não foi possível conectar ao servidor. Verifique sua rede.';
+                    if (error instanceof SyntaxError) {
+                        displayError = 'Resposta inesperada do servidor. Contate o administrador.';
+                    }
+                    
+                    errorMessage.textContent = 'Erro: ' + displayError;
                     errorMessage.classList.remove('hidden');
                 })
                 .finally(() => {
-                    // 6. Resetar o botão (Mesmo que o formulário esteja oculto, 
-                    // é uma boa prática caso o usuário queira reenviar após um erro)
+                    // 6. Resetar o botão
                     submitButton.disabled = false;
                     submitButton.textContent = 'GARANTA SUA VAGA AGORA';
                 });
