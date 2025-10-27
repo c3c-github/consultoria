@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard NPS - Viv Saude</title>
+    <!-- 1. Carrega o Tailwind CSS para estilo rápido -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 2. Carrega o Chart.js para o gráfico de rosca -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- 3. Carrega uma fonte bonita (Opcional, mas recomendado) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos personalizados da Viv Saude */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        :root {
+            --viv-yellow: #ffe678;
+            --viv-blue: #004AAD;
+        }
+        .bg-viv-yellow { background-color: var(--viv-yellow); }
+        .text-viv-yellow { color: var(--viv-yellow); }
+        .bg-viv-blue { background-color: var(--viv-blue); }
+        .text-viv-blue { color: var(--viv-blue); }
+        .border-viv-yellow { border-color: var(--viv-yellow); }
+
+        /* Animação de "novo item" */
+        @keyframes highlight-new-case {
+            0% { background-color: rgba(255, 230, 120, 0.8); } /* Amarelo forte */
+            100% { background-color: rgba(255, 230, 120, 0.1); } /* Amarelo suave */
+        }
+        .new-case-highlight {
+            animation: highlight-new-case 2.5s ease-out;
+            background-color: rgba(255, 230, 120, 0.1); /* Estado final */
+        }
+
+        /* Animação de Loading */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.3s ease;
+        }
+        .spinner {
+            width: 56px;
+            height: 56px;
+            border: 6px solid #f3f3f3;
+            border-top: 6px solid var(--viv-blue);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Overlay de Loading (escondido por padrão) -->
+    <div id="loading-overlay" class="hidden opacity-0">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- Cabeçalho -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-900">
+                Dashboard | <span class="text-viv-blue">Visão da Qualidade NPS</span>
+            </h1>
+            <button id="refresh-button" class="bg-viv-blue text-white font-semibold py-2 px-4 rounded-lg shadow hover:bg-viv-blue/90 transition duration-300 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2.086a10.001 10.001 0 00-16.422-3.082m1.06 12.168a10.001 10.001 0 0016.422 3.082M19 19v-5h-.582" />
+                </svg>
+                Atualizar
+            </button>
+        </div>
+    </header>
+
+    <!-- Conteúdo Principal do Dashboard -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        
+        <!-- Grid dos Indicadores -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- Card: NPS Score -->
+            <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2 flex flex-col justify-center items-center border-t-4 border-viv-blue">
+                <h2 class="text-gray-500 font-semibold text-lg mb-2">NPS Score Atual</h2>
+                <div id="nps-score-value" class="text-7xl font-extrabold text-gray-800 transition-all duration-500">
+                    +60
+                </div>
+                <div id="nps-change" class="text-xl font-bold text-gray-400 opacity-0 transition-all duration-500">
+                    <!-- Espaço para a mudança de valor -->
+                </div>
+            </div>
+
+            <!-- Card: Total de Respostas -->
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+                <h2 class="text-gray-500 font-semibold text-lg mb-2">Respostas (24h)</h2>
+                <div id="total-responses" class="text-6xl font-bold text-gray-800 transition-all duration-500">
+                    10
+                </div>
+            </div>
+
+            <!-- Card: Novos Casos -->
+            <div class="bg-white p-6 rounded-lg shadow-md flex flex-col justify-center items-center">
+                <h2 class="text-gray-500 font-semibold text-lg mb-2">Casos para Tratar</h2>
+                <div id="total-cases" class="text-6xl font-bold text-red-500 transition-all duration-500">
+                    1
+                </div>
+            </div>
+
+            <!-- Card: Gráfico de Rosca -->
+            <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-4">
+                <h2 class="text-gray-500 font-semibold text-lg mb-4 text-center">Distribuição das Respostas</h2>
+                <div class="max-h-80 w-full flex justify-center">
+                    <canvas id="npsDonutChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Card: Tabela de Casos -->
+            <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2 lg:col-span-4">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Fila: Qualidade - Detratores (Casos para Tratar)</h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assunto</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Paciente</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nota</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Comentário</th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="case-table-body" class="bg-white divide-y divide-gray-200">
+                            <!-- Linhas de casos serão injetadas aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- DADOS DA SIMULAÇÃO ---
+        
+        // Estado 1: Antes da Ana Silva (o que a página carrega)
+        const initialData = {
+            promotors: 7, // (70%)
+            passives: 2,  // (20%)
+            detractors: 1 // (10%)
+            // Total = 10
+            // NPS = 70% - 10% = +60
+        };
+        const initialCases = [
+            {
+                subject: 'Novo Detrator - Nota: 5',
+                patient: 'João Costa',
+                note: 5,
+                comment: 'O médico atrasou 30 minutos.',
+                status: 'New'
+            }
+        ];
+
+        // Estado 2: Depois da Ana Silva (o que aparece no "refresh")
+        // Esta é a parte mais importante da sua demo
+        const refreshedData = {
+            promotors: 7, // (63.6%)
+            passives: 2,  // (18.2%)
+            detractors: 2 // (18.2%) - Ana Silva (nota 3) foi adicionada
+            // Total = 11
+            // NPS = 63.6% - 18.2% = +45.4 (Vamos mostrar +45)
+        };
+        const refreshedCases = [
+            {
+                subject: 'Novo Detrator - Nota: 3',
+                patient: 'Ana Silva',
+                note: 3,
+                comment: 'A recepção demorou 1h', // Exatamente do seu roteiro
+                status: 'New',
+                isNew: true // Flag para destacar
+            },
+            {
+                subject: 'Novo Detrator - Nota: 5',
+                patient: 'João Costa',
+                note: 5,
+                comment: 'O médico atrasou 30 minutos.',
+                status: 'New',
+                isNew: false
+            }
+        ];
+        
+        // --- LÓGICA DO DASHBOARD ---
+
+        let myChart; // Variável global para o gráfico
+        const ctx = document.getElementById('npsDonutChart').getContext('2d');
+        
+        // Elementos da UI
+        const npsScoreEl = document.getElementById('nps-score-value');
+        const npsChangeEl = document.getElementById('nps-change');
+        const totalResponsesEl = document.getElementById('total-responses');
+        const totalCasesEl = document.getElementById('total-cases');
+        const caseTableBodyEl = document.getElementById('case-table-body');
+        const refreshButton = document.getElementById('refresh-button');
+        const loadingOverlay = document.getElementById('loading-overlay');
+
+        /**
+         * Calcula o NPS Score
+         */
+        function calculateNPS(data) {
+            const total = data.promotors + data.passives + data.detractors;
+            if (total === 0) return 0;
+            
+            const nps = ((data.promotors / total) - (data.detractors / total)) * 100;
+            return nps.toFixed(0);
+        }
+
+        /**
+         * Renderiza a tabela de casos
+         */
+        function renderTable(cases) {
+            caseTableBodyEl.innerHTML = ''; // Limpa a tabela
+            cases.forEach(c => {
+                const highlightClass = c.isNew ? 'new-case-highlight' : '';
+                
+                const row = `
+                    <tr class="${highlightClass}">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${c.subject}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${c.patient}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold ${c.note < 7 ? 'text-red-600' : 'text-gray-700'}">${c.note}</td>
+                        <td class="px-6 py-4 whitespace-normal text-sm text-gray-500 max-w-xs">${c.comment}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                ${c.status}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+                caseTableBodyEl.innerHTML += row;
+            });
+        }
+
+        /**
+         * Renderiza o gráfico de rosca
+         */
+        function renderChart(data) {
+            const chartData = {
+                labels: ['Promotores (9-10)', 'Passivos (7-8)', 'Detratores (0-6)'],
+                datasets: [{
+                    label: 'Respostas',
+                    data: [data.promotors, data.passives, data.detractors],
+                    backgroundColor: [
+                        'rgba(22, 163, 74, 0.8)', // Verde (Promotor)
+                        'rgba(156, 163, 175, 0.8)', // Cinza (Passivo)
+                        'rgba(220, 38, 38, 0.8)'  // Vermelho (Detrator)
+                    ],
+                    borderColor: [
+                        'rgba(22, 163, 74, 1)',
+                        'rgba(156, 163, 175, 1)',
+                        'rgba(220, 38, 38, 1)'
+                    ],
+                    borderWidth: 1,
+                    hoverOffset: 4
+                }]
+            };
+
+            // Destrói o gráfico antigo se ele existir (para "atualizar")
+            if (myChart) {
+                myChart.destroy();
+            }
+
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: chartData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                        },
+                        title: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        /**
+         * Função principal que atualiza toda a UI
+         */
+        function updateDashboard(data, cases, oldNps = null) {
+            const newNps = calculateNPS(data);
+            const total = data.promotors + data.passives + data.detractors;
+            
+            // Atualiza os KPIs
+            npsScoreEl.innerText = `${newNps > 0 ? '+' : ''}${newNps}`;
+            totalResponsesEl.innerText = total;
+            totalCasesEl.innerText = cases.length;
+
+            // Se for um "refresh", mostra a mudança
+            if(oldNps) {
+                const change = newNps - oldNps;
+                npsScoreEl.classList.add(change < 0 ? 'text-red-500' : 'text-green-500');
+                npsChangeEl.innerText = `${change > 0 ? '+' : ''}${change} vs. anterior`;
+                npsChangeEl.classList.add(change < 0 ? 'text-red-500' : 'text-green-500');
+                npsChangeEl.classList.remove('opacity-0');
+            }
+
+            // Renderiza os componentes
+            renderTable(cases);
+            renderChart(data);
+        }
+
+        /**
+         * Mostra/Esconde o loading
+         */
+        function showLoading(show) {
+            if (show) {
+                loadingOverlay.classList.remove('hidden');
+                setTimeout(() => loadingOverlay.classList.remove('opacity-0'), 10); // Fade-in
+            } else {
+                loadingOverlay.classList.add('opacity-0');
+                setTimeout(() => loadingOverlay.classList.add('hidden'), 300); // Fade-out
+            }
+        }
+        
+        // --- INICIALIZAÇÃO E EVENTOS ---
+
+        // 1. Carrega o estado inicial quando a página abre
+        window.onload = () => {
+            updateDashboard(initialData, initialCases);
+        };
+
+        // 2. O evento de "Refresh" (a mágica da sua demo)
+        refreshButton.addEventListener('click', () => {
+            
+            const oldNps = calculateNPS(initialData);
+
+            // Simula o carregamento (Tela 7: "Dê refresh")
+            showLoading(true);
+
+            // Desabilita o botão para não clicar duas vezes
+            refreshButton.disabled = true;
+            refreshButton.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Simula a espera da rede (1.5 segundos)
+            setTimeout(() => {
+                // Atualiza o dashboard com os NOVOS dados
+                updateDashboard(refreshedData, refreshedCases, oldNps);
+                
+                // Esconde o loading
+                showLoading(false);
+
+                // Feedback visual de sucesso
+                refreshButton.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    Atualizado!
+                `;
+                refreshButton.classList.remove('bg-viv-blue');
+                refreshButton.classList.add('bg-green-600');
+
+            }, 1500); // 1.5 segundos de delay
+        });
+
+    </script>
+</body>
+</html>
