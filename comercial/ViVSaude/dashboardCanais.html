@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Viv Saúde</title>
+    
+    <!-- Google Fonts (Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- Variáveis de Cor --- */
+        :root {
+            --viv-primary: #FFE678; /* Amarelo Viv */
+            --viv-white: #FFFFFF;
+            --viv-black: #000000;
+            --viv-gray-text: #374151; /* Cinza escuro para texto */
+            --viv-gray-border: #D1D5DB; /* Cinza para bordas de input */
+            --viv-gray-light-bg: #f4f7fa; /* Fundo do dashboard */
+        }
+
+        /* --- Reset Básico e Fundo --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--viv-gray-light-bg);
+            color: var(--viv-gray-text);
+            min-height: 100vh;
+        }
+
+        /* --- Cabeçalho (Navbar) --- */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+            background-color: var(--viv-black);
+            color: var(--viv-primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        .header-logo img {
+            height: 2.5rem; /* 40px */
+        }
+        .header-logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        .header-user {
+            font-weight: 500;
+        }
+        
+        /* --- Layout do Grid do Dashboard --- */
+        .dashboard-grid {
+            display: grid;
+            /* Cria colunas responsivas:
+               - Em telas pequenas, 1 coluna (minmax(320px, 1fr))
+               - Em telas maiores, se ajusta para quantas colunas de 350px couberem
+            */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            padding: 1.5rem;
+        }
+
+        /* --- Cartão KPI Padrão --- */
+        .kpi-card {
+            background-color: var(--viv-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            padding: 1.5rem;
+            overflow: hidden;
+        }
+        .kpi-card h2 {
+            font-size: 1.125rem; /* 18px */
+            font-weight: 600;
+            color: var(--viv-black);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Estilos Específicos dos Cards --- */
+
+        /* Card: Visitas por Status */
+        .status-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            gap: 1rem;
+        }
+        .status-item span {
+            display: block;
+            font-size: 2.5rem; /* 40px */
+            font-weight: 700;
+            color: var(--viv-black);
+        }
+        .status-item p {
+            font-size: 0.875rem;
+            color: var(--viv-gray-text);
+            font-weight: 500;
+        }
+
+        /* Card: Número Grande (Médicos Cadastrados) */
+        .big-number-container {
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .big-number {
+            font-size: 4rem; /* 64px */
+            font-weight: 700;
+            color: var(--viv-primary);
+            line-height: 1;
+        }
+
+        /* Card: Gráfico de Barras (Prestador / Médicos) */
+        .bar-chart-list {
+            list-style: none;
+            padding: 0;
+        }
+        .bar-chart-list li {
+            margin-bottom: 1.25rem;
+        }
+        .bar-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        .bar-label .value {
+            font-weight: 700;
+            color: var(--viv-black);
+        }
+        .bar-wrapper {
+            background-color: #eee;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        .bar {
+            height: 20px;
+            background-color: var(--viv-primary);
+            border-radius: 4px;
+            width: 0; /* JS vai controlar isso */
+            transition: width 0.5s ease-out;
+        }
+
+        /* Card: Funil de Oportunidade */
+        .funnel-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .funnel-stage {
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            background-color: var(--viv-primary);
+            color: var(--viv-black);
+            font-weight: 600;
+            text-align: center;
+            transition: width 0.5s ease-out;
+            width: 0; /* JS controla */
+        }
+        .funnel-stage .value {
+            font-weight: 400;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        /* Card: Mapa de Visitas */
+        #map-container {
+            width: 100%;
+            height: 400px;
+            background-color: #eee;
+            border-radius: 0.5rem;
+        }
+
+        /* Modificador para o card do Funil */
+        /* Em telas médias e maiores, faz o card ocupar 2 colunas */
+        @media (min-width: 768px) {
+            .grid-col-span-2 {
+                grid-column: span 2;
+            }
+        }
+         @media (min-width: 1024px) {
+            .grid-col-span-2 {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho / Navbar -->
+    <header class="dashboard-header">
+        <div class="header-logo">
+            <img 
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:AN_d9GcRP1z6kwTR0r2z1fx6Fl6kpexB3h8GUlGrgrQ&s" 
+                alt="Logo Viv Saúde"
+                onerror="this.style.display='none';"
+            >
+            <h1>Painel de Controle</h1>
+        </div>
+        <div class="header-user">
+            Olá, Dr. Bruno
+        </div>
+    </header>
+
+    <!-- Grid Principal do Dashboard -->
+    <main class="dashboard-grid">
+
+        <!-- Card 1: Visitas por Status -->
+        <div class="kpi-card">
+            <h2>Visitas por Status (Mês)</h2>
+            <div class="status-container">
+                <div class="status-item">
+                    <span id="status-pendente">0</span>
+                    <p>Pendentes</p>
+                </div>
+                <div class="status-item">
+                    <span id="status-concluida">0</span>
+                    <p>Concluídas</p>
+                </div>
+                <div class="status-item">
+                    <span id="status-cancelada">0</span>
+                    <p>Canceladas</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: Médicos Cadastrados -->
+        <div class="kpi-card">
+            <h2>Médicos Cadastrados</h2>
+            <div class="big-number-container">
+                <span id="medicos-total" class="big-number">0</span>
+            </div>
+        </div>
+
+        <!-- Card 3: Visitas por Prestador -->
+        <div class="kpi-card">
+            <h2>Visitas por Prestador (Mês)</h2>
+            <ul id="prestador-chart" class="bar-chart-list">
+                <!-- JS vai popular isso -->
+            </ul>
+        </div>
+        
+        <!-- Card 4: Funil de Pacientes -->
+        <!-- O 'grid-col-span-2' faz ele ocupar mais espaço em telas maiores -->
+        <div class="kpi-card grid-col-span-2">
+            <h2>Funil de Pacientes (Oportunidades)</h2>
+            <div id="funnel-chart" class="funnel-list">
+                <!-- JS vai popular isso -->
+            </div>
+        </div>
+
+        <!-- Card 5: Encaminhados por Médico -->
+        <div class="kpi-card">
+            <h2>Top Médicos (Encaminhamentos)</h2>
+            <ul id="medicos-chart" class="bar-chart-list">
+                <!-- JS vai popular isso -->
+            </ul>
+        </div>
+
+        <!-- Card 6: Mapa de Visitas (Novo) -->
+        <div class="kpi-card grid-col-span-2">
+            <h2>Localização das Visitas (Check-ins)</h2>
+            <div id="map-container">
+                <!-- O mapa do Google será carregado aqui -->
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simulação de dados que viriam de uma API
+            const mockData = {
+                visitasStatus: {
+                    pendente: 12,
+                    concluida: 45,
+                    cancelada: 5
+                },
+                medicosTotal: 128,
+                visitasPrestador: [
+                    { nome: 'Fernanda Lopes', valor: 30 },
+                    { nome: 'Bruno Partner', valor: 27 },
+                ],
+                funilPacientes: [
+                    { etapa: 'Encaminhados', valor: 210 },
+                    { etapa: 'Qualificados (Oport.)', valor: 95 },
+                    { etapa: 'Convertidos (Atend.)', valor: 60 }
+                ],
+                encaminhadosPorMedico: [
+                    { nome: 'Dr. Carlos Silva', valor: 22 },
+                    { nome: 'Dra. Ana Costa', valor: 18 },
+                    { nome: 'Dr. Pedro Martins', valor: 15 },
+                    { nome: 'Dra. Sofia Alves', valor: 11 },
+                ],
+                visitasLocalizacoes: [
+                    { prestador: 'Fernanda Lopes', medico: 'Dr. Carlos (SP)', checkin: { lat: -23.5505, lng: -46.6333 }, checkout: { lat: -23.5500, lng: -46.6330 } },
+                    { prestador: 'Bruno Partner', medico: 'Dra. Ana (RJ)', checkin: { lat: -22.9068, lng: -43.1729 }, checkout: { lat: -22.9065, lng: -43.1725 } },
+                    { prestador: 'Fernanda Lopes', medico: 'Dr. Pedro (SP)', checkin: { lat: -23.5613, lng: -46.6560 }, checkout: { lat: -23.5610, lng: -46.6558 } }
+                ]
+            };
+
+            // Função para carregar os dados no dashboard
+            function loadDashboardData() {
+                // Card 1: Visitas por Status
+                document.getElementById('status-pendente').textContent = mockData.visitasStatus.pendente;
+                document.getElementById('status-concluida').textContent = mockData.visitasStatus.concluida;
+                document.getElementById('status-cancelada').textContent = mockData.visitasStatus.cancelada;
+
+                // Card 2: Médicos Cadastrados
+                document.getElementById('medicos-total').textContent = mockData.medicosTotal;
+
+                // Card 3: Visitas por Prestador (Gráfico de Barras)
+                createBarChart('prestador-chart', mockData.visitasPrestador);
+                
+                // Card 4: Funil de Pacientes
+                // CORREÇÃO: ID alterado de 'funil-chart' para 'funnel-chart' para corresponder ao HTML
+                createFunnelChart('funnel-chart', mockData.funilPacientes);
+
+                // Card 5: Encaminhados por Médico (Gráfico de Barras)
+                createBarChart('medicos-chart', mockData.encaminhadosPorMedico);
+
+                // Card 6: Carregar o script do Mapa
+                loadGoogleMapsScript();
+            }
+
+            /**
+             * Cria um gráfico de barras horizontal simples.
+             * @param {string} containerId ID do elemento <ul>
+             * @param {Array} data Array de objetos [{nome: 'Label', valor: 10}]
+             */
+            function createBarChart(containerId, data) {
+                const container = document.getElementById(containerId);
+                // Verificação para evitar erros se o ID estiver errado
+                if (!container) {
+                    console.error(`Elemento com ID '${containerId}' não encontrado.`);
+                    return;
+                }
+                container.innerHTML = ''; // Limpa o container
+
+                // Encontra o valor máximo para calcular a proporção (barra de 100%)
+                const maxVal = Math.max(...data.map(item => item.valor));
+
+                data.forEach(item => {
+                    const percent = (item.valor / maxVal) * 100;
+                    
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <div class="bar-label">
+                            <span class="name">${item.nome}</span>
+                            <span class="value">${item.valor}</span>
+                        </div>
+                        <div class="bar-wrapper">
+                            <div class="bar" style="width: 0;"></div>
+                        </div>
+                    `;
+                    container.appendChild(li);
+                    
+                    // Adiciona um pequeno delay para a animação do CSS 'transition' funcionar
+                    setTimeout(() => {
+                        li.querySelector('.bar').style.width = `${percent}%`;
+                    }, 100);
+                });
+            }
+
+            /**
+             * Cria um gráfico de funil simples.
+             * @param {string} containerId ID do elemento <div>
+             * @param {Array} data Array de objetos [{etapa: 'Label', valor: 10}]
+             */
+            function createFunnelChart(containerId, data) {
+                const container = document.getElementById(containerId);
+                // Verificação para evitar erros se o ID estiver errado
+                if (!container) {
+                    console.error(`Elemento com ID '${containerId}' não encontrado.`);
+                    return;
+                }
+                container.innerHTML = ''; // Limpa o container
+
+                const maxVal = data[0].valor; // O primeiro item é sempre 100%
+
+                data.forEach(item => {
+                    const percent = (item.valor / maxVal) * 100;
+                    
+                    const stage = document.createElement('div');
+                    stage.className = 'funnel-stage';
+                    stage.innerHTML = `
+                        ${item.etapa} <span class="value">(${item.valor})</span>
+                    `;
+                    
+                    container.appendChild(stage);
+                    
+                    setTimeout(() => {
+                        stage.style.width = `${percent}%`;
+                    }, 100);
+                });
+            }
+
+            /**
+             * Carrega o script do Google Maps dinamicamente.
+             * A função 'initMap' será chamada globalmente quando o script carregar.
+             */
+            function loadGoogleMapsScript() {
+                // 
+                // Chave da API do Google Maps fornecida.
+                // 
+                const apiKey = "AIzaSyDt5GbscvadSQ7Jm77X-dHNF83ZvRQwpnQ"; 
+                
+                if (apiKey === "SUA_CHAVE_API_AQUI") {
+                    const mapContainer = document.getElementById('map-container');
+                    mapContainer.innerHTML = '<p style="text-align: center; padding-top: 20%;">Por favor, insira uma chave de API do Google Maps no código para exibir o mapa.</p>';
+                    return;
+                }
+
+                const script = document.createElement('script');
+                script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`;
+                script.async = true;
+                script.defer = true;
+                document.head.appendChild(script);
+            }
+
+            /**
+             * Função de callback global que a API do Google Maps chamará.
+             * Esta função inicializa o mapa e adiciona os marcadores.
+             */
+            window.initMap = function() {
+                // Centraliza o mapa no Brasil
+                const mapOptions = {
+                    center: { lat: -14.2350, lng: -51.9253 },
+                    zoom: 4
+                };
+                const map = new google.maps.Map(document.getElementById('map-container'), mapOptions);
+
+                // Ícones personalizados (URLs de marcadores do Google)
+                const checkinIcon = "http://maps.google.com/mapfiles/ms/icons/green-dot.png";
+                const checkoutIcon = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+
+                const bounds = new google.maps.LatLngBounds();
+
+                // Adiciona marcadores para cada visita
+                mockData.visitasLocalizacoes.forEach(visita => {
+                    
+                    // Marcador de Check-in
+                    const checkinMarker = new google.maps.Marker({
+                        position: visita.checkin,
+                        map: map,
+                        icon: checkinIcon,
+                        title: `Check-in: ${visita.prestador} @ ${visita.medico}`
+                    });
+
+                    // Marcador de Check-out
+                    const checkoutMarker = new google.maps.Marker({
+                        position: visita.checkout,
+                        map: map,
+                        icon: checkoutIcon,
+                        title: `Check-out: ${visita.prestador} @ ${visita.medico}`
+                    });
+                    
+                    // Adiciona os pontos ao 'bounds' para ajustar o zoom
+                    bounds.extend(visita.checkin);
+                    bounds.extend(visita.checkout);
+                });
+
+                // Ajusta o zoom do mapa para mostrar todos os marcadores
+                map.fitBounds(bounds);
+            };
+
+
+            // Carrega os dados
+            loadDashboardData();
+        });
+    </script>
+</body>
+</html>
+
