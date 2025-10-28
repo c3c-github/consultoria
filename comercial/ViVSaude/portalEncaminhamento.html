@@ -5,28 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Encaminhamento - Viv Saúde</title>
     
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
     <!-- Google Fonts (Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
-        /* Define a paleta de cores personalizada */
+        /* --- Variáveis de Cor --- */
         :root {
             --viv-primary: #FFE678; /* Amarelo Viv */
             --viv-white: #FFFFFF;
             --viv-black: #000000;
             --viv-gray-text: #374151; /* Cinza escuro para texto */
             --viv-gray-border: #D1D5DB; /* Cinza para bordas de input */
+            --viv-gray-light-bg: #f9fafb; /* Fundo de sucesso */
         }
 
-        /* Aplica a fonte padrão e a cor de fundo com imagem */
+        /* --- Reset Básico e Fundo --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--viv-white);
+            color: var(--viv-gray-text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 1.5rem;
             position: relative;
             overflow-x: hidden;
         }
@@ -47,176 +57,303 @@
             z-index: -1;
         }
 
-        /* Classes utilitárias para as cores */
-        .bg-viv-primary { background-color: var(--viv-primary); }
-        .text-viv-black { color: var(--viv-black); }
-        .text-viv-gray { color: var(--viv-gray-text); }
-        
-        /* Estilo moderno para botões */
-        .btn {
-            @apply w-full px-5 py-3 rounded-lg font-semibold shadow-md transition-all duration-300 ease-in-out;
-            @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-viv-black;
-            @apply transform hover:scale-105; /* Efeito de aumentar */
-        }
-        .btn-primary {
-            @apply bg-viv-primary text-viv-black font-bold hover:bg-yellow-400 active:scale-95 active:shadow-inner;
-        }
-        .btn-secondary {
-            @apply bg-viv-white text-viv-black border border-viv-gray-border hover:bg-gray-50 active:scale-95 active:shadow-inner;
-        }
-
-        /* Estilo moderno para inputs */
-        .form-input {
-            @apply w-full px-4 py-3 border border-viv-gray-border bg-viv-white rounded-lg transition-colors duration-150;
-            @apply text-viv-gray placeholder-gray-400;
-            @apply focus:outline-none focus:ring-2 focus:ring-viv-black focus:border-viv-black;
-        }
-
-        /* Container central */
-        .content-overlay {
+        /* --- Container Principal --- */
+        .portal-container {
+            background-color: var(--viv-white);
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 100%;
+            max-width: 42rem; /* 672px */
+            overflow: hidden;
             position: relative;
             z-index: 10;
-            background-color: rgba(255, 255, 255, 0.9); /* Adiciona um fundo opaco para evitar o quadro transparente */
-            border-radius: 12px; /* Borda arredondada */
-            border: 1px solid var(--viv-gray-border); /* Adiciona uma borda para melhorar a visibilidade */
         }
+
+        /* --- Cabeçalho --- */
+        .portal-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: var(--viv-primary);
+        }
+        .portal-header img {
+            height: 4rem; /* 64px */
+            width: auto;
+            margin-bottom: 0.5rem;
+        }
+        .portal-header .logo-fallback {
+            font-size: 1.5rem; /* 24px */
+            font-weight: 700;
+            color: var(--viv-black);
+            display: none; /* Oculto por padrão */
+        }
+        .portal-header h1 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            color: var(--viv-black);
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        /* --- Formulário --- */
+        .portal-form {
+            padding: 2rem;
+        }
+
+        .form-step {
+            display: none; /* Oculto por padrão, JS controla */
+        }
+        .form-step.active {
+            display: block;
+        }
+
+        .form-step h2 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 600;
+            color: var(--viv-gray-text);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+            color: var(--viv-gray-text);
+            margin-bottom: 0.25rem;
+        }
+
+        /* Estilo dos Inputs */
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem; /* 12px 16px */
+            border: 1px solid var(--viv-gray-border);
+            border-radius: 0.5rem; /* 8px */
+            background-color: var(--viv-white);
+            font-size: 1rem; /* 16px */
+            color: var(--viv-gray-text);
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input::placeholder {
+            color: #9ca3af; /* Cinza 400 */
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: var(--viv-primary);
+            box-shadow: 0 0 0 3px rgba(255, 230, 120, 0.5); /* Sombra de foco amarela */
+        }
+
+        /* --- Estilo dos Botões --- */
+        .btn-container {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        /* Layout de botões lado a lado */
+        .btn-container.row {
+            flex-direction: row-reverse; /* Primário na direita */
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem; /* 8px */
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn:hover {
+            transform: translateY(-2px); /* Efeito de levantar */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .btn:active {
+            transform: scale(0.98); /* Efeito de clique */
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        /* Botão Primário (Amarelo) */
+        .btn-primary {
+            background-color: var(--viv-primary);
+            color: var(--viv-black);
+            border-color: var(--viv-primary);
+        }
+        .btn-primary:hover {
+            background-color: #fde047; /* Amarelo mais claro */
+        }
+
+        /* Botão Secundário (Borda Preta) */
+        .btn-secondary {
+            background-color: var(--viv-white);
+            color: var(--viv-black);
+            border-color: var(--viv-black);
+        }
+        .btn-secondary:hover {
+            background-color: #f9fafb; /* Cinza bem claro */
+        }
+
+        /* --- Outros Elementos --- */
+        .login-forgot-link {
+            text-align: center;
+            font-size: 0.875rem;
+            color: #6b7280; /* Cinza 500 */
+            margin-top: 1rem;
+        }
+
+        /* Tela de Sucesso */
+        .success-message {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .success-message svg {
+            width: 4rem;
+            height: 4rem;
+            color: #22c55e; /* Verde 500 */
+            margin: 0 auto;
+        }
+        .success-message h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--viv-black);
+            margin-top: 1rem;
+        }
+        .success-message p {
+            font-size: 1rem;
+            color: var(--viv-gray-text);
+            margin-top: 0.5rem;
+        }
+
+        /* Mensagem de Erro */
+        #error-message {
+            color: #ef4444; /* Vermelho 500 */
+            font-weight: 500;
+            text-align: center;
+            margin-top: 1rem;
+            display: none; /* Oculto por padrão */
+        }
+        
+        /* Utilitários */
+        .hidden {
+            display: none !important;
+        }
+
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-4">
+<body>
 
     <!-- Container Principal do Portal -->
-    <div class="content-overlay bg-viv-white p-6 sm:p-8 rounded-xl shadow-2xl w-full max-w-lg">
+    <div class="portal-container">
         
         <!-- Cabeçalho com Logo -->
-        <header class="flex flex-col items-center mb-6">
+        <header class="portal-header">
             <img 
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:AN_d9GcRP1z6kwTR0r2z1fx6Fl6kpexB3h8GUlGrgrQ&s" 
-                alt="Logo da Viv Saúde" 
-                class="h-16 w-auto mb-2"
+                alt="Logo da Viv Saúde"
                 onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
             >
             <!-- Fallback de texto para o logo -->
-            <span class="text-2xl font-bold text-viv-black hidden" style="display:none;">
-                Viv Saúde
-            </span>
-            <h1 id="portal-title" class="text-3xl font-bold text-viv-black mt-4 text-center">
-                Acesso ao Portal
-            </h1>
+            <span class="logo-fallback">Viv Saúde</span>
+            <h1 id="portal-title">Acesso ao Portal</h1>
         </header>
 
         <!-- Formulário Multi-Etapas -->
-        <form id="referral-form" onsubmit="return false;">
+        <form id="referral-form" class="portal-form" onsubmit="return false;">
 
             <!-- Etapa 0: Login -->
-            <div id="step-0-login">
-                <div class="space-y-4">
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-viv-gray mb-1">Email (CRM ou Corporativo)</label>
-                        <input type="email" id="email" class="form-input" placeholder="seu.email@dominio.com" required>
-                    </div>
-                    <div>
-                        <label for="password" class="block text-sm font-medium text-viv-gray mb-1">Senha</label>
-                        <input type="password" id="password" class="form-input" placeholder="••••••••" required>
-                    </div>
+            <div id="step-0-login" class="form-step active">
+                <div class="form-group">
+                    <label for="email">Email (CRM ou Corporativo)</label>
+                    <input type="email" id="email" class="form-input" placeholder="seu.email@dominio.com" required>
                 </div>
-                <!-- Botão de Ação -->
-                <div class="mt-8">
-                    <button id="btn-login" class="btn btn-primary">
-                        Entrar
-                    </button>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" class="form-input" placeholder="••••••••" required>
                 </div>
-                <p class="text-center text-sm text-gray-500 mt-4">
-                    Esqueceu a senha?
-                </p>
+                
+                <div class="btn-container">
+                    <button id="btn-login" class="btn btn-primary">Entrar</button>
+                </div>
+                <p class="login-forgot-link">Esqueceu a senha?</p>
             </div>
 
             <!-- Etapa 1: Dados do Paciente -->
-            <div id="step-1-patient" class="hidden">
-                <h2 class="text-xl font-semibold text-viv-gray mb-4">1. Dados do Paciente</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label for="nome" class="block text-sm font-medium text-viv-gray mb-1">Nome Completo</label>
-                        <input type="text" id="nome" class="form-input" required>
-                    </div>
-                    <div>
-                        <label for="cpf" class="block text-sm font-medium text-viv-gray mb-1">CPF</label>
-                        <input type="text" id="cpf" class="form-input" placeholder="000.000.000-00" required>
-                    </div>
-                    <div>
-                        <label for="telefone" class="block text-sm font-medium text-viv-gray mb-1">Telefone</label>
-                        <input type="tel" id="telefone" class="form-input" placeholder="(00) 00000-0000">
-                    </div>
+            <div id="step-1-patient" class="form-step">
+                <h2>1. Dados do Paciente</h2>
+                <div class="form-group">
+                    <label for="nome">Nome Completo</label>
+                    <input type="text" id="nome" class="form-input" required>
                 </div>
-                <!-- Botão de Ação -->
-                <div class="mt-8">
-                    <button id="btn-next" class="btn btn-primary">
-                        Próximo: Detalhes do Encaminhamento
-                    </button>
+                <div class="form-group">
+                    <label for="cpf">CPF</label>
+                    <input type="text" id="cpf" class="form-input" placeholder="000.000.000-00" required>
+                </div>
+                <div class="form-group">
+                    <label for="telefone">Telefone</label>
+                    <input type="tel" id="telefone" class="form-input" placeholder="(00) 00000-0000">
+                </div>
+                
+                <div class="btn-container">
+                    <button id="btn-next" class="btn btn-primary">Próximo: Detalhes do Encaminhamento</button>
                 </div>
             </div>
 
             <!-- Etapa 2: Encaminhamento -->
-            <div id="step-2-referral" class="hidden">
-                <h2 class="text-xl font-semibold text-viv-gray mb-4">2. Encaminhamento</h2>
-                <div class="space-y-4">
-                    <div>
-                        <label for="hospital" class="block text-sm font-medium text-viv-gray mb-1">Hospital (Viv Saúde)</label>
-                        <select id="hospital" class="form-input" required>
-                            <option value="">Selecione um hospital...</option>
-                            <option value="Hosp. Viv Central (SP)">Hosp. Viv Central (SP)</option>
-                            <option value="Hosp. Viv Zona Sul (RJ)">Hosp. Viv Zona Sul (RJ)</option>
-                            <option value="Hosp. Viv Oeste (SP)">Hosp. Viv Oeste (SP)</option>
-                            <option value="Hosp. Viv Barra (RJ)">Hosp. Viv Barra (RJ)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="especialidade" class="block text-sm font-medium text-viv-gray mb-1">Especialidade</label>
-                        <select id="especialidade" class="form-input" required>
-                            <option value="">Selecione a especialidade...</option>
-                            <option value="Cardiologia">Cardiologia</option>
-                            <option value="Ortopedia">Ortopedia</option>
-                            <option value="Saúde Mental">Saúde Mental</option>
-                            <option value="Clínica Geral">Clínica Geral</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="motivo" class="block text-sm font-medium text-viv-gray mb-1">Motivo/Observações</label>
-                        <textarea id="motivo" rows="3" class="form-input" placeholder="Descreva brevemente o motivo do encaminhamento..."></textarea>
-                    </div>
+            <div id="step-2-referral" class="form-step">
+                <h2>2. Encaminhamento</h2>
+                <div class="form-group">
+                    <label for="hospital">Hospital (Viv Saúde)</label>
+                    <select id="hospital" class="form-input" required>
+                        <option value="">Selecione um hospital...</option>
+                        <option value="Hosp. Viv Central (SP)">Hosp. Viv Central (SP)</option>
+                        <option value="Hosp. Viv Zona Sul (RJ)">Hosp. Viv Zona Sul (RJ)</option>
+                        <option value="Hosp. Viv Oeste (SP)">Hosp. Viv Oeste (SP)</option>
+                        <option value="Hosp. Viv Barra (RJ)">Hosp. Viv Barra (RJ)</option>
+                    </select>
                 </div>
-                <!-- Botões de Ação -->
-                <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                    <button id="btn-back" class="btn btn-secondary">
-                        Voltar
-                    </button>
-                    <button id="btn-submit" class="btn btn-primary">
-                        Confirmar Encaminhamento
-                    </button>
+                <div class="form-group">
+                    <label for="especialidade">Especialidade</label>
+                    <select id="especialidade" class="form-input" required>
+                        <option value="">Selecione a especialidade...</option>
+                        <option value="Cardiologia">Cardiologia</option>
+                        <option value="Ortopedia">Ortopedia</option>
+                        <option value="Saúde Mental">Saúde Mental</option>
+                        <option value="Clínica Geral">Clínica Geral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="motivo">Motivo/Observações</label>
+                    <textarea id="motivo" rows="3" class="form-input" placeholder="Descreva brevemente o motivo do encaminhamento..."></textarea>
+                </div>
+                
+                <div class="btn-container row">
+                    <button id="btn-submit" class="btn btn-primary">Confirmar Encaminhamento</button>
+                    <button id="btn-back" class="btn btn-secondary">Voltar</button>
                 </div>
             </div>
 
             <!-- Etapa 3: Sucesso -->
-            <div id="step-3-success" class="hidden">
-                <div class="text-center py-8">
-                    <svg class="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h2 class="text-2xl font-bold text-viv-black mt-4">Encaminhamento Realizado!</h2>
-                    <p class="text-viv-gray mt-2">
-                        O paciente <strong id="success-patient-name"></strong> foi encaminhado com sucesso.
-                    </p>
-                    <p class="text-viv-gray">
-                        Hospital: <strong id="success-hospital-name"></strong>.
-                    </p>
+            <div id="step-3-success" class="form-step">
+                <div class="success-message">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2>Encaminhamento Realizado!</h2>
+                    <p>O paciente <strong id="success-patient-name"></strong> foi encaminhado com sucesso.</p>
+                    <p>Hospital: <strong id="success-hospital-name"></strong>.</p>
                     
-                    <div class="mt-8">
-                        <button id="btn-reset" class="btn btn-primary">
-                            Novo Encaminhamento
-                        </button>
+                    <div class="btn-container" style="max-width: 300px; margin: 2rem auto 0;">
+                        <button id="btn-reset" class="btn btn-primary">Novo Encaminhamento</button>
                     </div>
                 </div>
             </div>
 
             <!-- Mensagem de Erro (para validação) -->
-            <div id="error-message" class="text-red-600 font-medium text-center mt-4" style="display: none;"></div>
+            <div id="error-message"></div>
         </form>
     </div>
 
@@ -266,11 +403,11 @@
                 errorMsg.style.display = 'none';
             }
 
-            // Funções para máscaras de input (opcional, mas melhora a UX)
+            // Funções para máscaras de input
             function maskCPF(value) {
                 return value
-                    .replace(/\D/g, '') // Remove tudo o que não é dígito
-                    .substring(0, 11) // Limita a 11 dígitos
+                    .replace(/\D/g, '')
+                    .substring(0, 11)
                     .replace(/(\d{3})(\d)/, '$1.$2')
                     .replace(/(\d{3})(\d)/, '$1.$2')
                     .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
@@ -278,10 +415,10 @@
 
             function maskPhone(value) {
                 return value
-                    .replace(/\D/g, '') // Remove tudo o que não é dígito
-                    .substring(0, 11) // Limita a 11 dígitos (com DDD)
+                    .replace(/\D/g, '')
+                    .substring(0, 11)
                     .replace(/^(\d{2})(\d)/g, '($1) $2')
-                    .replace(/(\d)(\d{4})$/, '$1-$2'); // Formata XXXXX-XXXX ou XXXX-XXXX
+                    .replace(/(\d)(\d{4})$/, '$1-$2');
             }
 
             inputCpf.addEventListener('input', (e) => {
@@ -291,55 +428,52 @@
             inputTelefone.addEventListener('input', (e) => {
                 e.target.value = maskPhone(e.target.value);
             });
+            
+            // Função para trocar de etapa
+            function goToStep(stepElement) {
+                document.querySelectorAll('.form-step').forEach(step => {
+                    step.classList.remove('active');
+                });
+                stepElement.classList.add('active');
+            }
 
             // Ação: Login (Simulação)
             btnLogin.addEventListener('click', () => {
                 clearError();
-                // Validação simples
                 if (inputEmail.value.trim() === '' || inputPassword.value.trim() === '') {
                     showError('Por favor, preencha seu email e senha.');
                     return;
                 }
                 
-                // Simula login bem-sucedido
                 console.log('Login simulado para:', inputEmail.value);
-                
-                portalTitle.textContent = 'Portal de Encaminhamento'; // Muda o título
-                step0.classList.add('hidden');
-                step1.classList.remove('hidden');
+                portalTitle.textContent = 'Portal de Encaminhamento';
+                goToStep(step1);
             });
-
 
             // Ação: Ir para Etapa 2
             btnNext.addEventListener('click', () => {
                 clearError();
-                // Validação
-                if (inputNome.value.trim() === '' || inputCpf.value.trim().length < 14) { // CPF com máscara tem 14 chars
+                if (inputNome.value.trim() === '' || inputCpf.value.trim().length < 14) {
                     showError('Por favor, preencha o Nome e um CPF válido do paciente.');
                     return;
                 }
-                
-                step1.classList.add('hidden');
-                step2.classList.remove('hidden');
+                goToStep(step2);
             });
 
             // Ação: Voltar para Etapa 1
             btnBack.addEventListener('click', () => {
                 clearError();
-                step2.classList.add('hidden');
-                step1.classList.remove('hidden');
+                goToStep(step1);
             });
 
             // Ação: Enviar (Simulação)
             btnSubmit.addEventListener('click', () => {
                 clearError();
-                // Validação
-                if (inputHospital.value === '' || inputEspecialidade.vvalue === '') {
+                if (inputHospital.value === '' || inputEspecialidade.value === '') {
                     showError('Por favor, selecione o Hospital e a Especialidade.');
                     return;
                 }
 
-                // Exibe os dados de sucesso
                 successPatientName.textContent = inputNome.value;
                 successHospitalName.textContent = inputHospital.value;
                 
@@ -351,30 +485,21 @@
                 console.log('Especialidade:', inputEspecialidade.value);
                 console.log('Motivo:', inputMotivo.value);
 
-                // Alterna para a tela de sucesso
-                step2.classList.add('hidden');
-                step3.classList.remove('hidden');
+                goToStep(step3);
             });
 
             // Ação: Resetar o formulário
             btnReset.addEventListener('click', () => {
-                // Reseta o formulário (exceto login)
-                inputNome.value = '';
-                inputCpf.value = '';
-                inputTelefone.value = '';
-                inputHospital.value = '';
-                inputEspecialidade.value = '';
-                inputMotivo.value = '';
-                
-                // Limpa os textos de sucesso
+                form.reset(); 
                 successPatientName.textContent = '';
                 successHospitalName.textContent = '';
-                
-                // Volta para a etapa 1
-                step3.classList.add('hidden');
-                step1.classList.remove('hidden');
+                goToStep(step1);
             });
+            
+            // Inicia na Etapa 0
+            // (já está feito pelo 'active' no HTML)
         });
     </script>
 </body>
 </html>
+
