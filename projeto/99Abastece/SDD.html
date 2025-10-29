@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SDD - Desenho da Solução | 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray);} main section.prose li{margin-bottom:.5em;}
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.5em;text-align:left;} main section.prose th{background:#f9fafb;font-weight:600;}
+    .grid-card{border:1px solid #e5e7eb;background:#f9fafb;border-radius:.75rem;padding:1rem;margin-bottom:1rem;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem}
+    .legend .dot{width:.65rem;height:.65rem;border-radius:9999px;display:inline-block;margin-right:.35rem;}
+    .dot-blue{background:#2978FF;} .dot-teal{background:#1DDDBD;} .dot-amber{background:#f59e0b;} .dot-gray{background:#9ca3af;}
+    .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, Menlo, Monaco, Consolas, "Courier New", monospace;font-size:.75rem;background:#fff}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Solution Design Document (SDD)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="sdd" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Desenho da Solução — Salesforce 99 Abastece</h2>
+        <div class="mb-4">
+          <span class="badge">Arquitetura validada</span>
+          <span class="badge">MC atua como broker de mensagens</span>
+          <span class="badge">LGPD: visibilidade por carteira</span>
+        </div>
+
+        <h3>1. Introdução e Objetivo</h3>
+        <p>Este documento detalha o desenho técnico-funcional da solução, cobrindo arquitetura, componentes, modelagem de dados, integrações, regras de negócio e governança para suportar o processo de reativação/engajamento de motoristas no Salesforce.</p>
+
+        <h3>2. Arquitetura da Solução</h3>
+        <p><strong>Princípio-chave:</strong> o <strong>Marketing Cloud</strong> realiza os disparos ativos via WhatsApp e atua como <em>broker</em> do canal; a integração com o <strong>WhatsApp Business API</strong> é <em>transparente</em> para a operação (não há interação direta do Sales Cloud/DE com a API, apenas com o MC).</p>
+        <div class="legend text-sm mb-2">
+          <span class="dot-blue dot"></span>Sales Cloud &nbsp;&nbsp;
+          <span class="dot-teal dot"></span>Marketing Cloud (broker) &nbsp;&nbsp;
+          <span class="dot-amber dot"></span>Digital Engagement / Omni &nbsp;&nbsp;
+          <span class="dot-gray dot"></span>Sistemas Externos (99 / WhatsApp API)
+        </div>
+        <div class="svg-wrap not-prose">
+          <!-- Architecture diagram: MC as broker to WhatsApp Business API -->
+          <svg viewBox="0 0 1200 520" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="Arquitetura - MC como broker">
+            <!-- Boxes -->
+            <g>
+              <rect x="60" y="60" width="320" height="120" rx="12" ry="12" fill="#e8f0ff" stroke="#2978FF"/>
+              <text x="220" y="95" text-anchor="middle" font-size="15" fill="#1f2937" font-weight="600">Sales Cloud</text>
+              <text x="220" y="120" text-anchor="middle" font-size="12" fill="#374151">Contas, Campanhas, Membros</text>
+              <text x="220" y="140" text-anchor="middle" font-size="12" fill="#374151">Prioridade, Oportunidades (D+7)</text>
+            </g>
+            <g>
+              <rect x="60" y="260" width="320" height="120" rx="12" ry="12" fill="#fff1db" stroke="#f59e0b"/>
+              <text x="220" y="295" text-anchor="middle" font-size="15" fill="#1f2937" font-weight="600">Digital Engagement / Omni</text>
+              <text x="220" y="320" text-anchor="middle" font-size="12" fill="#374151">Conversas 1:1, Roteamento</text>
+              <text x="220" y="340" text-anchor="middle" font-size="12" fill="#374151">Carteira (owner após 1ª resposta)</text>
+            </g>
+            <g>
+              <rect x="450" y="160" width="300" height="140" rx="12" ry="12" fill="#dffaf5" stroke="#1DDDBD"/>
+              <text x="600" y="195" text-anchor="middle" font-size="15" fill="#064e3b" font-weight="700">Marketing Cloud</text>
+              <text x="600" y="220" text-anchor="middle" font-size="12" fill="#065f46">Criação de Opp, Disparos ativos</text>
+              <text x="600" y="238" text-anchor="middle" font-size="12" fill="#065f46">Métricas de envio/entrega/leitura/resposta</text>
+            </g>
+            <g>
+              <rect x="820" y="60" width="320" height="120" rx="12" ry="12" fill="#f3f4f6" stroke="#9ca3af"/>
+              <text x="980" y="95" text-anchor="middle" font-size="15" fill="#1f2937" font-weight="600">Sistemas 99</text>
+              <text x="980" y="120" text-anchor="middle" font-size="12" fill="#374151">API Abastecimento, Base Mestre</text>
+            </g>
+            <g>
+              <rect x="820" y="260" width="320" height="120" rx="12" ry="12" fill="#f3f4f6" stroke="#9ca3af"/>
+              <text x="980" y="295" text-anchor="middle" font-size="15" fill="#1f2937" font-weight="600">WhatsApp Business API</text>
+              <text x="980" y="320" text-anchor="middle" font-size="12" fill="#374151">Canal de Mensageria</text>
+              <text x="980" y="340" text-anchor="middle" font-size="12" fill="#374151">Transparente p/ operação</text>
+            </g>
+            <!-- Arrows -->
+            <g stroke="#6b7280" stroke-width="2" fill="none">
+              <!-- Sales Cloud to MC (priorizados) -->
+              <line x1="380" y1="120" x2="450" y2="180"/>
+              <polygon points="450,180 441,176 445,186" fill="#6b7280"/>
+              <!-- MC to WhatsApp (broker) -->
+              <line x1="750" y1="230" x2="820" y2="290"/>
+              <polygon points="820,290 811,286 815,296" fill="#6b7280"/>
+              <!-- Responses: WhatsApp -> MC -->
+              <line x1="820" y1="320" x2="750" y2="250"/>
+              <polygon points="750,250 759,254 755,244" fill="#6b7280"/>
+              <!-- MC updates Sales Cloud (status/metrics) -->
+              <line x1="450" y1="220" x2="300" y2="260"/>
+              <polygon points="300,260 309,264 305,254" fill="#6b7280"/>
+              <!-- Sales Cloud to DE/Omni (roteamento) -->
+              <line x1="220" y1="180" x2="220" y2="260"/>
+              <polygon points="220,260 224,251 214,251" fill="#6b7280"/>
+              <!-- Sistemas 99 -> Sales Cloud (API abastecimento) -->
+              <line x1="820" y1="100" x2="380" y2="100"/>
+              <polygon points="380,100 388,105 388,95" fill="#6b7280"/>
+            </g>
+            <!-- Labels -->
+            <text x="410" y="130" font-size="12" fill="#374151">Membros priorizados</text>
+            <text x="770" y="220" font-size="12" fill="#374151">Disparos</text>
+            <text x="770" y="310" font-size="12" fill="#374151">Respostas</text>
+            <text x="360" y="240" font-size="12" fill="#374151">Status & métricas (Opp/Membro)</text>
+            <text x="235" y="228" font-size="12" fill="#374151">Omni-Channel</text>
+            <text x="700" y="85" font-size="12" fill="#374151">Abastecimentos (Driver ID, data)</text>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Figura 1 — Arquitetura: o Marketing Cloud atua como <em>broker</em> do canal WhatsApp; a API é transparente ao time.</p>
+
+        <h3>3. Componentes Principais</h3>
+        <div class="grid md:grid-cols-3 gap-4 not-prose">
+          <div class="grid-card">
+            <h4 class="font-semibold text-gray-700">Sales Cloud</h4>
+            <ul class="list-disc pl-5 text-sm">
+              <li>Objetos: Conta (Motorista), Campanha/Membro, Oportunidade (ciclo D+7).</li>
+              <li>Rotinas: carga (CSV/API), dedupe, priorização agendada.</li>
+              <li>APIs: atualização de ranking/prioridade; recebimento de abastecimentos.</li>
+            </ul>
+          </div>
+          <div class="grid-card">
+            <h4 class="font-semibold text-gray-700">Marketing Cloud (broker)</h4>
+            <ul class="list-disc pl-5 text-sm">
+              <li>Criação de Oportunidade no disparo ativo.</li>
+              <li>Envio WhatsApp (HSMs aprovados), sem contato direto com WABA pelo time.</li>
+              <li>Métricas: envio/entrega/leitura/resposta sincronizadas ao Sales Cloud.</li>
+            </ul>
+          </div>
+          <div class="grid-card">
+            <h4 class="font-semibold text-gray-700">Digital Engagement / Omni</h4>
+            <ul class="list-disc pl-5 text-sm">
+              <li>Conversas 1:1; roteamento por ociosidade.</li>
+              <li>Fixação de dono após 1ª resposta; transferência controlada.</li>
+              <li>Histórico vinculado à Conta/Oportunidade.</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>4. Fluxo de Dados (End-to-End)</h3>
+        <ol>
+          <li>Carga + dedupe da base mestre → upsert em Contas e Membros.</li>
+          <li>Priorizar Membros e atualizar status para disparo.</li>
+          <li>MC cria Opp, envia WhatsApp (HSM) e registra métricas.</li>
+          <li>Respostas são atendidas no DE/Omni; status sincronizados.</li>
+          <li>D+7 automatiza ganho (via API de abastecimento) ou perda.</li>
+        </ol>
+
+        <h3>5. Modelagem de Dados (alto nível)</h3>
+        <table>
+          <thead><tr><th>Objeto</th><th>Campos-chave (exemplos)</th><th>Relacionamentos</th><th>Observações</th></tr></thead>
+          <tbody>
+            <tr><td>Conta (Motorista)</td><td>DriverID__c, CPF (mascarado), Status__c</td><td>1:N Oportunidades; 1:N Membros</td><td>DriverID como chave de integração</td></tr>
+            <tr><td>Campanha</td><td>Tipo, Mês, Meta__c</td><td>N:M com Contas via Membro</td><td>Controle por período</td></tr>
+            <tr><td>Membro de Campanha</td><td>StatusEnvio__c, Prioridade__c</td><td>N:1 Campanha; N:1 Conta</td><td>Base para seleção de disparos</td></tr>
+            <tr><td>Oportunidade</td><td>StageName, DueDate__c (D+7), OwnerId</td><td>N:1 Conta; N:1 Campanha</td><td>Aberta no disparo ativo</td></tr>
+            <tr><td>Conversa (DE)</td><td>Transcript, Channel, FirstResponseDate</td><td>N:1 Conta; N:1 Oportunidade</td><td>Histórico 1:1</td></tr>
+          </tbody>
+        </table>
+
+        <h3>6. Regras de Negócio Implementadas</h3>
+        <ul>
+          <li><strong>Deduplicação</strong> na carga; manter registro mais recente em campanha ativa.</li>
+          <li><strong>Prioridade</strong> por ranking atualizado via API; rotina agendada.</li>
+          <li><strong>Carteira</strong> fixa após primeira resposta; exceção via transferência.</li>
+          <li><strong>D+7</strong> encerra oportunidade automaticamente sem abastecimento.</li>
+          <li><strong>Retentativas</strong> configuradas no MC; janelas parametrizáveis.</li>
+        </ul>
+
+        <h3>7. Integrações Externas</h3>
+        <ul>
+          <li><strong>WhatsApp:</strong> via Marketing Cloud (broker). O WABA é transparente; não há integração direta do Sales/DE com a API.</li>
+          <li><strong>API Abastecimento 99:</strong> endpoint REST (Driver ID, data/hora, status). Atualiza status de Oportunidade e Membro.</li>
+          <li><strong>Ranking/Prioridade:</strong> API exposta pelo Salesforce para consulta/atualização pelo time 99.</li>
+        </ul>
+
+        <h3>8. Segurança e Governança (LGPD)</h3>
+        <ul>
+          <li>Perfis e Permission Sets por papel (99, Adecco, Supervisão).</li>
+          <li>Mascaramento de dados sensíveis; logs de acesso e auditoria.</li>
+          <li>Visibilidade restrita à carteira diária para Adecco.</li>
+        </ul>
+
+        <h3>9. Implantação, Versionamento e Monitoramento</h3>
+        <ul>
+          <li><strong>Ambientes:</strong> Dev → UAT → Prod; promoções controladas.</li>
+          <li><strong>Versionamento:</strong> Git; changelog por sprint; política de branches.</li>
+          <li><strong>Monitoramento:</strong> Jobs, falhas de integração, métricas de envio/retorno do MC, SLAs do Omni.</li>
+        </ul>
+
+        <h3>10. Conclusão e Próximos Passos</h3>
+        <ul>
+          <li>Congelar campos/relacionamentos finais com o cliente.</li>
+          <li>Homologar templates HSM e número no MC.</li>
+          <li>Definir alarmes e painéis operacionais para Go-Live.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

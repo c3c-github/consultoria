@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 11 (24/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 11 (24/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 11 (24/Out/2025)</h2>
+                 <!-- Dados Iniciais -->
+                 <div class="mb-6">
+                    <p><strong>Assunto da Reunião:</strong> Inception 99 Abastece - Sprint 1 - Outubro/2025</p>
+                    <p><strong>Cliente:</strong> 99 App</p>
+                    <p><strong>Projeto:</strong> Implementação Salesforce - 99 Abastece</p>
+                    <p><strong>Data da Reunião:</strong> 24/10/2025</p>
+                    <p><strong>Horário:</strong> 09h às 09h30</p>
+                    <p><strong>Local:</strong> Microsoft Teams</p>
+                    <p><strong>Autor da Ata:</strong> Priscila G. Petroni</p>
+                 </div>
+                 
+                 <!-- Participantes -->
+                 <h4>Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa</th>
+                             <th>Área</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr><td>Roberta Noronha</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Victoria Candelario</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Tarcisio Alex Almeida de Paula</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Karine Cunha</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Priscila G. Petroni</td><td>C3C</td><td>Projetos C3C</td></tr>
+                     </tbody>
+                 </table>
+
+                 <!-- Motivação -->
+                 <h4>Motivação</h4>
+                 <p>A reunião teve como propósito encerrar formalmente a etapa de Inception do projeto 99 Abastece no Salesforce, consolidando os aprendizados, decisões e fluxos validados ao longo das sessões anteriores. O encontro também serviu para alinhar a dinâmica das próximas fases de desenvolvimento e acompanhamento, garantindo clareza entre as equipes quanto aos ritos, responsabilidades e cadência de comunicação.</p>
+                 
+                 <!-- Resumo da Reunião -->
+                 <h4>Resumo da Reunião</h4>
+                 <ol>
+                    <li><strong>Recapitulação e Consolidação</strong>
+                        <ul>
+                            <li>O encontro iniciou com uma breve recapitulação dos principais pontos e definições alcançados nas reuniões anteriores, como as regras de base, status de motoristas, critérios de elegibilidade e processos de conversão.</li>
+                            <li>Priscila destacou que nenhum novo ponto crítico havia surgido desde a última sessão, indicando que a equipe chegava ao final da inception com uma visão consolidada do processo.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Rotina de Acompanhamento e Ritos Ágeis</strong>
+                        <ul>
+                            <li>Na sequência, foi apresentada a proposta de rotina de acompanhamento do projeto via ritos ágeis.</li>
+                            <li>Priscila explicou a dinâmica das <strong>dailies</strong>, que serão realizadas diariamente às 10h, com duração média de 15 minutos, para acompanhamento do progresso, identificação de bloqueios e esclarecimento de dúvidas pontuais.</li>
+                            <li>As reuniões terão registro contínuo para controle interno do time e servirão como um canal direto entre as equipes de projeto.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cronograma e Próximas Fases</strong>
+                        <ul>
+                            <li>Victoria questionou sobre a duração da próxima fase e o planejamento das entregas.</li>
+                            <li>Priscila esclareceu que o projeto está estruturado em <strong>quatro sprints de duas semanas cada</strong>, sendo a primeira a fase de inception (já concluída). A partir da próxima semana, inicia-se a <strong>Sprint 2</strong>, dedicada à construção da solução Salesforce, seguindo as definições mapeadas e validadas nas reuniões anteriores.</li>
+                            <li>Foi revisado o cronograma macro, reforçando a importância do alinhamento entre as frentes de trabalho da 99 (dados e operação) e da C3C (configuração e integração), para garantir fluidez na execução das próximas etapas.</li>
+                            <li>Por fim, foi reforçada a comunicação contínua via dailies e checkpoints semanais, garantindo visibilidade sobre o andamento das atividades e eventuais ajustes de escopo.</li>
+                        </ul>
+                    </li>
+                 </ol>
+
+                 <!-- Conclusões e Encaminhamentos -->
+                 <h4>Conclusões e Encaminhamentos</h4>
+                 <ul>
+                    <li>A reunião marcou o encerramento oficial da etapa de Inception, com o consenso entre as equipes de que os requisitos e fluxos de processo foram devidamente compreendidos e validados.</li>
+                    <li><strong>Conclusões principais:</strong>
+                        <ul>
+                            <li>Todos os fluxos e regras operacionais foram formalizados, sem pendências abertas.</li>
+                            <li>O cronograma do projeto foi reafirmado, com início da Sprint 2 programado para a próxima semana.</li>
+                            <li>As dailies de acompanhamento serão conduzidas às 10h, com foco em alinhamento operacional.</li>
+                        </ul>
+                    </li>
+                    <li>Com isso, a equipe considerou a fase de descoberta e mapeamento concluída, abrindo caminho para a etapa de desenvolvimento e configuração do Salesforce conforme as diretrizes acordadas.</li>
+                 </ul>
+                 
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

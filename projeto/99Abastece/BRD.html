@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRD - Requisitos de Negócio | Projeto Salesforce 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    html, body {font-family:'Montserrat',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul, main section.prose ol{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray);} main section.prose li{margin-bottom:.5em;}
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.5em;text-align:left;} main section.prose th{background:#f9fafb;font-weight:600;}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;} .fade-in.visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Business Requirements Document (BRD)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+    <main class="flex-grow w-[90vw] max-w-5xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="brd-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Requisitos de Negócio — Salesforce 99 Abastece</h2>
+        <div class="mb-4"><span class="badge">Inception concluída</span><span class="badge">WhatsApp em homologação</span><span class="badge">Integração API em desenvolvimento</span></div>
+
+        <h3>1. Introdução e Contexto</h3>
+        <p>O projeto Salesforce 99 Abastece visa centralizar e automatizar o processo de contato com motoristas nas categorias <em>churn</em> e <em>never used</em>, substituindo fluxos manuais em planilhas e scripts locais por uma solução integrada nas nuvens Marketing Cloud, Sales Cloud e Digital Engagement. O objetivo é garantir rastreabilidade, governança e aumento da conversão de motoristas reativados.</p>
+
+        <h3>2. Visão Geral da Solução</h3>
+        <ul>
+          <li><strong>Marketing Cloud:</strong> responsável por disparos ativos em massa via WhatsApp, acompanhamento de métricas (envio, entrega, leitura e resposta).</li>
+          <li><strong>Sales Cloud:</strong> responsável pela carga e deduplicação de motoristas, criação e priorização de campanhas, aplicação de regras de periodicidade e exposição de APIs de ranking e metas.</li>
+          <li><strong>Digital Engagement:</strong> canal de comunicação individual (1:1) entre operação e motoristas, integrando com Omni-Channel.</li>
+        </ul>
+        <p>O fluxo do processo (0→8) compreende desde a criação de campanha até a análise de resultados e reenvios conforme regras de retentativa.</p>
+
+        <h3>3. Objetivos de Negócio (KPIs / Metas)</h3>
+        <ul>
+          <li>Aumentar a taxa de conversão de motoristas em até 30% após 3 meses do Go-Live.</li>
+          <li>Reduzir em 95% o esforço manual de manipulação de planilhas e scripts.</li>
+          <li>Eliminar duplicidades de contato e garantir rastreabilidade 100% das conversas.</li>
+          <li>Garantir envio de comunicações a partir de número WhatsApp verificado.</li>
+          <li>Gerar dashboards automáticos de desempenho e metas de conversão.</li>
+        </ul>
+
+        <h3>4. Requisitos Funcionais</h3>
+        <table>
+          <thead><tr><th>ID</th><th>Descrição</th><th>Módulo</th></tr></thead>
+          <tbody>
+            <tr><td>RF001</td><td>Permitir carga manual (CSV) e atualização incremental via API de motoristas.</td><td>Sales Cloud</td></tr>
+            <tr><td>RF002</td><td>Executar rotina de deduplicação e atualização de registros de motoristas.</td><td>Sales Cloud</td></tr>
+            <tr><td>RF003</td><td>Gerar campanhas mensais e atribuir motoristas elegíveis conforme regras de prioridade.</td><td>Sales Cloud</td></tr>
+            <tr><td>RF004</td><td>Disparar mensagens WhatsApp em massa (ativo) via Marketing Cloud.</td><td>Marketing Cloud</td></tr>
+            <tr><td>RF005</td><td>Registrar métricas de envio, leitura e resposta e atualizar status do membro da campanha.</td><td>Marketing Cloud</td></tr>
+            <tr><td>RF006</td><td>Redirecionar respostas para agentes disponíveis no Omni-Channel.</td><td>Digital Engagement</td></tr>
+            <tr><td>RF007</td><td>Registrar oportunidades e associá-las automaticamente às contas (motoristas).</td><td>Sales Cloud</td></tr>
+            <tr><td>RF008</td><td>Encerrar oportunidades após 7 dias sem conversão (D+7).</td><td>Sales Cloud</td></tr>
+            <tr><td>RF009</td><td>Gerar dashboards e relatórios de performance e metas.</td><td>Sales Cloud</td></tr>
+          </tbody>
+        </table>
+
+        <h3>5. Requisitos Não Funcionais</h3>
+        <ul>
+          <li><strong>Performance:</strong> suportar até 40 mil registros processados por ciclo.</li>
+          <li><strong>Disponibilidade:</strong> 99,9% durante horário comercial.</li>
+          <li><strong>Segurança:</strong> segregação de acesso por perfil; dados sensíveis ocultos à Adecco.</li>
+          <li><strong>Escalabilidade:</strong> permitir expansão para novos produtos da 99.</li>
+          <li><strong>Usabilidade:</strong> telas intuitivas e compatíveis com dispositivos desktop padrão.</li>
+        </ul>
+
+        <h3>6. Regras de Negócio</h3>
+        <ul>
+          <li><strong>RB01:</strong> Motoristas duplicados devem ser ignorados e mantidos apenas na campanha mais recente.</li>
+          <li><strong>RB02:</strong> Motorista só pode receber nova mensagem ativa após janela mínima de 7 dias.</li>
+          <li><strong>RB03:</strong> Se motorista responder e não tiver dono, deve ser roteado ao agente com menor carga.</li>
+          <li><strong>RB04:</strong> Após primeiro contato, o motorista pertence fixamente ao mesmo agente.</li>
+          <li><strong>RB05:</strong> Oportunidades encerradas em D+7 são marcadas como “Perdidas”.</li>
+          <li><strong>RB06:</strong> Jornada de retentativas configurada via Marketing Cloud conforme regras de negócio.</li>
+        </ul>
+
+        <h3>7. Requisitos de Integração</h3>
+        <ul>
+          <li>API REST 99 para atualização de abastecimentos (Driver ID, data, status).</li>
+          <li>Integração WhatsApp via Marketing Cloud com mensagens HSM aprovadas.</li>
+          <li>Sincronização de logs de disparos e respostas entre MC e Sales Cloud.</li>
+          <li>Omni-Channel integrado a Digital Engagement para roteamento inteligente.</li>
+        </ul>
+
+        <h3>8. Requisitos de Relatórios e Métricas</h3>
+        <ul>
+          <li>Dashboard de desempenho de campanhas e taxa de resposta.</li>
+          <li>Relatório de conversão por analista e por campanha.</li>
+          <li>Ranking de performance e bonificação automática baseada em metas.</li>
+          <li>Monitoramento de erros de carga e duplicidades.</li>
+        </ul>
+
+        <h3>9. Premissas e Restrições</h3>
+        <ul>
+          <li>A 99 providenciará número WhatsApp verificado e pacote de mensagens.</li>
+          <li>A API Python será adaptada para enviar dados diários.</li>
+          <li>Volume inicial de dados limitado a 40k motoristas por carga.</li>
+          <li>LGPD aplicada: Adecco acessa apenas sua carteira.</li>
+        </ul>
+
+        <h3>10. Critérios de Aceite</h3>
+        <ul>
+          <li>Fluxo completo validado do disparo ao atendimento 1:1.</li>
+          <li>Integrações testadas e operacionais (API + WhatsApp).</li>
+          <li>Relatórios funcionais e validados pelos sponsors.</li>
+          <li>Treinamento realizado com a equipe Adecco e 99.</li>
+        </ul>
+
+        <h3>11. Riscos de Negócio e Dependências</h3>
+        <table>
+          <thead><tr><th>Risco</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+          <tbody>
+            <tr><td>Demora na homologação do número WhatsApp</td><td>Alto</td><td>Iniciar processo com antecedência; plano alternativo.</td></tr>
+            <tr><td>Falta de adesão dos analistas Adecco</td><td>Médio</td><td>Treinamento + acompanhamento no Hypercare.</td></tr>
+            <tr><td>Atraso na API de abastecimento</td><td>Alto</td><td>Simulação via uploads manuais provisórios.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>12. Aprovações</h3>
+        <table>
+          <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Victoria Candelario</td><td>Líder de Negócio 99</td><td></td><td></td></tr>
+            <tr><td>Pedro</td><td>Head de Operações 99</td><td></td><td></td></tr>
+            <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      feather.replace();
+      const fades=document.querySelectorAll('.fade-in');
+      if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});fades.forEach(el=>io.observe(el));}else{fades.forEach(el=>el.classList.add('visible'));}
+    });
+  </script>
+</body>
+</html>

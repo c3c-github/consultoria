@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mapa de Stakeholders - Projeto 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    html, body { font-family:'Montserrat',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; width:100%;}
+    :root{ --c3c-teal:#1DDDBD; --c3c-blue:#2978FF; --c3c-blue-darker:#1c5fd6; --c3c-teal-darker:#17b8a5;}
+    .brand-color{color:var(--c3c-blue);} .brand-bg{background-color:var(--c3c-blue);} .brand-accent-bg{background-color:var(--c3c-teal);}
+    .section-title{border-bottom:2px solid var(--c3c-blue); padding-bottom:.5rem; color:var(--c3c-blue); font-size:1.75rem; font-weight:700; margin-bottom:2rem;}
+    .fade-in{opacity:0; transform:translateY(20px); transition:opacity .6s ease-out, transform .6s ease-out;} .fade-in.visible{opacity:1; transform:translateY(0);}
+    main section.prose h2{font-size:1.5em; border-bottom:1px solid #e5e7eb; padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em; line-height:1.6; color:#4b5563;}
+    main section.prose table{width:100%; border-collapse:collapse; margin-bottom:1em; font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db; padding:.5em; text-align:left;} main section.prose th{background:#f9fafb; font-weight:600;}
+    .badge{display:inline-flex; align-items:center; gap:.4rem; padding:.2rem .5rem; border-radius:9999px; font-size:.72rem; font-weight:600; border:1px solid #e5e7eb; background:#f9fafb; color:#374151;}
+    .legend-dot{width:.6rem; height:.6rem; border-radius:9999px; display:inline-block;}
+    .dot-blue{background:#2978FF;} .dot-teal{background:#1DDDBD;} .dot-gray{background:#9ca3af;} .dot-red{background:#ef4444;} .dot-amber{background:#f59e0b;}
+    .grid-quadrant{min-height:170px; border:1px dashed #d1d5db; padding:.75rem; border-radius:.75rem; background:#fbfdff;}
+    .pill{display:inline-block; padding:.15rem .5rem; border-radius:9999px; font-size:.72rem; border:1px solid #e5e7eb; background:#fff;}
+    .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New", monospace;font-size:.75rem;background:#fff}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="logo-container h-full flex items-center">
+            <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]"
+                 onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color\'>C3C</span>';">
+          </div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Mapa de Stakeholders</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-5xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section class="fade-in prose max-w-none prose-sm sm:prose-base" id="stakeholder-map">
+        <h2 class="section-title not-prose">Mapa de Stakeholders & Estratégias de Engajamento</h2>
+
+        <!-- Destaques -->
+        <div class="not-prose grid sm:grid-cols-3 gap-3 mb-6">
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-blue"></span> Sponsors</div>
+            <div class="mt-1 text-sm">Pedro (Head Ops) e Victoria Candelario (Líder de Negócio) — alta influência, alta prioridade.</div>
+          </div>
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-teal"></span> Operação</div>
+            <div class="mt-1 text-sm">Roberta (base mestre), Thaís (Adecco) e analistas — adoção e rotina diária.</div>
+          </div>
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-amber"></span> Dependências</div>
+            <div class="mt-1 text-sm">Equipe Telecom (número WhatsApp), Isaac (API Python) — riscos de cronograma.</div>
+          </div>
+        </div>
+
+        <h3>1) Registro de Stakeholders</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th><th>Organização</th><th>Papel</th><th>Influência</th><th>Interesse</th><th>Expectativas</th><th>Engajamento Target</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Pedro</td><td>99</td><td>Sponsor Executivo</td><td>Alta</td><td>Alta</td><td>Time-to-value, governança, escala</td><td>Gerenciar de perto</td></tr>
+            <tr><td>Victoria Candelario</td><td>99</td><td>Product Owner / Sponsor</td><td>Alta</td><td>Alta</td><td>Visibilidade E2E, métricas, adoção</td><td>Gerenciar de perto</td></tr>
+            <tr><td>Roberta Noronha</td><td>99</td><td>SME Operações / Base Mestre</td><td>Média</td><td>Alta</td><td>Facilidade de carga, dedupe, menos retrabalho</td><td>Manter satisfeita</td></tr>
+            <tr><td>Isaac</td><td>99</td><td>Técnico (Python/API)</td><td>Média</td><td>Média</td><td>Especificação clara, janelas de teste</td><td>Manter informado</td></tr>
+            <tr><td>Thaís Santana</td><td>Adecco</td><td>Supervisão</td><td>Média</td><td>Alta</td><td>Operação fluida, transferência de atendimentos</td><td>Manter satisfeita</td></tr>
+            <tr><td>Analistas Adecco</td><td>Adecco</td><td>Usuários Finais</td><td>Baixa</td><td>Alta</td><td>Interface simples, roteamento justo</td><td>Manter informados</td></tr>
+            <tr><td>Equipe Telecom</td><td>99</td><td>WhatsApp Business</td><td>Média</td><td>Média</td><td>Número verificado e HSMs aprovados</td><td>Monitorar</td></tr>
+            <tr><td>Karine Cunha</td><td>C3C</td><td>Gerente de Projeto</td><td>Alta</td><td>Alta</td><td>Entrega por sprints, gestão de riscos</td><td>Gerenciar de perto</td></tr>
+            <tr><td>Priscila G. Petroni</td><td>C3C</td><td>Consultora Funcional</td><td>Média</td><td>Alta</td><td>Alinhamento de regras e UX</td><td>Manter satisfeita</td></tr>
+            <tr><td>Tarcísio A. de Paula</td><td>C3C</td><td>Dev / Integrações</td><td>Média</td><td>Média</td><td>Decisões técnicas claras</td><td>Manter informado</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2) Matriz Poder x Interesse</h3>
+        <div class="not-prose grid sm:grid-cols-2 gap-4">
+          <div class="grid-quadrant">
+            <div class="text-xs text-gray-500 mb-2"><strong>Alta Influência / Alta Interesse</strong> — <span class="pill">Gerenciar de Perto</span></div>
+            <ul class="text-sm list-disc pl-5">
+              <li><span class="legend-dot dot-blue"></span> Pedro (99) — Sponsor</li>
+              <li><span class="legend-dot dot-blue"></span> Victoria Candelario (99) — PO/Sponsor</li>
+              <li><span class="legend-dot dot-gray"></span> Karine Cunha (C3C) — GP</li>
+            </ul>
+          </div>
+          <div class="grid-quadrant">
+            <div class="text-xs text-gray-500 mb-2"><strong>Alta Influência / Baixo Interesse</strong> — <span class="pill">Manter Satisfeitos</span></div>
+            <ul class="text-sm list-disc pl-5">
+              <li><span class="legend-dot dot-teal"></span> Roberta (99) — SME</li>
+            </ul>
+          </div>
+          <div class="grid-quadrant">
+            <div class="text-xs text-gray-500 mb-2"><strong>Baixa Influência / Alta Interesse</strong> — <span class="pill">Manter Informados</span></div>
+            <ul class="text-sm list-disc pl-5">
+              <li><span class="legend-dot dot-teal"></span> Thaís (Adecco) & Analistas</li>
+              <li><span class="legend-dot dot-gray"></span> Priscila (C3C), Tarcísio (C3C)</li>
+            </ul>
+          </div>
+          <div class="grid-quadrant">
+            <div class="text-xs text-gray-500 mb-2"><strong>Baixa Influência / Baixo Interesse</strong> — <span class="pill">Monitorar</span></div>
+            <ul class="text-sm list-disc pl-5">
+              <li><span class="legend-dot dot-gray"></span> Equipe Telecom (99)</li>
+              <li><span class="legend-dot dot-gray"></span> Outras áreas Salesforce 99</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>3) Plano de Comunicação</h3>
+        <table>
+          <thead>
+            <tr><th>Canal</th><th>Público</th><th>Objetivo</th><th>Frequência</th><th>Formato</th><th>Dono</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Daily 10h</td><td>C3C + 99 + Adecco (núcleo)</td><td>Status, bloqueios, próximos passos</td><td>Diária (15min)</td><td>Reunião rápida</td><td>Karine</td></tr>
+            <tr><td>Checkpoint Semanal</td><td>Sponsors + PO + GP</td><td>Avanço das sprints, riscos e decisões</td><td>Semanal</td><td>Slides + Demo</td><td>Karine / Priscila</td></tr>
+            <tr><td>Atualização Técnica</td><td>Isaac + Dev C3C</td><td>API abastecimento / integrações</td><td>Conforme necessidade</td><td>Documento + Canal</td><td>Tarcísio</td></tr>
+            <tr><td>Treinamento</td><td>Adecco + 99 Operação</td><td>Onboarding e adoção</td><td>Pré Go-Live</td><td>Hands-on / Guia</td><td>Priscila</td></tr>
+            <tr><td>Relatórios & Dashboards</td><td>Sponsors / Gestão</td><td>Métricas e metas</td><td>Contínuo (near real-time)</td><td>Reports/Dashboards</td><td>Priscila</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4) Estratégias de Engajamento</h3>
+        <table>
+          <thead><tr><th>Stakeholder</th><th>Necessidades/Preocupações</th><th>Mensagem-Chave</th><th>Ações</th><th>Sinais de Risco</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Pedro</td><td>ROI rápido, previsibilidade</td><td>Roadmap claro, marcos entregues</td>
+              <td>Checkpoint semanal; OKRs de conversão</td><td>Ausência em check-ins; pedidos ad hoc</td>
+            </tr>
+            <tr>
+              <td>Victoria</td><td>Visibilidade E2E, governança</td><td>Dashboards e rastreabilidade total</td>
+              <td>Cabines de decisão quinzenais</td><td>Escopo difuso; métricas sem dono</td>
+            </tr>
+            <tr>
+              <td>Roberta</td><td>Menos retrabalho, dedupe confiável</td><td>Base mestre com logs e upsert</td>
+              <td>Piloto de carga + checklist</td><td>Reprocessamentos frequentes</td>
+            </tr>
+            <tr>
+              <td>Thaís & Analistas</td><td>Interface simples, roteamento justo</td><td>Omni + carteira fixa após 1ª resposta</td>
+              <td>Treinamento prático, playbook</td><td>Tempo de atendimento alto</td>
+            </tr>
+            <tr>
+              <td>Isaac</td><td>Especificação clara, janelas de testes</td><td>Endpoints estáveis e versionados</td>
+              <td>Ambiente de teste + mocks</td><td>Erros intermitentes no envio</td>
+            </tr>
+            <tr>
+              <td>Telecom 99</td><td>Número e HSM aprovados</td><td>Demanda e prazos documentados</td>
+              <td>Tickets abertos cedo; follow-up</td><td>Aprovação travada</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>5) RACI (alto nível)</h3>
+        <table>
+          <thead><tr><th>Entregável</th><th>R</th><th>A</th><th>C</th><th>I</th></tr></thead>
+          <tbody>
+            <tr><td>Arquitetura & Configuração Salesforce</td><td>C3C (Priscila/Tarcísio)</td><td>Karine</td><td>Victoria/Roberta</td><td>Pedro, Adecco</td></tr>
+            <tr><td>WhatsApp (número/HSM)</td><td>Telecom 99</td><td>Pedro/Victoria</td><td>C3C</td><td>Adecco</td></tr>
+            <tr><td>API Abastecimento</td><td>Isaac (99)</td><td>Victoria</td><td>C3C</td><td>Pedro</td></tr>
+            <tr><td>Omni-Channel & Regras</td><td>C3C</td><td>Karine</td><td>Thaís/Roberta</td><td>Analistas</td></tr>
+            <tr><td>Relatórios & Dashboards</td><td>C3C</td><td>Karine</td><td>Victoria</td><td>Pedro</td></tr>
+            <tr><td>Treinamento & Hypercare</td><td>C3C</td><td>Karine</td><td>Thaís/Roberta</td><td>Pedro/Victoria</td></tr>
+          </tbody>
+        </table>
+
+        <h3>6) Rede de Influência (simplificada)</h3>
+        <ul>
+          <li><strong>Pedro</strong> ⇄ <strong>Victoria</strong> (decisões executivas)</li>
+          <li><strong>Victoria</strong> ⇄ <strong>Roberta</strong> (operações/indicadores)</li>
+          <li><strong>Victoria</strong> ⇄ <strong>Karine</strong> (priorização & escopo)</li>
+          <li><strong>Roberta</strong> ⇄ <strong>Isaac</strong> (dados/API)</li>
+          <li><strong>Karine</strong> ⇄ <strong>Priscila/Tarcísio</strong> (execução)</li>
+          <li><strong>Thaís</strong> ⇄ <strong>Analistas</strong> (adoção/feedback)</li>
+          <li><strong>Telecom 99</strong> ⇄ <strong>Pedro/Victoria</strong> (aprovações WhatsApp)</li>
+        </ul>
+
+        <h3>7) Critérios de mudança de engajamento</h3>
+        <p>Revisar a cada sprint sinais objetivos (ex.: <span class="kbd">atrasos</span>, <span class="kbd">baixa presença</span>, <span class="kbd">retrabalho</span>, <span class="kbd">NPS interno</span>). Ajustar cadência, mensagens e ações por stakeholder.</p>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+
+  <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+    <i data-feather="arrow-up" class="h-6 w-6"></i>
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      try { feather.replace(); } catch(e){ console.error(e); }
+      const btn = document.getElementById('scrollToTopBtn');
+      window.addEventListener('scroll',()=>btn.classList.toggle('hidden', window.scrollY < 300));
+      btn.addEventListener('click',()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+      const fades = document.querySelectorAll('.fade-in');
+      if("IntersectionObserver" in window){
+        const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); }}),{threshold:0.1});
+        fades.forEach(el=> io.observe(el));
+      } else { fades.forEach(el=> el.classList.add('visible')); }
+    });
+  </script>
+</body>
+</html>

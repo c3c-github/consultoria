@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapeamento TO-BE - 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray);} main section.prose li{margin-bottom:.5em;}
+    .grid-card{border:1px solid #e5e7eb;background:#f9fafb;border-radius:.75rem;padding:1rem;margin-bottom:1rem;}
+    .legend .dot{width:.65rem;height:.65rem;border-radius:9999px;display:inline-block;margin-right:.35rem;}
+    .dot-blue{background:#2978FF;} .dot-teal{background:#1DDDBD;} .dot-amber{background:#f59e0b;}
+    .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-size:.75rem;background:#fff}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Mapeamento do Processo Futuro (TO-BE)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[180px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Mapeamento do TO-BE — 99 Abastece</h2>
+        <div class="mb-4">
+          <span class="badge">Arquitetura: MC + Sales Cloud + Digital Engagement</span>
+          <span class="badge">Omni-Channel com carteira fixa</span>
+          <span class="badge">Janela D+7 automatizada</span>
+        </div>
+
+        <h3>1. Objetivo</h3>
+        <p>Desenhar o processo futuro integrado no Salesforce para escalar o contato com motoristas (churn / never used), garantir rastreabilidade via WhatsApp Business API, automatizar priorização/roteamento e medir conversão fim‑a‑fim.</p>
+
+        <h3>2. Macrofluxo TO-BE (com swimlanes)</h3>
+        <div class="legend text-sm mb-2">
+          <span class="dot dot-blue"></span>Sales Cloud
+          &nbsp;&nbsp;<span class="dot dot-teal"></span>Marketing Cloud
+          &nbsp;&nbsp;<span class="dot dot-amber"></span>Digital Engagement / Omni
+        </div>
+        <div class="svg-wrap not-prose">
+          <!-- Responsive SVG swimlane diagram -->
+          <svg viewBox="0 0 1200 520" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="Fluxo TO-BE 99 Abastece">
+            <!-- Swimlanes -->
+            <rect x="20" y="40" width="1160" height="140" fill="#f0f7ff" stroke="#d1e3ff"/>
+            <rect x="20" y="220" width="1160" height="140" fill="#ecfffb" stroke="#bdf3ea"/>
+            <rect x="20" y="400" width="1160" height="100" fill="#fff7eb" stroke="#fde1b3"/>
+            <text x="30" y="30" font-size="14" fill="#374151" font-weight="600">Sales Cloud</text>
+            <text x="30" y="210" font-size="14" fill="#374151" font-weight="600">Marketing Cloud</text>
+            <text x="30" y="390" font-size="14" fill="#374151" font-weight="600">Digital Engagement / Omni</text>
+
+            <!-- Sales Cloud boxes -->
+            <g fill="#2978FF" opacity="0.9">
+              <rect x="60" y="70" rx="8" ry="8" width="230" height="60"/>
+              <rect x="320" y="70" rx="8" ry="8" width="230" height="60"/>
+              <rect x="580" y="70" rx="8" ry="8" width="230" height="60"/>
+              <rect x="840" y="70" rx="8" ry="8" width="260" height="60"/>
+            </g>
+            <g fill="#fff">
+              <text x="175" y="105" text-anchor="middle" font-size="12">Carga + Dedupe (CSV/API)</text>
+              <text x="435" y="105" text-anchor="middle" font-size="12">Campanha + Membros</text>
+              <text x="695" y="105" text-anchor="middle" font-size="12">Priorização Agendada</text>
+              <text x="970" y="105" text-anchor="middle" font-size="12">API Ranking + Metas</text>
+            </g>
+
+            <!-- Arrows Sales Cloud -->
+            <g stroke="#6b7280" stroke-width="2" fill="none">
+              <line x1="290" y1="100" x2="320" y2="100"/><polygon points="320,100 312,95 312,105" fill="#6b7280"/>
+              <line x1="550" y1="100" x2="580" y2="100"/><polygon points="580,100 572,95 572,105" fill="#6b7280"/>
+              <line x1="810" y1="100" x2="840" y2="100"/><polygon points="840,100 832,95 832,105" fill="#6b7280"/>
+            </g>
+
+            <!-- Down arrow to MC -->
+            <g stroke="#6b7280" stroke-width="2" fill="none">
+              <line x1="810" y1="130" x2="810" y2="220"/><polygon points="810,220 805,212 815,212" fill="#6b7280"/>
+            </g>
+
+            <!-- Marketing Cloud boxes -->
+            <g fill="#1DDDBD" opacity="0.9">
+              <rect x="720" y="250" rx="8" ry="8" width="200" height="60"/>
+              <rect x="960" y="250" rx="8" ry="8" width="200" height="60"/>
+            </g>
+            <g fill="#043d35">
+              <text x="820" y="285" text-anchor="middle" font-size="12" fill="#064e3b">Criar Opp + Disparo Ativo</text>
+              <text x="1060" y="285" text-anchor="middle" font-size="12" fill="#064e3b">Atualizar Status Campanha</text>
+            </g>
+
+            <!-- Arrow to DE/Omni -->
+            <g stroke="#6b7280" stroke-width="2" fill="none">
+              <line x1="1060" y1="310" x2="1060" y2="400"/><polygon points="1060,400 1055,392 1065,392" fill="#6b7280"/>
+            </g>
+
+            <!-- Digital Engagement / Omni boxes -->
+            <g fill="#f59e0b" opacity="0.95">
+              <rect x="900" y="420" rx="8" ry="8" width="240" height="50"/>
+              <rect x="620" y="420" rx="8" ry="8" width="240" height="50"/>
+              <rect x="340" y="420" rx="8" ry="8" width="240" height="50"/>
+            </g>
+            <g fill="#111827">
+              <text x="1020" y="450" text-anchor="middle" font-size="12">Roteamento Omni (ocioso/dono)</text>
+              <text x="740" y="450" text-anchor="middle" font-size="12">Atendimento 1:1 + Histórico</text>
+              <text x="460" y="450" text-anchor="middle" font-size="12">Follow-ups Não Respondidos</text>
+            </g>
+
+            <!-- Up arrow to Sales Cloud for D+7 result -->
+            <g stroke="#6b7280" stroke-width="2" fill="none">
+              <line x1="460" y1="420" x2="460" y2="220"/>
+              <line x1="460" y1="220" x2="460" y2="130"/>
+              <polygon points="460,130 455,138 465,138" fill="#6b7280"/>
+            </g>
+            <g fill="#374151">
+              <text x="480" y="245" font-size="12">Retorno/Status</text>
+            </g>
+
+            <!-- Sales Cloud D+7 -->
+            <g fill="#2978FF" opacity="0.9">
+              <rect x="60" y="70" rx="8" ry="8" width="230" height="60" opacity="0"/>
+              <rect x="60" y="150" rx="8" ry="8" width="230" height="30"/>
+            </g>
+            <g fill="#fff">
+              <text x="175" y="170" text-anchor="middle" font-size="12">Janela D+7: Ganha/Perdida</text>
+            </g>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Figura 1 — Macrofluxo TO‑BE com responsabilidades por plataforma.</p>
+
+        <h3>3. Descrição das Etapas (0 → 8)</h3>
+        <ol>
+          <li><strong>0 –</strong> Planejamento de metas e criação/ativação da campanha.</li>
+          <li><strong>1 –</strong> Carga (CSV/API) + dedupe → upsert de Contas e Membros.</li>
+          <li><strong>2 –</strong> Job de priorização atualiza status para envio.</li>
+          <li><strong>3 –</strong> MC cria Oportunidade, dispara WhatsApp e registra métricas.</li>
+          <li><strong>4 –</strong> Resposta do motorista → Omni encaminha ao analista com menor carga (ou mantém dono atual).</li>
+          <li><strong>5 –</strong> Atendimento 1:1; consultas (descontos, mapa); atualização de status da Opp/Membro.</li>
+          <li><strong>6 –</strong> Janela de conversão D+7: ganho automático (via API abastecimento) ou perda.</li>
+          <li><strong>7 –</strong> Não respondidos → jornadas de retentativa parametrizadas.</li>
+          <li><strong>8 –</strong> Dashboards e metas (campanha, vendedor, conversão).</li>
+        </ol>
+
+        <h3>4. Regras de Negócio Chave</h3>
+        <ul>
+          <li><strong>Deduplicação</strong> na carga; manutenção em campanha mais recente.</li>
+          <li><strong>Carteira fixa</strong> após primeira resposta; exceção via transferência controlada.</li>
+          <li><strong>D+7</strong> encerra oportunidade automaticamente sem abastecimento.</li>
+          <li><strong>Retentativas</strong> por jornadas MC conforme estratégia.</li>
+          <li><strong>LGPD</strong>: Adecco visualiza apenas sua carteira diária.</li>
+        </ul>
+
+        <h3>5. Objetos & Integrações</h3>
+        <ul>
+          <li><strong>Contas (Motorista)</strong>, <strong>Campanha/Membro</strong>, <strong>Oportunidade</strong> (ciclo D+7), <strong>Conversas</strong> (DE).</li>
+          <li><strong>WhatsApp Business API</strong> (número verificado, HSM aprovados).</li>
+          <li><strong>API Abastecimento 99</strong> (Driver ID, data/hora, status de abastecimento).</li>
+          <li><strong>Omni-Channel</strong> (roteamento por ociosidade/dono).</li>
+        </ul>
+
+        <h3>6. Métricas e Painéis</h3>
+        <ul>
+          <li>Taxa de resposta, taxa de conversão D+7, volume/dia, funil por fases.</li>
+          <li>Ranking por analista e campanha; erros de carga/dedupe.</li>
+          <li>Adesão dos usuários (uso do DE/Omni, tempo de atendimento).</li>
+        </ul>
+
+        <h3>7. Mudanças vs. AS-IS (resumo)</h3>
+        <div class="grid-card">
+          <ul>
+            <li><span class="kbd">Planilhas →</span> <strong>Salesforce</strong> com carga, dedupe e logs.</li>
+            <li><span class="kbd">WhatsApp pessoal →</span> <strong>WhatsApp Business API</strong> centralizado.</li>
+            <li><span class="kbd">Divisão manual →</span> <strong>Omni-Channel</strong> por ociosidade/carteira.</li>
+            <li><span class="kbd">Controle difuso →</span> <strong>Dashboards</strong> e rastreabilidade total.</li>
+          </ul>
+        </div>
+
+        <h3>8. Próximos Passos</h3>
+        <ul>
+          <li>Detalhar campos, layouts e permission sets.</li>
+          <li>Especificar endpoints da API de abastecimento e contratos de erro.</li>
+          <li>Homologar HSMs e número WhatsApp; configurar DE/Omni.</li>
+          <li>Construir casos de teste SIT/UAT e plano de treinamento.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

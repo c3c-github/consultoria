@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERD - Modelo de Dados | 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray);} main section.prose li{margin-bottom:.5em;}
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.5em;text-align:left;} main section.prose th{background:#f9fafb;font-weight:600;}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Entity Relationship Diagram (ERD)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="erd" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Modelo de Dados — Salesforce 99 Abastece</h2>
+        <div class="mb-4">
+          <span class="badge">Arquitetura validada</span>
+          <span class="badge">Campos padrão Salesforce</span>
+          <span class="badge">ERD v1.0</span>
+        </div>
+
+        <h3>1. Introdução e Objetivo</h3>
+        <p>O modelo de dados do projeto 99 Abastece foi desenhado para suportar os processos de engajamento e reativação de motoristas dentro do ecossistema Salesforce, integrando <strong>Sales Cloud</strong>, <strong>Marketing Cloud</strong> e <strong>Digital Engagement</strong>. O ERD documenta a relação entre as entidades principais e os objetos técnicos envolvidos, garantindo consistência, escalabilidade e governança.</p>
+
+        <h3>2. Visão Geral do Modelo</h3>
+        <p>O modelo centraliza os motoristas (Account) e relaciona-os às campanhas de comunicação (Campaign e CampaignMember), às oportunidades geradas (Opportunity) e às interações registradas via Digital Engagement (Conversation). Entidades auxiliares como <em>IntegrationLog__c</em> registram transações e logs técnicos.</p>
+
+        <h3>3. Diagrama Entidade-Relacionamento (ERD)</h3>
+        <div class="svg-wrap not-prose">
+          <svg viewBox="0 0 950 600" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+            <!-- Entities -->
+            <rect x="380" y="40" width="200" height="80" rx="10" fill="#e8f0ff" stroke="#2978FF"/>
+            <text x="480" y="70" font-size="14" text-anchor="middle" font-weight="700" fill="#1e3a8a">Account</text>
+            <text x="480" y="90" font-size="12" text-anchor="middle" fill="#1e3a8a">Motorista / DriverID__c</text>
+
+            <rect x="60" y="180" width="200" height="80" rx="10" fill="#e8f0ff" stroke="#2978FF"/>
+            <text x="160" y="210" font-size="14" text-anchor="middle" font-weight="700" fill="#1e3a8a">Campaign</text>
+            <text x="160" y="230" font-size="12" text-anchor="middle" fill="#1e3a8a">Campanha de Envio</text>
+
+            <rect x="380" y="180" width="200" height="80" rx="10" fill="#e8f0ff" stroke="#2978FF"/>
+            <text x="480" y="210" font-size="14" text-anchor="middle" font-weight="700" fill="#1e3a8a">CampaignMember</text>
+            <text x="480" y="230" font-size="12" text-anchor="middle" fill="#1e3a8a">Status / Prioridade</text>
+
+            <rect x="700" y="180" width="200" height="80" rx="10" fill="#e8f0ff" stroke="#2978FF"/>
+            <text x="800" y="210" font-size="14" text-anchor="middle" font-weight="700" fill="#1e3a8a">Opportunity</text>
+            <text x="800" y="230" font-size="12" text-anchor="middle" fill="#1e3a8a">CloseDate / Stage</text>
+
+            <rect x="380" y="340" width="200" height="80" rx="10" fill="#fef9c3" stroke="#f59e0b"/>
+            <text x="480" y="370" font-size="14" text-anchor="middle" font-weight="700" fill="#78350f">Conversation</text>
+            <text x="480" y="390" font-size="12" text-anchor="middle" fill="#92400e">Omni / Histórico</text>
+
+            <rect x="380" y="500" width="200" height="80" rx="10" fill="#dcfce7" stroke="#16a34a"/>
+            <text x="480" y="530" font-size="14" text-anchor="middle" font-weight="700" fill="#065f46">IntegrationLog__c</text>
+            <text x="480" y="550" font-size="12" text-anchor="middle" fill="#065f46">APIs / Eventos / Erros</text>
+
+            <!-- Relationships -->
+            <g stroke="#6b7280" stroke-width="2">
+              <line x1="260" y1="220" x2="380" y2="220"/>
+              <text x="320" y="205" font-size="11" fill="#4b5563">1 : N</text>
+
+              <line x1="580" y1="220" x2="700" y2="220"/>
+              <text x="640" y="205" font-size="11" fill="#4b5563">1 : N</text>
+
+              <line x1="480" y1="120" x2="480" y2="180"/>
+              <text x="490" y="150" font-size="11" fill="#4b5563">1 : N</text>
+
+              <line x1="480" y1="260" x2="480" y2="340"/>
+              <text x="490" y="300" font-size="11" fill="#4b5563">1 : 1</text>
+
+              <line x1="480" y1="420" x2="480" y2="500"/>
+              <text x="490" y="460" font-size="11" fill="#4b5563">1 : N</text>
+            </g>
+
+            <!-- Legend -->
+            <rect x="700" y="500" width="200" height="80" rx="8" fill="#f9fafb" stroke="#d1d5db"/>
+            <text x="800" y="520" text-anchor="middle" font-weight="700" font-size="12" fill="#374151">Legenda</text>
+            <text x="800" y="540" text-anchor="middle" font-size="11" fill="#4b5563">Azul: Dados Salesforce</text>
+            <text x="800" y="555" text-anchor="middle" font-size="11" fill="#4b5563">Amarelo: Conversas Omni</text>
+            <text x="800" y="570" text-anchor="middle" font-size="11" fill="#4b5563">Verde: Logs Técnicos</text>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Figura 1 — Modelo de dados relacional entre entidades Salesforce e componentes de integração.</p>
+
+        <h3>4. Descrição das Entidades</h3>
+        <table>
+          <thead><tr><th>Entidade</th><th>Campos Principais</th><th>Descrição</th></tr></thead>
+          <tbody>
+            <tr><td>Account</td><td>DriverID__c, Name, Phone</td><td>Representa o motorista. O campo DriverID__c é a chave externa principal (External ID).</td></tr>
+            <tr><td>Campaign</td><td>Name, StartDate, EndDate, Type</td><td>Define campanhas mensais e jornadas de comunicação.</td></tr>
+            <tr><td>CampaignMember</td><td><strong>Status</strong>, Priority__c</td><td>Relaciona contas às campanhas, com status padrão Salesforce.</td></tr>
+            <tr><td>Opportunity</td><td><strong>CloseDate</strong>, StageName, OwnerId</td><td>Representa a meta de conversão (abastecimento).</td></tr>
+            <tr><td>Conversation</td><td>Transcript, FirstResponseDate</td><td>Histórico das mensagens trocadas via Digital Engagement.</td></tr>
+            <tr><td>IntegrationLog__c</td><td>IntegrationType, Status, ErrorMessage</td><td>Armazena logs técnicos de integrações e APIs externas.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>5. Relacionamentos e Cardinalidades</h3>
+        <ul>
+          <li><strong>Account ↔ CampaignMember:</strong> relação N:M, intermediada por CampaignMember.</li>
+          <li><strong>Campaign ↔ CampaignMember:</strong> uma campanha possui vários membros.</li>
+          <li><strong>CampaignMember ↔ Opportunity:</strong> um membro de campanha pode gerar várias oportunidades.</li>
+          <li><strong>Opportunity ↔ Conversation:</strong> relação 1:1 para rastrear o histórico da conversa que originou a conversão.</li>
+          <li><strong>Opportunity ↔ IntegrationLog__c:</strong> relação 1:N para controle de integrações e eventos técnicos.</li>
+        </ul>
+
+        <h3>6. Padrões Técnicos e Campos Padrão Salesforce</h3>
+        <ul>
+          <li>Uso do campo padrão <strong>CampaignMember.Status</strong> para controle de progresso e envio.</li>
+          <li>Uso do campo padrão <strong>Opportunity.CloseDate</strong> para encerramento e cálculo de meta.</li>
+          <li>DriverID__c configurado como <em>External ID</em> e Indexado.</li>
+        </ul>
+
+        <h3>7. Governança e Performance</h3>
+        <ul>
+          <li>Relacionamentos otimizados com uso de External ID e campos indexados.</li>
+          <li>Field History Tracking ativo em objetos Account, CampaignMember e Opportunity.</li>
+          <li>Logs técnicos centralizados no objeto <em>IntegrationLog__c</em> com retenção de 90 dias.</li>
+          <li>Uso de Platform Events para registro de eventos de integração e alertas técnicos.</li>
+        </ul>
+
+        <h3>8. Aprovações</h3>
+        <table>
+          <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor)</td><td></td><td></td></tr>
+            <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+            <tr><td>Tarcísio A. de Paula</td><td>Arquiteto Técnico C3C</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

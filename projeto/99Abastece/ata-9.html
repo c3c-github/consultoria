@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 9 (22/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 9 (22/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 9 (22/Out/2025)</h2>
+                 <!-- Dados Iniciais -->
+                 <div class="mb-6">
+                    <p><strong>Assunto da Reunião:</strong> Inception 99 Abastece - Sprint 1 - Outubro/2025</p>
+                    <p><strong>Cliente:</strong> 99 App</p>
+                    <p><strong>Projeto:</strong> Implementação Salesforce - 99 Abastece</p>
+                    <p><strong>Data da Reunião:</strong> 22/10/2025</p>
+                    <p><strong>Horário:</strong> 10h às 12h</p>
+                    <p><strong>Local:</strong> Microsoft Teams</p>
+                    <p><strong>Autor da Ata:</strong> Priscila G. Petroni</p>
+                 </div>
+                 
+                 <!-- Participantes -->
+                 <h4>Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa</th>
+                             <th>Área</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr><td>Roberta Noronha</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Victoria Candelario</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Tarcisio Alex Almeida de Paula</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Karine Cunha</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Priscila G. Petroni</td><td>C3C</td><td>Projetos C3C</td></tr>
+                     </tbody>
+                 </table>
+
+                 <!-- Motivação -->
+                 <h4>Motivação</h4>
+                 <p>A reunião teve como foco a análise detalhada do processo operacional atual de gestão de base e abordagem dos motoristas, conduzida pela Roberta, e o início da estruturação técnica da modelagem Salesforce. O objetivo foi garantir clareza total sobre as regras operacionais e fluxos de dados que serão traduzidos para a solução tecnológica.</p>
+                 
+                 <!-- Resumo da Reunião -->
+                 <h4>Resumo da Reunião</h4>
+                 <ol>
+                    <li><strong>Abertura - Validação do desenho do processo</strong>
+                        <ul>
+                            <li>A reunião iniciou com a apresentação e validação do desenho de processo realizada por Priscila junto à Roberta. O artefato (fluxo macro) foi utilizado como espinha dorsal de alinhamento, revisando:</li>
+                            <li>Entradas: base-mestre (churn/never used), regras de elegibilidade e periodicidade de atualização;</li>
+                            <li>Atividades centrais: seleção e distribuição diária para a equipe terceirizada, acionamento via WhatsApp, acompanhamento do retorno do motorista e controle da janela de conversão ($\text{D}+7$);</li>
+                            <li>Saídas: atualização de status, identificação de abastecimentos orgânicos, reposição da base e indicadores de conversão.</li>
+                            <li>A validação confirmou a coerência do fluxo com a prática operacional e gerou anotações para ajustes finos no detalhamento.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Operação atual da base e distribuição</strong>
+                        <ul>
+                            <li>Roberta detalhou o ciclo mensal: extração via SQL do Data Lake, tratamento com Python e manutenção em Google Sheets. A base mensal gira em torno de 40 mil motoristas, com distribuição diária de aproximadamente 10 mil registros à equipe terceirizada, conforme capacidade. Cada analista trabalha cerca de 135 contatos/dia.</li>
+                            <li>A prioridade operacional recai sobre Churn 30-60 dias; os grupos 60-90 dias e 90 plus complementam o volume. Never Used é tratado em frentes mais educativas, dada a conversão menor.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Atualizações, elegibilidade e virada de mês</strong>
+                        <ul>
+                            <li>Foi revisada a rotina de atualização de elegibilidade e níveis no último dia do mês, quando há inclusão e exclusão de perfis conforme o comportamento de abastecimento.</li>
+                            <li>Observou-se que viradas de mês em dias úteis tendem a gerar sobreposição, duplicidade e retrabalho, pois parte da operação segue ativa durante a atualização.</li>
+                            <li>As regras serão internalizadas no Salesforce, com deduplicação na ingestão e atualização automatizada das flags/níveis.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Rotinas diárias e saneamento</strong>
+                        <ul>
+                            <li>O script Python identifica e marca:
+                                <ul>
+                                    <li>Abastecimentos orgânicos (removidos da base ativa de trabalho);</li>
+                                    <li>Contatos não efetivados (mantidos para reposição);</li>
+                                </ul>
+                            </li>
+                            <li>Reposição dinâmica a partir da base principal, preservando a meta diária.</li>
+                            <li>A planilha compartilhada traz o conjunto mínimo de campos (DriverID, cidade, nível, ciclo, datas de $1^{a}$ a $4^{a}$ abordagem, responsável e observações), sendo a data da $1^{a}$ abordagem o marcador crítico para aferição da conversão $\text{D}+7$.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Dores e oportunidades</strong>
+                        <ul>
+                            <li>Foram reforçados os pontos críticos:
+                                <ul>
+                                    <li>Dependência de múltiplas planilhas e scripts manuais;</li>
+                                    <li>Ausência de rastreabilidade consolidada entre tentativas e resultados;</li>
+                                    <li>Duplicidade e inconsistências em virada de mês;</li>
+                                    <li>Gargalos de performance e rate limit no ecossistema atual (Sheets/API).</li>
+                                </ul>
+                            </li>
+                            <li>Como direcionamento, a C3C propôs centralizar no Salesforce a ingestão, a deduplicação, a atualização de status/nível e a distribuição diária, reduzindo fricções e melhorando auditoria e governança.</li>
+                        </ul>
+                    </li>
+                 </ol>
+
+                 <!-- Conclusões e Encaminhamentos -->
+                 <h4>Conclusões e Encaminhamentos</h4>
+                 <ul>
+                    <li>O desenho de processo apresentado foi validado como representação fiel do fluxo operacional, com ajustes pontuais a incorporar na modelagem.</li>
+                    <li>Restou acordado que o Salesforce será a fonte única e operacional para:
+                        <ul>
+                            <li>Ingestão da base com deduplicação e logs de importação;</li>
+                            <li>Atualização de elegibilidade/nível, com deduplicação de registros e marcações de orgânicos;</li>
+                            <li>Distribuição diária para a equipe terceirizada, de forma controlada e auditável;</li>
+                            <li>Registro estruturado das interações, permitindo rastreabilidade fim a fim.</li>
+                        </ul>
+                    </li>
+                    <li>A Roberta enviará uma amostra real da planilha atual para sustentar o mapeamento de campos e validações. A C3C avançará com a proposta técnica de substituição gradativa das rotinas Python por automação nativa no Salesforce (Flow/Jobs).</li>
+                 </ul>
+                 
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

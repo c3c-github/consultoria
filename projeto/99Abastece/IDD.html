@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desenho de Integrações (IDD) - 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; background-color: #f9fafb; color: #1f2937; }
+    .section-title { border-bottom: 2px solid #2978FF; color: #2978FF; font-weight: 700; font-size: 1.75rem; margin-bottom: 2rem; }
+    .badge { display:inline-block; padding:0.25rem 0.6rem; border-radius:9999px; font-size:0.75rem; font-weight:600; background:#eef2ff; color:#1e3a8a; margin-right:0.3rem; }
+    table { width:100%; border-collapse:collapse; margin-bottom:1.5em; }
+    th, td { border:1px solid #d1d5db; padding:0.5em; text-align:left; }
+    th { background:#f3f4f6; font-weight:600; }
+    .svg-wrap { background:#fff; border:1px solid #e5e7eb; border-radius:0.75rem; padding:1rem; margin:1rem 0; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-20">
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo">
+        <div class="text-lg font-semibold text-gray-700">Integration Design Document (IDD)</div>
+        <div class="text-sm font-medium text-gray-500">Projeto 99 Abastece</div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="section-title">Desenho de Integrações — Atualização de Abastecimento</h2>
+
+      <div class="mb-4">
+        <span class="badge">Integração Inbound</span>
+        <span class="badge">API REST</span>
+        <span class="badge">OAuth 2.0</span>
+        <span class="badge">Salesforce Named Credential</span>
+      </div>
+
+      <h3>1. Introdução e Objetivo</h3>
+      <p>Este documento descreve o desenho técnico da integração que atualiza as oportunidades no Salesforce com base nas informações de abastecimento dos motoristas enviadas pela 99. O objetivo é garantir a rastreabilidade e automação do processo de marcação das oportunidades como <strong>Ganha</strong> ou <strong>Perdida</strong> após o prazo de sete dias.</p>
+
+      <h3>2. Visão Geral da Integração</h3>
+      <p>A integração é do tipo <strong>Inbound REST</strong>, iniciada pelo sistema da 99 (serviço Python/API). A API do Salesforce recebe os dados via endpoint <code>/services/apexrest/Abastecimento</code>, identifica o motorista por <code>DriverID__c</code> e atualiza a oportunidade e seu status correspondente.</p>
+
+      <div class="svg-wrap">
+        <svg viewBox="0 0 700 400" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+          <rect x="60" y="40" width="580" height="60" rx="10" fill="#e8f0ff" stroke="#2978FF" stroke-width="1.5"/>
+          <text x="350" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#1e3a8a">Sistema 99 (Python/API)</text>
+
+          <line x1="350" y1="100" x2="350" y2="130" stroke="#6b7280" stroke-width="2"/>
+          <polygon points="350,130 344,118 356,118" fill="#6b7280"/>
+
+          <rect x="60" y="140" width="580" height="60" rx="10" fill="#dffaf5" stroke="#1DDDBD" stroke-width="1.5"/>
+          <text x="350" y="175" text-anchor="middle" font-size="16" font-weight="700" fill="#065f46">Salesforce API Endpoint</text>
+          <text x="350" y="195" text-anchor="middle" font-size="12" fill="#065f46">/services/apexrest/Abastecimento</text>
+
+          <line x1="350" y1="200" x2="350" y2="230" stroke="#6b7280" stroke-width="2"/>
+          <polygon points="350,230 344,218 356,218" fill="#6b7280"/>
+
+          <rect x="60" y="240" width="580" height="60" rx="10" fill="#ecfffb" stroke="#bdf3ea" stroke-width="1.5"/>
+          <text x="350" y="275" text-anchor="middle" font-size="16" font-weight="700" fill="#0f766e">Oportunidade Salesforce</text>
+          <text x="350" y="295" text-anchor="middle" font-size="12" fill="#115e59">Atualização de StageName e CloseDate</text>
+
+          <line x1="350" y1="300" x2="350" y2="330" stroke="#6b7280" stroke-width="2"/>
+          <polygon points="350,330 344,318 356,318" fill="#6b7280"/>
+
+          <rect x="60" y="340" width="580" height="50" rx="10" fill="#f3f4f6" stroke="#9ca3af" stroke-width="1.5"/>
+          <text x="350" y="370" text-anchor="middle" font-size="14" font-weight="700" fill="#111827">IntegrationLog__c / Platform Event</text>
+        </svg>
+      </div>
+      <p class="text-sm text-gray-500">Figura 1 — Fluxo técnico simplificado da integração de abastecimento (99 → Salesforce).</p>
+
+      <h3>3. Catálogo Técnico da Integração</h3>
+      <table>
+        <thead><tr><th>Origem</th><th>Destino</th><th>Tipo</th><th>Autenticação</th><th>Frequência</th><th>Formato</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Sistema 99 (Python/API)</td>
+            <td>Salesforce Apex REST</td>
+            <td>Inbound REST</td>
+            <td>OAuth 2.0 via Named Credential</td>
+            <td>1x ao dia (mínimo)</td>
+            <td>JSON</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>4. Payload de Entrada</h3>
+      <pre><code>{
+  "driverId": "12345",
+  "timestamp": "2025-10-27T13:22:00Z",
+  "abasteceu": true
+}</code></pre>
+      <ul>
+        <li><strong>driverId:</strong> identifica a Conta (Account.DriverID__c)</li>
+        <li><strong>timestamp:</strong> data/hora do evento de abastecimento</li>
+        <li><strong>abasteceu:</strong> define se a oportunidade será marcada como <em>Ganha</em> ou ignorada</li>
+      </ul>
+
+      <h3>5. Lógica de Atualização</h3>
+      <ul>
+        <li>Busca a <strong>Opportunity</strong> associada ao <code>DriverID__c</code> com <em>StageName</em> aberto.</li>
+        <li>Atualiza <em>StageName</em> = "Closed Won" e <em>CloseDate</em> = <em>timestamp</em>.</li>
+        <li>Se nenhuma atualização ocorrer até D+7, o processo automático marca <em>StageName</em> = "Closed Lost".</li>
+        <li>Cria um registro de log em <strong>IntegrationLog__c</strong> com status e resposta da integração.</li>
+      </ul>
+
+      <h3>6. Tratamento de Erros</h3>
+      <table>
+        <thead><tr><th>Código</th><th>Descrição</th><th>Ação</th></tr></thead>
+        <tbody>
+          <tr><td>404</td><td>DriverID não encontrado</td><td>Registrar erro e ignorar payload</td></tr>
+          <tr><td>409</td><td>Oportunidade já encerrada</td><td>Logar como conflito e descartar</td></tr>
+          <tr><td>500</td><td>Erro interno (Apex/Validação)</td><td>Reprocessar até 3x com delay exponencial</td></tr>
+        </tbody>
+      </table>
+
+      <h3>7. Segurança e Governança</h3>
+      <ul>
+        <li>Autenticação via OAuth 2.0 e Named Credentials.</li>
+        <li>Whitelisting de IPs da 99.</li>
+        <li>Campos sensíveis protegidos por Field-Level Security.</li>
+        <li>Auditoria de logs e rastreabilidade completa.</li>
+      </ul>
+
+      <h3>8. Monitoramento e Alertas</h3>
+      <ul>
+        <li>Dashboard Salesforce exibindo logs e status de integração.</li>
+        <li>Alertas automáticos para Roberta / Victoria / C3C em caso de falhas repetidas.</li>
+        <li>Relatórios diários de integrações com sucesso/falha.</li>
+      </ul>
+
+      <h3>9. Aprovações</h3>
+      <table>
+        <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+        <tbody>
+          <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor)</td><td></td><td></td></tr>
+          <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+          <tr><td>Tarcísio A. de Paula</td><td>Arquiteto Técnico C3C</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

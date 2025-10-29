@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TDS FINAL - Desenho Técnico | 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray);} main section.prose li{margin-bottom:.5em;}
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.5em;text-align:left;} main section.prose th{background:#f9fafb;font-weight:600;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:1rem}
+    .note{background:#eff6ff;border:1px solid #bfdbfe;padding:.75rem;border-radius:.5rem}
+    .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;font-size:.75rem;background:#fff}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Technical Design Specification (TDS) — FINAL</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="tds" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Desenho Técnico — Salesforce 99 Abastece <span class="text-gray-400 text-sm">FINAL</span></h2>
+        <div class="mb-4">
+          <span class="badge">Arquitetura simplificada</span>
+          <span class="badge">MC como broker</span>
+          <span class="badge">Campos padrão: CM.Status / Opp.CloseDate</span>
+          <span class="badge">Omni ativo</span>
+        </div>
+
+        <div class="note text-sm mb-6">
+          <strong>Resumo:</strong> Este documento consolida o desenho técnico aprovado, com diagrama minimalista e conteúdo completo, mantendo o uso de campos <strong>padrão</strong> do Salesforce (<code>CampaignMember.Status</code> e <code>Opportunity.CloseDate</code>) e o <strong>Marketing Cloud</strong> como <em>broker</em> do WhatsApp Business API.
+        </div>
+
+        <h3>1) Introdução e Objetivo Técnico</h3>
+        <p>Descrever a arquitetura técnica e os componentes que suportam o processo de reativação de motoristas do 99 Abastece, alinhando-se ao FDS/SDD. Este TDS orienta implementação, segurança, integrações, automação, deploy e monitoramento.</p>
+
+        <h3>2) Arquitetura Técnica (Diagrama Simplificado)</h3>
+        <div class="svg-wrap not-prose">
+          <!-- Minimal, robust vertical pipeline diagram -->
+          <svg viewBox="0 0 600 720" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" aria-label="Arquitetura Simplificada Final">
+            <defs>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#94a3b8" flood-opacity="0.35"/>
+              </filter>
+            </defs>
+            <!-- 1. Salesforce Core -->
+            <rect x="100" y="40" width="400" height="90" rx="12" fill="#e8f0ff" stroke="#2978FF" filter="url(#shadow)"/>
+            <text x="300" y="80" text-anchor="middle" font-size="16" font-weight="700" fill="#1e3a8a">Salesforce Core</text>
+            <text x="300" y="100" text-anchor="middle" font-size="12" fill="#1f2937">Sales Cloud + Digital Engagement/Omni</text>
+            <line x1="300" y1="130" x2="300" y2="170" stroke="#6b7280" stroke-width="2"/>
+            <polygon points="300,170 294,158 306,158" fill="#6b7280"/>
+
+            <!-- 2. Marketing Cloud (Broker) -->
+            <rect x="100" y="180" width="400" height="90" rx="12" fill="#dffaf5" stroke="#1DDDBD" filter="url(#shadow)"/>
+            <text x="300" y="220" text-anchor="middle" font-size="16" font-weight="700" fill="#065f46">Marketing Cloud</text>
+            <text x="300" y="240" text-anchor="middle" font-size="12" fill="#065f46">Broker de Mensageria (WhatsApp)</text>
+            <line x1="300" y1="270" x2="300" y2="310" stroke="#6b7280" stroke-width="2"/>
+            <polygon points="300,310 294,298 306,298" fill="#6b7280"/>
+
+            <!-- 3. WhatsApp Business API -->
+            <rect x="100" y="320" width="400" height="90" rx="12" fill="#ecfffb" stroke="#bdf3ea" filter="url(#shadow)"/>
+            <text x="300" y="360" text-anchor="middle" font-size="16" font-weight="700" fill="#0f766e">WhatsApp Business API</text>
+            <text x="300" y="380" text-anchor="middle" font-size="12" fill="#115e59">Transparente para operação</text>
+            <line x1="300" y1="410" x2="300" y2="450" stroke="#6b7280" stroke-width="2"/>
+            <polygon points="300,450 294,438 306,438" fill="#6b7280"/>
+
+            <!-- 4. Motorista / Sistemas 99 -->
+            <rect x="100" y="460" width="400" height="90" rx="12" fill="#f3f4f6" stroke="#9ca3af" filter="url(#shadow)"/>
+            <text x="300" y="500" text-anchor="middle" font-size="16" font-weight="700" fill="#111827">Motorista / Sistemas 99</text>
+            <text x="300" y="520" text-anchor="middle" font-size="12" fill="#374151">Interação e conversão (abastecimento)</text>
+
+            <!-- Side Notes -->
+            <text x="20" y="210" font-size="12" fill="#374151">Omni roteia respostas</text>
+            <line x1="20" y1="214" x2="95" y2="225" stroke="#6b7280" stroke-width="1.5"/>
+            <text x="580" y="560" font-size="12" fill="#374151" text-anchor="end">API 99 → confirma abastecimento</text>
+            <line x1="585" y1="556" x2="300" y2="550" stroke="#6b7280" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <p class="text-sm text-gray-500 mt-2">Figura 1 — Pipeline linear minimalista (estável para qualquer resolução e exportação).</p>
+
+        <h3>3) Componentes Técnicos</h3>
+        <table>
+          <thead><tr><th>Componente</th><th>Itens Técnicos</th><th>Observações</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Sales Cloud</td>
+              <td>Objetos padrão (Account, Campaign, CampaignMember, Opportunity), External Id <code>DriverID__c</code>, Flows/Apex para dedupe, priorização, D+7 e ownership.</td>
+              <td>Usa <strong>CampaignMember.Status</strong> e <strong>Opportunity.CloseDate</strong>.</td>
+            </tr>
+            <tr>
+              <td>Digital Engagement / Omni</td>
+              <td>Configuração de canais WhatsApp, roteamento por ociosidade/dono, transcripts e transferência controlada.</td>
+              <td>Owner fixado após a 1ª resposta.</td>
+            </tr>
+            <tr>
+              <td>Marketing Cloud</td>
+              <td>Journeys (HSM), Automations, MC Connect / Synchronized Data Sources, métricas de envio/entrega/leitura/resposta.</td>
+              <td>Atua como <em>broker</em> da WABA.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>4) Modelagem Técnica de Dados</h3>
+        <table>
+          <thead><tr><th>Objeto</th><th>Campos-chave</th><th>Relacionamentos</th><th>Notas</th></tr></thead>
+          <tbody>
+            <tr><td>Account (Motorista)</td><td>DriverID__c (External Id)</td><td>1:N Opportunity; N:M Campaign via CampaignMember</td><td>Indexado para performance</td></tr>
+            <tr><td>Campaign</td><td>Name, Type, StartDate, EndDate</td><td>N:M Accounts</td><td>Campanhas mensais</td></tr>
+            <tr><td>CampaignMember</td><td><strong>Status</strong>, Priority__c</td><td>N:1 Campaign; N:1 Account</td><td>Status padrão sinaliza Etapas</td></tr>
+            <tr><td>Opportunity</td><td>StageName, <strong>CloseDate</strong>, OwnerId</td><td>N:1 Account; N:1 Campaign</td><td>D+7 ajusta Stage/CloseDate</td></tr>
+            <tr><td>Conversation (DE)</td><td>Transcript, FirstResponseDate</td><td>N:1 Account; N:1 Opportunity</td><td>Histórico 1:1</td></tr>
+            <tr><td>IntegrationLog__c</td><td>IntegrationType, Status, ErrorMessage</td><td>N:1 Opportunity</td><td>Auditoria técnica</td></tr>
+          </tbody>
+        </table>
+
+        <h3>5) Integrações e APIs</h3>
+        <table>
+          <thead><tr><th>Integração</th><th>Direção</th><th>Autenticação</th><th>Formato</th><th>Erros & Retry</th></tr></thead>
+          <tbody>
+            <tr><td>API Abastecimento 99 → Salesforce</td><td>Inbound</td><td>OAuth 2.0 via Named Credentials</td><td>JSON (DriverId, Timestamp, Status)</td><td>Platform Events + DLQ + retry exponencial</td></tr>
+            <tr><td>Salesforce → API Ranking</td><td>Outbound</td><td>OAuth 2.0</td><td>JSON</td><td>Circuit breaker + logs</td></tr>
+            <tr><td>Salesforce ↔ Marketing Cloud</td><td>Bidirecional</td><td>MC Connect / OAuth</td><td>DE Sync / Synchronized Data</td><td>Monitoramento em ambos os lados</td></tr>
+          </tbody>
+        </table>
+
+        <h3>6) Automação e Regras no Back-End</h3>
+        <ul>
+          <li><strong>Dedupe:</strong> Flow/Apex antes do upsert; match por <code>DriverID__c</code>.</li>
+          <li><strong>Priorização:</strong> Scheduler define <em>CampaignMember.Status</em> para envio conforme regras.</li>
+          <li><strong>D+7:</strong> Scheduler atualiza <em>Stage/CloseDate</em> das oportunidades sem abastecimento.</li>
+          <li><strong>Ownership:</strong> owner da Opp é fixado na primeira resposta; transferência via tela de supervisão.</li>
+          <li><strong>Logs técnicos:</strong> <em>IntegrationLog__c</em> e/ou Platform Events para auditoria.</li>
+        </ul>
+
+        <h3>7) Segurança e Governança</h3>
+        <ul>
+          <li>Profiles + Permission Sets por papel (99, Adecco, Supervisão).</li>
+          <li>Field‑Level Security para dados sensíveis; LGPD com visões restritas.</li>
+          <li>Auditoria: Field History Tracking (Account, CampaignMember, Opportunity) e Event Monitoring (se disponível).</li>
+        </ul>
+
+        <h3>8) Ambientes e Deploy</h3>
+        <ul>
+          <li><strong>Ambientes:</strong> Dev Sandboxes → UAT → Produção.</li>
+          <li><strong>Versionamento:</strong> GitFlow; PRs com code review.</li>
+          <li><strong>Release:</strong> Pipeline CI/CD (sfdx) com testes automatizados e validação de perfis/permsets.</li>
+        </ul>
+
+        <h3>9) Monitoramento e Logs</h3>
+        <ul>
+          <li>Jobs agendados, filas de Platform Events, falhas de integração e limites de governadores.</li>
+          <li>Métricas MC (envio/entrega/leitura/resposta) sincronizadas e visíveis no Sales Cloud.</li>
+          <li>Alertas (Email/Slack) para erros críticos, backlog e retries.</li>
+        </ul>
+
+        <h3>10) Considerações Técnicas e Performance</h3>
+        <ul>
+          <li>Volume: ~40k registros por carga; batchs segmentados; uso de External Id indexado.</li>
+          <li>Limites Salesforce: chamadas externas, heap, CPU; particionar e paginar integrações.</li>
+          <li>Escalabilidade: horários escalonados para schedulers; evitar transações longas e loops aninhados.</li>
+        </ul>
+
+        <h3>11) Aprovações</h3>
+        <table>
+          <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor)</td><td></td><td></td></tr>
+            <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+            <tr><td>Tarcísio A. de Paula</td><td>Arquiteto Técnico C3C</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

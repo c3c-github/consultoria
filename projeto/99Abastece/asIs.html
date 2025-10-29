@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapeamento AS-IS - 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <script src="https://unpkg.com/feather-icons"></script>
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em;line-height:1.6;color:#4b5563;}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:#4b5563;} main section.prose li{margin-bottom:.5em;}
+    .fade-in{opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;} .fade-in.visible{opacity:1;transform:translateY(0);}
+    .grid-card{border:1px solid #e5e7eb;background:#f9fafb;border-radius:.75rem;padding:1rem;margin-bottom:1rem;}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Mapeamento do Processo Atual (AS-IS)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+    <main class="flex-grow w-[90vw] max-w-5xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section class="fade-in prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Mapeamento do AS-IS — 99 Abastece</h2>
+        <div class="mb-4"><span class="badge">Inception concluída</span><span class="badge">Fluxo validado com cliente</span></div>
+
+        <h3>1. Introdução e Objetivo</h3>
+        <p>O mapeamento AS-IS tem como objetivo compreender detalhadamente o processo atual da operação de reativação de motoristas do 99 Abastece, identificando fluxos, responsabilidades, ferramentas utilizadas e principais dores que impactam eficiência, rastreabilidade e controle.</p>
+
+        <h3>2. Escopo e Metodologia</h3>
+        <p>A análise foi realizada a partir de entrevistas com o time de operações (Roberta, Victoria) e o time terceirizado (Adecco), observação do processo em planilhas do Google Sheets e execução dos scripts em Python. O resultado consolidado está representado no macrofluxo a seguir, fornecido pelo cliente durante a fase de inception.</p>
+
+        <h3>3. Visão Geral do Processo Atual (Macrofluxo)</h3>
+        <figure class="my-6 not-prose">
+          <img src="asIs.png" alt="Fluxo AS-IS 99 Abastece" class="rounded-lg shadow-md w-full">
+          <figcaption class="text-center text-sm text-gray-500 mt-2">Figura 1 — Processo macro AS-IS (fornecido pela 99)</figcaption>
+        </figure>
+
+        <h3>4. Descrição das Etapas</h3>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">1️⃣ Definição da estratégia do mês</h4>
+          <p>O time de Operações define o foco mensal da campanha (ex: motoristas churn, regiões específicas, metas de conversão).</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">2️⃣ Baixar a Base Mestre de motoristas</h4>
+          <p>A base de contatos é exportada manualmente do Data Lake para planilha no Google Sheets.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">3️⃣ Disponibilizar planilha no gSheet</h4>
+          <p>A planilha é compartilhada com o time terceirizado (Adecco), que utiliza essa base para contato via WhatsApp.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">4️⃣ Divisão dos contatos por analista</h4>
+          <p>Os contatos são distribuídos manualmente entre os analistas terceirizados, sem critérios automatizados de carga de trabalho.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">5️⃣ Contato com motoristas via WhatsApp</h4>
+          <p>Os analistas iniciam os contatos via números pessoais ou chips dedicados. O histórico das conversas não é centralizado.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">6️⃣ Execução diária do script em Python</h4>
+          <p>Script local atualiza abastecimentos e datas de primeiro abastecimento, executado manualmente por Roberta.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">7️⃣ Identificação de contatos orgânicos</h4>
+          <p>Os contatos que abastecem sem ação do time são classificados manualmente e removidos das metas.</p>
+        </div>
+        <div class="grid-card">
+          <h4 class="font-semibold text-gray-700">8️⃣ Cálculo de bonificação e acompanhamento de meta</h4>
+          <p>O cálculo das metas e bonificações é feito em planilhas, consolidando dados de abastecimento e conversão semanalmente.</p>
+        </div>
+
+        <h3>5. Pontos Críticos Identificados</h3>
+        <ul>
+          <li><strong>Dependência de processos manuais</strong> — planilhas e scripts locais representam risco operacional e retrabalho.</li>
+          <li><strong>Falta de rastreabilidade</strong> — histórico de conversas e resultados não centralizados.</li>
+          <li><strong>Baixa escalabilidade</strong> — capacidade limitada de contatos diários (~135 por analista).</li>
+          <li><strong>Problemas de duplicidade</strong> — ausência de automação para evitar repetição de contatos.</li>
+          <li><strong>Dependência de um ponto único</strong> — execução do script Python restrita a uma máquina (Roberta).</li>
+        </ul>
+
+        <h3>6. Oportunidades de Melhoria</h3>
+        <ul>
+          <li>Automatizar a ingestão e deduplicação de dados de motoristas via Salesforce.</li>
+          <li>Integrar WhatsApp Business API para centralizar mensagens e métricas.</li>
+          <li>Aplicar regras de distribuição automática (ocioso / fila) no Omni-Channel.</li>
+          <li>Disponibilizar dashboards de performance e metas em tempo real.</li>
+          <li>Reduzir o uso de planilhas manuais e dependências locais.</li>
+        </ul>
+
+        <h3>7. Conclusão e Próximos Passos</h3>
+        <p>O mapeamento AS-IS fornece a base para a modelagem do processo TO-BE em Salesforce, identificando claramente as dores operacionais e as oportunidades de ganho de eficiência. O próximo passo consiste na validação do fluxo futuro e detalhamento técnico das integrações e automações que substituirão os pontos manuais atuais.</p>
+      </section>
+    </main>
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      feather.replace();
+      const fades=document.querySelectorAll('.fade-in');
+      if('IntersectionObserver' in window){const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:.1});fades.forEach(el=>io.observe(el));}else{fades.forEach(el=>el.classList.add('visible'));}
+    });
+  </script>
+</body>
+</html>

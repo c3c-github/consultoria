@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Plano de Migração de Dados (DMP) - 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Montserrat', sans-serif; background-color: #f9fafb; color: #1f2937; }
+    .section-title { border-bottom: 2px solid #2978FF; color: #2978FF; font-weight: 700; font-size: 1.75rem; margin-bottom: 2rem; }
+    .badge { display:inline-block; padding:0.25rem 0.6rem; border-radius:9999px; font-size:0.75rem; font-weight:600; background:#eef2ff; color:#1e3a8a; margin-right:0.3rem; }
+    table { width:100%; border-collapse:collapse; margin-bottom:1.5em; }
+    th, td { border:1px solid #d1d5db; padding:0.5em; text-align:left; }
+    th { background:#f3f4f6; font-weight:600; }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-20">
+      <div class="max-w-7xl mx-auto px-6 flex justify-between items-center h-16">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo">
+        <div class="text-lg font-semibold text-gray-700">Data Migration Plan (DMP)</div>
+        <div class="text-sm font-medium text-gray-500">Projeto 99 Abastece</div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-8 bg-white rounded-lg shadow-lg">
+      <h2 class="section-title">Plano de Migração de Dados — 99 Abastece</h2>
+
+      <div class="mb-4">
+        <span class="badge">Sem Migração</span>
+        <span class="badge">Base Zerada</span>
+        <span class="badge">Go-Live 2025</span>
+      </div>
+
+      <h3>1. Introdução e Objetivo</h3>
+      <p>O presente documento tem como objetivo formalizar o plano de migração de dados do projeto <strong>Salesforce 99 Abastece</strong>. Após análise conjunta entre as equipes da <strong>C3C Software</strong> e da <strong>99</strong>, concluiu-se que <strong>não haverá migração de dados históricos</strong> para o ambiente Salesforce. O novo sistema iniciará com uma base limpa, recebendo apenas os dados provenientes das novas campanhas criadas após o Go-Live.</p>
+
+      <h3>2. Escopo de Dados Existentes</h3>
+      <p>Durante a fase de inception, foi identificado que as informações operacionais atualmente são mantidas em planilhas Google Sheets, scripts Python locais e relatórios manuais. Esses dados não serão migrados para o Salesforce, visto que:</p>
+      <ul>
+        <li>Não há dependência funcional de históricos anteriores para a execução do novo processo.</li>
+        <li>As campanhas futuras e suas cargas de motoristas serão tratadas como novos registros.</li>
+        <li>A consolidação histórica poderá ser mantida pela 99 em suas fontes originais.</li>
+      </ul>
+
+      <h3>3. Conclusão da Análise de Migração</h3>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <p><strong>Decisão:</strong> Não haverá migração de dados históricos para o Salesforce.</p>
+        <p><strong>Motivos:</strong></p>
+        <ul class="list-disc ml-6 mt-2">
+          <li>O novo processo será iniciado exclusivamente com campanhas criadas a partir do Go-Live.</li>
+          <li>Os dados legados não são necessários para as regras de negócio da operação.</li>
+          <li>O design técnico prioriza performance e consistência, partindo de uma base limpa.</li>
+          <li>Qualquer migração futura será tratada como projeto separado, mediante novo mapeamento e validação.</li>
+        </ul>
+      </div>
+
+      <h3>4. Premissas e Riscos Associados</h3>
+      <ul>
+        <li>O ambiente Salesforce iniciará <strong>sem registros históricos</strong>.</li>
+        <li>Relatórios e dashboards apresentarão dados apenas a partir do Go-Live.</li>
+        <li>A equipe da 99 manterá os históricos originais em suas ferramentas atuais.</li>
+        <li>Em caso de necessidade futura de carga retroativa, será necessária uma nova fase de análise e testes.</li>
+      </ul>
+
+      <h3>5. Governança e Responsabilidades</h3>
+      <table>
+        <thead><tr><th>Entidade</th><th>Responsabilidade</th></tr></thead>
+        <tbody>
+          <tr><td><strong>C3C Software</strong></td><td>Garantir que a estrutura de dados Salesforce esteja preparada para receber novas cargas a partir do Go-Live.</td></tr>
+          <tr><td><strong>99 (Unidade 99 Abastece)</strong></td><td>Manter os dados históricos em fontes originais e decidir sobre possíveis cargas futuras.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>6. Aprovações</h3>
+      <table>
+        <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+        <tbody>
+          <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor)</td><td></td><td></td></tr>
+          <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+          <tr><td>Tarcísio A. de Paula</td><td>Arquiteto Técnico C3C</td><td></td><td></td></tr>
+        </tbody>
+      </table>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+</body>
+</html>

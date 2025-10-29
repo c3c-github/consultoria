@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plano de Gerenciamento do Projeto (PGP) - 99 Abastece</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    html, body { font-family:'Montserrat',sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; overflow-x:hidden; width:100%;}
+    :root{ --c3c-teal:#1DDDBD; --c3c-blue:#2978FF; --c3c-blue-darker:#1c5fd6; --c3c-teal-darker:#17b8a5;}
+    .brand-color{color:var(--c3c-blue);} .brand-bg{background-color:var(--c3c-blue);} .brand-accent-bg{background-color:var(--c3c-teal);}
+    .section-title{border-bottom:2px solid var(--c3c-blue); padding-bottom:.5rem; color:var(--c3c-blue); font-size:1.75rem; font-weight:700; margin-bottom:2rem;}
+    .fade-in{opacity:0; transform:translateY(20px); transition:opacity .6s ease-out, transform .6s ease-out;} .fade-in.visible{opacity:1; transform:translateY(0);}
+    main section.prose h2{font-size:1.5em; border-bottom:1px solid #e5e7eb; padding-bottom:.3em;}
+    main section.prose h3{font-size:1.25em;} main section.prose p{margin-bottom:1em; line-height:1.6; color:#4b5563;}
+    main section.prose ul, main section.prose ol{margin-left:1.5em; margin-bottom:1em; color:#4b5563;}
+    main section.prose table{width:100%; border-collapse:collapse; margin-bottom:1em; font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db; padding:.5em; text-align:left;} main section.prose th{background:#f9fafb; font-weight:600;}
+    .badge{display:inline-flex; align-items:center; gap:.4rem; padding:.2rem .5rem; border-radius:9999px; font-size:.72rem; font-weight:600; border:1px solid #e5e7eb; background:#f9fafb; color:#374151;}
+    .legend-dot{width:.6rem; height:.6rem; border-radius:9999px; display:inline-block;}
+    .dot-blue{background:#2978FF;} .dot-teal{background:#1DDDBD;} .dot-gray{background:#9ca3af;} .dot-red{background:#ef4444;} .dot-amber{background:#f59e0b;} .dot-green{background:#10b981;}
+    .grid-card{border:1px solid #e5e7eb; background:#fbfdff; border-radius:.75rem; padding:1rem;}
+    .pill{display:inline-block; padding:.15rem .5rem; border-radius:9999px; font-size:.72rem; border:1px solid #e5e7eb; background:#fff;}
+    .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New", monospace;font-size:.75rem;background:#fff}
+    .callout{border-left:4px solid var(--c3c-blue); background:#f8fbff; padding:.75rem 1rem; border-radius:.375rem;}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="logo-container h-full flex items-center">
+            <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]"
+                 onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color\'>C3C</span>';">
+          </div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Plano de Gerenciamento do Projeto (PGP)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto 99 Abastece</div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow w-[90vw] max-w-5xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section class="fade-in prose max-w-none prose-sm sm:prose-base" id="pgp">
+        <h2 class="section-title not-prose">Plano de Gerenciamento do Projeto — Salesforce 99 Abastece</h2>
+
+        <div class="not-prose grid sm:grid-cols-3 gap-3 mb-6">
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-blue"></span> Versão</div>
+            <div class="mt-1 text-sm">1.0 — 29/10/2025</div>
+          </div>
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-teal"></span> Escopo</div>
+            <div class="mt-1 text-sm">MC (WhatsApp ativo) + Sales Cloud + Digital Engagement</div>
+          </div>
+          <div class="p-3 rounded-lg border bg-gray-50">
+            <div class="badge"><span class="legend-dot dot-green"></span> Objetivo</div>
+            <div class="mt-1 text-sm">Reativar/engajar motoristas com governança, escala e rastreabilidade</div>
+          </div>
+        </div>
+
+        <h3>1. Introdução e Propósito</h3>
+        <p>Este PGP estabelece como o projeto será planejado, executado, monitorado e encerrado, organizando políticas, processos, artefatos e responsabilidades, com base nas atas de inception e no TAP.</p>
+
+        <h3>2. Organização do Projeto</h3>
+        <div class="not-prose grid sm:grid-cols-2 gap-4">
+          <div class="grid-card">
+            <h4 class="font-semibold">Governança & Papéis</h4>
+            <ul>
+              <li><strong>Sponsors (99):</strong> Pedro, Victoria Candelario</li>
+              <li><strong>PO (99):</strong> Victoria Candelario</li>
+              <li><strong>GP (C3C):</strong> Karine Cunha</li>
+              <li><strong>Funcional (C3C):</strong> Priscila G. Petroni</li>
+              <li><strong>Técnico/Dev (C3C):</strong> Tarcísio A. de Paula</li>
+              <li><strong>SME Op. (99):</strong> Roberta Noronha</li>
+              <li><strong>API/Dados (99):</strong> Isaac</li>
+              <li><strong>Operação (Adecco):</strong> Thaís + Analistas</li>
+            </ul>
+          </div>
+          <div class="grid-card">
+            <h4 class="font-semibold">Ritos</h4>
+            <ul>
+              <li><strong>Daily:</strong> 10h (15 min)</li>
+              <li><strong>Checkpoint semanal:</strong> status sprints, riscos, decisões</li>
+              <li><strong>Cabines quinzenais:</strong> priorização e alinhamento de escopo</li>
+              <li><strong>UAT / Treinamento:</strong> pré Go-Live</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>3. Plano de Gerenciamento de Escopo</h3>
+        <ul>
+          <li><strong>Declaração de Escopo:</strong> implementar funil E2E no Salesforce para motoristas churn/never used, com disparos ativos WhatsApp (MC), priorização/regras/campanhas (Sales Cloud) e atendimento 1:1 (Digital Engagement).</li>
+          <li><strong>Entregas:</strong> objetos e campos; tela de <em>carga</em> com dedupe e logs; regras de priorização; Omni-Channel; follow-ups; janela D+7; relatórios/dashboards; perfis/permission sets; API de abastecimento.</li>
+          <li><strong>Critérios de aceitação:</strong> disparos funcionando; roteamento correto; conversas visíveis; D+7 automatizado; painéis operando.</li>
+          <li><strong>Controle de mudanças:</strong> processo CAB (seção 10) com avaliação de impacto em prazo/custo/risco/qualidade.</li>
+          <li><strong>Fora do escopo (Fase 1):</strong> histórico pré-Go-Live, repescagem automática intra-mês, A/B avançado, integração direta ao Data Lake, novas métricas de bônus.</li>
+        </ul>
+
+        <h3>4. Plano de Cronograma</h3>
+        <table>
+          <thead><tr><th>Fase/Sprint</th><th>Janela</th><th>Marcos</th><th>Critério de Saída</th></tr></thead>
+          <tbody>
+            <tr><td>Inception</td><td>13–24/10</td><td>TAP, PGP, Arquitetura</td><td>Artefatos aprovados</td></tr>
+            <tr><td>Construção I</td><td>27/10–07/11</td><td>Objetos/Campos, Tela de Carga c/ Dedupe</td><td>UAT 1 pronto</td></tr>
+            <tr><td>Construção II</td><td>10/11–21/11</td><td>Regras + Omni + Follow-ups</td><td>UAT 2 pronto</td></tr>
+            <tr><td>Testes & Treinamento</td><td>24/11–05/12</td><td>Casos de teste, playbook</td><td>Go/No-Go</td></tr>
+            <tr><td>Go-Live & Hypercare</td><td>08/12–20/12</td><td>Prod estável, suporte</td><td>Encerramento Hypercare</td></tr>
+          </tbody>
+        </table>
+        <p class="callout text-sm"><strong>Baseline do cronograma:</strong> alterações via processo de mudanças (seção 10) e replanejamento em check-in semanal.</p>
+
+        <h3>5. Plano de Custos</h3>
+        <ul>
+          <li><strong>Componentes:</strong> licenças Salesforce (Sales + DE/Service), pacotes WhatsApp (MC), serviços C3C, custos 99 internos (Telecom, API).</li>
+          <li><strong>Premissas:</strong> sem variações de licenciamento na fase 1; uso de número único WhatsApp.</li>
+          <li><strong>Controle:</strong> tracking mensal por centro de custo; mudanças com aprovação dos Sponsors.</li>
+        </ul>
+
+        <h3>6. Plano de Qualidade</h3>
+        <ul>
+          <li><strong>Padrões:</strong> boas práticas Salesforce (governança de dados, limites, bulkification, transações curtas).</li>
+          <li><strong>Critérios:</strong> performance aceitável nos envios, roteamento correto, zero duplicidade apresentada ao analista, integridade de logs e rastreabilidade de conversas.</li>
+          <li><strong>Garantia & Controle:</strong> revisão de design; code review; casos de teste SIT/UAT; monitoramento pós Go-Live.</li>
+        </ul>
+
+        <h3>7. Plano de Recursos (Time & Perfis)</h3>
+        <table>
+          <thead><tr><th>Papel</th><th>Responsável</th><th>Responsabilidades</th><th>Alocação (estim.)</th></tr></thead>
+          <tbody>
+            <tr><td>GP</td><td>Karine</td><td>Plano, riscos, cronograma, comunicações</td><td>50%</td></tr>
+            <tr><td>Funcional</td><td>Priscila</td><td>Regras, UX, testes, treinamento</td><td>60%</td></tr>
+            <tr><td>Dev</td><td>Tarcísio</td><td>Config/Dev, integrações, Omni</td><td>70%</td></tr>
+            <tr><td>SME</td><td>Roberta</td><td>Base mestre, validação, UAT</td><td>30%</td></tr>
+            <tr><td>API</td><td>Isaac</td><td>Script/API abastecimento</td><td>30%</td></tr>
+            <tr><td>Operação</td><td>Thaís + Analistas</td><td>Piloto, UAT, adoção</td><td>20–40%</td></tr>
+          </tbody>
+        </table>
+
+        <h3>8. Plano de Comunicações</h3>
+        <table>
+          <thead><tr><th>Canal</th><th>Público</th><th>Conteúdo</th><th>Frequência</th><th>Dono</th><th>Formato</th></tr></thead>
+          <tbody>
+            <tr><td>Daily 10h</td><td>Núcleo do projeto</td><td>Status, bloqueios, próximos</td><td>Diária (15min)</td><td>Karine</td><td>Reunião</td></tr>
+            <tr><td>Checkpoint</td><td>Sponsors/PO/GP</td><td>Marcos, riscos, decisões</td><td>Semanal</td><td>Karine</td><td>Slides + Demonstração</td></tr>
+            <tr><td>Atualização Técnica</td><td>Dev + Isaac</td><td>Integrações, testes API</td><td>Ad hoc</td><td>Tarcísio</td><td>Doc + Canal</td></tr>
+            <tr><td>Treinamento</td><td>Adecco + 99</td><td>Playbook, fluxo E2E</td><td>Pré Go-Live</td><td>Priscila</td><td>Hands-on</td></tr>
+            <tr><td>Relatórios</td><td>Gestão</td><td>Métricas/Metas</td><td>Contínuo</td><td>Priscila</td><td>Reports/Dashboards</td></tr>
+          </tbody>
+        </table>
+
+        <h3>9. Plano de Riscos</h3>
+        <table>
+          <thead><tr><th>Risco</th><th>Prob.</th><th>Impacto</th><th>Categoria</th><th>Mitigação</th><th>Plano de Contingência</th></tr></thead>
+        <tbody>
+          <tr><td>Número/HSM WhatsApp atrasados</td><td>M</td><td>A</td><td>Externo</td><td>Abertura de tickets cedo; prioridade</td><td>Canal alternativo temporário</td></tr>
+          <tr><td>API de abastecimento atrasada</td><td>M</td><td>A</td><td>Técnico</td><td>Especificação clara + mocks</td><td>Upload manual provisório</td></tr>
+          <tr><td>Resistência da operação</td><td>M</td><td>A</td><td>Organizacional</td><td>Treinamento + playbook</td><td>Suporte intensivo no Hypercare</td></tr>
+          <tr><td>Performance/limites Salesforce</td><td>B</td><td>M</td><td>Técnico</td><td>Bulkification/Jobs</td><td>Replanejar janelas de batch</td></tr>
+          <tr><td>LGPD/Exposição indevida</td><td>B</td><td>A</td><td>Compliance</td><td>Perfis/PS restritos</td><td>Auditoria + correção imediata</td></tr>
+        </tbody>
+        </table>
+
+        <h3>10. Plano de Gerenciamento de Mudanças</h3>
+        <ul>
+          <li><strong>Solicitação:</strong> abertura via formulário padrão (Descrição, Justificativa, Impactos estimados).</li>
+          <li><strong>Análise:</strong> C3C avalia escopo, esforço, riscos, cronograma e custos; classificação (baixa, média, alta).</li>
+          <li><strong>Aprovação:</strong> CAB (Sponsors + PO + GP) — mudanças médias/altas; GP decide nas baixas.</li>
+          <li><strong>Implementação:</strong> replanejamento e comunicação no checkpoint semanal; atualização de baseline se aplicável.</li>
+          <li><strong>Registro:</strong> log de mudanças versionado e armazenado no repositório.</li>
+        </ul>
+
+        <h3>11. Plano de Configuração & Versionamento</h3>
+        <ul>
+          <li><strong>Repositório:</strong> Git (metadados e componentes), nomenclatura padronizada de branches.</li>
+          <li><strong>Ambientes:</strong> Dev → UAT → Prod; <span class="kbd">promotions</span> controladas.</li>
+          <li><strong>Rastreabilidade:</strong> user stories vinculadas a commits/deploys; changelog por sprint.</li>
+          <li><strong>Backups:</strong> exportações periódicas de metadados e dados críticos (logs/imports).</li>
+        </ul>
+
+        <h3>12. Plano de Integração</h3>
+        <ul>
+          <li><strong>WhatsApp (Marketing Cloud):</strong> número verificado + HSMs; monitorar métricas de envio/entrega/leitura/resposta.</li>
+          <li><strong>API Abastecimento (99):</strong> endpoint REST (Driver ID, data/hora, status); autenticação conforme padrão 99; janelas diárias.</li>
+          <li><strong>Omni-Channel:</strong> roteamento por ociosidade com garantia de dono após 1ª resposta.</li>
+        </ul>
+
+        <h3>13. Plano de Stakeholders & Comunicação Estendida</h3>
+        <p>Alinhado ao Mapa de Stakeholders: classificação por poder/interesse e estratégias por quadrante; revisão por sprint.</p>
+
+        <h3>14. Plano de Aquisições (se aplicável)</h3>
+        <ul>
+          <li>Contratação/ativação de número WhatsApp Business e pacotes de mensagens.</li>
+          <li>Serviços C3C conforme proposta contratual e SOW.</li>
+          <li>Termos de confidencialidade e LGPD em vigor com a Adecco.</li>
+        </ul>
+
+        <h3>15. Plano de Monitoramento & Controle</h3>
+        <ul>
+          <li><strong>KPIs:</strong> taxa de resposta, taxa de conversão (D+7), volume/dia, pipeline por fase, adoção por analista, erros de carga.</li>
+          <li><strong>Ferramentas:</strong> Salesforce Reports/Dashboards; logs de importação; auditorias de acesso.</li>
+          <li><strong>Cadência:</strong> daily + checkpoint; alertas em desvios de baseline.</li>
+        </ul>
+
+        <h3>16. Métricas de Sucesso & Encerramento</h3>
+        <ul>
+          <li>Go-Live em Dez/2025; estabilidade nos fluxos de disparo/retorno.</li>
+          <li>Redução >90% do esforço manual em base/planilhas/scripts.</li>
+          <li>Rastreabilidade 100% das conversas WhatsApp; adoção >80% em 30 dias.</li>
+          <li><strong>Encerramento:</strong> ata de lições aprendidas; handover de documentação; aceite formal dos Sponsors.</li>
+        </ul>
+
+        <h3>17. Anexos & Referências</h3>
+        <ul>
+          <li>TAP (v1.1)</li>
+          <li>Mapa de Stakeholders</li>
+          <li>Especificação da API de Abastecimento (99)</li>
+          <li>Templates HSM (WhatsApp)</li>
+          <li>Playbook de Atendimento (Omni + DE)</li>
+        </ul>
+
+        <h3>18. Aprovações</h3>
+        <table>
+          <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Victoria Candelario</td><td>Líder de Negócio 99 (Sponsor/PO)</td><td></td><td></td></tr>
+            <tr><td>Pedro</td><td>Head de Operações 99 (Sponsor)</td><td></td><td></td></tr>
+            <tr><td>Karine Cunha</td><td>Gerente de Projeto C3C</td><td></td><td></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+    </footer>
+  </div>
+
+  <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+    <i data-feather="arrow-up" class="h-6 w-6"></i>
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      try { feather.replace(); } catch(e){ console.error(e); }
+      const btn = document.getElementById('scrollToTopBtn');
+      window.addEventListener('scroll',()=>btn.classList.toggle('hidden', window.scrollY < 300));
+      btn.addEventListener('click',()=>window.scrollTo({top:0, behavior:'smooth'}));
+
+      const fades = document.querySelectorAll('.fade-in');
+      if("IntersectionObserver" in window){
+        const io = new IntersectionObserver((entries)=>entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); }}),{threshold:0.1});
+        fades.forEach(el=> io.observe(el));
+      } else { fades.forEach(el=> el.classList.add('visible')); }
+    });
+  </script>
+</body>
+</html>

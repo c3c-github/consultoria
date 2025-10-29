@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ata Reunião 8 (21/Out) - Projeto Inception 99 Abastece</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Favicon C3C -->
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <!-- Feather Icons -->
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal da Ata */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+        .logo-container { /* Estilo para o container do logo no header */
+             display: flex;
+             align-items: center;
+        }
+         .logo-container img {
+             max-height: 35px;
+             width: auto;
+         }
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; }
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem;}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         main section.prose > *:is(h2, h3):first-child { margin-top: 0 !important; }
+         main > section.prose:first-child { padding-top: 1rem; }
+        .not-prose { all: unset; display: block; box-sizing: border-box; }
+         .section-title.not-prose { border-bottom: 2px solid var(--c3c-blue); padding-bottom: 0.5rem; color: var(--c3c-blue); font-size: 1.75rem; font-weight: 700; margin-bottom: 2rem; margin-top: 0; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <!-- Header -->
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <!-- Logo C3C -->
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color text-lg\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Ata de Reunião 8 (21/Out)</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception 99 Abastece</div>
+                 </div>
+             </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <!-- Seção da Ata -->
+             <section id="ata-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Ata Reunião 8 (21/Out/2025)</h2>
+                 <!-- Dados Iniciais -->
+                 <div class="mb-6">
+                    <p><strong>Assunto da Reunião:</strong> Inception 99 Abastece - Sprint 1 - Outubro/2025</p>
+                    <p><strong>Cliente:</strong> 99 App</p>
+                    <p><strong>Projeto:</strong> Implementação Salesforce - 99 Abastece</p>
+                    <p><strong>Data da Reunião:</strong> 21/10/2025</p>
+                    <p><strong>Horário:</strong> 10h às 12h</p>
+                    <p><strong>Local:</strong> Microsoft Teams</p>
+                    <p><strong>Autor da Ata:</strong> Priscila G. Petroni</p>
+                 </div>
+                 
+                 <!-- Participantes -->
+                 <h4>Participantes</h4>
+                 <table>
+                     <thead>
+                         <tr>
+                             <th>Nome</th>
+                             <th>Empresa</th>
+                             <th>Área</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         <tr><td>Roberta Noronha</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Victoria Candelario</td><td>99 App</td><td>Operações</td></tr>
+                         <tr><td>Tarcisio Alex Almeida de Paula</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Karine Cunha</td><td>C3C</td><td>Projetos C3C</td></tr>
+                         <tr><td>Priscila G. Petroni</td><td>C3C</td><td>Projetos C3C</td></tr>
+                     </tbody>
+                 </table>
+
+                 <!-- Motivação -->
+                 <h4>Motivação</h4>
+                 <p>A reunião teve como propósito aprofundar o detalhamento do fluxo To Be, consolidando os pontos já mapeados nas reuniões anteriores sobre importação da base, distribuição automatizada de contatos e acompanhamento das interações via Salesforce. O encontro também buscou alinhar as integrações necessárias entre o Salesforce e o WhatsApp Business API, bem como discutir as métricas e cadências operacionais que sustentarão o novo modelo de atuação da equipe terceirizada.</p>
+                 
+                 <!-- Resumo da Reunião -->
+                 <h4>Resumo da Reunião</h4>
+                 <ol>
+                    <li><strong>Importação e governança da base mestre</strong>
+                        <ul>
+                            <li>Confirmado que a Roberta continuará responsável pela criação e validação da base mestre, gerada a partir de extrações do Data Lake.</li>
+                            <li>O Salesforce receberá essa base limpa e tratada, eliminando duplicidades e garantindo rastreabilidade entre as campanhas.</li>
+                            <li>A equipe da C3C reforçou que o sistema deverá reconhecer registros já existentes, atualizando-os quando necessário e registrando logs de importação (novos e atualizados).</li>
+                        </ul>
+                    </li>
+                    <li><strong>Distribuição automatizada e controle de carteira</strong>
+                        <ul>
+                            <li>A distribuição diária de contatos aos analistas terceirizados seguirá o modelo automático e equilibrado (carrossel), sem interferência manual.</li>
+                            <li>Cada analista visualizará apenas sua carteira atribuída no dia, sem acesso à base completa.</li>
+                            <li>Foi ressaltada a importância de o Salesforce permitir recuperar o histórico de contatos e status anteriores, garantindo continuidade nos follow-ups.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Interação via WhatsApp Business</strong>
+                        <ul>
+                            <li>A C3C apresentou o funcionamento da integração entre o Salesforce e o WhatsApp Business API (Digital Engagement), explicando que cada conversa será vinculada ao registro do motorista.</li>
+                            <li>Mensagens automáticas (HSM) poderão ser enviadas para o primeiro contato, e respostas serão tratadas como threads dentro do sistema, associadas ao analista responsável.</li>
+                            <li>Victoria reforçou a necessidade de manter o tom humanizado e coerente com a marca 99, evitando comunicações excessivamente robotizadas.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Métricas e relatórios de desempenho</strong>
+                        <ul>
+                            <li>Foram discutidas as principais métricas (possíveis) de acompanhamento:
+                                <ul>
+                                    <li>Volume de contatos atribuídos por dia e por analista;</li>
+                                    <li>Taxa de resposta e conversão (abastecimento);</li>
+                                    <li>Tempo médio entre primeiro contato e conversão;</li>
+                                    <li>Eficiência por campanha e canal.</li>
+                                </ul>
+                            </li>
+                            <li>O Salesforce deverá consolidar essas métricas em dashboards gerenciais para Roberta e Victoria.</li>
+                        </ul>
+                    </li>
+                    <li><strong>Próximos alinhamentos e dependências técnicas</strong>
+                        <ul>
+                            <li>Ficou acordado que será necessária uma reunião específica com o time técnico da 99 para definir a configuração da integração WhatsApp-Salesforce e os requisitos de API.</li>
+                            <li>A C3C preparará um esquema técnico de integração e o enviará para aprovação da 99.</li>
+                        </ul>
+                    </li>
+                 </ol>
+
+                 <!-- Conclusões e Encaminhamentos -->
+                 <h4>Conclusões e Encaminhamentos</h4>
+                 <ul>
+                    <li>Confirmado o fluxo To Be consolidado:
+                        <ol>
+                            <li>Extração da base mestre (Roberta) →</li>
+                            <li>Importação e deduplicação no Salesforce →</li>
+                            <li>Distribuição automática de contatos →</li>
+                            <li>Atribuição de carteiras e registro das interações via WhatsApp →</li>
+                            <li>Dashboards de acompanhamento.</li>
+                        </ol>
+                    </li>
+                    <li>A C3C ficará responsável por desenhar o fluxo técnico e estrutural da integração no diagrama do processo To Be.</li>
+                    <li>A Roberta validará a estrutura final da base e os critérios de atualização junto ao time de dados da 99.</li>
+                 </ul>
+                 
+             </section>
+
+        </main>
+         <!-- Footer -->
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & 99 Abastece - Outubro 2025
+        </footer>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try { feather.replace(); } catch (e) { console.error(e); }
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => { scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300); });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => { fadeInObserver.observe(el); });
+            } else { fadeInElements.forEach(el => el.classList.add('visible')); }
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const fallbackText = document.createElement('span');
+                     fallbackText.className = 'font-bold brand-color text-lg';
+                     fallbackText.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) { logoImg.parentElement?.appendChild(fallbackText); }
+                 };
+            });
+        });
+    </script>
+</body>
+</html>

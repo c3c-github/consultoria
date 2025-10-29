@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banner Institucional | Bem Que Se Come</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração da paleta de cores BQSC para Tailwind --><script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'bqsc-dark': '#26555C',
+                        'bqsc-orange': '#F2935C',
+                        'bqsc-light': '#F0F0F0',
+                        'bqsc-green-leaf': '#5C817D',
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #F2935C; /* Fundo laranja (BQSC Orange) */
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            color: white; /* Texto principal em branco para contraste */
+        }
+
+        .banner-container {
+            width: 100%;
+            max-width: 1920px; /* Base para um desktop wide */
+            aspect-ratio: 16 / 9;
+            height: auto;
+            position: relative;
+            background-color: transparent;
+        }
+
+        .corner-element {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            padding: 20px 30px; /* Espaçamento dos cantos */
+        }
+
+        .top-left {
+            top: 0;
+            left: 0;
+            flex-direction: row;
+        }
+        
+        .top-right {
+            top: 0;
+            right: 0;
+            flex-direction: column; /* Para alinhar o nome e o slogan */
+            align-items: flex-end;
+            padding: 25px 30px; 
+        }
+
+        .logo-box {
+            background-color: rgba(255, 255, 255, 0.9); /* Fundo branco levemente transparente para o logo */
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .slogan {
+            font-size: 1.5rem; /* texto menor para o slogan */
+            font-weight: 700;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-top: 5px; /* Reduzido o espaço para ficar mais compacto */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="banner-container">
+        
+        <!-- Canto Superior Esquerdo: Logo BQSC Completo --><div class="corner-element top-left">
+            <div class="logo-box">
+                <img src="https://c3c-github.github.io/consultoria/comercial/BQSC/logo2.png" alt="Logo Bem Que Se Come" class="h-16">
+            </div>
+        </div>
+
+        <!-- Canto Superior Direito: Nome da Marca e Slogan --><div class="corner-element top-right">
+            <p class="text-4xl font-black text-bqsc-dark leading-none bg-white px-3 py-1 rounded-md mb-2 shadow-lg">
+                BEM QUE SE COME
+            </p>
+            <p class="slogan text-right">
+                Por mais crianças comendo bem
+            </p>
+        </div>
+        
+    </div>
+
+</body>
+</html>
+    
