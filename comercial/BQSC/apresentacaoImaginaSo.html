@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta de Parceria | BQSC + Superplayer & Co</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes Google --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo as cores personalizadas do Tailwind a partir do seu logo */
+        :root {
+            --color-bqsc-dark: #26555C; /* Verde-azulado escuro do texto "BEM QUE SE COME" */
+            --color-bqsc-orange: #F2935C; /* Laranja da fruta */
+            --color-bqsc-light: #F0F0F0; /* Fundo cinza claro */
+            --color-bqsc-medium: #D0D0D0; /* Um cinza médio para detalhes */
+            --color-bqsc-green-leaf: #5C817D; /* Verde das folhas */
+
+            /* Nova cor do logo "Imagina Só" */
+            --color-sp-purple: #5F259F; /* Roxo do logo "Imagina Só" */
+        }
+
+        /* Configuração do Tailwind para usar variáveis CSS */
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        .bg-bqsc-dark { background-color: var(--color-bqsc-dark); }
+        .text-bqsc-dark { color: var(--color-bqsc-dark); }
+        .border-bqsc-dark { border-color: var(--color-bqsc-dark); }
+
+        .bg-bqsc-orange { background-color: var(--color-bqsc-orange); }
+        .text-bqsc-orange { color: var(--color-bqsc-orange); }
+        .border-bqsc-orange { border-color: var(--color-bqsc-orange); }
+
+        .bg-bqsc-light { background-color: var(--color-bqsc-light); }
+        .text-bqsc-light { color: var(--color-bqsc-light); }
+        .border-bqsc-light { border-color: var(--color-bqsc-light); }
+
+        .bg-bqsc-medium { background-color: var(--color-bqsc-medium); }
+        .text-bqsc-medium { color: var(--color-bqsc-medium); }
+        .border-bqsc-medium { border-color: var(--color-bqsc-medium); }
+
+        .bg-bqsc-green-leaf { background-color: var(--color-bqsc-green-leaf); }
+        .text-bqsc-green-leaf { color: var(--color-bqsc-green-leaf); }
+        .border-bqsc-green-leaf { border-color: var(--color-bqsc-green-leaf); }
+
+        /* Novas classes para a Superplayer & Co */
+        .bg-sp-purple { background-color: var(--color-sp-purple); }
+        .text-sp-purple { color: var(--color-sp-purple); }
+        .border-sp-purple { border-color: var(--color-sp-purple); }
+
+
+        body {
+            /* Usando Poppins para um look mais próximo do logo, com Nunito como fallback */
+            font-family: 'Poppins', 'Nunito', sans-serif;
+            background-color: var(--color-bqsc-light); /* Fundo geral */
+        }
+        
+        /* Cada slide */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Slide ativo */
+        .slide.active {
+            display: flex;
+        }
+
+        /* Animação de fade-in */
+        .slide-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Estilos para listas */
+        .slide-content ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .slide-content ul li {
+            position: relative;
+            padding-left: 30px; /* Espaço para o ícone */
+            margin-bottom: 12px;
+            font-size: 1.125rem; /* text-lg */
+            color: #4a4a4a; /* Um cinza neutro para o texto principal */
+        }
+        .slide-content ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: var(--color-bqsc-green-leaf); /* Cor das folhas do seu logo */
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        /* Estilo para a foto de perfil arredondada */
+        .profile-img {
+            border-radius: 50%;
+            border: 6px solid var(--color-bqsc-light);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* --- Estilos da Escalada do Comer --- */
+        
+        .escalada-container {
+            display: flex;
+            /* Inverte a ordem visual, colocando o primeiro item do HTML na base */
+            flex-direction: column-reverse; 
+            align-items: center; /* Centraliza os degraus */
+            gap: 0.5rem; /* Espaçamento entre os degraus */
+            width: 100%;
+        }
+        
+        .escalada-step {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Tamanho menor e responsivo */
+            height: 3rem; /* Altura menor para celular */
+            font-size: 1rem; /* Fonte menor para celular */
+            width: 100%; /* Ocupa a largura definida pelo nth-child */
+            
+            /* Em telas médias (desktop), aumenta um pouco */
+            @media (min-width: 768px) {
+                height: 3.5rem;
+                font-size: 1.25rem;
+            }
+
+            background-color: var(--color-bqsc-light);
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            font-weight: 700;
+            color: var(--color-bqsc-dark);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .escalada-step:hover {
+            transform: scale(1.02);
+            background-color: var(--color-bqsc-medium);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* CORREÇÃO: Inverte a pirâmide. O primeiro degrau (Tolerar) é o mais largo */
+        .escalada-step:nth-child(1) { width: 100%; }  /* Tolerar */
+        .escalada-step:nth-child(2) { width: 90%; }   /* Interagir */
+        .escalada-step:nth-child(3) { width: 80%; }   /* Cheirar */
+        .escalada-step:nth-child(4) { width: 70%; }   /* Tocar */
+        .escalada-step:nth-child(5) { width: 60%; }   /* Provar */
+        .escalada-step:nth-child(6) { width: 50%; }   /* Comer! */
+        
+        /* O último degrau (Comer!) recebe a cor de destaque */
+        .escalada-step:nth-child(6) {
+             background-color: var(--color-bqsc-orange);
+             color: white;
+        }
+
+    </style>
+</head>
+<body class="w-screen h-screen bg-bqsc-light p-4 md:p-8">
+
+    
+
+<main class="w-full h-full max-w-6xl mx-auto bg-white rounded-2xl shadow-2xl flex flex-col">
+        
+        
+
+<header class="py-4 px-6 md:px-10 border-b border-gray-200">
+            <div class="flex justify-between items-center">
+                
+
+<div class="flex items-center space-x-2 md:space-x-4">
+                    <img src="https://bemquesecome.com.br/img/logo.png" alt="Bem Que Se Come Logo" class="h-8 md:h-10">
+                    <span class="text-xl md:text-2xl font-extrabold text-bqsc-dark">Bem Que Se Come</span>
+                    <span class="text-gray-400 text-xl">+</span>
+                    
+
+<span class="text-xl md:text-2xl font-extrabold text-gray-900">Superplayer & Co</span>
+                </div>
+            </div>
+        </header>
+
+        
+
+<section class="flex-1 p-6 md:p-12 overflow-y-auto" id="slide-container">
+
+            
+
+<div class="slide active">
+                <div class="slide-content flex-1 flex flex-col items-center justify-center text-center">
+                    <img src="https://bemquesecome.com.br/img/logo.png" alt="Bem Que Se Come Logo Grande" class="h-32 md:h-48 mb-6">
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1 flex flex-col items-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8">
+                        A Nossa Conexão
+                    </h2>
+                    
+                    
+
+<div class="escalada-container w-full max-w-xl mx-auto mt-4 md:mt-8">
+                        
+                        <div class="escalada-step">Tolerar</div>
+                        <div class="escalada-step">Interagir</div>
+                        <div class="escalada-step">Cheirar</div>
+                        <div class="escalada-step">Tocar</div>
+                        <div class="escalada-step">Provar</div>
+                        <div class="escalada-step">Comer!</div> 
+                    </div>
+
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-4">
+                        Nosso Propósito e Comunidade
+                    </h2>
+                    <p class="text-xl text-gray-700 mb-8 text-center">
+                        Nosso propósito é fazer com que mais crianças se alimentem melhor, entregando informação <strong>clara e viável</strong> para as famílias.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                        
+
+<div class="bg-bqsc-light border-l-4 border-bqsc-green-leaf p-6 rounded-lg h-full flex flex-col justify-center">
+                            <p class="text-xl text-bqsc-dark">
+                                Essa abordagem se provou eficaz: desde 2022, formamos uma comunidade com...
+                            </p>
+                            <div class="text-center my-4">
+                                <span class="text-5xl md:text-6xl font-black text-bqsc-dark">141,4 mil</span>
+                                <span class="text-2xl font-bold text-bqsc-dark block">seguidores</span>
+                            </div>
+                            <p class="text-xl text-bqsc-dark text-center font-bold">
+                                Crescimento 100% ORGÂNICO.
+                            </p>
+                        </div>
+
+                        
+
+<div class="bg-bqsc-light p-6 rounded-lg flex flex-col justify-center">
+                            <h3 class="text-xl font-bold text-bqsc-dark mb-4 text-center">Nosso Alcance Orgânico é Massivo</h3>
+                            <div class="space-y-3">
+                                <div class="bg-white p-3 rounded-lg shadow-md text-center">
+                                    <span class="text-3xl font-black text-bqsc-dark">17,1 Milhões</span>
+                                    <p class="text-lg text-gray-700">Visualizações em um único Reel (Pipoca de Sagu)</p>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg shadow-md text-center">
+                                    <span class="text-3xl font-black text-bqsc-dark">15,4 Milhões</span>
+                                    <p class="text-lg text-gray-700">Visualizações em outro Reel (Sorvetinho)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8">
+                        A Especialista por Trás da Marca
+                    </h2>
+                    <div class="flex flex-col md:flex-row items-center gap-8">
+                        
+
+<div class="flex-shrink-0 text-center w-full md:w-1/3">
+                            <img src="https://bemquesecome.com.br/img/profile.jpg" alt="Foto de Olívia" class="profile-img w-48 h-48 md:w-64 md:h-64 mx-auto object-cover">
+                            <h3 class="text-2xl font-bold text-bqsc-dark mt-4">Olívia</h3>
+                            <p class="text-lg font-semibold text-bqsc-orange">Fundadora da "Bem Que Se Come"</p>
+                        </div>
+                        
+
+<div class="flex-1">
+                            <p class="text-lg text-gray-700 mb-4">
+                                Uma apaixonada por alimentação saudável, crianças e maternidade. Técnica e graduanda em nutrição, especialista em Introdução Alimentar.
+                            </p>
+                            <p class="text-lg text-gray-700 mb-4">
+                                Trabalha com consultorias personalizadas para realizar seu propósito: <strong class="text-bqsc-dark">"por mais crianças comendo bem"!</strong>
+                            </p>
+                            <p class="text-lg text-gray-700">
+                                Através de conteúdo de qualidade, leva conhecimento atualizado para cuidadores, atendendo clientes em diversos países de forma on-line e presencial em Ribeirão Preto-SP.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-12">
+                        A Oportunidade: Unindo Forças
+                    </h2>
+                    
+                    <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-center">
+                        
+
+<div class="bg-sp-purple text-white p-6 rounded-xl shadow-lg w-full md:w-1/3">
+                            <img src="https://superplayer.company/wp-content/uploads/2024/02/sva-imaginaso-icon-web.png" alt="Imagina Só Logo" class="h-24 mx-auto mb-4">
+                            <h3 class="text-2xl font-bold mt-2">Superplayer & Co</h3>
+                            <p class="text-lg text-gray-100 mt-2">Domínio da plataforma, personagens e do lúdico.</p>
+                        </div>
+                        
+                        <span class="text-5xl font-bold text-bqsc-medium">+</span>
+
+                        
+
+<div class="bg-bqsc-light p-6 rounded-xl shadow-lg w-full md:w-1/3">
+                            <img src="https://bemquesecome.com.br/img/logo.png" alt="Bem Que Se Come Logo" class="h-24 mx-auto mb-4">
+                            <h3 class="text-2xl font-bold text-bqsc-dark mt-2">Bem Que Se Come</h3>
+                            <p class="text-lg text-gray-700 mt-2">Expertise em conteúdo prático e comunidade.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8">
+                        Nossas Forças
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                        
+                        
+
+<div class="bg-bqsc-light p-6 rounded-lg border border-bqsc-medium">
+                            <svg class="w-16 h-16 text-bqsc-orange mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <h3 class="text-xl font-bold text-bqsc-dark">Conexão e Autoridade</h3>
+                            <p class="text-gray-700">Influência e confiança estabelecida no nicho.</p>
+                        </div>
+                        
+                        
+
+<div class="bg-bqsc-light p-6 rounded-lg border border-bqsc-medium">
+                            <svg class="w-16 h-16 text-bqsc-green-leaf mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5.5A12.06 12.06 0 013.176 17.5a12.07 12.07 0 01.665-6.479L12 14zm0 0l-9-5 9-5 9 5-9 5z"></svg>
+                            <h3 class="text-xl font-bold text-bqsc-dark">Técnica e Prática</h3>
+                            <p class="text-gray-700">Receitas únicas (Técnico + Graduanda em Nutrição).</p>
+                        </div>
+                        
+                        
+
+<div class="bg-bqsc-light p-6 rounded-lg border border-bqsc-medium">
+                            <svg class="w-16 h-16 text-bqsc-dark mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <h3 class="text-xl font-bold text-bqsc-dark">Criação de Conteúdo</h3>
+                            <p class="text-gray-700">Habilidade comprovada em viralização 100% orgânica.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8">
+                        Ideias para Co-criação
+                    </h2>
+                     <div class="bg-bqsc-light p-6 md:p-8 rounded-lg border border-bqsc-medium">
+                         <ul class="space-y-4">
+                            <li class="text-lg"><strong>Lançamentos Sazonais:</strong> (Ex: Guia de Lancheiras do Arildo)</li>
+                            <li class="text-lg"><strong>Produtos Perenes:</strong> (Ex: E-book de receitas do Chef Tuco)</li>
+                            <li class="text-lg"><strong>Projetos Físicos e Sociais:</strong> (Ex: Livros, Workshops, Hortas em escolas)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            
+
+<div class="slide">
+                <div class="slide-content flex-1 flex flex-col items-center justify-center text-center">
+                    <img src="https://bemquesecome.com.br/img/logo.png" alt="Bem Que Se Come Logo" class="h-24 md:h-32 mb-8">
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-bqsc-dark">
+                        Obrigado!
+                    </h2>
+                </div>
+            </div>
+
+
+        </section>
+
+        
+
+<footer class="py-4 px-6 md:px-10 border-t border-bqsc-medium bg-bqsc-light rounded-b-2xl">
+            <div class="flex justify-between items-center">
+                
+
+<button id="prevBtn" class="bg-bqsc-medium text-bqsc-dark font-bold py-2 px-6 rounded-full hover:bg-bqsc-orange/50 transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Anterior
+                </button>
+                
+                
+
+<span id="slide-counter" class="text-lg font-bold text-bqsc-dark">
+                    1 / 8
+                </span>
+
+                
+
+<button id="nextBtn" class="bg-bqsc-dark text-white font-bold py-2 px-6 rounded-full hover:bg-bqsc-green-leaf transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    Próximo
+                </button>
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+
+            const nextButton = document.getElementById('nextBtn');
+            const prevButton = document.getElementById('prevBtn');
+            const slideCounter = document.getElementById('slide-counter');
+
+            function showSlide(index) {
+                // Esconde todos os slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+
+                // Mostra o slide correto
+                if (slides[index]) {
+                    slides[index].classList.add('active');
+                }
+
+                // Atualiza o contador
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+
+                // Atualiza o estado dos botões
+                prevButton.disabled = (index === 0);
+                nextButton.disabled = (index === totalSlides - 1);
+            }
+
+            function goToNextSlide() {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    showSlide(currentSlide);
+                }
+            }
+
+            function goToPrevSlide() {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    showSlide(currentSlide);
+                }
+            }
+
+            // Event Listeners para os botões
+            nextButton.addEventListener('click', goToNextSlide);
+            prevButton.addEventListener('click', goToPrevSlide);
+
+            // Event Listeners para as setas do teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') {
+                    goToNextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    goToPrevSlide();
+                }
+            });
+
+            // Mostrar o primeiro slide ao carregar
+            showSlide(currentSlide);
+        });
+    </script>
+
+</body>
+</html>
+
