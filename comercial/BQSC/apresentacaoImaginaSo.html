@@ -118,11 +118,11 @@
         
         .escalada-container {
             display: flex;
-            /* Inverte a ordem visual, colocando o primeiro item do HTML na base */
-            flex-direction: column-reverse; 
-            align-items: center; /* Centraliza os degraus */
+            flex-direction: column-reverse; /* Inverte a ordem visual, colocando "Tolerar" na base */
+            align-items: flex-end; /* Alinha os degraus à direita */
             gap: 0.5rem; /* Espaçamento entre os degraus */
-            width: 100%;
+            width: 100%; /* Ocupa a largura total do seu contêiner pai */
+            max-width: 250px; /* Largura máxima para a escada, liberando espaço */
         }
         
         .escalada-step {
@@ -132,7 +132,6 @@
             /* Tamanho menor e responsivo */
             height: 3rem; /* Altura menor para celular */
             font-size: 1rem; /* Fonte menor para celular */
-            width: 100%; /* Ocupa a largura definida pelo nth-child */
             
             /* Em telas médias (desktop), aumenta um pouco */
             @media (min-width: 768px) {
@@ -155,7 +154,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
         }
         
-        /* CORREÇÃO: Inverte a pirâmide. O primeiro degrau (Tolerar) é o mais largo */
+        /* Larguras fixas para a escada, alinhando à direita */
         .escalada-step:nth-child(1) { width: 100%; }  /* Tolerar */
         .escalada-step:nth-child(2) { width: 90%; }   /* Interagir */
         .escalada-step:nth-child(3) { width: 80%; }   /* Cheirar */
@@ -209,63 +208,63 @@
             
 
 <div class="slide">
-                <div class="slide-content flex-1 flex flex-col items-center">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8">
-                        A Nossa Conexão
-                    </h2>
-                    
-                    
-
-<div class="escalada-container w-full max-w-xl mx-auto mt-4 md:mt-8">
-                        
-                        <div class="escalada-step">Tolerar</div>
-                        <div class="escalada-step">Interagir</div>
-                        <div class="escalada-step">Cheirar</div>
-                        <div class="escalada-step">Tocar</div>
-                        <div class="escalada-step">Provar</div>
-                        <div class="escalada-step">Comer!</div> 
+                <div class="slide-content flex-1 flex flex-col md:flex-row items-center justify-center gap-8">
+                    <div class="md:w-1/2 flex justify-center order-2 md:order-1">
+                        <img src="https://c3c-github.github.io/consultoria/comercial/BQSC/hortaArildo.png" alt="Arildo e Tuco" class="max-h-[300px] md:max-h-[400px] object-contain">
                     </div>
-
+                    <div class="md:w-1/2 flex flex-col items-center md:items-start order-1 md:order-2">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-8 text-center md:text-left">
+                            A Nossa Conexão
+                        </h2>
+                        <div class="escalada-container mt-4 md:mt-0">
+                            <div class="escalada-step">Tolerar</div>
+                            <div class="escalada-step">Interagir</div>
+                            <div class="escalada-step">Cheirar</div>
+                            <div class="escalada-step">Tocar</div>
+                            <div class="escalada-step">Provar</div>
+                            <div class="escalada-step">Comer!</div> 
+                        </div>
+                    </div>
                 </div>
             </div>
 
             
 
 <div class="slide">
-                <div class="slide-content flex-1">
-                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-4">
+                <div class="slide-content flex-1 flex flex-col justify-center items-center">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-4 text-center">
                         Nosso Propósito e Comunidade
                     </h2>
-                    <p class="text-xl text-gray-700 mb-8 text-center">
+                    <p class="text-xl text-gray-700 mb-8 text-center max-w-2xl mx-auto">
                         Nosso propósito é fazer com que mais crianças se alimentem melhor, entregando informação <strong>clara e viável</strong> para as famílias.
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
                         
 
-<div class="bg-bqsc-light border-l-4 border-bqsc-green-leaf p-6 rounded-lg h-full flex flex-col justify-center">
-                            <p class="text-xl text-bqsc-dark">
+<div class="bg-bqsc-light border-l-4 border-bqsc-green-leaf p-6 rounded-lg h-full flex flex-col justify-center items-center text-center">
+                            <p class="text-xl text-bqsc-dark mb-4">
                                 Essa abordagem se provou eficaz: desde 2022, formamos uma comunidade com...
                             </p>
-                            <div class="text-center my-4">
+                            <div class="my-4">
                                 <span class="text-5xl md:text-6xl font-black text-bqsc-dark">141,4 mil</span>
                                 <span class="text-2xl font-bold text-bqsc-dark block">seguidores</span>
                             </div>
-                            <p class="text-xl text-bqsc-dark text-center font-bold">
+                            <p class="text-xl text-bqsc-dark font-bold">
                                 Crescimento 100% ORGÂNICO.
                             </p>
                         </div>
 
                         
 
-<div class="bg-bqsc-light p-6 rounded-lg flex flex-col justify-center">
-                            <h3 class="text-xl font-bold text-bqsc-dark mb-4 text-center">Nosso Alcance Orgânico é Massivo</h3>
-                            <div class="space-y-3">
-                                <div class="bg-white p-3 rounded-lg shadow-md text-center">
+<div class="bg-bqsc-light p-6 rounded-lg h-full flex flex-col justify-center items-center text-center">
+                            <h3 class="text-xl font-bold text-bqsc-dark mb-4">Nosso Alcance Orgânico é Massivo</h3>
+                            <div class="space-y-3 w-full">
+                                <div class="bg-white p-3 rounded-lg shadow-md">
                                     <span class="text-3xl font-black text-bqsc-dark">17,1 Milhões</span>
                                     <p class="text-lg text-gray-700">Visualizações em um único Reel (Pipoca de Sagu)</p>
                                 </div>
-                                <div class="bg-white p-3 rounded-lg shadow-md text-center">
+                                <div class="bg-white p-3 rounded-lg shadow-md">
                                     <span class="text-3xl font-black text-bqsc-dark">15,4 Milhões</span>
                                     <p class="text-lg text-gray-700">Visualizações em outro Reel (Sorvetinho)</p>
                                 </div>
@@ -493,4 +492,3 @@
 
 </body>
 </html>
-
