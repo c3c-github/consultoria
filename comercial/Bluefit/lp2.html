@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    
+    <title>Bluefit | A Sua Academia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte Inter como padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* Cor primária da Bluefit (baseada na imagem e logo) */
+        :root {
+            --bluefit-primary: #0047FF; /* Um azul elétrico e forte */
+        }
+
+        /* Efeito de brilho sutil no botão CTA com a nova cor */
+        .cta-button:hover {
+            box-shadow: 0 0 15px 5px rgba(0, 71, 255, 0.4);
+        }
+
+        /* --- CSS para Simulador WhatsApp e Ocultar Chat Padrão --- */
+
+        /* Esconde o chat padrão do Salesforce */
+        .embeddedServiceHelpButton, 
+        .embeddedServiceSidebar, 
+        #serviceCloudEmbeddedMessage {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            z-index: -9999 !important;
+        }
+
+        /* Classes para balões de mensagens */
+        .message-sent {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .message-sent .message-content {
+            background-color: #DCF8C6; /* Verde claro do WhatsApp */
+            border-radius: 8px;
+            padding: 12px;
+            max-width: 70%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+
+        .message-received {
+            display: flex;
+            justify-content: flex-start;
+        }
+        .message-received .message-content {
+            background-color: #FFFFFF;
+            border-radius: 8px;
+            padding: 12px;
+            max-width: 70%;
+            box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+        }
+        .message-time {
+            font-size: 0.75rem; /* 12px */
+            color: #999;
+            margin-top: 4px;
+            display: block;
+            text-align: right;
+        }
+
+        /* Ajuste para o scrollbar do chat */
+        #chat-body::-webkit-scrollbar {
+            width: 6px;
+        }
+        #chat-body::-webkit-scrollbar-thumb {
+            background-color: rgba(0,0,0,0.2);
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo Bluefit -->
+            <img src="https://cdn.prod.website-files.com/64dd05b33f019f79a7ec8f43/688c17ebdf1c56f55e421768_placeholder_carrossel-blue-horizontal-old_blue.webp" alt="Bluefit Logo" class="h-10 w-auto">
+            
+            <!-- Botão com a nova cor de destaque (ID adicionado) -->
+            <a href="#" id="cta-header" class="hidden md:inline-block bg-[var(--bluefit-primary)] text-white font-bold px-5 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 cta-button">
+                Fale com um Consultor
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="relative bg-gray-50">
+            <!-- Fundo com tom azul muito claro -->
+            <div class="absolute inset-0 bg-blue-50 opacity-60"></div>
+            <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
+                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
+                    Conquiste Seus Objetivos na Bluefit.
+                </h2>
+                <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-700">
+                    Descubra como nossos planos, equipamentos de ponta e aulas incríveis podem transformar sua rotina e sua saúde, 24 horas por dia.
+                </p>
+                <div class="mt-10">
+                    <!-- Botão principal com a nova paleta (ID adicionado) -->
+                    <a href="#" id="cta-hero" class="bg-[var(--bluefit-primary)] text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-blue-700 transition-all duration-300 cta-button">
+                        Converse com nosso Especialista de IA
+                    </a>
+                    <p class="mt-4 text-sm text-gray-500">Tire suas dúvidas instantaneamente via chat.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900">Uma Experiência de Treino Completa</h3>
+                    <p class="mt-3 text-lg text-gray-600">Tudo o que você precisa para evoluir.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Feature 1: Equipamentos -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
+                        <!-- Ícone com a nova paleta -->
+                        <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Halter (Dumbbell) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m6 2 4 4"/><path d="m3 22 4-4"/><path d="m17 7-4 4"/><path d="m2 6 4 4"/></svg>
+                        </div>
+                        <h4 class="mt-4 text-xl font-semibold">Equipamentos de Ponta</h4>
+                        <p class="mt-2 text-gray-700">Treine com as melhores máquinas do mercado, com manutenção e tecnologia de última geração.</p>
+                    </div>
+
+                    <!-- Feature 2: Aulas -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
+                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Grupo (Users) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        </div>
+                        <h4 class="mt-4 text-xl font-semibold">Grade de Aulas Completa</h4>
+                        <p class="mt-2 text-gray-700">Deixe a rotina de lado com dezenas de aulas coletivas, incluindo dança, lutas e funcional.</p>
+                    </div>
+
+                    <!-- Feature 3: App -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
+                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Smartphone -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                        </div>
+                        <h4 class="mt-4 text-xl font-semibold">App Bluefit</h4>
+                        <p class="mt-2 text-gray-700">Acesse seus treinos, agende aulas e acompanhe seu progresso na palma da sua mão.</p>
+                    </div>
+
+                    <!-- Feature 4: Suporte -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
+                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Suporte (BadgeCheck) -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.78l1.21 1.21a1 1 0 0 0 1.42 0l1.21-1.21a4 4 0 0 1 4.78 4.78l-1.21 1.21a1 1 0 0 0 0 1.42l1.21 1.21a4 4 0 0 1-4.78 4.78l-1.21-1.21a1 1 0 0 0-1.42 0l-1.21 1.21a4 4 0 0 1-4.78-4.78l1.21-1.21a1 1 0 0 0 0-1.42Z"/><path d="m9 12 2 2 4-4"/></svg>
+                        </div>
+                        <h4 class="mt-4 text-xl font-semibold">Suporte Profissional</h4>
+                        <p class="mt-2 text-gray-700">Nossa equipe de professores e consultores está pronta para te ajudar a atingir seus objetivos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section (não é mais o alvo do link, mas mantido) -->
+        <section id="chat" class="bg-gray-50">
+            <div class="container mx-auto px-6 py-20 text-center">
+                <h3 class="text-3xl md:text-4xl font-bold text-gray-900">Pronto para começar sua transformação?</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-700">
+                    Nosso especialista de IA está pronto para tirar suas dúvidas sobre planos e unidades. Sem formulários, sem espera.
+                </p>
+                <div class="mt-8">
+                     <p class="font-semibold text-gray-800">Clique no botão "Fale com um Consultor" para começar! 👆</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer com a nova cor escura de fundo -->
+    <footer class="bg-gray-900 text-gray-300">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 Bluefit. Todos os direitos reservados.</p>
+            <p class="text-sm mt-2 opacity-80">A sua academia.</p>
+        </div>
+    </footer>
+
+    <!-- ##################################################################### -->
+    <!-- ### Simulador de WhatsApp (Inicialmente Oculto) ### -->
+    <!-- ##################################################################### -->
+    <div id="whatsapp-simulator" class="hidden fixed inset-0 bg-gray-200 z-[100] flex flex-col" 
+         style="background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');">
+        
+        <!-- Header do WhatsApp -->
+        <header class="bg-[#005E54] text-white p-3 flex items-center shadow-md">
+            <button id="back-to-lp" class="mr-4 text-white p-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            </button>
+            <img src="https://placehold.co/40x40/0047FF/FFFFFF?text=B" alt="Bluefit Avatar" class="rounded-full w-10 h-10 mr-3 border-2 border-white">
+            <div>
+                <h2 class="font-semibold text-lg">Bluefit Atendimento</h2>
+                <p class="text-sm opacity-90">online</p>
+            </div>
+        </header>
+
+        <!-- Corpo das Mensagens -->
+        <div id="chat-body" class="flex-1 p-4 overflow-y-auto space-y-4">
+            <!-- Mensagens serão injetadas aqui pelo JavaScript -->
+        </div>
+
+        <!-- Input de Mensagem -->
+        <footer class="bg-gray-100 p-3 flex items-center border-t border-gray-300">
+            <input id="chat-input" type="text" placeholder="Digite uma mensagem..." class="flex-1 p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-[var(--bluefit-primary)] px-5">
+            <button id="send-button" class="bg-[var(--bluefit-primary)] text-white rounded-full w-12 h-12 flex items-center justify-center ml-3 cta-button flex-shrink-0">
+                <!-- Ícone de Envio (Send) -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-send"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+            </button>
+        </footer>
+    </div>
+
+
+    <!-- ##################################################################### -->
+    <!-- ### Scripts do Chat Salesforce Embedded Messaging ### -->
+    <!-- ### ESTA SEÇÃO FOI MANTIDA EXATAMENTE COMO A ORIGINAL ### -->
+    <!-- ##################################################################### -->
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'pt_BR'; // Idioma ajustado para português
+
+                embeddedservice_bootstrap.init(
+                    '00DKj00000eSoyG',
+                    'SDR_Omnibees',
+                    'https://storm-a8910c779ab831.my.site.com/ESWSDROmnibees1760600343240',
+                    {
+                        scrt2URL: 'https://storm-a8910c779ab831.my.salesforce-scrt.com'
+                    }
+                );
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://storm-a8910c779ab831.my.site.com/ESWSDROmnibees1760600343240/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+    <!-- ##################################################################### -->
+    <!-- ### Fim da Seção do Chat Salesforce ### -->
+    <!-- ##################################################################### -->
+
+
+    <!-- ### Script de Integração WhatsApp Sim <-> Salesforce ### -->
+    <script type='text/javascript'>
+        // Aguarda o carregamento completo da página
+        window.addEventListener('load', () => {
+
+            // Elementos da UI
+            const whatsappSimulator = document.getElementById('whatsapp-simulator');
+            const lpHeader = document.querySelector('header');
+            const lpMain = document.querySelector('main');
+            const lpFooter = document.querySelector('footer');
+            
+            const chatBody = document.getElementById('chat-body');
+            const chatInput = document.getElementById('chat-input');
+            const sendButton = document.getElementById('send-button');
+            const backButton = document.getElementById('back-to-lp');
+
+            const ctaButtons = [
+                document.getElementById('cta-header'),
+                document.getElementById('cta-hero')
+            ];
+
+            let isChatReady = false;
+            let isConversationStarted = false;
+
+            // --- Funções da UI ---
+
+            function showWhatsApp() {
+                // Esconde a LP
+                if(lpHeader) lpHeader.style.display = 'none';
+                if(lpMain) lpMain.style.display = 'none';
+                if(lpFooter) lpFooter.style.display = 'none';
+                
+                // Mostra o WhatsApp
+                whatsappSimulator.classList.remove('hidden');
+                
+                // Inicia a conversa no Salesforce se ainda não começou
+                if (isChatReady && !isConversationStarted) {
+                    try {
+                        console.log('Tentando iniciar a conversa...');
+                        embeddedservice_bootstrap.startConversation();
+                        // O evento 'conversationEstablished' cuidará de isConversationStarted
+                    } catch (err) {
+                        console.error('Erro ao iniciar a conversa: ', err);
+                        addMessageToUI('Erro ao conectar. Tente recarregar a página.', 'received');
+                    }
+                }
+            }
+
+            function showLandingPage() {
+                // Mostra a LP
+                if(lpHeader) lpHeader.style.display = ''; // Reseta para o padrão
+                if(lpMain) lpMain.style.display = ''; // Reseta para o padrão
+                if(lpFooter) lpFooter.style.display = ''; // Reseta para o padrão
+                
+                // Esconde o WhatsApp
+                whatsappSimulator.classList.add('hidden');
+            }
+
+            function addMessageToUI(message, sender) {
+                const messageWrapper = document.createElement('div');
+                messageWrapper.classList.add(sender === 'sent' ? 'message-sent' : 'message-received');
+                
+                const messageContent = document.createElement('div');
+                messageContent.classList.add('message-content');
+                
+                const textElement = document.createElement('p');
+                textElement.classList.add('text-sm');
+                textElement.textContent = message;
+                
+                const timeElement = document.createElement('span');
+                timeElement.classList.add('message-time');
+                timeElement.textContent = new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+                
+                messageContent.appendChild(textElement);
+                messageContent.appendChild(timeElement);
+                messageWrapper.appendChild(messageContent);
+                
+                chatBody.appendChild(messageWrapper);
+                
+                // Auto-scroll
+                chatBody.scrollTop = chatBody.scrollHeight;
+            }
+
+            // --- Handlers de Eventos da UI ---
+
+            ctaButtons.forEach(button => {
+                if (button) {
+                    button.addEventListener('click', (e) => {
+                        e.preventDefault(); // Previne a navegação
+                        showWhatsApp();
+                    });
+                }
+            });
+
+            if (backButton) {
+                backButton.addEventListener('click', showLandingPage);
+            }
+
+            function handleSend() {
+                const text = chatInput.value.trim();
+                if (text && isChatReady) {
+                    try {
+                        console.log('Enviando mensagem para o Salesforce:', text);
+                        // API do Salesforce para enviar mensagem
+                        embeddedservice_bootstrap.sendMessage({ message: text });
+                        
+                        // Adiciona a mensagem à UI como "enviada"
+                        addMessageToUI(text, 'sent');
+                        chatInput.value = '';
+                    } catch (err) {
+                        console.error('Erro ao enviar mensagem: ', err);
+                        addMessageToUI('Erro ao enviar sua mensagem.', 'received');
+                    }
+                } else if (!isChatReady) {
+                    console.warn('Chat não está pronto. Mensagem não enviada.');
+                    addMessageToUI('O chat ainda não está conectado. Aguarde um momento.', 'received');
+                }
+            }
+
+            if (sendButton) {
+                sendButton.addEventListener('click', handleSend);
+            }
+            if (chatInput) {
+                chatInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        handleSend();
+                    }
+                });
+            }
+
+            // --- Handlers da API do Salesforce ---
+
+            // Este evento é disparado quando a API do chat está pronta
+            window.addEventListener("onEmbeddedMessagingReady", () => {
+                console.log("API do Embedded Messaging está pronta.");
+                isChatReady = true;
+                
+                // Adiciona listener para mensagens recebidas
+                embeddedservice_bootstrap.on('messageReceived', (data) => {
+                    console.log('Mensagem recebida do Salesforce:', data);
+                    // data.message contém o texto da mensagem do agente/bot
+                    // Ignora a mensagem "Chat Started" ou "Chat ended"
+                    if (data && data.message && data.type !== 'ChatStarted' && data.type !== 'ChatEnded') {
+                        addMessageToUI(data.message, 'received');
+                    }
+                });
+
+                // Adiciona listener para quando a conversa é estabelecida
+                embeddedservice_bootstrap.on('conversationEstablished', (data) => {
+                    console.log('Conversa estabelecida:', data);
+                    isConversationStarted = true;
+                    // Limpa mensagens antigas e adiciona a primeira
+                    chatBody.innerHTML = ''; 
+                    addMessageToUI('Conectado! Você está falando com nosso especialista.', 'received');
+                });
+
+                // Adiciona listener para o fim da sessão
+                embeddedservice_bootstrap.on('sessionEnded', () => {
+                    console.log('Sessão encerrada.');
+                    isConversationStarted = false;
+                    addMessageToUI('A sessão foi encerrada. Você pode fechar esta tela.', 'received');
+                });
+            });
+
+        }); // Fim do window.addEventListener('load')
+    </script>
+
+</body>
+</html>
+
