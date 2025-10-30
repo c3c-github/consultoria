@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     
-    <title>Bluefit | A Sua Academia</title>
+    <title>Bluefit | Sua Jornada Fitness Começa Aqui</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,28 +21,49 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-        
-        /* Cor primária da Bluefit (baseada na imagem e logo) */
+
+        /* Cores da Bluefit (Aproximadas com Tailwind) */
         :root {
-            --bluefit-primary: #0047FF; /* Um azul elétrico e forte */
+            --bluefit-blue: #004BFF; /* Azul principal */
+            --bluefit-yellow: #FFDE00; /* Amarelo principal */
+        }
+        
+        /* Ajustando as classes do template original para a paleta Bluefit */
+        .bg-primary-blue { background-color: #004BFF; }
+        .text-primary-blue { color: #004BFF; }
+        
+        .bg-primary-yellow { background-color: #FFDE00; }
+        .text-primary-yellow { color: #FFDE00; }
+        
+        .cta-button {
+            background-color: var(--bluefit-yellow);
+            color: var(--bluefit-blue);
+        }
+        
+        .cta-button:hover {
+            box-shadow: 0 0 15px 5px rgba(255, 222, 0, 0.5);
+            filter: brightness(1.05);
         }
 
-        /* Efeito de brilho sutil no botão CTA com a nova cor */
-        .cta-button:hover {
-            box-shadow: 0 0 15px 5px rgba(0, 71, 255, 0.4);
+        .header-blue {
+            background-color: #004BFF;
+            color: #FFDE00;
+        }
+
+        .footer-blue {
+            background-color: #0033a0; /* Um tom de azul mais escuro para o footer */
+            color: #FFDE00;
         }
     </style>
 </head>
-<body class="bg-white text-gray-800">
+<body class="bg-gray-50 text-gray-900">
 
     <!-- Header -->
-    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo Bluefit -->
-            <img src="https://cdn.prod.website-files.com/64dd05b33f019f79a7ec8f43/688c17ebdf1c56f55e421768_placeholder_carrossel-blue-horizontal-old_blue.webp" alt="Bluefit Logo" class="h-10 w-auto">
-            
-            <!-- Botão com a nova cor de destaque -->
-            <a href="#chat" class="hidden md:inline-block bg-[var(--bluefit-primary)] text-white font-bold px-5 py-2 rounded-lg hover:bg-blue-700 transition-all duration-300 cta-button">
+            <!-- Logo (Texto) -->
+            <h1 class="text-3xl font-bold text-primary-blue">Bluefit</h1>
+            <a href="#chat" class="hidden md:inline-block text-blue-700 bg-primary-yellow font-bold px-5 py-2 rounded-lg hover:bg-yellow-300 transition-colors cta-button">
                 Fale com um Consultor
             </a>
         </div>
@@ -50,115 +71,109 @@
 
     <!-- Hero Section -->
     <main>
-        <section class="relative bg-gray-50">
+        <section class="relative bg-white">
             <!-- Fundo com tom azul muito claro -->
             <div class="absolute inset-0 bg-blue-50 opacity-60"></div>
             <div class="container mx-auto px-6 py-20 md:py-32 text-center relative z-10">
-                <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-                    Conquiste Seus Objetivos na Bluefit.
+                <h2 class="text-4xl md:text-6xl font-extrabold text-primary-blue leading-tight">
+                    Transforme seu Corpo e Mente na Bluefit.
                 </h2>
                 <p class="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-700">
-                    Descubra como nossos planos, equipamentos de ponta e aulas incríveis podem transformar sua rotina e sua saúde, 24 horas por dia.
+                    Descubra nossas unidades, planos flexíveis e o melhor ambiente para você atingir todos os seus objetivos, todos os dias.
                 </p>
                 <div class="mt-10">
                     <!-- Botão principal com a nova paleta -->
-                    <a href="#chat" class="bg-[var(--bluefit-primary)] text-white font-bold px-8 py-4 rounded-lg text-lg hover:bg-blue-700 transition-all duration-300 cta-button">
-                        Converse com nosso Especialista de IA
+                    <a href="#chat" class="bg-primary-yellow text-blue-700 font-bold px-8 py-4 rounded-lg text-lg transition-all duration-300 cta-button">
+                        Converse com o Blue, nosso assistente virtual
                     </a>
-                    <p class="mt-4 text-sm text-gray-500">Tire suas dúvidas instantaneamente via chat.</p>
+                    <p class="mt-4 text-sm text-gray-500">Qualificação instantânea via chat.</p>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section class="py-20 bg-white">
+        <section class="py-20 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
-                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900">Uma Experiência de Treino Completa</h3>
+                    <h3 class="text-3xl md:text-4xl font-bold text-primary-blue">Uma Academia Completa para Você</h3>
                     <p class="mt-3 text-lg text-gray-600">Tudo o que você precisa para evoluir.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    
-                    <!-- Feature 1: Equipamentos -->
+                    <!-- Feature 1 -->
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
                         <!-- Ícone com a nova paleta -->
-                        <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
-                            <!-- Ícone de Halter (Dumbbell) -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-dumbbell"><path d="m6.5 6.5 11 11"/><path d="m21 21-1-1"/><path d="m3 3 1 1"/><path d="m18 22 4-4"/><path d="m6 2 4 4"/><path d="m3 22 4-4"/><path d="m17 7-4 4"/><path d="m2 6 4 4"/></svg>
+                        <div class="bg-yellow-100 text-yellow-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Peso (Equipamentos) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M19 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M5 14v-4h14v4"/><path d="M19 14v4"/><path d="M5 14v4"/><path d="M12 18v-4H5a3 3 0 0 0-3 3v0a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v0a3 3 0 0 0-3-3h-7Z"/></svg>
                         </div>
-                        <h4 class="mt-4 text-xl font-semibold">Equipamentos de Ponta</h4>
-                        <p class="mt-2 text-gray-700">Treine com as melhores máquinas do mercado, com manutenção e tecnologia de última geração.</p>
+                        <h4 class="mt-4 text-xl font-semibold">Equipamentos Modernos</h4>
+                        <p class="mt-2 text-gray-700">Aparelhos de última geração para garantir o melhor desempenho no seu treino.</p>
                     </div>
-
-                    <!-- Feature 2: Aulas -->
+                    <!-- Feature 2 -->
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
-                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
-                            <!-- Ícone de Grupo (Users) -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                         <div class="bg-yellow-100 text-yellow-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Grupo (Aulas) -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                         </div>
-                        <h4 class="mt-4 text-xl font-semibold">Grade de Aulas Completa</h4>
-                        <p class="mt-2 text-gray-700">Deixe a rotina de lado com dezenas de aulas coletivas, incluindo dança, lutas e funcional.</p>
+                        <h4 class="mt-4 text-xl font-semibold">Aulas Coletivas</h4>
+                        <p class="mt-2 text-gray-700">Deixe a energia te levar com aulas de dança, funcional, lutas e muito mais.</p>
                     </div>
-
-                    <!-- Feature 3: App -->
+                    <!-- Feature 3 -->
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
-                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
-                            <!-- Ícone de Smartphone -->
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-smartphone"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                         <div class="bg-yellow-100 text-yellow-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                            <!-- Ícone de Preço (Planos) -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                         </div>
-                        <h4 class="mt-4 text-xl font-semibold">App Bluefit</h4>
-                        <p class="mt-2 text-gray-700">Acesse seus treinos, agende aulas e acompanhe seu progresso na palma da sua mão.</p>
+                        <h4 class="mt-4 text-xl font-semibold">Planos Flexíveis</h4>
+                        <p class="mt-2 text-gray-700">Planos a partir de R$ 99,90/mês. Escolha o plano Gold ou Blue e treine sem complicações.</p>
                     </div>
-
-                    <!-- Feature 4: Suporte -->
+                    <!-- Feature 4 -->
                     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200 hover:shadow-xl hover:-translate-y-1 transition-all">
-                         <div class="bg-blue-100 text-[var(--bluefit-primary)] rounded-lg w-12 h-12 flex items-center justify-center">
-                            <!-- Ícone de Suporte (BadgeCheck) -->
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-badge-check"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.78l1.21 1.21a1 1 0 0 0 1.42 0l1.21-1.21a4 4 0 0 1 4.78 4.78l-1.21 1.21a1 1 0 0 0 0 1.42l1.21 1.21a4 4 0 0 1-4.78 4.78l-1.21-1.21a1 1 0 0 0-1.42 0l-1.21 1.21a4 4 0 0 1-4.78-4.78l1.21-1.21a1 1 0 0 0 0-1.42Z"/><path d="m9 12 2 2 4-4"/></svg>
+                         <div class="bg-yellow-100 text-yellow-600 rounded-lg w-12 h-12 flex items-center justify-center">
+                           <!-- Ícone de Mapa (Unidades) -->
+                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                         </div>
-                        <h4 class="mt-4 text-xl font-semibold">Suporte Profissional</h4>
-                        <p class="mt-2 text-gray-700">Nossa equipe de professores e consultores está pronta para te ajudar a atingir seus objetivos.</p>
+                        <h4 class="mt-4 text-xl font-semibold">Ampla Rede de Unidades</h4>
+                        <p class="mt-2 text-gray-700">Mais de 100 unidades no Brasil. Treine onde quiser com o plano Gold.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Final CTA Section -->
-        <section id="chat" class="bg-gray-50">
+        <section id="chat" class="bg-white">
             <div class="container mx-auto px-6 py-20 text-center">
-                <h3 class="text-3xl md:text-4xl font-bold text-gray-900">Pronto para começar sua transformação?</h3>
+                <h3 class="text-3xl md:text-4xl font-bold text-primary-blue">Pronto para começar sua mudança?</h3>
                 <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-700">
-                    Nosso especialista de IA está pronto para tirar suas dúvidas sobre planos e unidades. Sem formulários, sem espera.
+                    Nosso assistente virtual está pronto para encontrar o plano e a unidade ideal para você. Sem formulários, sem espera.
                 </p>
                 <div class="mt-8">
-                     <p class="font-semibold text-gray-800">Clique no ícone de chat no canto da tela para começar! 👇</p>
+                     <p class="font-semibold text-primary-blue">Clique no ícone de chat no canto da tela para começar! 👇</p>
                 </div>
             </div>
         </section>
     </main>
     
-    <!-- Footer com a nova cor escura de fundo -->
-    <footer class="bg-gray-900 text-gray-300">
+    <!-- Footer -->
+    <footer class="footer-blue text-yellow-200">
         <div class="container mx-auto px-6 py-8 text-center">
             <p>&copy; 2025 Bluefit. Todos os direitos reservados.</p>
-            <p class="text-sm mt-2 opacity-80">A sua academia.</p>
+            <p class="text-sm mt-2 opacity-80">A rede de academias que mais cresce no Brasil.</p>
         </div>
     </footer>
 
 
-    <!-- ##################################################################### -->
-    <!-- ### Scripts do Chat Salesforce Embedded Messaging ### -->
-    <!-- ### ESTA SEÇÃO FOI MANTIDA EXATAMENTE COMO A ORIGINAL ### -->
-    <!-- ##################################################################### -->
+    <!-- Scripts do Chat Salesforce Embedded Messaging (FORNECIDO POR VOCÊ) -->
+    <!-- Este é o script específico para 'Bluefit_Agentforce' -->
     <script type='text/javascript'>
         function initEmbeddedMessaging() {
             try {
-                embeddedservice_bootstrap.settings.language = 'pt_BR'; // Idioma ajustado para português
+                embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
 
                 embeddedservice_bootstrap.init(
                     '00DKj00000eSoyG',
-                    'SDR_Omnibees',
-                    'https://storm-a8910c779ab831.my.site.com/ESWSDROmnibees1760600343240',
+                    'Bluefit_Agentforce',
+                    'https://storm-a8910c779ab831.my.site.com/ESWBluefitAgentforce1761251357796',
                     {
                         scrt2URL: 'https://storm-a8910c779ab831.my.salesforce-scrt.com'
                     }
@@ -168,10 +183,7 @@
             }
         };
     </script>
-    <script type='text/javascript' src='https://storm-a8910c779ab831.my.site.com/ESWSDROmnibees1760600343240/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
-    <!-- ##################################################################### -->
-    <!-- ### Fim da Seção do Chat Salesforce ### -->
-    <!-- ##################################################################### -->
+    <script type='text/javascript' src='https://storm-a8910c779ab831.my.site.com/ESWBluefitAgentforce1761251357796/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
 </body>
 </html>
