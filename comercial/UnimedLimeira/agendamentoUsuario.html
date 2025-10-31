@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unimed Limeira - Agendamento</title>
+    <!-- Carrega o Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Importa a fonte Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Define a fonte padrão */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Cor principal da Unimed */
+        .bg-unimed-green {
+            background-color: #009a4d;
+        }
+        .text-unimed-green {
+            color: #009a4d;
+        }
+        .border-unimed-green {
+            border-color: #009a4d;
+        }
+        /* Esconde elementos por padrão */
+        .view {
+            display: none;
+        }
+        /* Mostra o view ativo */
+        .view.active {
+            display: block;
+        }
+        /* Efeito de carregamento simples */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #009a4d;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Container Principal -->
+    <div class="container mx-auto max-w-lg p-4 min-h-screen bg-white shadow-lg md:rounded-lg md:mt-6">
+
+        <!-- Cabeçalho com Logo -->
+        <header class="text-center py-6 border-b border-gray-200">
+            <img src="https://www.unimed.coop.br/site/image/layout_set_logo?img_id=23015931&t=1761802062293" 
+                 alt="Logo Unimed Limeira" 
+                 class="h-12 mx-auto"
+                 onerror="this.onerror=null; this.src='https://placehold.co/200x50/009a4d/FFFFFF?text=Unimed+Limeira';">
+        </header>
+
+        <main id="app-container" class="py-6">
+
+            <!-- Tela 0: Carregamento (Simulação) -->
+            <div id="loading-view" class="view active text-center py-20">
+                <div class="loader mx-auto"></div>
+                <p class="mt-4 text-gray-600">Carregando agendamento...</p>
+            </div>
+
+            <!-- Tela 1: Início -->
+            <div id="home-view" class="view text-center">
+                <h1 class="text-2xl font-bold text-gray-800 mb-2">Olá, <span id="user-name" class="text-unimed-green">Usuário</span>!</h1>
+                <p class="text-gray-600 mb-4">Bem-vindo(a) ao Agendamento</p>
+                <p class="text-gray-700 mb-8">Inicie seu agendamento de consulta de forma rápida e fácil.</p>
+                <button onclick="showView('specialty-view')" class="w-full bg-unimed-green text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition-colors">
+                    Agendar Agora
+                </button>
+            </div>
+
+            <!-- Tela 2: Escolher Especialidade -->
+            <div id="specialty-view" class="view">
+                <button onclick="showView('home-view')" class="text-unimed-green mb-4">&larr; Voltar</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Escolha a especialidade</h2>
+                <input type="text" placeholder="Buscar especialidade..." class="w-full p-3 border border-gray-300 rounded-lg mb-4" onkeyup="filterSpecialties(this.value)">
+                
+                <div id="specialty-list" class="space-y-3">
+                    <!-- Especialidades serão inseridas aqui pelo JS -->
+                </div>
+            </div>
+
+            <!-- Tela 3: Escolher Unidade -->
+            <div id="unit-view" class="view">
+                <button onclick="showView('specialty-view')" class="text-unimed-green mb-4">&larr; Voltar</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Unidade de Atendimento</h2>
+                <p class="text-gray-600 mb-6">Disponível em <span class="font-bold">Cordeirópolis</span>:</p>
+                
+                <div id="unit-list" class="space-y-3">
+                    <!-- Unidades serão inseridas aqui pelo JS -->
+                </div>
+            </div>
+
+            <!-- Tela 4: Escolher Profissional e Data/Hora -->
+            <div id="doctor-date-view" class="view">
+                <button onclick="showView('unit-view')" class="text-unimed-green mb-4">&larr; Voltar</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Escolha o profissional e o horário</h2>
+                <p class="text-gray-600 mb-6">Especialidade: <span id="selected-specialty-title" class="font-bold"></span></p>
+
+                <div id="doctor-list" class="space-y-6">
+                    <!-- Lista de Doutores e horários será inserida aqui pelo JS -->
+                </div>
+            </div>
+
+            <!-- Tela 5: Confirmação -->
+            <div id="confirmation-view" class="view">
+                <button onclick="showView('doctor-date-view')" class="text-unimed-green mb-4">&larr; Voltar</button>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Confirme seu agendamento</h2>
+
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 space-y-4">
+                    <div>
+                        <span class="text-sm text-gray-500">Especialidade</span>
+                        <p id="conf-specialty" class="text-lg font-semibold text-gray-800"></p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Profissional</span>
+                        <p id="conf-doctor" class="text-lg font-semibold text-gray-800"></p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Data e Hora</span>
+                        <p id="conf-datetime" class="text-lg font-semibold text-gray-800"></p>
+                    </div>
+                    <div>
+                        <span class="text-sm text-gray-500">Unidade</span>
+                        <p id="conf-unit" class="text-lg font-semibold text-gray-800"></p>
+                        <p id="conf-address" class="text-gray-600"></p>
+                    </div>
+                </div>
+
+                <button onclick="showView('success-view')" class="mt-8 w-full bg-unimed-green text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-green-700 transition-colors">
+                    Confirmar Agendamento
+                </button>
+            </div>
+
+            <!-- Tela 6: Sucesso -->
+            <div id="success-view" class="view text-center py-20">
+                <svg class="w-16 h-16 text-unimed-green mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Agendamento Realizado!</h2>
+                <p class="text-gray-600 mb-8">Seu agendamento foi confirmado com sucesso. Você receberá os detalhes por e-mail e SMS.</p>
+                <button onclick="resetApp()" class="w-full bg-gray-200 text-gray-800 font-bold py-3 px-6 rounded-lg hover:bg-gray-300 transition-colors">
+                    Fazer Novo Agendamento
+                </button>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>
+        // --- DADOS FICTÍCIOS ---
+
+        const specialties = [
+            { id: 1, name: "Clínica Geral" },
+            { id: 2, name: "Cardiologia" },
+            { id: 3, name: "Dermatologia" },
+            { id: 4, name: "Ortopedia" },
+            { id: 5, name: "Pediatria" },
+            { id: 6, name: "Ginecologia" },
+        ];
+
+        const units = [
+            { id: 101, name: "Unidade Unimed Cordeirópolis", address: "Alta - R. Aita Bentivegna Dias, 571 - Jardim Jafet, Cordeirópolis - SP, 13490-000" }
+        ];
+
+        const doctors = {
+            1: [ // Clínica Geral
+                { id: 201, name: "Dr. Carlos Andrade", slots: ["Seg, 03/11 - 09:00", "Seg, 03/11 - 09:30", "Ter, 04/11 - 14:00"] },
+                { id: 202, name: "Dra. Ana Beatriz Costa", slots: ["Seg, 03/11 - 11:00", "Qua, 05/11 - 08:30", "Qua, 05/11 - 09:00"] }
+            ],
+            2: [ // Cardiologia
+                { id: 203, name: "Dr. Roberto Mendes", slots: ["Ter, 04/11 - 10:00", "Ter, 04/11 - 10:30", "Qui, 06/11 - 15:00"] }
+            ],
+            3: [ // Dermatologia
+                { id: 204, name: "Dra. Lúcia Ferraz", slots: ["Seg, 03/11 - 16:00", "Sex, 07/11 - 09:30"] }
+            ],
+            4: [ // Ortopedia
+                { id: 205, name: "Dr. Marcos Vinicius", slots: ["Qua, 05/11 - 11:00", "Qui, 06/11 - 08:00", "Qui, 06/11 - 08:30"] }
+            ],
+            5: [ // Pediatria
+                { id: 206, name: "Dra. Sofia Martins", slots: ["Seg, 03/11 - 08:00", "Ter, 04/11 - 13:30", "Sex, 07/11 - 10:00"] }
+            ],
+            6: [ // Ginecologia
+                { id: 207, name: "Dra. Helena Jordão", slots: ["Ter, 04/11 - 16:00", "Qua, 05/11 - 10:30"] }
+            ]
+        };
+
+        const loggedInUser = {
+            name: "Maria Silva",
+            id: "789.123.456-00"
+        };
+
+        // --- ESTADO DA APLICAÇÃO ---
+        let currentSelection = {
+            specialty: null,
+            unit: null,
+            doctor: null,
+            datetime: null
+        };
+
+        // --- FUNÇÕES DE RENDERIZAÇÃO ---
+
+        // Renderiza a lista de especialidades
+        function renderSpecialties(filter = '') {
+            const listEl = document.getElementById('specialty-list');
+            listEl.innerHTML = ''; // Limpa a lista
+            const filtered = specialties.filter(s => s.name.toLowerCase().includes(filter.toLowerCase()));
+            
+            if (filtered.length === 0) {
+                listEl.innerHTML = `<p class="text-gray-500 text-center">Nenhuma especialidade encontrada.</p>`;
+                return;
+            }
+
+            filtered.forEach(spec => {
+                const item = document.createElement('div');
+                item.className = 'p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:border-unimed-green cursor-pointer transition-all flex justify-between items-center';
+                item.innerHTML = `<span class="font-semibold text-lg text-gray-700">${spec.name}</span><span class="text-unimed-green font-bold">&gt;</span>`;
+                item.onclick = () => selectSpecialty(spec);
+                listEl.appendChild(item);
+            });
+        }
+
+        // Renderiza a lista de unidades (focada em Cordeirópolis)
+        function renderUnits() {
+            const listEl = document.getElementById('unit-list');
+            listEl.innerHTML = ''; // Limpa a lista
+            units.forEach(unit => {
+                const item = document.createElement('div');
+                item.className = 'p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:border-unimed-green cursor-pointer transition-all';
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-semibold text-lg text-gray-700">${unit.name}</span>
+                        <span class="text-unimed-green font-bold">&gt;</span>
+                    </div>
+                    <p class="text-gray-600 mt-1">${unit.address}</p>
+                `;
+                item.onclick = () => selectUnit(unit);
+                listEl.appendChild(item);
+            });
+        }
+
+        // Renderiza a lista de médicos e horários
+        function renderDoctorsAndDates(specialtyId) {
+            const listEl = document.getElementById('doctor-list');
+            listEl.innerHTML = ''; // Limpa a lista
+            const specialtyDoctors = doctors[specialtyId] || [];
+
+            if (specialtyDoctors.length === 0) {
+                listEl.innerHTML = `<p class="text-gray-500 text-center">Nenhum profissional encontrado para esta especialidade.</p>`;
+                return;
+            }
+
+            specialtyDoctors.forEach(doc => {
+                const card = document.createElement('div');
+                card.className = 'p-4 bg-white border border-gray-200 rounded-lg shadow-sm';
+                
+                let slotsHTML = '<div class="flex flex-wrap gap-2 mt-4">';
+                doc.slots.forEach(slot => {
+                    slotsHTML += `
+                        <button class="px-3 py-2 bg-unimed-green bg-opacity-10 text-unimed-green font-semibold rounded-lg hover:bg-opacity-100 hover:text-white transition-colors"
+                                onclick="selectSlot('${doc.name}', '${slot}')">
+                            ${slot.split(' - ')[1]} <!-- Apenas a hora -->
+                        </button>
+                    `;
+                });
+                slotsHTML += '</div>';
+
+                // Agrupa horários por data (simplificado aqui, mostrando a data no botão)
+                // Uma versão mais complexa agruparia por data
+                // Para este protótipo, vamos simplificar e mostrar a data no botão
+                let slotsGroupedHTML = '<div class="flex flex-wrap gap-2 mt-4">';
+                const slotsByDate = {};
+                doc.slots.forEach(slot => {
+                    const [date, time] = slot.split(' - ');
+                    if (!slotsByDate[date]) slotsByDate[date] = [];
+                    slotsByDate[date].push(time);
+                });
+
+                Object.keys(slotsByDate).forEach(date => {
+                    slotsGroupedHTML += `<div class="w-full mb-2">
+                        <p class="font-semibold text-gray-700">${date}</p>
+                        <div class="flex flex-wrap gap-2 mt-1">`;
+                    
+                    slotsByDate[date].forEach(time => {
+                         slotsGroupedHTML += `
+                            <button class="px-4 py-2 bg-unimed-green text-white font-semibold rounded-lg hover:bg-green-700 transition-colors"
+                                    onclick="selectSlot('${doc.name}', '${date}', '${time}')">
+                                ${time}
+                            </button>
+                        `;
+                    });
+
+                    slotsGroupedHTML += `</div></div>`;
+                });
+                slotsGroupedHTML += '</div>';
+
+
+                card.innerHTML = `
+                    <h4 class="font-bold text-lg text-gray-800">${doc.name}</h4>
+                    <p class="text-gray-500 text-sm">CRM 12345-SP</p>
+                    ${slotsGroupedHTML}
+                `;
+                listEl.appendChild(card);
+            });
+        }
+        
+        // Renderiza a tela de confirmação
+        function renderConfirmation() {
+            document.getElementById('conf-specialty').innerText = currentSelection.specialty.name;
+            document.getElementById('conf-doctor').innerText = currentSelection.doctor;
+            document.getElementById('conf-datetime').innerText = `${currentSelection.date} - ${currentSelection.time}`;
+            document.getElementById('conf-unit').innerText = currentSelection.unit.name;
+            document.getElementById('conf-address').innerText = currentSelection.unit.address;
+        }
+
+        // --- FUNÇÕES DE NAVEGAÇÃO E LÓGICA ---
+
+        // Função principal para trocar de tela
+        function showView(viewId) {
+            // Esconde todas as telas
+            document.querySelectorAll('.view').forEach(view => {
+                view.classList.remove('active');
+            });
+            // Mostra a tela desejada
+            const targetView = document.getElementById(viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            // Rola para o topo
+            window.scrollTo(0, 0);
+        }
+        
+        // Filtro de especialidades
+        function filterSpecialties(value) {
+            renderSpecialties(value);
+        }
+
+        // Ações de seleção
+        function selectSpecialty(specialty) {
+            currentSelection.specialty = specialty;
+            document.getElementById('selected-specialty-title').innerText = specialty.name;
+            renderUnits(); // Renderiza as unidades
+            showView('unit-view');
+        }
+
+        function selectUnit(unit) {
+            currentSelection.unit = unit;
+            renderDoctorsAndDates(currentSelection.specialty.id); // Renderiza médicos
+            showView('doctor-date-view');
+        }
+
+        function selectSlot(doctorName, date, time) {
+            currentSelection.doctor = doctorName;
+            currentSelection.date = date;
+            currentSelection.time = time;
+            renderConfirmation(); // Preenche os dados da confirmação
+            showView('confirmation-view');
+        }
+
+        // Reseta a aplicação para um novo agendamento
+        function resetApp() {
+            currentSelection = {
+                specialty: null,
+                unit: null,
+                doctor: null,
+                datetime: null
+            };
+            document.querySelector('#specialty-view input').value = '';
+            renderSpecialties(); // Re-renderiza especialidades (caso tenha filtro)
+            showView('home-view');
+        }
+
+        // --- INICIALIZAÇÃO DA APLICAÇÃO ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Simula um carregamento inicial
+            setTimeout(() => {
+                document.getElementById('user-name').innerText = loggedInUser.name; // Adiciona o nome do usuário
+                renderSpecialties(); // Prepara a lista de especialidades
+                showView('home-view'); // Mostra a tela inicial
+            }, 1000); // 1 segundo de "loading"
+        });
+
+    </script>
+</body>
+</html>
+
+
+

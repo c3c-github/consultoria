@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Portal Staff Unimed</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* Cor Padrão Unimed */
+        :root {
+            --unimed-green: #009a4d;
+            --unimed-green-dark: #007a3d;
+        }
+        .bg-unimed-green { background-color: var(--unimed-green); }
+        .ring-unimed-green { --tw-ring-color: var(--unimed-green); }
+        .btn-primary {
+            background-color: var(--unimed-green);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--unimed-green-dark);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <div id="login-view" class="flex items-center justify-center min-h-screen">
+        
+        <div class="bg-white p-8 rounded-xl shadow-xl w-full max-w-md m-4">
+            <!-- Logo -->
+            <div class="flex justify-center mb-6">
+                <img src="https://www.unimed.coop.br/site/image/layout_set_logo?img_id=23015931&t=1761802062293" 
+                     alt="Logo Unimed Limeira" 
+                     class="h-10"
+                     onerror="this.onerror=null; this.src='https://placehold.co/150x50/009a4d/FFFFFF?text=Unimed';"/>
+            </div>
+            
+            <h2 class="text-2xl font-semibold text-center text-gray-800 mb-1">Portal Staff</h2>
+            <p class="text-center text-gray-500 mb-6">Acesse a agenda da unidade.</p>
+            
+            <!-- Formulário de Login (Simulado) -->
+            <!-- Usamos um 'div' em vez de 'form' para evitar o envio padrão -->
+            <div id="login-form" class="space-y-4">
+                <div>
+                    <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Usuário</label>
+                    <input type="text" id="username" value="secretaria.ana" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-unimed-green focus:border-unimed-green" required>
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Senha</label>
+                    <input type="password" id="password" value="••••••••" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-unimed-green focus:border-unimed-green" required>
+                </div>
+                
+                <!-- Botão de Entrar -->
+                <!-- Este botão fará o redirecionamento -->
+                <button id="login-button" class="w-full btn-primary font-semibold py-2 px-4 rounded-md shadow-sm">
+                    Entrar
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    
+    const loginButton = document.getElementById('login-button');
+    
+    if (loginButton) {
+        loginButton.addEventListener('click', (e) => {
+            e.preventDefault(); // Previne qualquer comportamento padrão
+            
+            // Simula um "carregamento" e redireciona
+            loginButton.innerText = "Entrando...";
+            
+            setTimeout(() => {
+                // Redireciona para a página principal
+                // Assumindo que 'portal_staff.html' está na mesma pasta.
+                window.location.href = './portal_staff.html';
+            }, 500); // Meio segundo de delay para simular o login
+        });
+    }
+
+});
+</script>
+
+</body>
+</html>

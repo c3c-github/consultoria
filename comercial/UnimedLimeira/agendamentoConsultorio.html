@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Staff - Unimed Agendamentos</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ícones (Ionicons) -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    
+    <style>
+        /* Cor Padrão Unimed */
+        :root {
+            --unimed-green: #009a4d;
+            --unimed-green-dark: #007a3d;
+        }
+        .bg-unimed-green { background-color: var(--unimed-green); }
+        .text-unimed-green { color: var(--unimed-green); }
+        .border-unimed-green { border-color: var(--unimed-green); }
+        .ring-unimed-green { --tw-ring-color: var(--unimed-green); }
+        .btn-primary {
+            background-color: var(--unimed-green);
+            color: white;
+            transition: background-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: var(--unimed-green-dark);
+        }
+        .btn-secondary {
+            background-color: #f3f4f6;
+            color: #374151;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+        
+        /* Classes para slots de horário */
+        .slot {
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .slot-vago {
+            background-color: #f0fdf4; /* green-50 */
+            border: 1px dashed #bbf7d0; /* green-200 */
+            color: #166534; /* green-800 */
+        }
+        .slot-vago:hover {
+            background-color: #dcfce7; /* green-100 */
+            border-color: var(--unimed-green);
+        }
+        .slot-agendado {
+            background-color: #eff6ff; /* blue-50 */
+            border: 1px solid #dbeafe; /* blue-100 */
+            color: #1e40af; /* blue-800 */
+        }
+        .slot-agendado:hover {
+            background-color: #dbeafe; /* blue-100 */
+            border-color: #3b82f6; /* blue-500 */
+        }
+        .slot-quick-result {
+            background-color: #f8fafc; /* gray-50 */
+            border: 1px solid #e5e7eb; /* gray-200 */
+            border-left-width: 4px;
+            border-left-color: var(--unimed-green);
+        }
+
+        /* Abas */
+        .tab-button {
+            border-bottom-width: 2px;
+            transition: all 0.2s;
+        }
+        .tab-button.active {
+            border-color: var(--unimed-green);
+            color: var(--unimed-green);
+        }
+        .tab-button.inactive {
+            border-color: transparent;
+            color: #6b7280; /* gray-500 */
+        }
+        .tab-button.inactive:hover {
+            border-color: #d1d5db; /* gray-300 */
+            color: #374151; /* gray-700 */
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 50;
+            inset: 0;
+            overflow-y: auto;
+        }
+        .modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-sans antialiased">
+
+    <div id="app">
+
+        <!-- ===== TELA PRINCIPAL (SEM LOGIN) ===== -->
+        <div id="main-view" class="view active">
+            <!-- Header -->
+            <header class="bg-white shadow-sm sticky top-0 z-10">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center h-16">
+                        <!-- Logo e Título (com Unidade) -->
+                        <div class="flex items-center space-x-4">
+                            <img src="https://www.unimed.coop.br/site/image/layout_set_logo?img_id=23015931&t=1761802062293" 
+                                 alt="Logo Unimed Limeira" 
+                                 class="h-8"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/120x40/009a4d/FFFFFF?text=Unimed';"/>
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
+                                <span class="text-gray-500 hidden sm:block">| Portal Staff</span>
+                                <!-- UNIDADE FIXA NO CABEÇALHO -->
+                                <span id="unit-name-display" class="text-sm font-medium text-unimed-green sm:border-l sm:pl-2">
+                                    Unidade Cordeirópolis
+                                </span>
+                            </div>
+                        </div>
+                        <!-- Usuário (Sem Logout) -->
+                        <div class="flex items-center">
+                            <span class="text-gray-700 mr-4">
+                                Bem-vinda, <strong id="user-name-display">Secretária Ana</strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Conteúdo Principal -->
+            <main class="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+                
+                <!-- NAVEGAÇÃO EM ABAS -->
+                <div class="mb-6 border-b border-gray-200">
+                    <nav class="flex -mb-px space-x-6" aria-label="Tabs">
+                        <button id="tab-quick" class="tab-button active font-medium py-3 px-1 text-sm">
+                            Agendamento Rápido
+                        </button>
+                        <button id="tab-full" class="tab-button inactive font-medium py-3 px-1 text-sm">
+                            Agenda Completa
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- ABA 1: AGENDAMENTO RÁPIDO -->
+                <div id="quick-schedule-view" class="tab-content active">
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-3">Encontrar Próximos Horários</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                            <!-- Seletor de Especialidade (Rápido) -->
+                            <div class="md:col-span-2">
+                                <label for="quick-specialty-select" class="block text-sm font-medium text-gray-700 mb-1">Especialidade</label>
+                                <select id="quick-specialty-select" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-unimed-green focus:border-unimed-green">
+                                    <!-- Preenchido por JS -->
+                                </select>
+                            </div>
+                            <!-- Botão de Busca -->
+                            <div>
+                                <button id="find-quick-slots-btn" class="w-full btn-primary font-semibold py-2 px-4 rounded-md shadow-sm">
+                                    <ion-icon name="search-outline" class="mr-1 -mb-0.5"></ion-icon>
+                                    Buscar Horários
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Resultados do Agendamento Rápido -->
+                    <div id="quick-slots-results" class="mt-6">
+                        <p class="text-center text-gray-500 p-6 bg-white rounded-lg shadow">
+                            Selecione uma especialidade e clique em buscar para ver os 3 próximos horários.
+                        </p>
+                        <!-- Resultados serão injetados aqui -->
+                    </div>
+                </div>
+
+                <!-- ABA 2: AGENDA COMPLETA -->
+                <div id="full-schedule-view" class="tab-content">
+                    <!-- Filtros (sem Unidade) -->
+                    <div class="bg-white p-4 rounded-lg shadow mb-6">
+                        <h2 class="text-lg font-semibold text-gray-800 mb-3">Selecionar Agenda Detalhada</h2>
+                        <!-- Grade de 2 colunas -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Seletor de Especialidade -->
+                            <div>
+                                <label for="specialty-select" class="block text-sm font-medium text-gray-700 mb-1">Especialidade</label>
+                                <select id="specialty-select" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-unimed-green focus:border-unimed-green">
+                                    <!-- Preenchido por JS -->
+                                </select>
+                            </div>
+                            <!-- Seletor de Profissional -->
+                            <div>
+                                <label for="doctor-select" class="block text-sm font-medium text-gray-700 mb-1">Profissional</label>
+                                <select id="doctor-select" class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-unimed-green focus:border-unimed-green">
+                                    <!-- Preenchido por JS (filtrado) -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agenda -->
+                    <div class="bg-white rounded-lg shadow overflow-hidden">
+                        <!-- Navegação da Agenda -->
+                        <div class="flex justify-between items-center p-4 border-b">
+                            <h2 class="text-xl font-semibold text-gray-900" id="calendar-title">Agenda Semanal</h2>
+                            <div class="flex space-x-2">
+                                <button id="prev-week" class="p-2 rounded-md btn-secondary">
+                                    <ion-icon name="chevron-back-outline"></ion-icon>
+                                </button>
+                                <button id="today" class="p-2 px-4 rounded-md btn-secondary text-sm font-medium">Hoje</button>
+                                <button id="next-week" class="p-2 rounded-md btn-secondary">
+                                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Grid da Agenda -->
+                        <div id="calendar-grid" class="grid grid-cols-1 md:grid-cols-5 divide-y md:divide-y-0 md:divide-x divide-gray-200 min-h-[50vh]">
+                            <!-- Dias e Slots preenchidos por JS -->
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+    </div>
+
+    <!-- ===== MODAIS ===== -->
+
+    <!-- Modal 1: Reservar Horário (Slot Vago) -->
+    <div id="booking-modal" class="modal items-center justify-center">
+        <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" data-close-modal></div>
+        
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg m-4 z-10">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="text-lg font-semibold">Reservar Horário</h3>
+                <button class="text-gray-400 hover:text-gray-600" data-close-modal>
+                    <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+            <!-- Info do Agendamento -->
+            <div class="p-4 bg-gray-50">
+                <div id="booking-modal-info" class="text-center md:text-left">
+                    <p class="font-semibold text-unimed-green" id="booking-doctor">Dr. Carlos Andrade</p>
+                    <p class="text-gray-700">
+                        <span id="booking-date">Sexta, 31/10/2025</span> às <span id="booking-time" class="font-bold">09:00</span>
+                    </p>
+                    <!-- Unidade agora é fixa -->
+                    <p class="text-sm text-gray-500" id="booking-unit">Unidade Cordeirópolis</p>
+                </div>
+            </div>
+            <!-- Formulário do Paciente -->
+            <form id="booking-form" class="p-4 md:p-6 space-y-4">
+                <h4 class="text-md font-semibold text-gray-800 border-b pb-2">Dados do Paciente</h4>
+                <div>
+                    <label for="patient-name" class="block text-sm font-medium text-gray-700 mb-1">Nome Completo</label>
+                    <input type="text" id="patient-name" class="w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+                <div>
+                    <label for="patient-cpf" class="block text-sm font-medium text-gray-700 mb-1">CPF</label>
+                    <input type="text" id="patient-cpf" placeholder="000.000.000-00" class="w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+                <div>
+                    <label for="patient-phone" class="block text-sm font-medium text-gray-700 mb-1">Telefone</label>
+                    <input type="tel" id="patient-phone" placeholder="(19) 90000-0000" class="w-full p-2 border border-gray-300 rounded-md" required>
+                </div>
+            </form>
+            <!-- Ações -->
+            <div class="flex justify-end p-4 bg-gray-50 border-t space-x-3">
+                <button class="px-4 py-2 rounded-md btn-secondary" data-close-modal>Cancelar</button>
+                <button id="confirm-booking-btn" class="px-4 py-2 rounded-md btn-primary font-semibold">Confirmar Agendamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal 2: Detalhes do Agendamento (Slot Agendado) -->
+    <div id="patient-modal" class="modal items-center justify-center">
+        <div class="modal-backdrop fixed inset-0 bg-black bg-opacity-50" data-close-modal></div>
+        
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-lg m-4 z-10">
+            <div class="flex justify-between items-center p-4 border-b">
+                <h3 class="text-lg font-semibold">Detalhes do Agendamento</h3>
+                <button class="text-gray-400 hover:text-gray-600" data-close-modal>
+                    <ion-icon name="close-outline" class="text-2xl"></ion-icon>
+                </button>
+            </div>
+            <!-- Info do Agendamento -->
+            <div class="p-4 bg-gray-50">
+                <div id="patient-modal-info" class="text-center md:text-left">
+                    <p class="font-semibold text-unimed-green" id="patient-doctor">Dr. Carlos Andrade</p>
+                    <p class="text-gray-700">
+                        <span id="patient-date">Sexta, 31/10/2025</span> às <span id="patient-time" class="font-bold">09:00</span>
+                    </p>
+                    <!-- Unidade agora é fixa -->
+                    <p class="text-sm text-gray-500" id="patient-unit">Unidade Cordeirópolis</p>
+                </div>
+            </div>
+            <!-- Dados do Paciente -->
+            <div class="p-4 md:p-6 space-y-3">
+                <h4 class="text-md font-semibold text-gray-800 border-b pb-2">Dados do Paciente</h4>
+                <div>
+                    <p class="text-sm text-gray-500">Nome</p>
+                    <p class="text-lg text-gray-900 font-medium" id="patient-detail-name">João da Silva</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">CPF</p>
+                    <p class="text-md text-gray-800" id="patient-detail-cpf">123.456.789-00</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-500">Telefone</p>
+                    <p class="text-md text-gray-800" id="patient-detail-phone">(19) 98765-4321</p>
+                </div>
+            </div>
+            <!-- Ações -->
+            <div class="flex justify-between p-4 bg-gray-50 border-t">
+                <button id="cancel-appointment-btn" class="px-4 py-2 rounded-md text-red-700 bg-red-100 hover:bg-red-200 font-semibold text-sm">Cancelar Agendamento</button>
+                <button class="px-4 py-2 rounded-md btn-secondary" data-close-modal>Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast de Notificação (Simulado) -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-unimed-green text-white px-5 py-3 rounded-lg shadow-xl transition-all translate-x-[120%]" role="alert">
+        <span id="toast-message">Agendamento confirmado!</span>
+    </div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    // --- [ DADOS FICTÍCIOS (Simulando o Backend) ] ---
+
+    const mockUnits = [
+        { id: 1, name: "Unidade Unimed Cordeirópolis" }
+    ];
+
+    const mockSpecialties = [
+        { id: 1, name: "Clínica Geral" },
+        { id: 2, name: "Cardiologia" },
+        { id: 3, name: "Dermatologia" }
+    ];
+
+    const mockDoctors = [
+        { id: 101, name: "Dr. Carlos Andrade", specialtyIds: [1] },
+        { id: 102, name: "Dra. Ana Beatriz Costa", specialtyIds: [1, 3] },
+        { id: 103, name: "Dr. Roberto Mendes", specialtyIds: [2] }
+    ];
+
+    let mockPatients = [
+        { id: 201, name: "João da Silva", cpf: "123.456.789-00", phone: "(19) 98765-4321" },
+        { id: 202, name: "Maria Oliveira", cpf: "987.654.321-00", phone: "(19) 91234-5678" }
+    ];
+
+    let mockAppointments = [
+        { 
+            id: 1, unitId: 1, doctorId: 101, specialtyId: 1,
+            patientId: 201, date: "2025-10-31", time: "09:00" 
+        },
+        { 
+            id: 2, unitId: 1, doctorId: 101, specialtyId: 1,
+            patientId: 202, date: "2025-10-31", time: "10:30" 
+        },
+        { 
+            id: 3, unitId: 1, doctorId: 102, specialtyId: 3,
+            patientId: null, date: "2025-10-31", time: "14:00",
+            status: "bloqueado", notes: "Intervalo de almoço"
+        }
+    ];
+    
+    // Data de início da simulação (para "Hoje" e busca rápida)
+    const MOCK_START_DATE = getStartOfWeek(new Date(2025, 9, 27)); // Seg, 27/Out/2025
+
+    // --- [ ESTADO DA APLICAÇÃO ] ---
+    let state = {
+        selectedDoctorId: 101,
+        selectedUnitId: 1, // Fixo para Cordeirópolis
+        selectedSpecialtyId: 0, // 0 = "Todas as Especialidades"
+        currentWeekStart: new Date(MOCK_START_DATE),
+        slotToBook: { date: null, time: null }, 
+        appointmentToCancel: null 
+    };
+
+    // --- [ SELETORES DE DOM ] ---
+    const specialtySelect = document.getElementById('specialty-select');
+    const doctorSelect = document.getElementById('doctor-select');
+    const calendarGrid = document.getElementById('calendar-grid');
+    const calendarTitle = document.getElementById('calendar-title');
+    const prevWeekBtn = document.getElementById('prev-week');
+    const todayBtn = document.getElementById('today');
+    const nextWeekBtn = document.getElementById('next-week');
+    const confirmBookingBtn = document.getElementById('confirm-booking-btn');
+    const cancelAppointmentBtn = document.getElementById('cancel-appointment-btn');
+    const bookingForm = document.getElementById('booking-form');
+
+    // Seletores da Nova Feature (Abas e Ag. Rápido)
+    const tabQuick = document.getElementById('tab-quick');
+    const tabFull = document.getElementById('tab-full');
+    const quickScheduleView = document.getElementById('quick-schedule-view');
+    const fullScheduleView = document.getElementById('full-schedule-view');
+    const quickSpecialtySelect = document.getElementById('quick-specialty-select');
+    const findQuickSlotsBtn = document.getElementById('find-quick-slots-btn');
+    const quickSlotsResults = document.getElementById('quick-slots-results');
+
+    // --- [ FORMATADORES E HELPERS ] ---
+
+    const fDate = new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long' });
+    const fDateShort = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const fWeekday = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' });
+
+    function getISODate(date) {
+        return date.toISOString().split('T')[0];
+    }
+
+    function getStartOfWeek(date) {
+        const d = new Date(date);
+        const day = d.getDay();
+        const diff = d.getDate() - day + (day === 0 ? -6 : 1); // Ajusta para segunda
+        const target = new Date(d.setDate(diff));
+        target.setHours(0, 0, 0, 0); // Zera a hora
+        return target;
+    }
+
+    function showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMsg = document.getElementById('toast-message');
+        
+        toastMsg.innerText = message;
+        toast.classList.remove('bg-unimed-green', 'bg-red-600');
+        toast.classList.add(type === 'success' ? 'bg-unimed-green' : 'bg-red-600');
+        
+        toast.style.transform = 'translateX(0)';
+        setTimeout(() => {
+            toast.style.transform = 'translateX(120%)';
+        }, 3000);
+    }
+
+    // --- [ LÓGICA DE NAVEGAÇÃO E MODAIS ] ---
+
+    function showModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.remove('active');
+    }
+
+    // Listener global para fechar modais
+    document.addEventListener('click', (e) => {
+        // Fecha modal
+        if (e.target.dataset.closeModal !== undefined) {
+            const modal = e.target.closest('.modal');
+            if (modal) {
+                closeModal(modal.id);
+            }
+        }
+        
+        // Listener para o botão de reservar do Agendamento Rápido
+        if (e.target.classList.contains('quick-book-btn') || e.target.closest('.quick-book-btn')) {
+            const button = e.target.classList.contains('quick-book-btn') ? e.target : e.target.closest('.quick-book-btn');
+            const { date, time, doctorId } = button.dataset;
+            
+            // Define o médico selecionado no estado global *temporariamente*
+            // para que o modal de booking puxe o nome correto
+            state.selectedDoctorId = parseInt(doctorId);
+            
+            // Abre o modal de reserva
+            openBookingModal(date, time);
+        }
+    });
+    
+    // Listeners das Abas
+    tabQuick.addEventListener('click', () => {
+        tabQuick.classList.add('active');
+        tabQuick.classList.remove('inactive');
+        tabFull.classList.add('inactive');
+        tabFull.classList.remove('active');
+        
+        quickScheduleView.classList.add('active');
+        fullScheduleView.classList.remove('active');
+    });
+    
+    tabFull.addEventListener('click', () => {
+        tabFull.classList.add('active');
+        tabFull.classList.remove('inactive');
+        tabQuick.classList.add('inactive');
+        tabQuick.classList.remove('active');
+        
+        fullScheduleView.classList.add('active');
+        quickScheduleView.classList.remove('active');
+    });
+
+
+    // --- [ LÓGICA DO PAINEL PRINCIPAL (CALENDÁRIO) ] ---
+
+    function updateDoctorList() {
+        const specId = state.selectedSpecialtyId;
+        
+        let filteredDoctors = mockDoctors;
+        
+        if (specId > 0) { 
+            filteredDoctors = mockDoctors.filter(doc => doc.specialtyIds.includes(specId));
+        }
+        
+        if (filteredDoctors.length > 0) {
+            doctorSelect.innerHTML = filteredDoctors.map(d => `<option value="${d.id}">${d.name}</option>`).join('');
+            
+            const currentDoctorExists = filteredDoctors.some(d => d.id === state.selectedDoctorId);
+            if (!currentDoctorExists) {
+                state.selectedDoctorId = filteredDoctors[0].id;
+            }
+        } else {
+            state.selectedDoctorId = -1; // Nenhum médico
+            doctorSelect.innerHTML = `<option value="-1">Nenhum médico encontrado</option>`;
+        }
+        
+        doctorSelect.value = state.selectedDoctorId;
+        renderCalendar(); 
+    }
+
+    // Função que inicializa o app (chamada no final)
+    function initializeApp() {
+        // Carrega nome da unidade (fixo)
+        const unit = mockUnits.find(u => u.id === state.selectedUnitId);
+        const unitName = unit ? unit.name : "Unidade Padrão";
+        document.getElementById('unit-name-display').innerText = unitName;
+        document.getElementById('booking-unit').innerText = unitName;
+        document.getElementById('patient-unit').innerText = unitName;
+        
+        // Carrega seletores de Especialidade (para ambas as abas)
+        let specialtyOptions = `<option value="0">Selecione uma especialidade...</option>`;
+        specialtyOptions += mockSpecialties.map(s => `<option value="${s.id}">${s.name}</option>`).join('');
+        specialtySelect.innerHTML = specialtyOptions;
+        quickSpecialtySelect.innerHTML = specialtyOptions;
+        
+        specialtySelect.value = state.selectedSpecialtyId;
+        
+        // Carrega seletor de Médico (filtrado) - Apenas para Agenda Completa
+        updateDoctorList(); 
+        
+        // Listeners da Agenda Completa
+        specialtySelect.addEventListener('change', (e) => {
+            state.selectedSpecialtyId = parseInt(e.target.value);
+            updateDoctorList(); 
+        });
+        
+        doctorSelect.addEventListener('change', (e) => {
+            state.selectedDoctorId = parseInt(e.target.value);
+            renderCalendar();
+        });
+
+        // Listeners da navegação de semana
+        prevWeekBtn.addEventListener('click', () => {
+            state.currentWeekStart.setDate(state.currentWeekStart.getDate() - 7);
+            renderCalendar();
+        });
+        todayBtn.addEventListener('click', () => {
+            state.currentWeekStart = new Date(MOCK_START_DATE);
+            renderCalendar();
+        });
+        nextWeekBtn.addEventListener('click', () => {
+            state.currentWeekStart.setDate(state.currentWeekStart.getDate() + 7);
+            renderCalendar();
+        });
+
+        // Listeners dos modais
+        confirmBookingBtn.addEventListener('click', handleConfirmBooking);
+        cancelAppointmentBtn.addEventListener('click', handleCancelAppointment);
+        
+        // Listener do Agendamento Rápido
+        findQuickSlotsBtn.addEventListener('click', handleFindQuickSlots);
+        
+        // Renderiza o calendário pela primeira vez
+        renderCalendar();
+    }
+    
+    // --- [ LÓGICA DO AGENDAMENTO RÁPIDO ] ---
+    
+    function handleFindQuickSlots() {
+        const specialtyId = parseInt(quickSpecialtySelect.value);
+        if (specialtyId === 0) {
+            quickSlotsResults.innerHTML = `<p class="text-center text-red-600 p-6 bg-white rounded-lg shadow">
+                Por favor, selecione uma especialidade.
+            </p>`;
+            return;
+        }
+        
+        quickSlotsResults.innerHTML = `<p class="text-center text-gray-500 p-6 bg-white rounded-lg shadow">
+            Buscando horários...
+        </p>`;
+        
+        // Simula uma pequena demora da rede
+        setTimeout(() => {
+            const slots = findQuickSlots(specialtyId);
+            renderQuickSlots(slots);
+        }, 300); // 300ms de delay
+    }
+    
+    function findQuickSlots(specialtyId) {
+        const foundSlots = [];
+        const doctors = mockDoctors.filter(d => d.specialtyIds.includes(specialtyId));
+        if (doctors.length === 0) return []; // Nenhum médico para essa especialidade
+
+        const allTimes = getDaySchedule();
+        const startDate = new Date(MOCK_START_DATE);
+        
+        // Busca pelos próximos 30 dias
+        for (let day = 0; day < 30; day++) {
+            const currentDate = new Date(startDate);
+            currentDate.setDate(startDate.getDate() + day);
+            
+            const dayISO = getISODate(currentDate);
+            const weekday = currentDate.getDay();
+            
+            // Pula Sábado (6) e Domingo (0)
+            if (weekday === 0 || weekday === 6) continue;
+
+            for (const time of allTimes) {
+                // Tenta encontrar um médico *livre* para este slot
+                for (const doctor of doctors) {
+                    const isBusy = mockAppointments.find(a => 
+                        a.doctorId === doctor.id && 
+                        a.date === dayISO && 
+                        a.time === time
+                    );
+                    
+                    // Se o médico NÃO estiver ocupado
+                    if (!isBusy) {
+                        foundSlots.push({
+                            date: dayISO,
+                            time: time,
+                            doctor: doctor
+                        });
+                        
+                        // Se achamos 3, paramos a busca
+                        if (foundSlots.length >= 3) {
+                            return foundSlots;
+                        }
+                        
+                        // Achamos um médico, então paramos de procurar médicos
+                        // para ESTE horário e vamos para o próximo HORÁRIO.
+                        break; 
+                    }
+                } // Fim loop médicos
+            } // Fim loop horários
+        } // Fim loop dias
+        
+        return foundSlots; // Retorna o que encontrou (pode ser menos de 3)
+    }
+
+    function renderQuickSlots(slots) {
+        if (slots.length === 0) {
+            quickSlotsResults.innerHTML = `<p class="text-center text-gray-500 p-6 bg-white rounded-lg shadow">
+                Nenhum horário encontrado para esta especialidade nos próximos 30 dias.
+            </p>`;
+            return;
+        }
+        
+        let html = '<h3 class="text-lg font-semibold text-gray-800 mb-3">Próximos horários encontrados:</h3>';
+        html += '<div class="space-y-3">';
+        
+        slots.forEach(slot => {
+            const dateObj = new Date(slot.date);
+            dateObj.setUTCHours(12); // Ajuste fuso
+            
+            html += `
+                <div class="slot-quick-result p-4 rounded-lg flex flex-col md:flex-row justify-between md:items-center">
+                    <div>
+                        <p class="font-bold text-lg text-unimed-green">${fWeekday.format(dateObj).split('-')[0]}, ${fDateShort.format(dateObj)}</p>
+                        <p class="text-2xl font-bold text-gray-800">${slot.time}</p>
+                        <p class="text-sm text-gray-600">com ${slot.doctor.name}</p>
+                    </div>
+                    <button class="quick-book-btn mt-3 md:mt-0 btn-primary font-semibold py-2 px-4 rounded-md shadow-sm w-full md:w-auto"
+                            data-date="${slot.date}"
+                            data-time="${slot.time}"
+                            data-doctor-id="${slot.doctor.id}">
+                        Reservar
+                    </button>
+                </div>
+            `;
+        });
+        
+        html += '</div>';
+        quickSlotsResults.innerHTML = html;
+    }
+
+
+    // --- [ LÓGICA DA AGENDA COMPLETA ] ---
+    
+    function getDaySchedule() {
+        const times = [];
+        for (let h = 8; h < 18; h++) { 
+            times.push(`${String(h).padStart(2, '0')}:00`);
+            if (h !== 17) { 
+                times.push(`${String(h).padStart(2, '0')}:30`);
+            }
+        }
+        return times;
+    }
+
+    function renderCalendar() {
+        calendarGrid.innerHTML = ''; // Limpa o grid
+        
+        const daySlots = getDaySchedule();
+        const startDate = new Date(state.currentWeekStart);
+
+        calendarTitle.innerText = `Agenda de ${fDateShort.format(startDate)} até ${fDateShort.format(new Date(startDate).setDate(startDate.getDate() + 4))}`;
+
+        if (state.selectedDoctorId === -1) {
+            calendarGrid.innerHTML = `<p class="p-6 text-center text-gray-500 col-span-1 md:col-span-5">Selecione uma especialidade com médicos disponíveis.</p>`;
+            return;
+        }
+
+        for (let i = 0; i < 5; i++) { // Apenas 5 dias (Seg-Sex)
+            const currentDay = new Date(startDate);
+            currentDay.setDate(startDate.getDate() + i);
+            
+            const dayISO = getISODate(currentDay);
+            
+            const dayColumn = document.createElement('div');
+            dayColumn.className = 'day-column p-3 md:last:border-r-0';
+            
+            const dayHeader = document.createElement('div');
+            dayHeader.className = 'text-center mb-3 sticky top-[6.5rem] bg-white py-2 z-[5]'; 
+            dayHeader.innerHTML = `
+                <p class="font-semibold text-gray-800 capitalize">${fWeekday.format(currentDay).split('-')[0]}</p>
+                <p class="text-sm text-gray-500">${fDateShort.format(currentDay)}</p>
+            `;
+            dayColumn.appendChild(dayHeader);
+
+            daySlots.forEach(time => {
+                const appointment = mockAppointments.find(a => 
+                    a.doctorId === state.selectedDoctorId &&
+                    a.unitId === state.selectedUnitId &&
+                    a.date === dayISO &&
+                    a.time === time
+                );
+                
+                dayColumn.appendChild(createTimeSlot(dayISO, time, appointment));
+            });
+            
+            calendarGrid.appendChild(dayColumn);
+        }
+    }
+
+    function createTimeSlot(dateISO, time, appointment) {
+        const slot = document.createElement('div');
+        slot.className = 'slot p-3 rounded-md mb-2 text-sm';
+        
+        if (appointment && appointment.patientId) {
+            // --- Slot AGENDADO ---
+            const patient = mockPatients.find(p => p.id === appointment.patientId);
+            slot.classList.add('slot-agendado');
+            slot.innerHTML = `
+                <p class="font-bold">${time}</p>
+                <p class="truncate">${patient ? patient.name : 'Paciente não encontrado'}</p>
+            `;
+            slot.addEventListener('click', () => openPatientModal(appointment, patient));
+        } else if (appointment && appointment.status === 'bloqueado') {
+            // --- Slot BLOQUEADO ---
+            slot.classList.add('bg-gray-200', 'text-gray-500', 'cursor-not-allowed');
+            slot.innerHTML = `
+                <p class="font-bold">${time}</p>
+                <p class="truncate">${appointment.notes || 'Bloqueado'}</p>
+            `;
+        } else {
+            // --- Slot VAGO ---
+            slot.classList.add('slot-vago');
+            slot.innerHTML = `
+                <p class="font-bold">${time}</p>
+                <p>+ Reservar</p>
+            `;
+            slot.addEventListener('click', () => {
+                // Define o médico selecionado no estado (para o modal)
+                state.selectedDoctorId = parseInt(doctorSelect.value);
+                openBookingModal(dateISO, time);
+            });
+        }
+        return slot;
+    }
+
+    // --- [ LÓGICA DOS MODAIS ] ---
+
+    function openBookingModal(dateISO, time) {
+        state.slotToBook = { date: dateISO, time: time };
+        
+        // Usa o selectedDoctorId do estado, que foi definido
+        // pelo clique no slot (Agenda Completa) ou pelo clique no botão (Ag. Rápido)
+        const doctor = mockDoctors.find(d => d.id === state.selectedDoctorId);
+        const dateObj = new Date(dateISO);
+        dateObj.setUTCHours(12);
+        
+        document.getElementById('booking-doctor').innerText = doctor ? doctor.name : "Médico não encontrado";
+        document.getElementById('booking-date').innerText = fDate.format(dateObj);
+        document.getElementById('booking-time').innerText = time;
+        
+        bookingForm.reset();
+        showModal('booking-modal');
+    }
+
+    function openPatientModal(appointment, patient) {
+        state.appointmentToCancel = appointment.id;
+
+        const doctor = mockDoctors.find(d => d.id === appointment.doctorId);
+        const dateObj = new Date(appointment.date);
+        dateObj.setUTCHours(12); // Ajuste fuso
+        
+        document.getElementById('patient-doctor').innerText = doctor ? doctor.name : "Médico não encontrado";
+        document.getElementById('patient-date').innerText = fDate.format(dateObj);
+        document.getElementById('patient-time').innerText = appointment.time;
+        
+        document.getElementById('patient-detail-name').innerText = patient ? patient.name : 'N/A';
+        document.getElementById('patient-detail-cpf').innerText = patient ? patient.cpf : 'N/A';
+        document.getElementById('patient-detail-phone').innerText = patient ? patient.phone : 'N/A';
+        
+        showModal('patient-modal');
+    }
+
+    // --- [ LÓGICA DE AÇÕES (Salvar, Cancelar Agendamento) ] ---
+
+    function handleConfirmBooking() {
+        const patientName = document.getElementById('patient-name').value;
+        const patientCpf = document.getElementById('patient-cpf').value;
+        const patientPhone = document.getElementById('patient-phone').value;
+        
+        if (!patientName || !patientCpf || !patientPhone) {
+            console.warn("Por favor, preencha todos os dados do paciente.");
+            document.getElementById('patient-name').focus();
+            return;
+        }
+        
+        let patient = mockPatients.find(p => p.cpf === patientCpf);
+        if (!patient) {
+            patient = {
+                id: Date.now(),
+                name: patientName,
+                cpf: patientCpf,
+                phone: patientPhone
+            };
+            mockPatients.push(patient);
+        }
+        
+        const doctor = mockDoctors.find(d => d.id === state.selectedDoctorId);
+        
+        // Tenta pegar a especialidade do filtro rápido; se não, do filtro completo; se não, a primeira do médico
+        let specialtyId = parseInt(quickSpecialtySelect.value);
+        if (specialtyId === 0) {
+            specialtyId = parseInt(specialtySelect.value);
+        }
+        if (specialtyId === 0) {
+            specialtyId = doctor ? doctor.specialtyIds[0] : null;
+        }
+        
+        const newAppointment = {
+            id: Date.now(),
+            unitId: state.selectedUnitId,
+            doctorId: state.selectedDoctorId,
+            specialtyId: specialtyId,
+            patientId: patient.id,
+            date: state.slotToBook.date,
+            time: state.slotToBook.time,
+            status: 'confirmado'
+        };
+        
+        mockAppointments.push(newAppointment);
+        
+        closeModal('booking-modal');
+        // Re-renderiza ambas as visualizações para o caso de
+        // o agendamento rápido ter pego um slot da agenda completa
+        renderCalendar();
+        // Limpa os resultados rápidos (pois podem estar desatualizados)
+        quickSlotsResults.innerHTML = `<p class="text-center text-gray-500 p-6 bg-white rounded-lg shadow">
+            Agendamento confirmado! Busque novamente se necessário.
+        </p>`;
+        
+        showToast('Agendamento confirmado com sucesso!');
+    }
+
+    function handleCancelAppointment() {
+        const appointmentId = state.appointmentToCancel;
+        
+        mockAppointments = mockAppointments.filter(a => a.id !== appointmentId);
+        
+        closeModal('patient-modal');
+        renderCalendar(); // Re-renderiza a agenda
+        // Limpa os resultados rápidos (pois podem estar desatualizados)
+        quickSlotsResults.innerHTML = `<p class="text-center text-gray-500 p-6 bg-white rounded-lg shadow">
+            Agendamento cancelado. Busque novamente se necessário.
+        </p>`;
+
+        showToast('Agendamento cancelado.', 'error');
+    }
+
+    // --- [ INICIALIZAÇÃO DA APLICAÇÃO ] ---
+    initializeApp();
+
+}); // Fim do DOMContentLoaded
+</script>
+
+</body>
+</html>
+
