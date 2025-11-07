@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3C Software - Feira de Profissões</title>
+    
+    <!-- Importa a fonte Montserrat --><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    
+    <!-- Carrega o Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Carrega a biblioteca de animação GSAP --><script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+    <!-- Import Map para o Three.js (Motor 3D) --><script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+        }
+      }
+    </script>
+    
+    <style>
+        /* Estilo base para o corpo: TEMA ESCURO */
+        body {
+            background-color: #050a14; /* Azul muito escuro */
+            color: #f0f0f0; /* Texto claro */
+            font-family: 'Montserrat', sans-serif;
+            overflow: hidden; /* Trava o scroll da página */
+        }
+        
+        /* O canvas 3D fica fixo no fundo */
+        #webgl-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            outline: none;
+            z-index: 1; 
+            opacity: 0.8; 
+        }
+        
+        /* O conteúdo HTML fica sobre o canvas */
+        .content-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 10; 
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Estilização do texto para o tema escuro */
+        .text-container {
+            max-width: 800px; /* AUMENTADO para melhor legibilidade em tela cheia */
+            background-color: rgba(5, 10, 20, 0.7); /* Fundo semi-transparente */
+            backdrop-filter: blur(8px); /* Efeito de vidro fosco */
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Sombra mais intensa */
+        }
+        
+        .text-container h1 {
+            font-size: 2.5rem; 
+            font-weight: 700;
+            line-height: 1.2;
+            color: #89CFF0; /* Azul neon/claro para títulos */
+            text-shadow: 0 0 8px rgba(137, 207, 240, 0.6); /* Efeito neon sutil */
+        }
+        
+        .text-container p, .text-container li {
+            font-size: 1.125rem; 
+            font-weight: 300;
+            margin-top: 1rem;
+            color: #c0c0c0; /* Cinza claro */
+        }
+
+        /* Citação especial (agora como parágrafo) */
+        .text-container p.italic {
+             font-size: 1.1rem;
+             font-style: italic;
+             margin-top: 1.5rem; /* Mais espaço para a citação */
+        }
+
+        /* Botões de Navegação */
+        .nav-button {
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 9999px; 
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px); 
+        }
+
+        .nav-button:disabled {
+            opacity: 0.3; 
+            cursor: not-allowed;
+            transform: translateY(0);
+        }
+
+        /* Estilos para o background do Banner "Trabalhe Conosco" na primeira seção */
+        .hero-banner-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Imagem do Banner "Trabalhe Conosco" */
+            background-image: url('https://c3c.my.salesforce.com/sfc/p/4x0000022d9S/a/N5000008wVrd/LvgTSS2sVEF0IMdkNfeANJRYGI9t_VFkt8dVxT.4oWE'); 
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7; 
+            z-index: 5; 
+        }
+
+        /* Estilos para a seção do Speaker (com foto) */
+        .speaker-section .text-container {
+            background: none; 
+            backdrop-filter: none;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            max-width: 800px;
+            display: flex;
+            align-items: center;
+            gap: 2.5rem; /* Espaço entre a foto e o texto */
+            position: relative; /* Para posicionar o QR Code */
+        }
+        
+        .speaker-section .photo-container {
+            width: 180px; /* Tamanho da foto */
+            height: 180px;
+            border-radius: 9999px; /* Círculo */
+            overflow: hidden;
+            border: 3px solid #E0BBE4; /* Borda roxa neon */
+            box-shadow: 0 0 20px rgba(224, 187, 228, 0.5);
+            flex-shrink: 0; /* Impede que a foto encolha */
+        }
+        .speaker-section .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .speaker-section .name {
+            font-size: 2.8rem; 
+            font-weight: 700;
+            color: #E0BBE4; /* Roxo neon */
+            text-shadow: 0 0 10px rgba(224, 187, 228, 0.7);
+            margin-bottom: 0.5rem;
+        }
+        .speaker-section .role {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #ADD8E6; /* Azul claro */
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .speaker-section .divider {
+            width: 60px;
+            height: 2px;
+            background-color: #E0BBE4;
+            margin-top: 1rem;
+            margin-left: 0; 
+        }
+        .speaker-section .quote {
+            margin-top: 1rem;
+            color: #c0c0c0;
+            font-size: 1.1rem;
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        /* QR Code do Marco movido para o canto superior direito */
+        .speaker-section .linkedin-qr-code {
+            position: absolute;
+            top: 0px; /* Alinhado ao topo */
+            right: 0px; /* Alinhado à direita */
+            width: 100px;
+            height: 100px;
+            padding: 5px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .speaker-section .linkedin-qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+
+
+        /* Estilo para o <iframe> container no slide */
+        .video-player-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9; 
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background-color: black; 
+            /* Efeito "Zoom" - começa pequeno */
+            transform: scale(0.2); 
+            opacity: 0;
+        }
+        .video-player-container iframe { /* Alterado de video para iframe */
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Container do slide de vídeo (sem fundo) */
+        .video-section .text-container {
+            background: none; 
+            backdrop-filter: none;
+            box-shadow: none;
+            border: none;
+            padding: 0;
+            width: 100%;
+            max-width: 1000px; /* Limita o tamanho do player */
+        }
+
+        /* Layout dividido para Oportunidades (Texto + Meme) */
+        .split-layout-container {
+            max-width: 900px; /* Container maior para acomodar os dois */
+            display: flex;
+            flex-direction: row;
+            align-items: center; /* Alinha o texto e o meme verticalmente */
+            gap: 2rem;
+        }
+        .split-layout-container .text-content {
+            flex: 1; /* Texto ocupa o espaço disponível */
+        }
+        .split-layout-container .meme-content {
+            flex-shrink: 0; /* Meme não encolhe */
+            width: 320px; /* Largura fixa para o meme */
+        }
+        .split-layout-container .meme-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Estilo para o QR Code da C3C na seção "Quem Somos" */
+        .quem-somos-qr-code {
+            position: absolute;
+            top: 30px; /* Posição no canto superior direito */
+            right: 30px;
+            width: 80px;
+            height: 80px;
+            padding: 5px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .quem-somos-qr-code img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* NOVO: Estilo para o QR Code Persistente (Banco de Talentos) */
+        #persistent-qr-code {
+            position: fixed;
+            bottom: 2rem; /* 32px */
+            right: 2rem; /* 32px */
+            z-index: 30; /* Acima dos slides, mas abaixo de modais (se houver) */
+            background-color: white;
+            padding: 0.5rem; /* 8px */
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 130px; /* Tamanho um pouco maior */
+            text-align: center;
+            opacity: 0; /* Começa invisível */
+            visibility: hidden;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #persistent-qr-code img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px; /* Borda interna leve */
+        }
+        #persistent-qr-code p {
+            font-size: 0.75rem; /* 12px */
+            color: #333; /* Texto escuro */
+            font-weight: 700;
+            margin-top: 0.25rem; /* 4px */
+        }
+
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Canvas 3D --><canvas id="webgl-canvas"></canvas>
+    
+    <!-- Botões de Navegação (Cima/Baixo) --><div class="fixed right-6 top-1/2 transform -translate-y-1/2 z-20 flex flex-col space-y-3">
+        <button id="nav-up" class="nav-button">
+            <!-- Ícone Seta Cima --><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+            </svg>
+        </button>
+        <button id="nav-down" class="nav-button">
+            <!-- Ícone Seta Baixo --><svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- Wrapper para todo o conteúdo HTML (Slides) --><div id="content-wrapper">
+        
+        <!-- Seção 0: Boas-vindas (Banner "Trabalhe Conosco") --><section class="content-section relative">
+            
+            <!-- Background do Banner --><div class="hero-banner-bg"></div>
+            
+            <div class="text-container text-center relative z-20">
+                <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C Software" class="mx-auto mb-6 w-24 h-24 rounded-full border border-gray-700">
+                <h1 class="text-4xl text-white">TRABALHE NA C3C</h1>
+                <p class="text-xl mt-4 text-gray-200">Conectando talentos à inovação Salesforce. <br>Seja parte do nosso time de sucesso!</p>
+            </div>
+        </section>
+
+        <!-- Seção 1: Speaker (Marco Rezende com Foto e QR Code LinkedIn) --><section class="content-section speaker-section">
+            <div class="text-container relative z-20">
+                <!-- Foto do Marco --><div class="photo-container">
+                    <img src="https://media.licdn.com/dms/image/v2/D5603AQFIdPihgh9hFw/profile-displayphoto-crop_800_800/B56Zj2XLLIHMAM-/0/1756479929177?e=1764201600&v=beta&t=o_Ju30GAfnI_xtgXSsu06VRSnqcFdcjW2Fwq8pOUYGA" alt="Foto de Marco Rezende">
+                </div>
+                <!-- Texto do Speaker --><div>
+                    <div class="name">Marco Rezende</div>
+                    <div class="role">Diretor de Operações</div>
+                    <div class="divider"></div>
+                    <p class="quote">"Na C3C, transformamos desafios em oportunidades e ideias em realidade com a força da tecnologia Salesforce."</p>
+                </div>
+                <!-- QR Code LinkedIn do Marco (ATUALIZADO E MOVIDO) --><div class="linkedin-qr-code">
+                    <img src="https://c3c-github.github.io/consultoria/comercial/C3C/qr-code-marco.png" alt="QR Code LinkedIn Marco Rezende">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 2: Quem Somos e Nossa História (Layout Corrigido com QR Code da C3C) --><section class="content-section">
+            <!-- Layout centralizado (sem divisão) --><div class="text-container text-left relative"> <!-- Adicionado relative para posicionar o QR Code --><!-- Logo da C3C (Menor e alinhado à esquerda) --><img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C Software" class="block mb-4 w-16 h-16 rounded-full border border-gray-700">
+                
+                <h1 class="text-blue-300 text-left">Quem Somos e Nossa História</h1> <!-- Alinhado à esquerda --><ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
+                    <li>Fundada em 2019 — cresceu rápido e hoje somos +50 pessoas, 80+ clientes e presença nacional.</li>
+                    <li>Nascemos como especialistas em implantação, mas evoluímos para parceiros estratégicos de transformação digital.</li>
+                    <li>100% home office, cultura colaborativa e autonomia total.</li>
+                </ul>
+                <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente --><p class="text-blue-300 italic">“Acreditamos que tecnologia é o meio, mas as pessoas são o motor.”</p>
+
+                <!-- QR Code LinkedIn da C3C (ATUALIZADO) --><div class="quem-somos-qr-code">
+                    <img src="https://c3c-github.github.io/consultoria/comercial/C3C/qr-code-empresa.png" alt="QR Code LinkedIn C3C">
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção 3: O Que Fazemos e Onde Atuamos --><section class="content-section">
+            <div class="text-container text-left">
+                <h1 class="text-green-300">O Que Fazemos e Onde Atuamos</h1>
+                <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
+                    <li>Implementamos soluções Salesforce (Sales Cloud, Service Cloud, Data Cloud, Agentforce etc.)</li>
+                    <li>Projetos com grandes marcas e desafios reais de negócio.</li>
+                    <li>Times multidisciplinares: consultoria, arquitetura, desenvolvimento, dados e CX.</li>
+                    <li>Trabalhamos com IA, automação e integração de sistemas — temas super em alta no mercado tech.</li>
+                </ul>
+                <!-- Logos dos Clientes (Re-adicionados) --><div class="grid grid-cols-3 md:grid-cols-5 gap-6 mt-8 items-center"> <!-- Ajustado para 5 colunas --><img src="https://logodownload.org/wp-content/uploads/2019/05/99-app-logo-0.png" alt="Logo 99" class="h-12 w-auto mx-auto" title="99">
+                    <img src="https://blog.vindi.com.br/wp-content/uploads/2022/05/Vindi-e-Yapay-nova-marca-conheca-a-logomarca-completa.png" alt="Logo Vindi" class="h-10 w-auto mx-auto" title="Vindi">
+                    <img src="https://dt2sdf0db8zob.cloudfront.net/wp-content/uploads/2018/09/locaweb-logo-alt.webp" alt="Logo Localweb" class="h-12 w-auto mx-auto" title="Localweb">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Claro.svg/2048px-Claro.svg.png" alt="Logo Claro" class="h-12 w-auto mx-auto" title="Claro">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Audi_logo_detail.svg/1426px-Audi_logo_detail.svg.png" alt="Logo Audi" class="h-10 w-auto mx-auto" title="Audi">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção 4: Oportunidades e Crescimento (NOVO Layout Lado a Lado) --><section class="content-section">
+            <!-- Container de layout dividido --><div class="text-container split-layout-container">
+                <!-- Conteúdo de Texto (Esquerda) --><div class="text-content text-left">
+                    <h1 class="text-purple-300">Oportunidades e Crescimento</h1>
+                    <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
+                        <li>Programa de talentos e vagas abertas em áreas como:</li>
+                        <ul class="list-['•'] list-inside ml-6 text-gray-400">
+                             <li>Consultoria funcional</li>
+                             <li>Desenvolvimento Salesforce</li>
+                             <li>Dados e integrações</li>
+                             <li>Comercial e marketing</li>
+                        </ul>
+                        <li>Planos de carreira estruturados, trilhas de certificação e acompanhamento próximo.</li>
+                    </ul>
+                     <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente --><p class="text-purple-300 italic">“Nosso objetivo é formar os melhores profissionais Salesforce do país.”</p>
+                </div>
+                <!-- Conteúdo do Meme (Direita) --><div class="meme-content">
+                    <img src="https://c3c.my.site.com/resource/1762494070000/meme1" 
+                         alt="Meme 'Dois Botões' representando a escolha de crescimento">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Seção 5: Nossa Cultura e Jeito de Trabalhar (Layout Corrigido) --><section class="content-section">
+             <!-- Layout centralizado (sem divisão) --><div class="text-container text-left">
+                <h1 class="text-yellow-300">Nossa Cultura e Jeito de Trabalhar</h1>
+                <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente --><p class="text-yellow-300 italic">“Trabalhar na C3C é viver uma cultura de confiança, aprendizado contínuo e colaboração.”</p>
+                
+                <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
+                    <li>Sem hierarquia rígida — valorizamos autonomia e protagonismo.</li>
+                    <li>Investimos em certificações Salesforce, formações internas e programa de mentoria.</li>
+                    <li>Iniciativas como: eventos de integração, trilhas de carreira, feedbacks abertos e a C3C Week (imersão anual da equipe em Fortaleza).</li>
+                </ul>
+                <!-- Chamada para o vídeo (re-adicionada) --><p class="mt-6 text-yellow-300 italic font-light">"E nada melhor do que os próprios colaboradores para falarem sobre a C3C..."</p>
+            </div>
+        </section>
+        
+        <!-- Seção 6: Nossa Cultura (VÍDEO "ZOOM" - AGORA COM YOUTUBE) --><section class="content-section video-section">
+            <!-- Container do vídeo que fará o "zoom" --><div class="video-player-container" id="video-container">
+                <!-- Iframe do YouTube --><iframe 
+                    id="youtube-player"
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/3Tefi4pigSE?enablejsapi=1&rel=0&modestbranding=1&controls=1" 
+                    title="Depoimento Colaboradores C3C" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+
+        <!-- Seção 7: CTA (QR Code) --><section class="content-section">
+            <div class="text-container text-center">
+                <h1 class="text-4xl text-blue-300">Junte-se ao Nosso Time!</h1>
+                <p class="text-xl mt-4 text-gray-200">Estamos sempre buscando pessoas incríveis para construir o futuro conosco.</p>
+                <p class="mt-2 text-gray-200">Aponte sua câmera e cadastre-se em nosso Banco de Talentos.</p>
+                
+                <!-- QR Code GRANDE removido daqui. O QR Code persistente agora é o CTA. --></div>
+        </section>
+
+    </div>
+
+    <!-- NOVO: QR Code Persistente (Banco de Talentos) -->
+    <div id="persistent-qr-code">
+        <img src="https://c3c.my.site.com/resource/1762492606000/qrCode" alt="QR Code Banco de Talentos C3C">
+        <p>Banco de Talentos</p>
+    </div>
+
+    <!-- NOVO: Carrega a API do YouTube Iframe Player -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- 1. Configuração Inicial ---
+        let scene, camera, renderer;
+        let particleCloud, particleMaterial;
+        const particleCount = 20000;
+        const canvas = document.getElementById('webgl-canvas');
+        const mouse = new THREE.Vector2(0, 0);
+
+        // --- Variáveis de Navegação ---
+        let currentSection = 0;
+        let isAnimating = false;
+        let sections = [];
+        const navUp = document.getElementById('nav-up');
+        const navDown = document.getElementById('nav-down');
+        
+        // NOVO: YouTube Player
+        let youtubePlayer;
+        let isPlayerReady = false;
+        const videoId = '3Tefi4pigSE'; // ID do novo vídeo do YouTube
+
+        // NOVO: QR Code Persistente
+        let persistentQrCode;
+        const showQrAtIndex = 4; // Índice do slide "Oportunidades"
+
+        // Estados da animação 3D (Mantido com 8 seções)
+        const animationStates = [
+            // Seção 0 (Boas-vindas)
+            { camera: { z: 800, x: 0, y: 0 }, particles: { y: 0 } },
+            // Seção 1 (Speaker)
+            { camera: { z: 700, x: -50, y: 50 }, particles: { y: Math.PI / 10 } },
+            // Seção 2 (Quem Somos)
+            { camera: { z: 500, x: 50, y: 0 }, particles: { y: Math.PI / 8 } },
+            // Seção 3 (O Que Fazemos / Clientes)
+            { camera: { z: 200, x: -100, y: 0 }, particles: { y: -Math.PI / 8 } },
+            // Seção 4 (Oportunidades)
+            { camera: { z: 150, x: 100, y: 0 }, particles: { y: Math.PI / 6 } },
+            // Seção 5 (Nossa Cultura)
+            { camera: { z: 300, x: 0, y: 0 }, particles: { y: -Math.PI / 6 } },
+            // Seção 6 (VÍDEO)
+            { camera: { z: 50, x: 0, y: 50 }, particles: { y: 0 } },
+            // Seção 7 (CTA / QR Code)
+            { camera: { z: 600, x: 0, y: 0 }, particles: { y: 0 } }
+        ];
+
+        function init() {
+            // --- Cena ---
+            scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x050a14, 0.001); 
+
+            // --- Câmera ---
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = animationStates[0].camera.z; 
+
+            // --- Renderer ---
+            renderer = new THREE.WebGLRenderer({ 
+                canvas: canvas,
+                antialias: true,
+                alpha: true 
+            });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // --- Luzes ---
+            const ambientLight = new THREE.AmbientLight(0x404040); 
+            scene.add(ambientLight);
+            const pointLight = new THREE.PointLight(0x89CFF0, 1.5, 1000); 
+            pointLight.position.set(50, 50, 50);
+            scene.add(pointLight);
+
+            // --- 2. Criação da Nuvem de Partículas ---
+            const positions = new Float32Array(particleCount * 3);
+            const colors = new Float32Array(particleCount * 3);
+            const baseColor = new THREE.Color(0xADD8E6); 
+            
+            for (let i = 0; i < particleCount; i++) {
+                const i3 = i * 3;
+                const r = 1000 * Math.cbrt(Math.random()); 
+                const theta = Math.random() * 2 * Math.PI;
+                const phi = Math.acos(2 * Math.random() - 1);
+                positions[i3] = r * Math.sin(phi) * Math.cos(theta);
+                positions[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+                positions[i3 + 2] = r * Math.cos(phi);
+                const mixedColor = baseColor.clone().lerp(new THREE.Color(0xffffff), Math.random() * 0.3);
+                colors[i3] = mixedColor.r;
+                colors[i3 + 1] = mixedColor.g;
+                colors[i3 + 2] = mixedColor.b;
+            }
+
+            const particleGeometry = new THREE.BufferGeometry();
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+            particleGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+            particleMaterial = new THREE.PointsMaterial({
+                size: 2, 
+                sizeAttenuation: true, 
+                vertexColors: true,
+                transparent: true,
+                blending: THREE.AdditiveBlending, 
+                depthWrite: false
+            });
+
+            particleCloud = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particleCloud);
+            
+            // --- 3. Configurar Navegação ---
+            setupNavigation();
+            
+            // --- 4. Event Listeners ---
+            window.addEventListener('resize', onWindowResize);
+            window.addEventListener('mousemove', onMouseMove);
+
+            // --- 5. Iniciar o Loop de Animação ---
+            animate();
+        }
+
+        function setupNavigation() {
+            sections = gsap.utils.toArray('.content-section');
+            persistentQrCode = document.getElementById('persistent-qr-code'); // Seleciona o QR Code
+            
+            gsap.set(sections[0], { opacity: 1, visibility: 'visible' });
+            gsap.set(persistentQrCode, { opacity: 0, visibility: 'hidden' }); // Garante que comece invisível
+            updateNavButtons();
+
+            navDown.addEventListener('click', () => goToSection(currentSection + 1));
+            navUp.addEventListener('click', () => goToSection(currentSection - 1));
+
+            window.addEventListener('keydown', (e) => {
+                if (isAnimating) return; 
+                if (e.key === 'ArrowDown') {
+                    goToSection(currentSection + 1);
+                } else if (e.key === 'ArrowUp') {
+                    goToSection(currentSection - 1);
+                }
+            });
+
+            window.addEventListener('wheel', (e) => {
+                if (isAnimating) return; 
+                if (e.deltaY > 0) {
+                    goToSection(currentSection + 1);
+                } else if (e.deltaY < 0) {
+                    goToSection(currentSection - 1);
+                }
+            }, { passive: true });
+        }
+        
+        // Função para manipular o vídeo (AGORA COM API DO YOUTUBE)
+        function handleVideoOnSlide(index) {
+            const videoSectionIndex = 6; // O índice da seção do vídeo
+            const videoContainer = document.getElementById('video-container'); // Definido localmente
+
+            if (index === videoSectionIndex) {
+                // Ao entrar na seção do vídeo
+                // 1. Animação de "Zoom" do player
+                gsap.to(videoContainer, {
+                    scale: 1, // Tamanho total
+                    opacity: 1,
+                    duration: 0.8, // Duração do "zoom"
+                    ease: 'power3.out',
+                    onComplete: () => {
+                        // 2. Toca o vídeo APÓS o zoom
+                        if (youtubePlayer && isPlayerReady && typeof youtubePlayer.playVideo === 'function') {
+                            youtubePlayer.playVideo();
+                        }
+                    }
+                });
+                
+                // O listener 'onended' agora é global via onPlayerStateChange
+
+            } else if (currentSection === videoSectionIndex) {
+                // Ao sair da seção do vídeo
+                if (youtubePlayer && isPlayerReady && typeof youtubePlayer.pauseVideo === 'function') {
+                    youtubePlayer.pauseVideo();
+                    youtubePlayer.seekTo(0); // Reseta o vídeo
+                }
+                
+                // Reseta o player para o "zoom" da próxima vez
+                gsap.set(videoContainer, { scale: 0.2, opacity: 0 });
+            }
+        }
+
+        function goToSection(index) {
+            if (isAnimating || index < 0 || index >= sections.length) {
+                return;
+            }
+
+            isAnimating = true;
+            const fromSection = sections[currentSection];
+            const toSection = sections[index];
+            
+            if (!animationStates[index]) {
+                console.error("Estado de animação não encontrado para o índice:", index);
+                isAnimating = false;
+                return;
+            }
+            const targetState = animationStates[index];
+
+            // NOVO: Controla a visibilidade do QR Code persistente
+            if (index >= showQrAtIndex) {
+                gsap.to(persistentQrCode, { opacity: 1, visibility: 'visible', duration: 0.5, ease: 'power2.out' });
+            } else {
+                gsap.to(persistentQrCode, { opacity: 0, visibility: 'hidden', duration: 0.5, ease: 'power2.in' });
+            }
+
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    isAnimating = false;
+                    // Manipula o vídeo DEPOIS que a transição do slide termina
+                    handleVideoOnSlide(index); 
+                }
+            });
+            
+            tl.to(fromSection, { 
+                opacity: 0, 
+                visibility: 'hidden', 
+                duration: 0.5, 
+                ease: 'power2.in' 
+            });
+            
+            tl.to(toSection, { 
+                opacity: 1, 
+                visibility: 'visible', 
+                duration: 0.5, 
+                ease: 'power2.out' 
+            }, 0.5); // Começa a aparecer no meio da animação de saída
+
+            gsap.to(camera.position, {
+                ...targetState.camera,
+                duration: 1.5,
+                ease: 'power3.inOut'
+            });
+
+            gsap.to(particleCloud.rotation, {
+                ...targetState.particles,
+                duration: 1.5,
+                ease: 'power3.inOut'
+            });
+
+            // Pausa o vídeo da seção anterior (se estivermos saindo dela)
+            if (currentSection === 6 && index !== 6) {
+                handleVideoOnSlide(index); // Chamará a lógica de "saída"
+            }
+
+            currentSection = index;
+            updateNavButtons();
+        }
+
+        function updateNavButtons() {
+            navUp.disabled = (currentSection === 0);
+            navDown.disabled = (currentSection === sections.length - 1);
+        }
+
+        // --- Loop de Animação (Render) ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Interação sutil com o mouse (Parallax) - DESATIVADO PARA O ZOOM
+            // camera.position.x += (mouse.x * 50 - camera.position.x) * 0.01;
+            // camera.position.y += (mouse.y * 50 - camera.position.y) * 0.01;
+            camera.lookAt(scene.position);
+            
+            // Rotação sutil constante da nuvem - DESATIVADO PARA O ZOOM
+            // if (particleCloud) {
+            //     particleCloud.rotation.y += 0.0005;
+            // }
+
+            renderer.render(scene, camera);
+        }
+
+E
+
+        // --- Funções de Evento ---
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }
+        
+        function onMouseMove(event) {
+            // Desativado para o Zoom, mas deixado aqui caso queira reativar
+            // mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            // mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+        }
+
+        // NOVO: Funções da API do YouTube
+        window.onYouTubeIframeAPIReady = function() {
+            console.log("YouTube API Ready");
+            youtubePlayer = new YT.Player('youtube-player', {
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 0, // Controlado via script
+                    'controls': 1, // Habilita controles para segurança
+                    'rel': 0,
+                    'modestbranding': 1
+                },
+                events: {
+                    'onReady': () => { 
+                        isPlayerReady = true; 
+                        console.log("Player Ready"); 
+                    },
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        };
+
+        function onPlayerStateChange(event) {
+            // Se o vídeo terminar (estado 0)
+            if (event.data == YT.PlayerState.ENDED) {
+                goToSection(currentSection + 1);
+            }
+        }
+
+
+        // --- Iniciar tudo ---
+        init();
+
+    </script>
+</body>
+</html>
