@@ -187,10 +187,12 @@
             font-weight: 300;
             font-style: italic;
         }
+        
+        /* CORREÇÃO: QR Code do Marco movido para o canto superior direito */
         .speaker-section .linkedin-qr-code {
             position: absolute;
-            bottom: -50px; /* Ajuste a posição conforme necessário */
-            right: 0px; /* Ajuste a posição conforme necessário */
+            top: 0px; /* Alinhado ao topo */
+            right: 0px; /* Alinhado à direita */
             width: 100px;
             height: 100px;
             padding: 5px;
@@ -344,7 +346,7 @@
                     <div class="divider"></div>
                     <p class="quote">"Na C3C, transformamos desafios em oportunidades e ideias em realidade com a força da tecnologia Salesforce."</p>
                 </div>
-                <!-- QR Code LinkedIn do Marco (ATUALIZADO) --><div class="linkedin-qr-code">
+                <!-- QR Code LinkedIn do Marco (ATUALIZADO E MOVIDO) --><div class="linkedin-qr-code">
                     <img src="https://c3c-github.github.io/consultoria/comercial/C3C/qr-code-marco.png" alt="QR Code LinkedIn Marco Rezende">
                 </div>
             </div>
@@ -423,8 +425,7 @@
         
         <!-- Seção 6: Nossa Cultura (VÍDEO "ZOOM" - AGORA COM YOUTUBE) --><section class="content-section video-section">
             <!-- Container do vídeo que fará o "zoom" --><div class="video-player-container" id="video-container">
-                <!-- <video> tag removida e substituída por <iframe> para o YouTube -->
-                <iframe 
+                <!-- Iframe do YouTube --><iframe 
                     id="youtube-player"
                     width="100%" 
                     height="100%" 
