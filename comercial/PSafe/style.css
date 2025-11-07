@@ -1,0 +1,144 @@
+:root {
+    --color-bg: #1f2937;
+    --color-bg-light: #374151;
+    --color-card: #4b5563;
+    --color-primary: #38bdf8;
+    --color-text: #f3f4f6;
+    --color-text-dim: #d1d5db;
+    --color-border: #6b7280;
+    --font-family-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: var(--font-family-sans);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    margin: 0;
+    padding: 24px;
+}
+
+header {
+    display: flex;
+    flex-wrap: wrap; /* Permite quebrar a linha em telas pequenas */
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px; /* Espaçamento entre o título e o botão */
+}
+
+h1 {
+    font-size: 1.875rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0; /* Remove margem padrão */
+}
+
+/* Grid dos Gráficos */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 24px;
+}
+
+.funnel-card {
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--color-border);
+}
+
+.funnel-card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.funnel-container {
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Etapas do Funil */
+.funnel-step {
+    position: relative;
+    background-color: var(--color-card);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    padding: 12px 16px;
+    border: 1px solid var(--color-border);
+}
+
+/* Barra de progresso da etapa */
+.funnel-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background-color: var(--color-primary);
+    opacity: 0.3;
+    width: 0; /* Será definido por JS */
+    transition: width 0.5s ease-out;
+    z-index: 1;
+}
+
+.step-content {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 2; /* Fica na frente da barra */
+}
+
+.step-label {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    word-break: break-all; /* Quebra nomes de eventos longos */
+}
+
+.step-metrics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-left: 8px;
+    flex-shrink: 0; /* Impede que os números encolham */
+}
+
+.step-value {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.step-percentage {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-dim);
+}
+
+/* Mensagens de estado */
+#message-area {
+    text-align: center;
+    padding: 40px;
+    background-color: var(--color-bg-light);
+    border-radius: 12px;
+    border: 2px dashed var(--color-border);
+    display: block; /* Começa visível */
+    color: var(--color-text-dim);
+    font-size: 1.1rem;
+}
+
+/* Esconde a área de mensagem quando os gráficos são renderizados */
+body.charts-visible #message-area {
+    display: none;
+}
+

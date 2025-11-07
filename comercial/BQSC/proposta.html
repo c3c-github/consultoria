@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta Comercial | BQSC + Superplayer & Co</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fontes Google --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Definindo as cores personalizadas do Tailwind a partir do seu logo */
+        :root {
+            --color-bqsc-dark: #26555C;
+            --color-bqsc-orange: #F2935C;
+            --color-bqsc-light: #F0F0F0;
+            --color-bqsc-medium: #D0D0D0;
+            --color-bqsc-green-leaf: #5C817D;
+            --color-sp-purple: #5F259F;
+        }
+
+        /* Configuração do Tailwind para usar variáveis CSS */
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        .bg-bqsc-dark { background-color: var(--color-bqsc-dark); }
+        .text-bqsc-dark { color: var(--color-bqsc-dark); }
+        .border-bqsc-dark { border-color: var(--color-bqsc-dark); }
+
+        .bg-bqsc-orange { background-color: var(--color-bqsc-orange); }
+        .text-bqsc-orange { color: var(--color-bqsc-orange); }
+        .border-bqsc-orange { border-color: var(--color-bqsc-orange); }
+
+        .bg-bqsc-light { background-color: var(--color-bqsc-light); }
+        .text-bqsc-light { color: var(--color-bqsc-light); }
+        .border-bqsc-light { border-color: var(--color-bqsc-light); }
+
+        .bg-bqsc-medium { background-color: var(--color-bqsc-medium); }
+        .text-bqsc-medium { color: var(--color-bqsc-medium); }
+        .border-bqsc-medium { border-color: var(--color-bqsc-medium); }
+
+        .bg-bqsc-green-leaf { background-color: var(--color-bqsc-green-leaf); }
+        .text-bqsc-green-leaf { color: var(--color-bqsc-green-leaf); }
+        .border-bqsc-green-leaf { border-color: var(--color-bqsc-green-leaf); }
+
+        .bg-sp-purple { background-color: var(--color-sp-purple); }
+        .text-sp-purple { color: var(--color-sp-purple); }
+        .border-sp-purple { border-color: var(--color-sp-purple); }
+
+
+        body {
+            font-family: 'Poppins', 'Nunito', sans-serif;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Estilos base (para tela e impressão) */
+        .slide {
+            padding: 4rem 4rem; /* Padding em volta de cada página */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-sizing: border-box;
+            background-color: white;
+            min-height: 100vh; /* Garante que na tela o slide ocupe a altura mínima */
+            margin-bottom: 0;
+        }
+        
+        /* Estilos para a impressão (@media print) - SOLUÇÃO FINAL */
+        @media print {
+            body {
+                background-color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .slide {
+                /* SOLUÇÃO: Força a quebra de página APÓS cada slide */
+                page-break-after: always;
+                page-break-before: auto;
+                page-break-inside: avoid;
+                
+                /* Define margens de impressão e reseta as propriedades de altura problemáticas */
+                min-height: 0; 
+                height: auto;
+                padding: 1.5cm;
+                margin-bottom: 0;
+            }
+            .slide:last-child {
+                page-break-after: auto; /* Não quebra depois da última página */
+            }
+            
+            /* Garante que elementos com fundo colorido sejam impressos */
+            .bg-bqsc-dark, .bg-bqsc-orange, .bg-bqsc-light {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        .box-title {
+            font-size: 1.5rem; 
+            font-weight: 800;
+            color: var(--color-bqsc-dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .table-custom {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1.1rem;
+        }
+        .table-custom th, .table-custom td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--color-bqsc-medium);
+        }
+        .table-custom th {
+            background-color: var(--color-bqsc-dark);
+            color: white;
+            font-weight: 700;
+        }
+        .table-custom tr:last-child td {
+            border-bottom: none;
+        }
+        .table-custom td:nth-child(2) {
+            font-weight: 700;
+            color: var(--color-bqsc-orange);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Slide 1: Capa -->
+    <section class="slide bg-bqsc-light flex items-center justify-center text-center">
+        <div>
+            <img src="https://bemquesecome.com.br/img/logo.png" alt="Logo Bem Que Se Come Grande" class="h-32 md:h-48 mb-10 mx-auto">
+            <h1 class="text-4xl md:text-5xl font-black text-bqsc-dark mt-6">
+                Proposta Comercial e Estratégia de Crescimento
+            </h1>
+            <h2 class="text-xl md:text-2xl text-gray-700 mt-4">
+                Parceria Bem Que Se Come & Superplayer & Co
+            </h2>
+        </div>
+    </section>
+
+    <!-- Slide 2: Sumário Executivo -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                1. Sumário Executivo
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                <div class="bg-bqsc-light p-6 rounded-xl border-l-4 border-bqsc-orange shadow-md flex flex-col justify-center">
+                    <h3 class="box-title text-bqsc-dark">Estratégia e Meta</h3>
+                    <p class="text-lg text-gray-700 mb-4">
+                        Propomos uma parceria estratégica de <strong class="text-bqsc-orange">3 meses (último quarter)</strong>, com foco inicial na <strong class="text-bqsc-orange">Black Friday</strong>, para impulsionar a venda da <strong class="text-bqsc-orange">assinatura anual</strong>.
+                    </p>
+                    <p class="text-2xl text-bqsc-dark mb-4 font-black">
+                        Meta: <span class="text-bqsc-orange">Apoiar</span> o crescimento de <span class="text-bqsc-orange">30% nas vendas anuais</span> (Assinantes) neste quarter.
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-bqsc-medium">
+                        <p class="text-sm text-gray-600 italic">O cupom BQSC será a chave para rastrear e medir o impacto direto desta meta.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-bqsc-dark text-white p-6 rounded-xl shadow-md flex flex-col justify-center">
+                    <h3 class="text-2xl font-black mb-4">Remuneração Híbrida</h3>
+                    <p class="text-lg mb-4">
+                        Nossa compensação é baseada no resultado e no serviço de produção:
+                    </p>
+                    <ul class="list-disc ml-6 space-y-2 text-bqsc-light">
+                        <li><strong class="text-bqsc-orange">50% Revenue Share</strong> sobre a nova receita anual rastreada pelo cupom BQSC.</li>
+                        <li><strong class="text-bqsc-orange">Fee Fixo</strong> (Post Day) pela produção de conteúdo.</li>
+                    </ul>
+                    <p class="text-lg mt-6 font-bold text-bqsc-orange">
+                        Nosso interesse está 100% alinhado ao sucesso de vocês.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Contexto e Compreensão do Problema -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                2. Contexto e Compreensão do Problema
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-orange">Seu Contexto (Superplayer & Co)</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong>Base Sólida:</strong> Início em 2019 (podcasts), App em 2021, com <strong class="text-bqsc-dark">+180 histórias</strong>.</li>
+                        <li><strong>Valor Alto:</strong> Conteúdo de alta qualidade, incluindo roadmap de melhorias (ex: ouvir offline).</li>
+                        <li><strong class="text-bqsc-dark">Desafio:</strong> Transformar o consumo de conteúdo (awareness) em <strong class="text-bqsc-dark">assinatura anual</strong> (conversão e LTV).</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-dark">Nossa Força (Bem Que Se Come)</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong class="text-bqsc-orange">Autoridade Orgânica:</strong> <strong class="text-bqsc-dark">141,4 mil seguidores</strong>, especialistas em Introdução Alimentar.</li>
+                        <li><strong class="text-bqsc-orange">Conexão:</strong> Sabemos traduzir o lúdico do Arildo em <strong class="text-bqsc-dark">prática</strong> e <strong class="text-bqsc-dark">necessidade</strong> para os pais.</li>
+                        <li><strong class="text-bqsc-orange">Alcance Viral:</strong> Conteúdo com <strong class="text-bqsc-dark">milhões de visualizações</strong>, sem tráfego pago.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Desafios e Fatores de Sucesso -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                3. Desafios e Fatores de Sucesso
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-orange">Desafios</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong class="text-bqsc-dark">Jornada de Compra:</strong> Focar na atração de <strong class="text-bqsc-dark">novos públicos</strong> para a assinatura anual.</li>
+                        <li><strong class="text-bqsc-dark">Sazonalidade:</strong> Maximização de vendas na <strong class="text-bqsc-dark">Black Friday</strong>, <strong class="text-bqsc-dark">Natal</strong> e <strong class="text-bqsc-dark">Volta às Aulas</strong>.</li>
+                        <li><strong class="text-bqsc-dark">Contorno:</strong> Convencer o consumidor do plano mensal a assinar o anual.</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-dark">Fatores Chave para Sucesso</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong class="text-bqsc-orange">Cupom Exclusivo BQSC:</strong> Rastreamento preciso do ROI.</li>
+                        <li><strong class="text-bqsc-orange">Conteúdo Viral Orgânico:</strong> Nossa alta média de visualizações é o motor.</li>
+                        <li><strong class="text-bqsc-orange">Oferta Acumulativa:</strong> Diferenciação de desconto na Black Friday.</li>
+                        <li><strong class="text-bqsc-orange">Teste A/B e Ampliação:</strong> Autorização para realizar testes A/B em Landing Pages e Ads (Ferramenta Secundária).</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: Abordagem e Solução Proposta -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                4. Abordagem e Solução Proposta
+            </h2>
+            <div class="bg-bqsc-light p-6 rounded-xl border-l-4 border-bqsc-green-leaf shadow-md">
+                <h3 class="box-title text-bqsc-dark">Estratégia: Campanha de Crescimento no Último Quarter</h3>
+                <p class="text-lg text-gray-700 mb-6">
+                    Propomos um <strong class="text-bqsc-dark">contrato mensal (mínimo de 3 meses)</strong> com foco em uma sequência de conteúdos estratégicos alinhados às três grandes sazonalidades do trimestre.
+                </p>
+                
+                <h4 class="text-xl font-bold text-bqsc-orange mt-6 mb-3">Cronograma de Produção (Agilidade BQSC)</h4>
+                
+                <table class="table-custom text-sm md:text-base mb-6">
+                    <thead>
+                        <tr>
+                            <th>Etapa</th>
+                            <th>Prazo (Máx. Dias Úteis)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Aprovação e Edição do Roteiro (Superplayer & Co)</td>
+                            <td><strong class="text-bqsc-orange">1 dia</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Gravação do Conteúdo (BQSC)</td>
+                            <td><strong class="text-bqsc-orange">2 dias</strong> após aprovação</td>
+                        </tr>
+                        <tr>
+                            <td>Edição e Lançamento (BQSC)</td>
+                            <td><strong class="text-bqsc-orange">2 dias</strong> após gravação</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h4 class="text-xl font-bold text-bqsc-dark mt-6 mb-3">Definição de Conteúdo</h4>
+                <p class="text-lg text-gray-700">
+                    <strong class="text-bqsc-dark">Posts:</strong> Conteúdos fixos (Reels ou Carrossel). <strong class="text-bqsc-dark">Stories:</strong> Chamadas para o post, por conta da BQSC.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Porque a Parceria com a BQSC -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                5. Por que a Parceria com a BQSC
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-orange">Conteúdo que Converte</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong class="text-bqsc-dark">Validação Orgânica:</strong> 141,4 mil seguidores (100% orgânico).</li>
+                        <li><strong class="text-bqsc-dark">Escalada do Comer:</strong> Nossa metodologia se encaixa perfeitamente no universo Imagina Só.</li>
+                        <li><strong class="text-bqsc-dark">Qualificação:</strong> Nosso conteúdo filtra e direciona o público que já busca a solução de alimentação.</li>
+                    </ul>
+                </div>
+                
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-dark">Foco Estratégico na Anual</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><strong class="text-bqsc-dark">Métricas Claras:</strong> Usaremos o cupom BQSC para medir nosso ROI e otimizar campanhas.</li>
+                        <li><strong class="text-bqsc-dark">Remuneração Alinhada:</strong> Nosso 50% de Revenue Share é o melhor incentivo ao sucesso de vocês.</li>
+                        <li><strong class="text-bqsc-dark">Ampliação:</strong> Foco em usar nossa força orgânica para gerar resultados de forma escalável.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Premissas Gerais: Remuneração e Contrato -->
+    <section class="slide">
+        <div class="flex-1">
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-8 border-b-2 border-bqsc-orange pb-3">
+                6. Premissas Gerais: Remuneração e Contrato
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-orange">Estrutura de Pagamento Híbrida</h3>
+                    <ul class="list-disc ml-6 space-y-2 text-gray-700">
+                        <li><strong class="text-bqsc-dark">50% Revenue Share</strong> sobre a receita líquida anual <strong class="text-bqsc-dark">proveniente das vendas rastreadas pelo cupom BQSC.</strong></li>
+                        <li><strong class="text-bqsc-dark">Fee Fixo</strong> (Post Day) pela produção de conteúdo.</li>
+                    </ul>
+                    
+                    <h4 class="text-xl font-bold text-bqsc-dark mt-6 mb-3">Fee Fixo por Post Day</h4>
+                    <table class="table-custom text-sm w-full">
+                        <thead>
+                            <tr>
+                                <th>Frequência</th>
+                                <th>Fee/Post</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>4 Posts/Mês ou Mais</td><td>R$ 500,00</td></tr>
+                            <tr><td>3 Posts/Mês</td><td>R$ 600,00</td></tr>
+                            <tr><td>2 Posts/Mês</td><td>R$ 750,00</td></tr>
+                            <tr><td>1 Post/Mês</td><td>R$ 1.000,00</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="bg-bqsc-light p-6 rounded-lg">
+                    <h3 class="box-title text-bqsc-dark">Condições Contratuais e Comerciais</h3>
+                    
+                    <h4 class="text-xl font-bold text-bqsc-orange mb-3">Contrato e Encerramento</h4>
+                    <ul class="list-disc ml-6 space-y-2 text-gray-700 mb-6">
+                        <li><strong class="text-bqsc-dark">Minuta:</strong> Mínimo de <strong class="text-bqsc-dark">3 meses</strong>, renovável automaticamente.</li>
+                        <li><strong class="text-bqsc-dark">Encerramento:</strong> Aviso prévio de <strong class="text-bqsc-dark">30 dias</strong> por qualquer parte, sem ônus.</li>
+                    </ul>
+
+                    <h4 class="text-xl font-bold text-bqsc-orange mb-3">Black Friday e Investimento</h4>
+                    <p class="text-lg text-gray-700 mb-2">
+                        <strong class="text-bqsc-dark">Desconto Acumulativo:</strong> A diferença do desconto adicional na Black Friday será custeada pela BQSC (descontada do Revenue Share).
+                    </p>
+                    <p class="text-lg text-gray-700">
+                        <strong class="text-bqsc-dark">Tráfego:</strong> A BQSC pode, futuramente, solicitar autorização para realizar testes de tráfego, sem compromisso de investimento por parte da Superplayer & Co.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Próximos Passos -->
+    <section class="slide bg-bqsc-light flex items-center justify-center text-center">
+        <div>
+            <h2 class="text-3xl md:text-4xl font-black text-bqsc-dark mb-4">
+                7. Próximos Passos
+            </h2>
+            <p class="text-xl text-gray-700 mb-10 max-w-2xl mx-auto">
+                Com esta proposta, estamos prontos para iniciar a campanha imediatamente no último trimestre.
+            </p>
+            
+            <div class="bg-bqsc-dark text-white p-8 rounded-2xl shadow-xl max-w-lg mx-auto">
+                <h3 class="text-2xl font-black mb-4">Agenda de Kick-off por E-mail</h3>
+                <ul class="space-y-3 text-bqsc-light text-lg text-left inline-block">
+                    <li>Envio da minuta de contrato para aprovação.</li>
+                    <li>Definição imediata do cupom BQSC e tracking.</li>
+                    <li>Aprovação dos 4 roteiros iniciais e calendário de lançamentos.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé: Meramente visual para impressão -->
+    <footer class="text-center text-xs text-gray-500 py-2 hidden print:block">
+        Proposta Comercial | Bem Que Se Come & Superplayer & Co | (Página 1 de 7, 2 de 7, etc. - Gerada automaticamente ao imprimir)
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Funis (CSV)</title>
+    <!-- Vincula o arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Dashboard de Funis (Jornadas)</h1>
+    </header>
+
+    <!-- Área onde os gráficos serão renderizados -->
+    <div id="message-area">
+        <p>Carregando dados de <code>historico_analytics.csv</code>...</p>
+        <p><em>(Se demorar, verifique se você está rodando um servidor local, como o "Live Server" do VS Code).</em></p>
+    </div>
+    
+    <div id="charts-container" class="chart-grid">
+        <!-- Os gráficos de funil serão injetados aqui pelo JS -->
+    </div>
+
+    <!-- Vincula o arquivo JavaScript no final do body -->
+    <script src="script.js"></script>
+
+</body>
+</html>
+

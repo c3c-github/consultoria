@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bem-vindos - DREAMFORCE 2U FORTALEZA</title>
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter (ou outra fonte similar à da imagem) --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F2F5; /* Fundo cinza bem suave, como o ambiente da Image 1 */
+            color: #1a202c; /* Texto padrão escuro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .totem-banner {
+            background-color: #FFFFFF; /* Fundo branco do totem, como na Image 1 */
+            width: 100%;
+            max-width: 450px; /* Largura do totem */
+            height: 800px; /* Altura fixa para simular o totem */
+            border-radius: 12px; /* Bordas arredondadas */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1); /* Sombra suave mas visível */
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gradiente para textos de destaque como o '2U' na Image 1 */
+        .gradient-2u {
+            background-image: linear-gradient(90deg, #00C6FF, #00FFD1); /* Azul claro para ciano/verde */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        
+        /* Estilo para 'A Era dos Agentes' com mais força, como no "Agentforce" da Image 2 */
+        .era-agentes-text {
+            color: #0070D2; /* Azul forte do Salesforce/Agentforce */
+            font-size: 1.8rem; /* Um pouco maior */
+            font-weight: 600; /* Mais negrito, como na Image 2 */
+        }
+
+        /* Logos */
+        .logo-c3c {
+            height: 38px; /* Ajustado para parecer com a Image 1 */
+            width: auto;
+            object-fit: contain;
+            /* Filtro de luminosidade para garantir que esteja visível e colorido, como na Image 1 */
+            filter: brightness(0.8); 
+        }
+        .logo-salesforce {
+            height: 60px; /* Ajustado para parecer com a Image 1 */
+            width: auto;
+            object-fit: contain;
+        }
+        
+        /* Apenas um pequeno efeito de rodapé para dar a ilusão de base, como na Image 1 */
+        .subtle-footer-effect {
+            width: 100%;
+            height: 30px;
+            background-image: linear-gradient(to top, rgba(0, 0, 0, 0.05), transparent);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- O Totem de Boas-Vindas --><main class="totem-banner">
+        
+        <!-- Seção 1: Logos no Topo --><header class="flex justify-between items-center relative z-10 mb-16">
+            <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" 
+                 alt="Logo C3C Software" 
+                 class="logo-c3c"
+                 onerror="this.onerror=null; this.src='https://placehold.co/150x38/FFFFFF/334155?text=C3C+Software';">
+            
+            <img src="https://nucleusanalytics.com/wp-content/uploads/2019/12/salesforce-partner-logo.png" 
+                 alt="Salesforce Partner Logo" 
+                 class="logo-salesforce"
+                 onerror="this.onerror=null; this.src='https://placehold.co/150x60/FFFFFF/334155?text=Salesforce+Partner';">
+        </header>
+
+        <!-- Seção 2: Conteúdo Principal --><div class="flex-grow flex flex-col justify-center relative z-10">
+            <!-- Título do Evento --><h1 class="text-6xl font-extrabold text-gray-800 leading-tight mb-4">
+                DREAMFORCE <span class="gradient-2u">2U</span>
+            </h1>
+            <h2 class="text-6xl font-extrabold text-gray-800 leading-tight mb-8">
+                FORTALEZA
+            </h2>
+            
+            <!-- Slogan "A Era dos Agentes" --><p class="era-agentes-text mb-24">
+                A Era dos Agentes
+            </p>
+
+            <!-- Mensagem de Boas-Vindas --><h3 class="text-7xl font-bold text-gray-800 leading-tight">
+                Sejam<br>bem-vindos
+            </h3>
+        </div>
+
+        <!-- Efeito de rodapé sutil --><div class="subtle-footer-effect"></div>
+
+    </main>
+
+</body>
+</html>
