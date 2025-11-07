@@ -6,7 +6,7 @@
     <title>C3C Software - Feira de Profissões</title>
     
     <!-- Importa a fonte Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display.swap" rel="stylesheet">
     
     <!-- Carrega o Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -62,7 +62,7 @@
 
         /* Estilização do texto para o tema escuro */
         .text-container {
-            max-width: 700px; 
+            max-width: 800px; /* AUMENTADO para melhor legibilidade em tela cheia */
             background-color: rgba(5, 10, 20, 0.7); /* Fundo semi-transparente */
             backdrop-filter: blur(8px); /* Efeito de vidro fosco */
             padding: 2.5rem;
@@ -86,13 +86,11 @@
             color: #c0c0c0; /* Cinza claro */
         }
 
-        /* Citação especial */
-        .text-container li.italic {
-             list-style-type: none;
-             margin-left: -1.25rem; /* Ajuste para alinhar */
-        }
+        /* Citação especial (agora como parágrafo) */
         .text-container p.italic {
              font-size: 1.1rem;
+             font-style: italic;
+             margin-top: 1.5rem; /* Mais espaço para a citação */
         }
 
         /* Botões de Navegação */
@@ -121,7 +119,7 @@
             transform: translateY(0);
         }
 
-        /* NOVO: Estilos para o background do Banner "Trabalhe Conosco" na primeira seção */
+        /* Estilos para o background do Banner "Trabalhe Conosco" na primeira seção */
         .hero-banner-bg {
             position: absolute;
             top: 0;
@@ -136,7 +134,7 @@
             z-index: 5; 
         }
 
-        /* NOVO: Estilos para a seção do Speaker (com foto) */
+        /* Estilos para a seção do Speaker (com foto) */
         .speaker-section .text-container {
             background: none; 
             backdrop-filter: none;
@@ -223,6 +221,28 @@
             max-width: 1000px; /* Limita o tamanho do player */
         }
 
+        /* NOVO: Layout dividido para Oportunidades (Texto + Meme) */
+        .split-layout-container {
+            max-width: 900px; /* Container maior para acomodar os dois */
+            display: flex;
+            flex-direction: row;
+            align-items: center; /* Alinha o texto e o meme verticalmente */
+            gap: 2rem;
+        }
+        .split-layout-container .text-content {
+            flex: 1; /* Texto ocupa o espaço disponível */
+        }
+        .split-layout-container .meme-content {
+            flex-shrink: 0; /* Meme não encolhe */
+            width: 320px; /* Largura fixa para o meme */
+        }
+        .split-layout-container .meme-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
     </style>
 </head>
 <body class="font-sans">
@@ -279,16 +299,21 @@
             </div>
         </section>
 
-        <!-- Seção 2: Quem Somos e Nossa História -->
+        <!-- Seção 2: Quem Somos e Nossa História (Layout Corrigido) -->
         <section class="content-section">
+            <!-- Layout centralizado (sem divisão) -->
             <div class="text-container text-left">
-                <h1 class="text-blue-300">Quem Somos e Nossa História</h1>
+                <!-- Logo da C3C (Menor e alinhado à esquerda) -->
+                <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C Software" class="block mb-4 w-16 h-16 rounded-full border border-gray-700">
+                
+                <h1 class="text-blue-300 text-left">Quem Somos e Nossa História</h1> <!-- Alinhado à esquerda -->
                 <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
                     <li>Fundada em 2019 — cresceu rápido e hoje somos +50 pessoas, 80+ clientes e presença nacional.</li>
                     <li>Nascemos como especialistas em implantação, mas evoluímos para parceiros estratégicos de transformação digital.</li>
                     <li>100% home office, cultura colaborativa e autonomia total.</li>
-                    <li class="text-blue-300 italic">“Acreditamos que tecnologia é o meio, mas as pessoas são o motor.”</li>
                 </ul>
+                <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente -->
+                <p class="text-blue-300 italic">“Acreditamos que tecnologia é o meio, mas as pessoas são o motor.”</p>
             </div>
         </section>
 
@@ -313,30 +338,43 @@
             </div>
         </section>
         
-        <!-- Seção 4: Oportunidades e Crescimento -->
+        <!-- Seção 4: Oportunidades e Crescimento (NOVO Layout Lado a Lado) -->
         <section class="content-section">
-            <div class="text-container text-left">
-                <h1 class="text-purple-300">Oportunidades e Crescimento</h1>
-                <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
-                    <li>Programa de talentos e vagas abertas em áreas como:</li>
-                    <ul class="list-['•'] list-inside ml-6 text-gray-400">
-                         <li>Consultoria funcional</li>
-                         <li>Desenvolvimento Salesforce</li>
-                         <li>Dados e integrações</li>
-                         <li>Comercial e marketing</li>
+            <!-- Container de layout dividido -->
+            <div class="text-container split-layout-container">
+                <!-- Conteúdo de Texto (Esquerda) -->
+                <div class="text-content text-left">
+                    <h1 class="text-purple-300">Oportunidades e Crescimento</h1>
+                    <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
+                        <li>Programa de talentos e vagas abertas em áreas como:</li>
+                        <ul class="list-['•'] list-inside ml-6 text-gray-400">
+                             <li>Consultoria funcional</li>
+                             <li>Desenvolvimento Salesforce</li>
+                             <li>Dados e integrações</li>
+                             <li>Comercial e marketing</li>
+                        </ul>
+                        <li>Planos de carreira estruturados, trilhas de certificação e acompanhamento próximo.</li>
                     </ul>
-                    <li>Planos de carreira estruturados, trilhas de certificação e acompanhamento próximo.</li>
-                    <li class="text-purple-300 italic">“Nosso objetivo é formar os melhores profissionais Salesforce do país.”</li>
-                </ul>
+                     <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente -->
+                    <p class="text-purple-300 italic">“Nosso objetivo é formar os melhores profissionais Salesforce do país.”</p>
+                </div>
+                <!-- Conteúdo do Meme (Direita) -->
+                <div class="meme-content">
+                    <img src="https://c3c.my.site.com/resource/1762494070000/meme1" 
+                         alt="Meme 'Dois Botões' representando a escolha de crescimento">
+                </div>
             </div>
         </section>
         
-        <!-- Seção 5: Nossa Cultura e Jeito de Trabalhar (Antiga Vantagens) -->
+        <!-- Seção 5: Nossa Cultura e Jeito de Trabalhar (Layout Corrigido) -->
         <section class="content-section">
+             <!-- Layout centralizado (sem divisão) -->
             <div class="text-container text-left">
                 <h1 class="text-yellow-300">Nossa Cultura e Jeito de Trabalhar</h1>
+                <!-- Citação movida para FORA da lista (<ul>) para alinhar corretamente -->
+                <p class="text-yellow-300 italic">“Trabalhar na C3C é viver uma cultura de confiança, aprendizado contínuo e colaboração.”</p>
+                
                 <ul class="list-disc list-inside mt-4 text-gray-200 space-y-3">
-                    <li class="text-yellow-300 italic">“Trabalhar na C3C é viver uma cultura de confiança, aprendizado contínuo e colaboração.”</li>
                     <li>Sem hierarquia rígida — valorizamos autonomia e protagonismo.</li>
                     <li>Investimos em certificações Salesforce, formações internas e programa de mentoria.</li>
                     <li>Iniciativas como: eventos de integração, trilhas de carreira, feedbacks abertos e a C3C Week (imersão anual da equipe em Fortaleza).</li>
@@ -357,7 +395,7 @@
                     controls
                     preload="auto"
                     src="https://c3c-github.github.io/consultoria/comercial/C3C/videoDepoimento.mp4">
-                    Seu navegador não suporta a tag de vídeo.
+                    O seu navegador não suporta a tag de vídeo.
                 </video>
             </div>
         </section>
@@ -395,7 +433,7 @@
         const navUp = document.getElementById('nav-up');
         const navDown = document.getElementById('nav-down');
 
-        // NOVO: Player de Vídeo HTML5
+        // Player de Vídeo HTML5
         const videoPlayer = document.getElementById('video-player');
         const videoContainer = document.getElementById('video-container');
 
