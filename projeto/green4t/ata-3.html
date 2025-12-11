@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 3 (27/Nov) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 3</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 27 de novembro de 2025</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Luana Cardoso, Josicarla Gomes, Pedro Gonçalves</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro, Maria Eduarda</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Revisar e aprofundar o entendimento dos indicadores de vendas (Sales Report e TCV).</li>
+        <li>Discutir a estrutura dos contratos e as dores relacionadas ao cálculo de TCV.</li>
+        <li>Entender a dinâmica de renovação e reajuste contratual.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Sales Report e KPIs</h3>
+    <ul>
+        <li><strong>Sales Report:</strong> Relatório mensal estático enviado à diretoria (VP/CEO). [cite_start]Traz o acumulado de vendas (fechado) e forecast (pipeline)[cite: 26201, 26204].</li>
+        <li><strong>Venda Green vs. Venda Total:</strong> Existe uma discrepância entre o valor total do contrato (que pode incluir faturamento direto de terceiros) e a receita efetiva da Green4T ("Venda Green"). [cite_start]O Salesforce precisa refletir essa diferença para comissionamento e metas[cite: 26220, 26228].</li>
+        [cite_start]<li><strong>Falta de Metas no Sistema:</strong> O relatório atual mostra o realizado, mas não cruza automaticamente com a meta individual do vendedor dentro do Salesforce[cite: 25284].</li>
+    </ul>
+
+    <h3>2.2. TCV (Total Contract Value) e Contratos</h3>
+    <ul>
+        [cite_start]<li><strong>Conceito TCV:</strong> Valor total do contrato considerando todo o seu potencial de vigência (ex: 60 ou 120 meses em contratos públicos), mesmo que o pedido inicial seja de apenas 12 meses[cite: 26216].</li>
+        <li><strong>Dores Atuais:</strong> O Salesforce não reflete o TCV real (potencial de longo prazo), apenas o valor da oportunidade fechada (ex: 12 meses). [cite_start]O controle do TCV real é feito manualmente em planilha externa, o que gera risco e trabalho manual intenso[cite: 22443, 22469].</li>
+        <li><strong>Churn:</strong> O churn não é automatizado. [cite_start]Quando um contrato é perdido ou não renovado, o processo de baixa é manual e muitas vezes depende da "cabeça do vendedor" informar[cite: 25307, 25633].</li>
+    </ul>
+
+    <h3>2.3. Renovação e Reajuste</h3>
+    <ul>
+        <li><strong>Processo Atual:</strong> Contratos públicos (ex: 10 anos) exigem renovações anuais (termos aditivos). O privado também segue lógica similar.</li>
+        <li><strong>Dificuldade:</strong> A cada renovação ou reajuste, cria-se uma nova oportunidade/contrato no Salesforce, perdendo a visão unificada do "Contrato Pai". [cite_start]Um contrato com 5 linhas de negócio gera 5 contratos no sistema, multiplicando a complexidade de gestão[cite: 27763, 27769].</li>
+        [cite_start]<li><strong>NPS e Satisfação:</strong> Desejo de ter a nota de NPS e o "termômetro" da renovação visíveis na conta/oportunidade para atuação preventiva do comercial antes do vencimento[cite: 25589].</li>
+    </ul>
+
+    <h2>3. Decisões e Encaminhamentos</h2>
+    <ul>
+        [cite_start]<li><strong>Objeto TCV:</strong> Validada a necessidade de criar um objeto ou estrutura específica para TCV no Salesforce, separado da Oportunidade, para gerenciar o valor total do contrato sem impactar o comissionamento de curto prazo[cite: 21085].</li>
+        [cite_start]<li><strong>Contrato Pai:</strong> Necessidade de estruturar o conceito de "Contrato Pai" para agrupar as diversas renovações e linhas de negócio, facilitando a visão 360º do cliente[cite: 27769].</li>
+    </ul>
+
+</body>
+</html>

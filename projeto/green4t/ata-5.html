@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 5 (02/Dez) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 5</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 02 de dezembro de 2025</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Luana Cardoso, Pedro Gonçalves</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Detalhamento profundo do TCV (Total Contract Value) e da planilha de controle.</li>
+        <li>Discussão sobre a integração com o ERP (IFS) e os desafios de sincronização de dados.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Gestão do TCV (Total Contract Value)</h3>
+    <ul>
+        [cite_start]<li><strong>Planilha Manual:</strong> Confirmado que o controle do TCV é feito em uma planilha "gigantesca" e manual, alimentada com dados do Salesforce (oportunidades fechadas) e ajustada manualmente a cada contrato/reajuste[cite: 14910].</li>
+        <li><strong>Previsto vs. Realizado:</strong> A planilha contém o TCV "Previsto" (baseado na venda). Não há vínculo automático com o "Realizado" (o que foi efetivamente faturado no IFS). [cite_start]A área administrativa insere a previsão para o financeiro[cite: 14917, 14922].</li>
+    </ul>
+
+    <h3>2.2. Integração com IFS (ERP)</h3>
+    <ul>
+        <li><strong>Divergência de CNPJ:</strong> Identificado um problema crítico: o CNPJ de faturamento pode mudar durante a vigência do contrato (ex: de "Green Soluções" para "Green Serviços") por decisão estratégica/financeira. [cite_start]Essa mudança ocorre no IFS, mas o Salesforce não é atualizado, gerando inconsistência de dados[cite: 15003, 15013].</li>
+        [cite_start]<li><strong>Impacto:</strong> A falta de atualização do CNPJ no Salesforce impacta a visão do comercial e a geração correta de documentos e renovações[cite: 15044].</li>
+        [cite_start]<li><strong>Integração de Retorno:</strong> Necessidade de trazer do IFS para o Salesforce o "Realizado" (faturamento real) e os Custos, para permitir a comparação Previsto vs. Realizado dentro do CRM[cite: 15037].</li>
+    </ul>
+
+    <h3>2.3. Código de Projeto</h3>
+    <ul>
+        <li><strong>Criação Manual:</strong> Atualmente, a criação de "Projetos" no IFS é feita manualmente pelo faturamento mediante chamado. [cite_start]O "Código de Projeto" gerado precisa ser devolvido ao Salesforce para vincular as pontas[cite: 15077, 15150].</li>
+        <li><strong>Desafio de Estrutura:</strong> Não há uma relação 1:1 garantida entre "Linha de Negócio" (Salesforce) e "Código de Projeto" (IFS). [cite_start]Às vezes, várias linhas de negócio viram um único projeto no IFS, o que complica a integração automática[cite: 15170, 15172].</li>
+    </ul>
+
+    <h2>3. Decisões e Encaminhamentos</h2>
+    <ul>
+        <li><strong>Salesforce como Mestre (Clientes):</strong> Reforçada a necessidade do Salesforce ser a origem mestre dos dados cadastrais de clientes, enviando atualizações para o IFS para manter a sincronia.</li>
+        <li><strong>Próximos Passos:</strong> Aprofundar o entendimento da estrutura de projetos no IFS com a especialista (Thayna) na próxima sessão.</li>
+    </ul>
+
+</body>
+</html>

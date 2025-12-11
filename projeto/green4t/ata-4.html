@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 4 (28/Nov) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 4</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 28 de novembro de 2025</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Luana Cardoso, Pedro Gonçalves, Josicarla Gomes</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro, Maria Eduarda, Karine Cunha</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Revisar o fluxo sistêmico atual (Salesforce) ponta a ponta ("Walkthrough").</li>
+        <li>Discutir a estratégia de adoção do Slack e integração com o Salesforce.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Fluxo de Leads e Oportunidades</h3>
+    <ul>
+        <li><strong>Entrada de Leads:</strong> Revisão da entrada via API (site) e cadastro manual. [cite_start]Identificado que leads de outros setores (não comerciais) "sujam" a base e exigem filtro manual[cite: 26933].</li>
+        [cite_start]<li><strong>Conversão:</strong> O fluxo de conversão de Lead para Oportunidade tem travas importantes (ex: obrigatoriedade de CNPJ e validação de conta existente)[cite: 27067].</li>
+        <li><strong>Oportunidades e Linhas de Negócio:</strong> A oportunidade pode ter múltiplas "Linhas de Negócio" (produtos). [cite_start]Existe uma complexidade na sincronização entre as linhas de negócio e os itens da proposta comercial (que são preenchidos por Soluções)[cite: 27464, 27483].</li>
+    </ul>
+
+    <h3>2.2. Propostas e Aprovações</h3>
+    <ul>
+        <li><strong>Fluxo de Aprovação:</strong> As propostas passam por aprovação de Gerentes Comerciais e de Soluções.</li>
+        [cite_start]<li><strong>Histórico de Reprovação:</strong> Falta um local centralizado e estruturado para registrar os motivos de reprovação (pelo cliente ou interna), dificultando a análise de perda (Loss Analysis)[cite: 27616].</li>
+        [cite_start]<li><strong>Revisões:</strong> Múltiplas revisões de proposta são comuns (ex: R01, R02), e o controle de qual é a "versão final" sincronizada com a oportunidade é manual[cite: 27535, 27541].</li>
+    </ul>
+
+    <h3>2.3. Slack como Ferramenta de Produtividade</h3>
+    <ul>
+        [cite_start]<li><strong>Objetivo:</strong> Utilizar o Slack para facilitar a vida do Partner (vendedor externo), permitindo que ele consulte dados do contrato, status de nota fiscal e receba alertas (ex: aprovação de proposta) diretamente no celular, sem precisar logar no Salesforce[cite: 15605, 15616].</li>
+        <li><strong>Adoção:</strong> O desafio principal será a mudança cultural e garantir que os partners adotem a ferramenta. [cite_start]A estratégia deve focar em "o que eles ganham com isso" (agilidade, informação na mão)[cite: 15688].</li>
+    </ul>
+
+    <h2>3. Próximos Passos</h2>
+    <ul>
+        <li>Definir a estratégia de rollout do Slack e quais funcionalidades iniciais serão disponibilizadas (consulta de contrato, status de NF).</li>
+        <li>Avançar para o desenho da integração com o ERP (IFS) e detalhamento financeiro nas próximas sessões.</li>
+    </ul>
+
+</body>
+</html>

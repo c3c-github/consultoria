@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 2 (25/Nov - Tarde) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 2</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 25 de novembro de 2025 (Tarde)</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Josicarla Gomes, Luana Cardoso, Pedro Gonçalves</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro, Karine Cunha, Maria Eduarda</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Aprofundar o entendimento do processo de vendas com base no documento "Procedimentos de Gestão de Vendas".</li>
+        <li>Mapear a estrutura comercial (Interna e Partners) e o fluxo de Leads.</li>
+        <li>Entender o processo de Proposta Comercial e Contratos.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Estrutura Comercial e Segmentação</h3>
+    <ul>
+        <li><strong>Segmentação:</strong> A carteira é dividida em Público e Privado. [cite_start]A gestão visualiza tudo, mas cada vendedor visualiza apenas sua carteira[cite: 23002].</li>
+        [cite_start]<li><strong>Equipe:</strong> Aproximadamente 6 a 7 executivos internos e 18 partners (parceiros externos)[cite: 23310, 23312].</li>
+        <li><strong>Partners:</strong> Não possuem "Contas" (a conta é da Green4T, atribuída a um gestor interno), mas podem ter "Oportunidades" dentro dessas contas. [cite_start]A gestão de partners é feita por Márcio e Luana[cite: 23336, 23331].</li>
+    </ul>
+
+    <h3>2.2. Fluxo de Leads (Entrada)</h3>
+    <ul>
+        <li><strong>Canais:</strong>
+            <ul>
+                [cite_start]<li><strong>Inbound (Marketing):</strong> Via formulários no site (landing pages) integrados via API ao Salesforce[cite: 23225, 23227]. [cite_start]Problema identificado: Formulário genérico ("Fale Conosco") gera leads que não são comerciais (ex: financeiro, RH), exigindo filtro manual da Josicarla[cite: 23270].</li>
+                <li><strong>Outbound/Indicação:</strong> Prospecção ativa dos vendedores internos e partners.</li>
+            </ul>
+        </li>
+        [cite_start]<li><strong>Distribuição:</strong> A distribuição dos leads é feita manualmente pela Josicarla após análise e filtro[cite: 23238].</li>
+    </ul>
+
+    <h3>2.3. Proposta Comercial</h3>
+    <ul>
+        <li><strong>Fluxo:</strong> O comercial solicita a proposta via formulário no Salesforce. [cite_start]A demanda vai para o time de Soluções (Ingrid/Felipe), que distribui para os analistas técnicos elaborarem[cite: 23407, 23425].</li>
+        <li><strong>Dores:</strong>
+            <ul>
+                [cite_start]<li>O prazo de entrega (SLA) é medido, mas o campo "prazo replanejado" distorce a realidade do KPI[cite: 27216].</li>
+                [cite_start]<li>Falta de histórico estruturado dos motivos de reprovação (técnico, preço, etc.)[cite: 27620].</li>
+                [cite_start]<li>Erros manuais de digitação de valores na proposta gerada em Word[cite: 27144].</li>
+            </ul>
+        </li>
+        <li><strong>Proposta Sistêmica:</strong> Usada quando o cliente já envia o pedido de compra/contrato pronto. [cite_start]O processo é inverso: lança-se no sistema apenas para registro e faturamento[cite: 23491].</li>
+    </ul>
+
+    <h3>2.4. Contratos e Fechamento</h3>
+    <ul>
+        [cite_start]<li><strong>Kick-off:</strong> Após o fechamento (100% Win), é gerado um "Sumário Informativo" disparado para diversas áreas (Financeiro, RH, Operações, etc.) para iniciar a execução[cite: 23627].</li>
+        [cite_start]<li><strong>Jurídico:</strong> A interação com o jurídico (análise de minutas) é feita via Service Desk, fora do Salesforce[cite: 23832].</li>
+        [cite_start]<li><strong>DocuSign:</strong> Utilizado para assinaturas, mas sem integração nativa atual com o Salesforce para todos os contratos[cite: 23840].</li>
+    </ul>
+
+    <h2>3. Próximos Passos</h2>
+    <ul>
+        <li><strong>Análise de Dashboards:</strong> Agendar sessão para visualizar os relatórios atuais (Sales Report e TCV) e entender a construção dos indicadores.</li>
+        <li><strong>Service Desk:</strong> Avaliar a possibilidade de integrar ou migrar fluxos do Service Desk (ex: solicitação de contrato) para o Salesforce.</li>
+    </ul>
+
+</body>
+</html>

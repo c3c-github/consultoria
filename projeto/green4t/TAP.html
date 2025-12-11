@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAP - Projeto Implementação Salesforce Green4T</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script> <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        /* Cores C3C */
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --c3c-blue-darker: #1c5fd6; /* Para hover */
+            --c3c-teal-darker: #17b8a5; /* Para hover */
+        }
+
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-color { color: var(--c3c-teal); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        .brand-gradient-text {
+             background: linear-gradient(45deg, var(--c3c-blue), var(--c3c-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .section-title { /* Título principal do TAP */
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem; /* Maior para o título do documento */
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        /* Hover state para botão Voltar ao Topo */
+        #scrollToTopBtn:hover {
+             background-color: var(--c3c-teal-darker);
+        }
+
+        .logo-container {
+             width: auto;
+             max-width: 80%;
+             height: auto;
+             display: flex;
+             align-items: center;
+             justify-content: flex-start; /* Alinhar logo à esquerda no header */
+        }
+         .logo-container img {
+             max-height: 35px; /* Altura ajustada para o header */
+             width: auto;
+         }
+
+        /* Estilos básicos para conteúdo Markdown (aplicado via classe prose) */
+        main section.prose h1, main section.prose h2, main section.prose h3, main section.prose h4, main section.prose h5 { margin-top: 1.5em; margin-bottom: 0.5em; font-weight: 600; color: #374151; padding: 0;}
+        main section.prose h1 { font-size: 2em; } /* Pode não ser usado no TAP */
+        main section.prose h2 { font-size: 1.5em; border-bottom: 1px solid #e5e7eb; padding-bottom: 0.3em; }
+        main section.prose h3 { font-size: 1.25em; }
+        main section.prose h4 { font-size: 1.1em; }
+        main section.prose h5 { font-size: 1em; }
+        main section.prose p { margin-bottom: 1em; line-height: 1.6; color: #4b5563;}
+        main section.prose ul, main section.prose ol { margin-left: 1.5em; margin-bottom: 1em; color: #4b5563; padding: 0;}
+        main section.prose li { margin-bottom: 0.5em; }
+        main section.prose table { width: 100%; border-collapse: collapse; margin-bottom: 1em; font-size: 0.875rem; /* Smaller table text */}
+        main section.prose th, main section.prose td { border: 1px solid #d1d5db; padding: 0.5em; text-align: left; }
+        main section.prose th { background-color: #f9fafb; font-weight: 600; }
+        main section.prose code { background-color: #f3f4f6; padding: 0.2em 0.4em; border-radius: 3px; font-family: monospace; font-size: 0.9em; }
+        main section.prose pre { background-color: #f3f4f6; padding: 1em; border-radius: 5px; overflow-x: auto; margin-bottom: 1em; }
+        main section.prose pre code { background-color: transparent; padding: 0; }
+        main section.prose strong { font-weight: 700; }
+        main section.prose em { font-style: italic; }
+        main section.prose blockquote { border-left: 4px solid #d1d5db; padding-left: 1em; color: #6b7280; margin: 1em 0; font-style: italic; }
+        main section.prose hr { border: none; border-top: 1px solid #e5e7eb; margin: 2em 0; }
+         /* Remove margem superior do primeiro título H2/H3 de uma seção prose */
+         main section.prose > *:is(h2, h3):first-child {
+            margin-top: 0 !important;
+        }
+        /* Ajuste para remover margem superior extra se a seção prose for a primeira */
+        main > section.prose:first-child {
+             padding-top: 1rem; /* Adicionar um pouco de padding em vez de margem */
+        }
+        /* Para evitar que prose afete elementos não textuais */
+        .not-prose {
+             all: unset;
+             display: block;
+             box-sizing: border-box;
+        }
+         .section-title.not-prose {
+             border-bottom: 2px solid var(--c3c-blue);
+             padding-bottom: 0.5rem;
+             color: var(--c3c-blue);
+             font-size: 1.75rem;
+             font-weight: 700;
+             margin-bottom: 2rem;
+             margin-top: 0;
+         }
+
+         /* Badges */
+         .badge {
+           display:inline-flex;align-items:center;gap:.4rem;
+           padding:.2rem .5rem;border-radius:9999px;
+           font-size:.72rem;font-weight:600;
+           border:1px solid #e5e7eb;background:#f9fafb;color:#374151;
+         }
+         .kbd{border:1px solid #d1d5db;border-bottom-width:2px;border-radius:.375rem;padding:.1rem .35rem;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,"Liberation Mono","Courier New", monospace;font-size:.75rem;background:#fff}
+
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software" class="max-h-[35px]" onerror="this.onerror=null; this.alt='Logo C3C'; this.parentElement.innerHTML='<span class=\'font-bold brand-color\'>C3C</span>';">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Termo de Abertura do Projeto</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Inception Green4T</div>
+                 </div>
+             </div>
+        </header>
+
+        <main class="flex-grow w-[90vw] max-w-4xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+
+            <section id="tap-content" class="fade-in prose max-w-none prose-sm sm:prose-base">
+                 <h2 class="section-title not-prose">Termo de Abertura do Projeto (TAP) / Project Charter</h2>
+
+                 <div class="not-prose mb-6 grid sm:grid-cols-3 gap-3">
+                   <div class="p-3 rounded-lg border bg-gray-50">
+                     <div class="badge"><span class="w-2 h-2 rounded-full brand-bg"></span> Estado</div>
+                     <div class="mt-1 text-sm">Inception <strong>concluída</strong> (04/12/2025). Fase de Construção Iniciada.</div>
+                   </div>
+                   <div class="p-3 rounded-lg border bg-gray-50">
+                     <div class="badge"><span class="w-2 h-2 rounded-full brand-accent-bg"></span> Prioridade</div>
+                     <div class="mt-1 text-sm">Renovação, Reajuste e Gestão de TCV (Total Contract Value).</div>
+                   </div>
+                   <div class="p-3 rounded-lg border bg-gray-50">
+                     <div class="badge"><span class="w-2 h-2 rounded-full brand-bg"></span> Integração</div>
+                     <div class="mt-1 text-sm">Salesforce ↔ IFS (ERP) via API/MuleSoft.</div>
+                   </div>
+                 </div>
+
+                 <h3>1. Informações Gerais do Projeto</h3>
+                 <ul>
+                    <li><strong>Título do Projeto:</strong> Implementação Salesforce: Gestão de Contratos, TCV e Integração Financeira – Green4T</li>
+                    <li><strong>Data de Elaboração:</strong> 05 de Dezembro de 2025</li>
+                    <li><strong>Versão:</strong> 1.0</li>
+                    <li><strong>Gerentes do Projeto (C3C):</strong> Maria Eduarda Cavalcante / Karine Cunha</li>
+                    <li><strong>Patrocinadores (Sponsors - Green4T):</strong> Márcio (Diretoria), Luana Cardoso (Product Owner)</li>
+                    <li><strong>Cliente Principal:</strong> Green4T (Áreas Comercial, Financeira e Faturamento)</li>
+                 </ul>
+
+                 <h3>2. Justificativa do Projeto</h3>
+                 <p>Atualmente, a gestão do <strong>TCV (Total Contract Value)</strong> e o processo de renovação dependem de planilhas manuais complexas e desconectadas do sistema financeiro (IFS). Isso gera inconsistência de dados, falta de visibilidade do "Realizado vs. Planejado" e alto esforço manual operacional (ex: redigitação de contratos no IFS pelo time de faturamento).</p>
+                 <p>O projeto visa tornar o Salesforce a fonte da verdade ("Master") para dados de clientes e vendas, integrando-o ao ERP para automação de faturamento e reportes financeiros confiáveis.</p>
+
+                 <h3>3. Arquitetura da Solução</h3>
+                 <ul>
+                   <li><strong>Sales Cloud:</strong> CRM central para gestão de Leads, Oportunidades, Cotações e, futuramente, objeto customizado de TCV e Contratos Pai.</li>
+                   <li><strong>IFS (ERP):</strong> Sistema legado para faturamento e gestão de custos. Receberá dados do SF e devolverá status financeiro.</li>
+                   <li><strong>Slack:</strong> Interface móvel para os parceiros (Partners) consultarem status de contratos, notas fiscais e receberem alertas.</li>
+                   <li><strong>Tableau:</strong> Ferramenta de BI para visualização avançada dos dados consolidados (Sales Report).</li>
+                 </ul>
+
+                 <h3>4. Fluxo de Informação (Visão End-to-End)</h3>
+                 <ol>
+                   <li><strong>Venda:</strong> Comercial fecha a Oportunidade (100% Win) no Salesforce.</li>
+                   <li><strong>Integração (Ida):</strong> Dados da conta e oportunidade são enviados ao IFS, criando um "rascunho" de Contrato e Projeto (reduzindo digitação manual).</li>
+                   <li><strong>Faturamento:</strong> Time de Faturamento (Luciane) valida e ativa o contrato no IFS.</li>
+                   <li><strong>Integração (Volta):</strong> IFS retorna o "Código do Projeto" para o Salesforce.</li>
+                   <li><strong>Monitoramento (Snapshot):</strong> Semanalmente, o Salesforce busca no IFS os custos e receitas realizadas (Realizado) para comparação com o vendido (Planejado).</li>
+                   <li><strong>Gestão TCV:</strong> Objeto customizado no Salesforce calcula o TCV total (incluindo renovações) e gera "Snapshots" mensais (fotos estáticas) para reporte financeiro (FP&A).</li>
+                   <li><strong>Renovação/Reajuste:</strong> Alertas automáticos no Salesforce/Slack para o comercial atuar proativamente antes do vencimento.</li>
+                 </ol>
+
+                 <h3>5. Escopo do Projeto</h3>
+                 <h4>5.1. Incluso (Entregáveis Principais)</h4>
+                 <ul>
+                    <li>Desenho e implementação dos processos de <strong>Renovação</strong> e <strong>Reajuste</strong> de contratos.</li>
+                    <li>Criação de Objeto Customizado para <strong>TCV</strong> e lógica de "Contrato Pai" (agrupador de renovações).</li>
+                    <li>Implementação de <strong>Snapshots de Dados</strong> (fotos mensais estáticas) para atender requisitos de auditoria/FP&A.</li>
+                    <li><strong>Integração Salesforce ↔ IFS:</strong>
+                        <ul>
+                            <li>Sincronização de Clientes (SF como Mestre).</li>
+                            <li>Criação de pré-contrato/projeto no IFS via gatilho de venda.</li>
+                            <li>Retorno de Custos e Receitas (visão macro) para o Salesforce.</li>
+                        </ul>
+                    </li>
+                    <li>Integração <strong>Salesforce ↔ Slack</strong> para Partners (consulta de contratos/NF).</li>
+                    <li>Ajuste nos relatórios de Sales Report (Metas vs. Realizado).</li>
+                 </ul>
+                 <h4>5.2. Fora do Escopo (Fase 1)</h4>
+                 <ul>
+                    <li>Alterações estruturais nas regras de negócio nativas do IFS.</li>
+                    <li>Integração detalhada de micro-custos (será feita apenas a visão macro por projeto).</li>
+                    <li>Saneamento manual de base legada antiga (responsabilidade Green4T pré-carga).</li>
+                 </ul>
+
+                 <h3>6. Stakeholders Principais</h3>
+                 <table>
+                    <thead><tr><th>Nome</th><th>Área/Empresa</th><th>Papel</th></tr></thead>
+                    <tbody>
+                        <tr><td>Luana Cardoso</td><td>Green4T - PO</td><td>Sponsor / Decisora de Negócio</td></tr>
+                        <tr><td>Márcio</td><td>Green4T - Diretoria</td><td>Sponsor Executivo</td></tr>
+                        <tr><td>Pedro Gonçalves</td><td>Green4T - TI/Salesforce</td><td>Administrador Salesforce / Validador Técnico</td></tr>
+                        <tr><td>Josicarla Gomes</td><td>Green4T - ADM Vendas</td><td>Key User (Processos Administrativos)</td></tr>
+                        <tr><td>Luciane Gouveia</td><td>Green4T - Faturamento</td><td>Key User (Integração IFS)</td></tr>
+                        <tr><td>Flavio / Raquel</td><td>Green4T - FP&A</td><td>Key Users (TCV e Reportes Financeiros)</td></tr>
+                        <tr><td>Thayna Alves</td><td>Green4T - Especialista IFS</td><td>Ponto Focal Integração ERP</td></tr>
+                        <tr><td>Tulio Sales</td><td>C3C</td><td>Arquiteto de Solução</td></tr>
+                        <tr><td>Arthur Teodoro</td><td>C3C</td><td>Consultor Funcional</td></tr>
+                        <tr><td>Maria Eduarda</td><td>C3C</td><td>Gestão de Projeto</td></tr>
+                    </tbody>
+                 </table>
+
+                 <h3>7. Requisitos de Alto Nível</h3>
+                 <ul>
+                    <li><strong>Snapshot Mensal:</strong> O sistema deve armazenar uma "foto" estática do TCV no último dia do mês para garantir que relatórios passados não mudem.</li>
+                    <li><strong>Unicidade de Cliente:</strong> O Salesforce deve gerenciar a unicidade, mas tratar a mudança de CNPJ de faturamento sem duplicar o cliente na visão comercial.</li>
+                    <li><strong>Contrato Pai:</strong> Capacidade de visualizar a história completa do cliente (Contrato Original + Aditivos + Renovações) em uma única tela.</li>
+                    <li><strong>Mobilidade:</strong> Parceiros externos devem acessar dados limitados via Slack.</li>
+                 </ul>
+
+                 <h3>8. Premissas</h3>
+                 <ul>
+                    <li>Disponibilidade das APIs do IFS conforme mapeado com a especialista (Thayna).</li>
+                    <li>Padronização das "Linhas de Negócio" no Salesforce vs. "Tipos de Projeto" no IFS (De/Para).</li>
+                    <li>Limpeza e organização dos dados da planilha de TCV pela Green4T para carga inicial.</li>
+                 </ul>
+
+                 <h3>9. Restrições</h3>
+                 <ul>
+                    <li><strong>Prazo:</strong> Entregas priorizadas para garantir automação de renovação o mais breve possível.</li>
+                    <li><strong>Estrutura IFS:</strong> A estrutura hierárquica (Cliente > Contrato > Projeto) no ERP é rígida e o Salesforce deve se adaptar a ela na integração.</li>
+                 </ul>
+
+                 <h3>10. Riscos Iniciais e Mitigações</h3>
+                 <table>
+                    <thead><tr><th>Risco</th><th>Impacto</th><th>Mitigação</th></tr></thead>
+                    <tbody>
+                        <tr><td>Inconsistência no De/Para (SF vs IFS)</td><td>Alto</td><td>Realizar mapeamento detalhado das Linhas de Negócio antes do desenvolvimento da integração.</td></tr>
+                        <tr><td>Mudança de CNPJ no IFS não refletir no SF</td><td>Médio</td><td>Definir fluxo onde SF é o mestre ou criar gatilho de atualização no IFS.</td></tr>
+                        <tr><td>Baixa adoção do Slack pelos Partners</td><td>Médio</td><td>Focar em funcionalidades de alto valor (ex: "Minha nota foi emitida?") para gerar engajamento.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <h3>11. Cronograma Macro (Pós-Inception)</h3>
+                 <ul>
+                    <li><strong>Inception:</strong> 25/11 a 04/12 (Concluído)</li>
+                    <li><strong>Sprint 1 (Construção):</strong> Foco em Objeto TCV e Estrutura de Contratos.</li>
+                    <li><strong>Sprint 2 (Integração):</strong> Desenvolvimento dos fluxos com IFS (Ida e Volta).</li>
+                    <li><strong>Sprint 3 (Automação):</strong> Fluxos de Renovação, Reajuste e Slack.</li>
+                    <li><strong>UAT e Go-Live:</strong> Validação com Key Users e Virada.</li>
+                 </ul>
+
+                 <h3>12. Critérios de Sucesso</h3>
+                 <ul>
+                    <li>Eliminação da planilha manual de TCV como fonte primária.</li>
+                    <li>Redução de pelo menos 50% no tempo de cadastro de contratos no IFS (via automação).</li>
+                    <li>Relatórios de "Planejado vs Realizado" disponíveis no Salesforce sem intervenção manual.</li>
+                 </ul>
+
+                 <h3>13. Aprovações</h3>
+                 <table>
+                    <thead><tr><th>Nome</th><th>Papel</th><th>Assinatura</th><th>Data</th></tr></thead>
+                    <tbody>
+                        <tr><td>Luana Cardoso</td><td>PO Green4T</td><td></td><td></td></tr>
+                        <tr><td>Márcio</td><td>Diretoria Green4T</td><td></td><td></td></tr>
+                        <tr><td>Maria Eduarda/Karine</td><td>Gestão C3C</td><td></td><td></td></tr>
+                    </tbody>
+                 </table>
+             </section>
+
+        </main>
+         <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+            Repositório de Documentação - C3C Software & Green4T - Dezembro 2025
+        </footer>
+    </div>
+
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-all duration-300 z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                feather.replace();
+            } catch (e) {
+                console.error("Feather icons failed to load or replace:", e);
+            }
+
+            const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+            const fadeInElements = document.querySelectorAll('.fade-in');
+
+            if (scrollToTopBtn) {
+                 window.addEventListener('scroll', () => {
+                     scrollToTopBtn.classList.toggle('hidden', window.scrollY < 300);
+                 });
+                 scrollToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            }
+
+            if ("IntersectionObserver" in window && fadeInElements.length > 0) {
+                 const fadeInObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
+                fadeInElements.forEach(el => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                         setTimeout(() => el.classList.add('visible'), 100);
+                    } else {
+                        fadeInObserver.observe(el);
+                    }
+                });
+            } else {
+                 fadeInElements.forEach(el => el.classList.add('visible'));
+            }
+
+            const logoImgs = document.querySelectorAll('.logo-container img');
+             logoImgs.forEach(logoImg => {
+                 logoImg.onerror = () => {
+                     logoImg.style.display = 'none';
+                     const textFallback = document.createElement('span');
+                     textFallback.className = 'font-bold brand-color text-lg';
+                     textFallback.textContent = 'C3C';
+                     if (!logoImg.parentElement?.querySelector('.font-bold.brand-color')) {
+                        logoImg.parentElement?.appendChild(textFallback);
+                     }
+                 };
+            });
+
+        });
+    </script>
+</body>
+</html>

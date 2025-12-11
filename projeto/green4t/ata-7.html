@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 7 (04/Dez - Manhã) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 7</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 04 de dezembro de 2025 (Manhã)</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Luciane Gouveia (Faturamento), Luana Cardoso, Pedro Gonçalves, Flavio (FP&A)</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro, Maria Eduarda</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Mapear o processo manual de criação de contratos e projetos no IFS realizado pelo time de Faturamento.</li>
+        <li>Identificar oportunidades de automação na passagem de bastão Vendas -> Faturamento.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Processo Manual de Faturamento</h3>
+    <ul>
+        <li><strong>Entrada:</strong> O Faturamento recebe um "Sumário Informativo" (gerado no Salesforce) via chamado no Service Desk. [cite_start]Luciane confere manualmente os dados com o contrato físico[cite: 19556].</li>
+        <li><strong>Criação no IFS:</strong>
+            <ul>
+                [cite_start]<li>Criação manual do <strong>Projeto</strong> (código sequencial baseado no nome do cliente + tipo de serviço)[cite: 19563].</li>
+                [cite_start]<li>Criação manual das <strong>Atividades</strong> e do <strong>Contrato</strong>[cite: 19590, 19592].</li>
+                [cite_start]<li>Inserção manual das <strong>Linhas de Faturamento</strong> (parcelas) e regras de reconhecimento de receita[cite: 19600].</li>
+            </ul>
+        </li>
+        <li><strong>Dores:</strong> O processo é totalmente manual e sujeito a erros (ex: digitação de valores, escolha errada de empresa/filial). [cite_start]A falta de informações claras sobre o projeto (ex: região, tipo de obra) no sumário atrapalha o cadastro[cite: 19606, 19613].</li>
+    </ul>
+
+    <h3>2.2. Automação Proposta</h3>
+    <ul>
+        <li><strong>Integração:</strong> A proposta é que, ao fechar a oportunidade no Salesforce, os dados sejam enviados automaticamente para o IFS, criando um "rascunho" do contrato e projeto. [cite_start]Isso eliminaria a digitação manual inicial[cite: 19228].</li>
+        [cite_start]<li><strong>Benefícios:</strong> Redução de erros operacionais, agilidade no processo e garantia de que os dados (Valores, Cliente, Linhas de Negócio) estejam idênticos nos dois sistemas[cite: 19230].</li>
+    </ul>
+
+    <h3>2.3. Gestão de Custos e FP&A</h3>
+    <ul>
+        <li><strong>Controle de Custos:</strong> O Faturamento não controla custos, apenas receita. [cite_start]O controle de custos é feito pelos Gerentes Regionais (Operações) aprovando requisições no IFS[cite: 19082].</li>
+        <li><strong>FP&A (Flavio):</strong> FP&A extrai dados do IFS e consolida em Power BI para gerar relatórios gerenciais. [cite_start]O Salesforce passará a ser uma fonte importante para cruzar o "Planejado" (Venda) com o "Realizado" (IFS)[cite: 18802, 18809].</li>
+    </ul>
+
+    <h2>3. Decisões e Encaminhamentos</h2>
+    <ul>
+        <li><strong>Automação de Envio:</strong> Validada a necessidade de automatizar o envio dos dados da venda para o IFS para criação de pré-cadastros.</li>
+        <li><strong>Validação de TCV:</strong> Confirmada a necessidade de uma sessão específica à tarde para validar o relatório de TCV com a visão financeira de FP&A.</li>
+    </ul>
+
+</body>
+</html>

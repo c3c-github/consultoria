@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 8 (04/Dez - Tarde) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 8</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 04 de dezembro de 2025 (Tarde)</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Luana Cardoso, Flavio Augusto (FP&A), Raquel Cardoso (FP&A), Josicarla Gomes</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro, Maria Eduarda</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Validar o conceito e cálculo do TCV (Total Contract Value) com a área financeira (FP&A).</li>
+        <li>Definir como o Salesforce deve suportar o reporte mensal estático ("foto") do TCV.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Conceito e Cálculo de TCV</h3>
+    <ul>
+        [cite_start]<li><strong>Definição:</strong> O TCV reportado considera o valor total contratado + potencial de renovação (ex: 120 meses para contratos públicos), recalculado mensalmente com base em reajustes e consumo[cite: 20632].</li>
+        <li><strong>Foto Estática:</strong> O reporte para o conselho é uma "foto" estática do fechamento do mês. O dado não pode mudar retroativamente. [cite_start]Se houve um erro em janeiro, corrige-se em fevereiro, mas a foto de janeiro permanece a mesma[cite: 20705].</li>
+        [cite_start]<li><strong>Necessidade de Snapshot:</strong> O Salesforce precisa ter uma funcionalidade de "Snapshot" (cópia estática dos dados) mensal para garantir essa consistência histórica e permitir a comparação Mês a Mês (MoM) e Ano a Ano (YoY)[cite: 20806].</li>
+    </ul>
+
+    <h3>2.2. Contrato Pai e Rastreabilidade</h3>
+    <ul>
+        <li><strong>Visão Unificada:</strong> Reforçada a necessidade do conceito de "Contrato Pai" para vincular o contrato original às suas renovações e aditivos ao longo dos anos. [cite_start]Isso permite saber que o "Contrato X - Renovação 5" é, na verdade, a continuidade do negócio iniciado há 5 anos[cite: 21121, 21154].</li>
+        [cite_start]<li><strong>Separação de Objetos:</strong> A criação de um objeto específico para TCV no Salesforce (separado da Oportunidade) é a solução mais viável para gerenciar esse valor de longo prazo sem afetar o processo de vendas e comissionamento[cite: 21085].</li>
+    </ul>
+
+    <h3>2.3. Automação de Reajustes</h3>
+    <ul>
+        [cite_start]<li><strong>Índices:</strong> Discutida a possibilidade de integrar com APIs (ex: Banco Central) para obter índices de reajuste (IGPM, IPCA) automaticamente, facilitando o cálculo da nova parcela[cite: 20317, 20325].</li>
+        <li><strong>Comunicação:</strong> O sistema deve avisar o comercial sobre o reajuste para que ele comunique o cliente. [cite_start]A automação deve focar em calcular e preparar a informação, mas a "negociação" final ou envio da carta pode depender de ação humana[cite: 20377].</li>
+    </ul>
+
+    <h2>3. Próximos Passos</h2>
+    <ul>
+        <li>Finalizar o desenho da solução ("To-Be") considerando o objeto de TCV e a lógica de snapshots.</li>
+        <li>Preparar a apresentação final da Inception com o roadmap e escopo definido.</li>
+    </ul>
+
+</body>
+</html>

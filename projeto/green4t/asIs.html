@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS-IS - Mapeamento de Processo | Green4T</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563; --c3c-warning:#f59e0b; --c3c-danger:#ef4444;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem; overflow-x: auto;}
+    
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em; color: #1f2937; font-weight: 700; margin-top: 2em;}
+    main section.prose h3{font-size:1.25em; color: #374151; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em;}
+    main section.prose h4{font-size:1.1em; color: #4b5563; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.5em;}
+    
+    main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray); list-style-type: disc;}
+    main section.prose li{margin-bottom:.5em;}
+    
+    /* Custom Cards for Analysis */
+    .analysis-card {background: #fff; border: 1px solid #e5e7eb; border-left: 4px solid var(--c3c-blue); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;}
+    .analysis-label {font-weight: 700; color: #374151; display: block; margin-bottom: 0.25rem;}
+    .impact-text {color: var(--c3c-danger); font-weight: 600;}
+
+    /* Flow Styles */
+    .flow-step {background: #fff; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; text-align: center; min-width: 140px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative;}
+    .flow-step.manual {border-color: #fca5a5; background-color: #fef2f2;}
+    .flow-step.manual::after {content: 'Manual'; position: absolute; top: -10px; right: -5px; background: #ef4444; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;}
+    .flow-step.external {border-color: #fcd34d; background-color: #fffbeb;}
+    .flow-step.external::after {content: 'Excel'; position: absolute; top: -10px; right: -5px; background: #f59e0b; color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;}
+    .flow-arrow {color: var(--c3c-gray); font-weight: bold; font-size: 1.2rem;}
+
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4 hidden sm:block">Mapeamento de Processo (AS-IS)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Green4T</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="as-is" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Mapeamento do Processo Atual (AS-IS)</h2>
+        <div class="mb-6">
+          <span class="badge">Versão 1.1</span>
+          <span class="badge">Processo Manual</span>
+          <span class="badge">11 Dez 2025</span>
+        </div>
+
+        <h3>1. Introdução e Objetivo</h3>
+        <p>O mapeamento AS-IS tem como objetivo compreender detalhadamente o processo atual da administração de vendas da Green4T, identificando fluxos, responsabilidades, ferramentas utilizadas (Salesforce, IFS, Excel) e as principais dores que impactam a eficiência, a rastreabilidade e a confiabilidade dos dados, especialmente no que tange ao cálculo de TCV (Total Contract Value) e à integração com o ERP.</p>
+
+        <h3>2. Escopo e Metodologia</h3>
+        <p>A análise foi realizada a partir das reuniões de Inception com as equipes de Administração de Vendas, Tecnologia/Dados, Faturamento/IFS e Liderança Executiva. Foram mapeados os processos de gestão de oportunidades no Salesforce, a dependência de planilhas complexas para cálculo de comissões e TCV, bem como o fluxo de solicitação de faturamento para o ERP via Service Desk e e-mail.</p>
+
+        <h3>3. Visão Geral do Processo Atual (Macrofluxo)</h3>
+        <p>O processo atual caracteriza-se pela fragmentação de informações e pela alta dependência de intervenções manuais em etapas críticas de integração entre as áreas de Vendas e Finanças.</p>
+        
+        <!-- Visual Flow of Current Process -->
+        <div class="svg-wrap not-prose mb-6 bg-gray-50">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4 overflow-x-auto">
+                <div class="flow-step border-blue-200">
+                    <div class="font-bold text-blue-700 text-sm">Oportunidade</div>
+                    <div class="text-xs text-gray-500">Salesforce (Manual)</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step manual">
+                    <div class="font-bold text-red-700 text-sm">Solicitação Fat.</div>
+                    <div class="text-xs text-gray-500">Service Desk / Email</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step manual">
+                    <div class="font-bold text-red-700 text-sm">Cadastro IFS</div>
+                    <div class="text-xs text-gray-500">Digitação Manual</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step manual">
+                    <div class="font-bold text-red-700 text-sm">Atualização CRM</div>
+                    <div class="text-xs text-gray-500">Input Código Projeto</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step external">
+                    <div class="font-bold text-yellow-700 text-sm">Gestão TCV</div>
+                    <div class="text-xs text-gray-500">Planilhas Excel</div>
+                </div>
+            </div>
+            <div class="text-center mt-2 text-xs text-gray-400">Fluxo atual com pontos de ruptura manual em destaque</div>
+        </div>
+
+        <ul class="mt-4">
+            <li><strong>Oportunidade & Proposta:</strong> A equipe comercial gerencia a oportunidade no Salesforce. A geração de propostas ocorre, frequentemente, de forma manual ou semi-sistêmica, sem uma integração fluida de assinatura eletrônica no fluxo principal de vendas.</li>
+            <li><strong>Fechamento (Closed Won):</strong> Ao concluir o negócio, não há integração automática com o ERP. O time responsável abre um chamado via Service Desk ou envia e-mail para o setor de Faturamento contendo um "Sumário Executivo".</li>
+            <li><strong>Cadastro no ERP (IFS):</strong> O setor de Faturamento recebe a solicitação, valida manualmente os dados (contrato, CNPJ), realiza o cadastro do Cliente e Contato no IFS e gera os "Códigos de Projeto" manualmente.</li>
+            <li><strong>Retorno ao Salesforce:</strong> Após a geração, os Códigos de Projeto são informados via chamado. A equipe de Administração de Vendas insere esses códigos manualmente, linha a linha, nas oportunidades e contratos dentro do Salesforce.</li>
+            <li><strong>Gestão de Contrato (TCV):</strong> O cálculo do TCV, as projeções de receita e o controle de renovações são executados em planilhas externas complexas. Isso ocorre devido à limitação atual do Salesforce em refletir nativamente a realidade de parcelas, reajustes e vigências de longo prazo (ex: 60 meses), tornando o processo exaustivo e suscetível a falhas.</li>
+            <li><strong>Renovação e Reajuste:</strong> O processo exige a criação manual de novas oportunidades para tratar aditivos ou renovações, o que dificulta o rastreamento histórico e pode ocasionar duplicidade de registros.</li>
+        </ul>
+
+        <h3>4. Descrição das Etapas e Pontos de Atenção</h3>
+        
+        <div class="space-y-4">
+            <div class="analysis-card">
+                <h4 class="mt-0 text-lg text-blue-800 border-none">Cálculo de TCV e Comissões</h4>
+                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <span class="analysis-label">Cenário Atual:</span>
+                        <p class="text-sm m-0">O TCV é apurado em planilha externa que consolida dados do Salesforce e do IFS. O CRM reflete apenas o valor da oportunidade de venda, não abrangendo o ciclo de vida total do contrato (ex: contratos plurianuais públicos). As comissões também são calculadas via planilhas, baseadas no faturamento realizado.</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded">
+                        <span class="analysis-label text-red-700">Impacto:</span>
+                        <p class="text-sm m-0 text-red-800">Risco elevado de inconsistências nas fórmulas, falta de visibilidade em tempo real para a diretoria e discrepância entre o valor vendido (Salesforce) e o valor faturado (Realizado).</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-card">
+                <h4 class="mt-0 text-lg text-blue-800 border-none">Integração Salesforce x IFS</h4>
+                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <span class="analysis-label">Cenário Atual:</span>
+                        <p class="text-sm m-0">O fluxo baseia-se na troca de chamados e e-mails. O cadastro de clientes e projetos no IFS é manual, sujeito a erros operacionais (ex: divergência em CNPJ de faturamento).</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded">
+                        <span class="analysis-label text-red-700">Impacto:</span>
+                        <p class="text-sm m-0 text-red-800">O Salesforce não é alimentado com dados financeiros atualizados (Receita Realizada, Custos, Margem). A equipe comercial carece de visibilidade sobre inadimplência ou margem real do projeto sem a necessidade de solicitar relatórios à área financeira.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-card">
+                <h4 class="mt-0 text-lg text-blue-800 border-none">Estrutura de Contratos (Linhas de Negócio)</h4>
+                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <span class="analysis-label">Cenário Atual:</span>
+                        <p class="text-sm m-0">Cada linha de negócio vendida (ex: Ongoing, Service Desk, Field) gera um registro de contrato separado no sistema, fragmentando a visão do acordo global com o cliente.</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded">
+                        <span class="analysis-label text-red-700">Impacto:</span>
+                        <p class="text-sm m-0 text-red-800">Ausência de uma visão consolidada (Visão 360º) do cliente e do contrato principal. Atualizações contratuais (como reajustes) exigem a manutenção de múltiplos registros.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-card">
+                <h4 class="mt-0 text-lg text-blue-800 border-none">Reajustes e Renovações</h4>
+                <div class="grid md:grid-cols-2 gap-4 mt-2">
+                    <div>
+                        <span class="analysis-label">Cenário Atual:</span>
+                        <p class="text-sm m-0">A aplicação de índices inflacionários (IGPM/IPCA) é calculada manualmente ou por outra área, exigindo a criação de novas oportunidades ou edição manual de parcelas, muitas vezes desconectadas do faturamento real.</p>
+                    </div>
+                    <div class="bg-red-50 p-3 rounded">
+                        <span class="analysis-label text-red-700">Impacto:</span>
+                        <p class="text-sm m-0 text-red-800">Processo moroso, carente de automação na aplicação de índices e sem um histórico linear da evolução financeira do contrato dentro do CRM.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3>5. Pontos Críticos Identificados</h3>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Dependência de Controles Paralelos (Excel):</strong> A gestão crítica do valor contratual (TCV) reside fora do sistema oficial, em planilhas manuais, criando silos de informação.</li>
+            <li><strong>Falta de Integração Bidirecional:</strong> O fluxo de dados do Salesforce para o ERP é manual e não há retorno automático de dados financeiros (faturamento, custos, status) do ERP para o CRM.</li>
+            <li><strong>Processos Manuais Repetitivos:</strong> A inserção manual de códigos de projeto e a gestão de renovações consomem tempo estratégico da equipe de Administração de Vendas.</li>
+            <li><strong>Inconsistência de Dados:</strong> Divergências cadastrais (Razão Social, CNPJ) entre CRM e ERP ocorrem devido à falta de uma fonte única da verdade integrada.</li>
+        </ul>
+
+        <h3>6. Oportunidades de Melhoria</h3>
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+            <ul class="list-none pl-0 space-y-3">
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✓</span>
+                    <span><strong>Automatização do Cálculo de TCV:</strong> Implementar lógica nativa no Salesforce para cálculo do TCV, considerando vigência, reajustes e renovações, visando a descontinuação das planilhas de controle.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✓</span>
+                    <span><strong>Integração via MuleSoft:</strong> Automatizar a criação de Clientes e Projetos no IFS a partir do fechamento da oportunidade e garantir o retorno dos dados de Faturamento e Custos para o Salesforce.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✓</span>
+                    <span><strong>Gestão de Contrato Pai:</strong> Estruturar o Salesforce para agrupar múltiplas Linhas de Negócio sob um Contrato Mestre, facilitando a gestão e visualização unificada.</span>
+                </li>
+                <li class="flex items-start">
+                    <span class="text-blue-500 mr-2">✓</span>
+                    <span><strong>Comunicação Integrada (Slack):</strong> Utilizar o Slack para notificações de aprovação, alertas de renovação e consultas rápidas, centralizando a comunicação e reduzindo o fluxo de e-mails.</span>
+                </li>
+            </ul>
+        </div>
+
+        <h3>7. Conclusão</h3>
+        <p>O processo atual (AS-IS) da Green4T, embora funcional, apresenta alta dependência de esforço manual e controles externos, limitando a escalabilidade e a governança dos dados. A transição para o modelo TO-BE, com a integração entre Salesforce e IFS e a automação do cálculo de TCV, trará maior segurança, agilidade e a visão unificada necessária para a gestão estratégica.</p>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & Green4T - Dezembro 2025
+    </footer>
+  </div>
+</body>
+</html>

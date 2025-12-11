@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRD - Business Requirements Document | Green4T</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem; overflow-x: auto;}
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em; color: #1f2937; font-weight: 700; margin-top: 2em;}
+    main section.prose h3{font-size:1.25em; color: #374151; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em;}
+    main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray); list-style-type: disc;}
+    main section.prose li{margin-bottom:.5em;}
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.75em;text-align:left;}
+    main section.prose th{background:#f9fafb;font-weight:700; color: #374151;}
+    /* Diagrama de fluxo simples com CSS */
+    .flow-step {background: #fff; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; text-align: center; min-width: 120px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
+    .flow-arrow {color: var(--c3c-blue); font-weight: bold; font-size: 1.2rem;}
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4 hidden sm:block">Business Requirements Document (BRD)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Green4T</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="brd" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Especificação Funcional — Salesforce Green4T</h2>
+        <div class="mb-6">
+          <span class="badge">Versão 1.0</span>
+          <span class="badge">Salesforce as King</span>
+          <span class="badge">11 Dez 2025</span>
+        </div>
+
+        <h3>1. Introdução e Contexto</h3>
+        <p>O projeto de implantação Salesforce na Green4T tem como objetivo principal a transformação digital e a centralização dos processos de administração de vendas, visando estabelecer o Salesforce como a "fonte da verdade" (Salesforce as the King).</p>
+        <p>Atualmente, a Green4T enfrenta desafios com processos manuais descentralizados, especialmente o cálculo do TCV (Total Contract Value) que é mantido em planilhas complexas de Excel, e a falta de integração bidirecional automática entre o CRM e o ERP (IFS). O cenário atual exige intervenções manuais frequentes da equipe de Administração de Vendas para garantir a consistência dos dados de contratos, renovações e faturamento.</p>
+        <p>O projeto visa automatizar a esteira de vendas, desde a gestão de oportunidades até o ciclo de vida do contrato (renovação e reajuste), integrando os dados financeiros via MuleSoft para garantir visibilidade de receita e custos, e utilizando o Slack como interface de engajamento para o time comercial.</p>
+
+        <h3>2. Visão Geral da Solução</h3>
+        <p>A solução será composta pelos seguintes pilares tecnológicos da plataforma Salesforce e integrações:</p>
+        <ul>
+            <li><strong>Sales Cloud:</strong> Gestão do ciclo de vida de vendas (Leads, Oportunidades, Cotações), gestão de contratos (Renovações e Reajustes) e a implementação da lógica de "Contrato Pai" para agrupamento de Linhas de Negócio.</li>
+            <li><strong>MuleSoft:</strong> Responsável pela orquestração da integração entre Salesforce e o ERP IFS. O fluxo contempla o envio de dados de Clientes e Contratos para o IFS (para faturamento e criação de códigos de projeto) e o retorno de dados de Faturamento, Receita e Custos para o Salesforce.</li>
+            <li><strong>Slack:</strong> Ferramenta de produtividade para o time comercial (interno e partners), permitindo consultas rápidas de status de contratos, notificações de pendências, aprovações e acesso a documentos/históricos sem a necessidade de acessar a interface desktop do CRM.</li>
+            <li><strong>Tableau:</strong> Substituição/Evolução dos atuais dashboards (PowerBI/Excel) para visualização avançada de indicadores como TCV, Sales Report, MRR e performance comercial.</li>
+        </ul>
+
+        <h3>3. Objetivos de Negócio (KPIs / Metas)</h3>
+        <ul>
+            <li><strong>Automatização do Cálculo de TCV:</strong> Eliminar a dependência da planilha manual de TCV, realizando o cálculo automático no Salesforce considerando vigência, reajustes e renovações.</li>
+            <li><strong>Sincronização Financeira (Previsto x Realizado):</strong> Garantir que o Salesforce reflita não apenas o valor vendido (Previsto), mas também o faturado/realizado vindo do IFS, permitindo gestão de margem e custos por projeto.</li>
+            <li><strong>Redução de Esforço Manual:</strong> Automatizar a criação de renovações, aplicações de índices de reajuste e a comunicação com a área de faturamento (eliminação de abertura manual de chamados onde possível).</li>
+            <li><strong>Governança de Dados:</strong> Unificar a base de clientes e produtos (Linhas de Negócio) entre Salesforce e IFS, reduzindo duplicidades e inconsistências de cadastro.</li>
+        </ul>
+
+        <h3>4. Processo e Jornada do Usuário (Macro)</h3>
+        <!-- Visual Flow Representation mimicking a simple diagram -->
+        <div class="svg-wrap not-prose mb-6 bg-blue-50">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4 overflow-x-auto">
+                <div class="flow-step border-blue-200">
+                    <div class="font-bold text-blue-700 text-sm">Lead & Oportunidade</div>
+                    <div class="text-xs text-gray-500">Captação & Qualificação</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step border-blue-200">
+                    <div class="font-bold text-blue-700 text-sm">Proposta</div>
+                    <div class="text-xs text-gray-500">Elaboração & Aprovação</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step border-green-200 bg-green-50">
+                    <div class="font-bold text-green-700 text-sm">Fechamento (Won)</div>
+                    <div class="text-xs text-gray-500">Trigger Integração IFS</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step border-purple-200 bg-purple-50">
+                    <div class="font-bold text-purple-700 text-sm">Ciclo de Vida</div>
+                    <div class="text-xs text-gray-500">Renovação & Reajuste</div>
+                </div>
+            </div>
+        </div>
+
+        <ul>
+            <li><strong>Lead & Oportunidade:</strong> Captação via Web/Partners -> Qualificação -> Criação de Oportunidade com Linhas de Negócio (Produtos).</li>
+            <li><strong>Proposta:</strong> Solicitação de proposta à área de Soluções via Salesforce -> Elaboração (com valores e escopo técnico) -> Aprovação -> Envio ao Cliente.</li>
+            <li><strong>Fechamento (Closed Won):</strong> Ao fechar a oportunidade (100%), o sistema dispara a integração para criação/atualização de Cliente e Contrato no IFS.</li>
+            <li><strong>Integração ERP (IFS):</strong> O IFS recebe os dados, a área de Faturamento processa e devolve o "Código de Projeto" e status de faturamento.</li>
+            <li><strong>Ciclo de Vida (Contrato):</strong>
+                <ul class="mt-2 ml-4 list-circle">
+                    <li><em>Monitoramento:</em> Salesforce alerta sobre vencimentos e milestones de renovação.</li>
+                    <li><em>Reajuste:</em> Cálculo automático/facilitado de reajuste (IGPM/IPCA).</li>
+                    <li><em>Renovação:</em> Geração de novas oportunidades vinculadas ao "Contrato Pai".</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>5. Requisitos Funcionais (Prioritários)</h3>
+        <div class="overflow-x-auto">
+            <table>
+            <thead>
+                <tr>
+                    <th class="w-16">ID</th>
+                    <th>Descrição</th>
+                    <th class="w-32">Módulo</th>
+                    <th class="w-24">Prioridade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>RF001</td>
+                    <td><strong>Cálculo Automático de TCV:</strong> O sistema deve calcular o Total Contract Value considerando valor mensal, prazo e reajustes, segregando do comissionamento.</td>
+                    <td>Sales Cloud</td>
+                    <td><span class="text-red-600 font-bold">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RF002</td>
+                    <td><strong>Estrutura de Contrato Pai:</strong> Hierarquia onde um "Contrato Pai" agrupa diversas "Linhas de Negócio", permitindo visão unificada por cliente.</td>
+                    <td>Sales Cloud</td>
+                    <td><span class="text-red-600 font-bold">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RF003</td>
+                    <td><strong>Integração Bidirecional IFS:</strong> Envio de dados da Oportunidade/Contrato para IFS e retorno de "Código do Projeto" e dados financeiros.</td>
+                    <td>MuleSoft</td>
+                    <td><span class="text-red-600 font-bold">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RF004</td>
+                    <td><strong>Gestão de Reajustes:</strong> Aplicação de índices de reajuste nas parcelas do contrato, atualizando TCV e MRR sem perder histórico.</td>
+                    <td>Sales Cloud</td>
+                    <td><span class="text-red-600 font-bold">Alta</span></td>
+                </tr>
+                <tr>
+                    <td>RF005</td>
+                    <td><strong>Automação de Renovações:</strong> Criação automática de oportunidades de renovação com antecedência parametrizável.</td>
+                    <td>Sales Cloud</td>
+                    <td><span class="text-yellow-600 font-bold">Média</span></td>
+                </tr>
+                <tr>
+                    <td>RF006</td>
+                    <td><strong>Interface Slack:</strong> Consultas de status de propostas, contratos e alertas de pendências diretamente via Slack.</td>
+                    <td>Slack</td>
+                    <td><span class="text-yellow-600 font-bold">Média</span></td>
+                </tr>
+                <tr>
+                    <td>RF007</td>
+                    <td><strong>Geração de Propostas:</strong> Templates padronizados no Salesforce para geração de PDF, reduzindo erros manuais.</td>
+                    <td>Sales Cloud</td>
+                    <td><span class="text-yellow-600 font-bold">Média</span></td>
+                </tr>
+                <tr>
+                    <td>RF008</td>
+                    <td><strong>Controle de Margem/Custo:</strong> Exibir Custo Realizado (IFS) vs. Receita Vendida no objeto de Projeto/Contrato.</td>
+                    <td>Sales/Tableau</td>
+                    <td><span class="text-red-600 font-bold">Alta</span></td>
+                </tr>
+            </tbody>
+            </table>
+        </div>
+
+        <h3>6. Integrações</h3>
+        <ul>
+            <li><strong>IFS (ERP):</strong>
+                <ul>
+                    <li><em>Sentido Salesforce -> IFS:</em> Cadastro de Cliente, Criação de Contrato (Linhas de Negócio), Solicitação de Faturamento.</li>
+                    <li><em>Sentido IFS -> Salesforce:</em> Código de Projeto, Status do Faturamento, Receita Realizada, Custos Incorridos, Status de Pagamento.</li>
+                </ul>
+            </li>
+            <li><strong>Slack:</strong> Notificações de aprovação de propostas, alertas de renovação e consulta rápida de dados ("Bot" de vendas).</li>
+            <li><strong>Tableau:</strong> Consumo de dados do Salesforce e IFS para geração dos relatórios executivos.</li>
+        </ul>
+
+        <h3>7. Requisitos de Relatórios e Métricas</h3>
+        <ul>
+            <li><strong>Dashboard TCV:</strong> Visão consolidada do TCV por período, cliente e status (Contratado vs. Performado vs. A Performar).</li>
+            <li><strong>Sales Report:</strong> Relatório mensal estático (Snapshot) de vendas, pipeline e forecast, replicando a visão atual apresentada à diretoria.</li>
+            <li><strong>Relatório de Comissões:</strong> Visão de valores faturados por partner para base de cálculo de comissão.</li>
+            <li><strong>Monitoramento de Churn:</strong> Relatórios de contratos perdidos/não renovados com motivos categorizados.</li>
+        </ul>
+
+        <h3>8. Premissas e Restrições</h3>
+        <ul>
+            <li><strong>Limpeza de Dados:</strong> Saneamento ("De-Para") de Linhas de Negócio e Clientes no IFS e Salesforce é mandatório.</li>
+            <li><strong>Acesso ao IFS:</strong> Dependência da disponibilidade de APIs ou views de banco do IFS.</li>
+            <li><strong>Adoção do Slack:</strong> O sucesso depende da adesão dos partners ao uso do Slack como ferramenta oficial.</li>
+        </ul>
+
+        <h3>9. Riscos de Negócio e Dependências</h3>
+        <table>
+          <thead>
+            <tr>
+                <th>Risco</th>
+                <th>Impacto</th>
+                <th>Mitigação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>Inconsistência de dados históricos no IFS</td>
+                <td><span class="text-red-600 font-bold">Alto</span></td>
+                <td>Definir corte de dados (ex: migrar apenas ativos) ou saneamento manual.</td>
+            </tr>
+            <tr>
+                <td>Resistência do time comercial (novos processos)</td>
+                <td><span class="text-yellow-600 font-bold">Médio</span></td>
+                <td>Treinamento e uso do Slack para reduzir atrito na entrada de dados.</td>
+            </tr>
+            <tr>
+                <td>Complexidade "Contrato Pai" vs. Linhas IFS</td>
+                <td><span class="text-red-600 font-bold">Alto</span></td>
+                <td>Validação detalhada do modelo de dados na fase de Design.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>10. Aprovações</h3>
+        <table>
+          <thead><tr><th>Nome</th><th>Papel</th><th>Data</th></tr></thead>
+          <tbody>
+            <tr><td>Luana Cardoso</td><td>Líder de Projeto (Green4T)</td><td>11/Dez/2025</td></tr>
+            <tr><td>Marcio</td><td>Sponsor / VP</td><td>11/Dez/2025</td></tr>
+            <tr><td>Tulio Sales</td><td>Arquiteto de Soluções (C3C)</td><td>11/Dez/2025</td></tr>
+          </tbody>
+        </table>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & Green4T - Dezembro 2025
+    </footer>
+  </div>
+</body>
+</html>

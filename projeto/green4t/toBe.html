@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TO-BE - Mapeamento de Processo | Green4T</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563; --c3c-success:#10b981; --c3c-purple:#8b5cf6;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    .svg-wrap{background:#fbfdff;border:1px solid #e5e7eb;border-radius:.75rem;padding:.75rem; overflow-x: auto;}
+    
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em; color: #1f2937; font-weight: 700; margin-top: 2em;}
+    main section.prose h3{font-size:1.25em; color: #374151; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em;}
+    main section.prose h4{font-size:1.1em; color: #4b5563; font-weight: 600; margin-top: 1.2em; margin-bottom: 0.5em;}
+    
+    main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray); list-style-type: disc;}
+    main section.prose li{margin-bottom:.5em;}
+    
+    /* Tables */
+    main section.prose table{width:100%;border-collapse:collapse;margin-bottom:1em;font-size:.875rem;}
+    main section.prose th, main section.prose td{border:1px solid #d1d5db;padding:.75em;text-align:left;}
+    main section.prose th{background:#f9fafb;font-weight:700; color: #374151;}
+
+    /* Flow Styles */
+    .flow-step {background: #fff; border: 1px solid #e5e7eb; padding: 10px; border-radius: 8px; text-align: center; min-width: 140px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; transition: all 0.3s ease;}
+    .flow-step:hover {transform: translateY(-2px); box-shadow: 0 4px 6px rgba(0,0,0,0.1);}
+    
+    .flow-step.automated {border-color: #6ee7b7; background-color: #ecfdf5;}
+    .flow-step.automated::after {content: 'Automático'; position: absolute; top: -10px; right: -5px; background: var(--c3c-success); color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;}
+    
+    .flow-step.integration {border-color: #c4b5fd; background-color: #f5f3ff;}
+    .flow-step.integration::after {content: 'MuleSoft'; position: absolute; top: -10px; right: -5px; background: var(--c3c-purple); color: white; font-size: 0.6rem; padding: 2px 6px; border-radius: 4px; font-weight: bold;}
+    
+    .flow-arrow {color: var(--c3c-success); font-weight: bold; font-size: 1.2rem;}
+
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4 hidden sm:block">Mapeamento de Processo (TO-BE)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Green4T</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-[90vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="to-be" class="prose max-w-none prose-sm sm:prose-base">
+        <h2 class="section-title not-prose">Mapeamento do Processo Futuro (TO-BE)</h2>
+        <div class="mb-6">
+          <span class="badge">Versão 1.0</span>
+          <span class="badge">Salesforce as King</span>
+          <span class="badge">11 Dez 2025</span>
+        </div>
+
+        <h3>1. Objetivo</h3>
+        <p>Desenhar o processo futuro integrado no Salesforce para estabelecer a plataforma como a "Fonte da Verdade" (Salesforce as the King), centralizando a administração de vendas. O objetivo é automatizar o cálculo do TCV (Total Contract Value), eliminar planilhas manuais de controle, garantir a integração bidirecional com o ERP (IFS) via MuleSoft e aumentar a governança sobre Renovações e Reajustes.</p>
+
+        <h3>2. Macrofluxo TO-BE (Visão Sistêmica)</h3>
+        <p>O novo fluxo integra quatro pilares tecnológicos principais: Sales Cloud (Front-office), MuleSoft (Orquestração), IFS (Back-office/ERP) e Slack (Engajamento).</p>
+        
+        <!-- Visual Flow of Future Process -->
+        <div class="svg-wrap not-prose mb-6 bg-green-50">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 py-4 overflow-x-auto">
+                <div class="flow-step border-blue-200">
+                    <div class="font-bold text-blue-700 text-sm">Salesforce</div>
+                    <div class="text-xs text-gray-500">Gestão Oportunidade</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step integration">
+                    <div class="font-bold text-purple-700 text-sm">MuleSoft</div>
+                    <div class="text-xs text-gray-500">Orquestração</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step automated">
+                    <div class="font-bold text-green-700 text-sm">IFS (ERP)</div>
+                    <div class="text-xs text-gray-500">Criação Automática</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step automated">
+                    <div class="font-bold text-green-700 text-sm">Salesforce</div>
+                    <div class="text-xs text-gray-500">Retorno Código/Status</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step automated">
+                    <div class="font-bold text-blue-700 text-sm">TCV</div>
+                    <div class="text-xs text-gray-500">Cálculo Nativo</div>
+                </div>
+            </div>
+            <div class="text-center mt-2 text-xs text-gray-400">Fluxo automatizado com integrações via MuleSoft e cálculo nativo</div>
+        </div>
+
+        <ul>
+            <li><strong>Sales Cloud:</strong> Gestão de Oportunidades, Cotações, Contrato Pai e Cálculo de TCV.</li>
+            <li><strong>MuleSoft:</strong> Barramento de integração para tráfego de dados de Clientes, Contratos e Projetos.</li>
+            <li><strong>IFS (ERP):</strong> Faturamento, Contabilidade e apuração de Custos/Receita Realizada.</li>
+            <li><strong>Slack/Tableau:</strong> Notificações proativas e visualização avançada de dados.</li>
+        </ul>
+
+        <h3>3. Descrição das Etapas</h3>
+        <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Gestão da Oportunidade (Sales Cloud):</strong> O executivo trabalha a oportunidade. A proposta é gerada sistemicamente. Ao atingir o estágio "Closed Won" (100%), o sistema valida os pré-requisitos de cadastro (CNPJ, Produtos/Linhas de Negócio).</li>
+            <li><strong>Integração de Ida (Salesforce -> MuleSoft -> IFS):</strong> O fechamento dispara a integração. O MuleSoft envia os dados do Cliente e do Contrato (com suas Linhas de Negócio) para o IFS, solicitando a criação dos registros financeiros.</li>
+            <li><strong>Processamento ERP (IFS):</strong> O IFS recebe os dados, cria o cadastro financeiro e gera automaticamente os "Códigos de Projeto".</li>
+            <li><strong>Integração de Volta (IFS -> MuleSoft -> Salesforce):</strong> O IFS devolve os Códigos de Projeto e confirmação de cadastro para o Salesforce via MuleSoft, atualizando a Oportunidade e o Contrato automaticamente (eliminando a inserção manual).</li>
+            <li><strong>Gestão Contratual e TCV (Sales Cloud):</strong> Com o contrato ativo, o Salesforce calcula automaticamente o TCV baseando-se no Valor Mensal x Vigência + Índices de Reajuste, exibindo o valor real do contrato sem uso de planilhas externas.</li>
+            <li><strong>Ciclo de Vida (Renovação/Reajuste):</strong>
+                <ul class="ml-4 mt-2">
+                    <li><em>Monitoramento:</em> O Salesforce monitora datas críticas.</li>
+                    <li><em>Reajuste:</em> Índices (IGPM/IPCA) são aplicados sobre as parcelas, atualizando o TCV e integrando o novo valor com o IFS.</li>
+                    <li><em>Renovação:</em> O sistema cria automaticamente uma nova Oportunidade de Renovação X meses antes do vencimento e notifica o dono da conta via Slack.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h3>4. Regras de Negócio Chave</h3>
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <ul class="list-none space-y-2">
+                <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">1.</span> Cálculo de TCV Automatizado: (Valor Recorrente x Meses) + (Setup) + (Reajustes).</li>
+                <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">2.</span> Contrato Pai (Hierarquia): Contrato Mestre agrupa Linhas de Negócio para visão unificada por Cliente.</li>
+                <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">3.</span> Gatilho de Integração: Disparado apenas em "Closed Won" com todos os campos obrigatórios preenchidos.</li>
+                <li class="flex items-start"><span class="text-blue-500 font-bold mr-2">4.</span> Visibilidade Financeira: Campos "Read-Only" no Salesforce para Receita Faturada e Custo do Projeto.</li>
+            </ul>
+        </div>
+
+        <h3>5. Objetos & Integrações</h3>
+        <ul>
+            <li><strong>Objetos Principais:</strong> Contas, Contatos, Oportunidades, Cotações, Contratos (customizado), Ativos.</li>
+            <li><strong>MuleSoft:</strong> Orquestração de APIs (POST/GET) entre Salesforce e IFS, tratando erros e logs.</li>
+            <li><strong>IFS (ERP):</strong> Fonte mestre fiscal e financeira.</li>
+            <li><strong>Slack:</strong> Notificações de descontos, renovações e bot de consulta.</li>
+            <li><strong>Tableau:</strong> Analytics para substituir relatórios manuais.</li>
+        </ul>
+
+        <h3>6. Métricas e Painéis</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-3 border rounded shadow-sm hover:shadow-md transition">
+                <div class="font-bold text-gray-700">Painel TCV em Tempo Real</div>
+                <div class="text-sm text-gray-500">Total de contratos ativos por Linha de Negócio.</div>
+            </div>
+            <div class="p-3 border rounded shadow-sm hover:shadow-md transition">
+                <div class="font-bold text-gray-700">Previsto x Realizado</div>
+                <div class="text-sm text-gray-500">Vendido (CRM) vs Faturado (ERP).</div>
+            </div>
+            <div class="p-3 border rounded shadow-sm hover:shadow-md transition">
+                <div class="font-bold text-gray-700">Pipeline de Renovação</div>
+                <div class="text-sm text-gray-500">Volume financeiro a vencer em 12 meses.</div>
+            </div>
+            <div class="p-3 border rounded shadow-sm hover:shadow-md transition">
+                <div class="font-bold text-gray-700">Performance de Vendas</div>
+                <div class="text-sm text-gray-500">Conversão, Ticket Médio e Ciclo.</div>
+            </div>
+        </div>
+
+        <h3>7. Mudanças vs. AS-IS (Resumo)</h3>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="w-1/4">Processo</th>
+                        <th class="w-1/3">Cenário Atual (AS-IS)</th>
+                        <th class="w-1/3 bg-green-50 text-green-800">Cenário Futuro (TO-BE)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="font-semibold">Cálculo de TCV</td>
+                        <td class="text-gray-500 italic">Planilha Excel complexa e manual ("Silos").</td>
+                        <td class="font-medium text-green-700">Campo calculado nativo no Salesforce (Automático).</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">Criação de Projeto no ERP</td>
+                        <td class="text-gray-500 italic">E-mail/Chamado para Faturamento + Digitação.</td>
+                        <td class="font-medium text-green-700">Integração automática via MuleSoft (Gatilho Closed Won).</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">Atualização Código Projeto</td>
+                        <td class="text-gray-500 italic">Inserção manual linha a linha.</td>
+                        <td class="font-medium text-green-700">Atualização automática via retorno da integração.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">Gestão de Renovações</td>
+                        <td class="text-gray-500 italic">Controle manual/reativo.</td>
+                        <td class="font-medium text-green-700">Oportunidades criadas automaticamente com antecedência.</td>
+                    </tr>
+                    <tr>
+                        <td class="font-semibold">Comunicação Interna</td>
+                        <td class="text-gray-500 italic">Troca excessiva de e-mails.</td>
+                        <td class="font-medium text-green-700">Notificações e consultas via Slack integrado.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & Green4T - Dezembro 2025
+    </footer>
+  </div>
+</body>
+</html>

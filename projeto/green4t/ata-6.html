@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ata Reunião 6 (03/Dez) - Projeto Salesforce Green4T</title>
+<style>
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 800px; margin: 0 auto; padding: 20px; }
+    h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+    h2 { color: #2980b9; margin-top: 30px; }
+    h3 { color: #16a085; }
+    ul { list-style-type: disc; margin-left: 20px; }
+    li { margin-bottom: 8px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    th { background-color: #f2f2f2; color: #2c3e50; }
+    .meta-info { background-color: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+</style>
+</head>
+<body>
+
+    <h1>Ata de Reunião de Inception - Sessão 6</h1>
+    
+    <div class="meta-info">
+        <p><strong>Data:</strong> 03 de dezembro de 2025</p>
+        <p><strong>Projeto:</strong> Implementação Salesforce - Green4T</p>
+        <p><strong>Participantes Green4T:</strong> Thayna Alves (Especialista IFS), Luana Cardoso, Pedro Gonçalves</p>
+        <p><strong>Participantes C3C:</strong> Tulio Sales, Arthur Teodoro</p>
+    </div>
+
+    <h2>1. Objetivos da Sessão</h2>
+    <ul>
+        <li>Entender a estrutura de dados do IFS (ERP) para viabilizar a integração.</li>
+        <li>Mapear a hierarquia Cliente > Contrato > Projeto no IFS.</li>
+        <li>Definir estratégias para sincronização de custos e receitas.</li>
+    </ul>
+
+    <h2>2. Discussões Principais</h2>
+
+    <h3>2.1. Estrutura no IFS</h3>
+    <ul>
+        <li><strong>Hierarquia:</strong> No IFS, a estrutura é: Cliente -> Contrato -> Projetos. [cite_start]Um contrato pode ter vários projetos vinculados[cite: 16728].</li>
+        <li><strong>Código de Projeto:</strong> A criação do código de projeto é manual e não segue um padrão rígido de "De/Para" com as linhas de negócio do Salesforce. [cite_start]Isso varia de cliente para cliente[cite: 16742].</li>
+        [cite_start]<li><strong>Itens de Faturamento:</strong> Os itens dentro do contrato no IFS representam os faturamentos e reajustes ao longo do tempo, e não necessariamente os produtos vendidos (SKUs) originais[cite: 16808, 16825].</li>
+    </ul>
+
+    <h3>2.2. Integração de Custos e Receitas</h3>
+    <ul>
+        <li><strong>Visão de Custo:</strong> O custo real (material, mão de obra, etc.) é alocado no "Projeto" dentro do IFS. [cite_start]A C3C propôs trazer essa informação de volta para o Salesforce para dar visibilidade de margem ao comercial[cite: 17117, 17136].</li>
+        <li><strong>Desafio de Detalhamento:</strong> O detalhamento profundo dos custos no IFS é complexo. [cite_start]A decisão foi trazer para o Salesforce os valores macro (Custo Total e Receita Total) por projeto, permitindo uma análise de rentabilidade sem sobrecarregar a integração com micro dados[cite: 17158, 17326].</li>
+        [cite_start]<li><strong>Snapshot Semanal:</strong> Definido que a atualização desses dados (Custo/Receita) no Salesforce pode ser semanal (toda sexta-feira), o que é suficiente para a gestão do Márcio[cite: 17393, 17395].</li>
+    </ul>
+
+    <h3>2.3. Padronização de Dados</h3>
+    <ul>
+        <li><strong>Necessidade de Padronização:</strong> Para a integração funcionar, será necessário um esforço de padronização dos cadastros (Clientes e Linhas de Negócio) entre Salesforce e IFS. [cite_start]O Salesforce deve atuar como a origem mestre para dados comerciais[cite: 17235, 17564].</li>
+    </ul>
+
+    <h2>3. Decisões e Encaminhamentos</h2>
+    <ul>
+        <li><strong>Fluxo de Integração:</strong> O fluxo ideal será: Salesforce envia dados da Venda -> Faturamento cria Contrato/Projeto no IFS -> IFS devolve Código do Projeto -> Integração atualiza Custo/Receita semanalmente no Salesforce.</li>
+        <li><strong>Próximos Passos:</strong> Validar o processo manual de criação de contratos com o time de Faturamento (Luciane) para entender os campos obrigatórios.</li>
+    </ul>
+
+</body>
+</html>
