@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kick-off PGR - Hotmart & C3C</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c3c-blue: #2978FF;
+      --c3c-dark-blue: #1e3a8a;
+      --c3c-teal: #1DDDBD;
+      --c3c-gray: #4b5563;
+      --hotmart-orange: #F04E23; /* Adicionado para referência sutil */
+      --bg-gradient: linear-gradient(135deg, #f3f4f6 0%, #e0f2fe 100%);
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Container da Apresentação */
+    #deck-container {
+      width: 100%;
+      max-width: 1280px;
+      aspect-ratio: 16/9;
+      background: white;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    /* Slides */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3rem 4rem;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      background: white;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+      z-index: 10;
+    }
+
+    .slide.prev {
+      transform: translateX(-100px);
+      opacity: 0;
+      z-index: 0;
+    }
+
+    /* Estilos Gerais */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--c3c-blue);
+      padding-bottom: 1rem;
+    }
+    .slide-title { font-size: 2rem; font-weight: 700; color: var(--c3c-blue); }
+    .slide-logo img { height: 40px; }
+
+    .slide-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1rem;
+    }
+
+    /* Controles */
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-nav {
+      background: var(--c3c-blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .btn-nav:hover { background: var(--c3c-dark-blue); }
+    .btn-nav:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+    /* Custom Cards e Layouts */
+    .cover-slide {
+      background: var(--bg-gradient);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .cover-title { font-size: 3.5rem; font-weight: 900; color: var(--c3c-dark-blue); line-height: 1.1; margin-bottom: 1rem; }
+    .cover-subtitle { font-size: 1.5rem; color: var(--c3c-gray); margin-bottom: 3rem; }
+    
+    .role-card {
+      background: #f8fafc;
+      border-left: 5px solid var(--c3c-blue);
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      flex: 1;
+    }
+    .role-card.hotmart { border-left-color: var(--hotmart-orange); }
+    
+    .pillar-box {
+      background: white; border: 2px solid #e2e8f0; padding: 2rem; border-radius: 12px; 
+      text-align: center; flex: 1; transition: transform 0.3s;
+    }
+    .pillar-box:hover { transform: translateY(-5px); border-color: var(--c3c-blue); }
+    
+    .timeline-item {
+        position: relative;
+        padding-left: 20px;
+        border-left: 3px solid var(--c3c-blue);
+        margin-bottom: 20px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide active cover-slide" id="slide-1">
+      <div class="flex gap-4 mb-8">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C" style="height: 60px;">
+        <!-- Placeholder para logo Hotmart se tiver -->
+        <!-- <img src="hotmart-logo.png" style="height: 60px;"> -->
+      </div>
+      <h1 class="cover-title">Plano de Gestão de Recursos<br>(PGR)</h1>
+      <p class="cover-subtitle">Cultura, Inteligência e Consultoria Salesforce</p>
+      <div class="mt-8">
+        <span class="bg-blue-100 text-blue-800 text-sm font-semibold mr-2 px-4 py-1 rounded-full">Sustentação</span>
+        <span class="bg-purple-100 text-purple-800 text-sm font-semibold mr-2 px-4 py-1 rounded-full">Arquitetura</span>
+        <span class="bg-orange-100 text-orange-800 text-sm font-semibold px-4 py-1 rounded-full">Inovação</span>
+      </div>
+      <p style="margin-top: 4rem; color: #64748b; font-size: 0.9rem;">Dezembro 2025</p>
+    </div>
+
+    <!-- SLIDE 2: OBJETIVO -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-title">Nosso Propósito</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+      <div class="flex gap-8 h-full items-center">
+        <div class="w-1/2">
+          <h2 class="text-3xl font-bold text-gray-800 mb-6">Mais que Alocação,<br>Parceria Estratégica.</h2>
+          <p class="text-lg text-gray-600 mb-4 leading-relaxed">
+            Não estamos aqui apenas para fechar tickets. Nosso objetivo é integrar a <strong>cultura C3C</strong> ao ecossistema Hotmart, elevando a maturidade técnica e trazendo inteligência de negócio.
+          </p>
+          <ul class="space-y-4 mt-6">
+            <li class="flex items-center text-gray-700"><span class="text-blue-500 mr-2">✓</span> Resolução de Dívida Técnica (Logs/Storage)</li>
+            <li class="flex items-center text-gray-700"><span class="text-blue-500 mr-2">✓</span> Otimização de Licenciamento (Tuvis vs Nativo)</li>
+            <li class="flex items-center text-gray-700"><span class="text-blue-500 mr-2">✓</span> Workshops de Inovação (Salesforce Products)</li>
+          </ul>
+        </div>
+        <div class="w-1/2 bg-blue-50 p-8 rounded-xl border border-blue-100 flex flex-col items-center justify-center text-center">
+          <div class="text-6xl mb-4">🚀</div>
+          <h3 class="text-2xl font-bold text-blue-900">Consultoria Ativa</h3>
+          <p class="text-blue-700 mt-2">Tech Lead como viabilizador<br>de escalabilidade.</p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>2 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: O TIME (SQUAD INTEGRADA) -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-title">Squad Integrada</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+      
+      <p class="text-gray-600 mb-6">Uma estrutura única, sem barreiras entre "Cliente" e "Fornecedor".</p>
+
+      <div class="grid grid-cols-2 gap-6 h-full">
+        <!-- Lado Hotmart -->
+        <div class="space-y-4">
+          <h3 class="text-orange-600 font-bold uppercase tracking-widest text-sm">Hotmart (Negócio & Enabler)</h3>
+          <div class="role-card hotmart">
+            <span class="text-sm text-gray-500 font-bold block mb-1">Product Owner</span>
+            <div class="text-xl font-bold text-gray-800">Vinícius Meroti</div>
+            <p class="text-sm text-gray-600 mt-1">Gestão de Backlog, Priorização de Negócio e ROI.</p>
+          </div>
+          <div class="role-card hotmart">
+            <span class="text-sm text-gray-500 font-bold block mb-1">Membro do Time / Enabler</span>
+            <div class="text-xl font-bold text-gray-800">Diego</div>
+            <p class="text-sm text-gray-600 mt-1">Contexto histórico, Acessos, Regras de Negócio e Apoio Técnico.</p>
+          </div>
+        </div>
+
+        <!-- Lado C3C -->
+        <div class="space-y-4">
+          <h3 class="text-blue-600 font-bold uppercase tracking-widest text-sm">C3C (Técnica & Estratégia)</h3>
+          <div class="role-card">
+            <span class="text-sm text-gray-500 font-bold block mb-1">Tech Lead</span>
+            <div class="text-xl font-bold text-gray-800">Consultor Sênior</div>
+            <p class="text-sm text-gray-600 mt-1">Arquitetura Escalável, Hands-on, Estimativas e <strong>Gestão de Licenciamento</strong>.</p>
+          </div>
+          <div class="role-card">
+            <span class="text-sm text-gray-500 font-bold block mb-1">Desenvolvedor</span>
+            <div class="text-xl font-bold text-gray-800">Consultor Pleno</div>
+            <p class="text-sm text-gray-600 mt-1">Execução de Backlog, Sustentação e Limpeza de Débitos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>3 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: GOVERNANÇA E PEOPLE CARE -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-title">Governança & People Care</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <p class="text-gray-600 mb-8">Camadas de suporte que garantem a qualidade da entrega e a saúde do time.</p>
+
+      <div class="grid grid-cols-3 gap-6">
+        
+        <!-- People Care -->
+        <div class="bg-teal-50 border border-teal-200 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-3">❤️</div>
+          <h3 class="font-bold text-teal-800 text-lg">People Care</h3>
+          <div class="font-bold text-gray-700 mt-2">Leopoldo</div>
+          <p class="text-sm text-gray-600 mt-4 text-left">
+            • Acompanhamento mensal individual.<br>
+            • Motivação e plano de carreira.<br>
+            • Garantia do "Fit Cultural".
+          </p>
+        </div>
+
+        <!-- Estratégia -->
+        <div class="bg-blue-50 border border-blue-200 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-3">📈</div>
+          <h3 class="font-bold text-blue-800 text-lg">Comercial & Delivery</h3>
+          <div class="font-bold text-gray-700 mt-2">Deodato & Marco R.</div>
+          <p class="text-sm text-gray-600 mt-4 text-left">
+            • Avaliação de Entregas da Release.<br>
+            • Alinhamento com Sponsors de TI.<br>
+            • Visão de Longo Prazo.
+          </p>
+        </div>
+
+        <!-- Inovação -->
+        <div class="bg-purple-50 border border-purple-200 p-6 rounded-xl text-center">
+          <div class="text-4xl mb-3">💡</div>
+          <h3 class="font-bold text-purple-800 text-lg">Pesquisa & Inovação</h3>
+          <div class="font-bold text-gray-700 mt-2">Núcleo C3C</div>
+          <p class="text-sm text-gray-600 mt-4 text-left">
+            • Workshops de Produtos (Salesforce).<br>
+            • Demos de IA / Agentforce.<br>
+            • Benchmarks de Mercado.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>4 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: ESTRATÉGIA TÉCNICA -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-title">Estratégia de Atuação</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="pillar-box border-l-4 border-l-blue-500">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Estabilização</h3>
+          <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Curto Prazo</span>
+          <ul class="text-left mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Automação de limpeza de Logs (Storage).</li>
+            <li>• Observabilidade do <strong>Tuvis</strong> e Omnichannel.</li>
+            <li>• Redução de trabalho manual do Diego.</li>
+          </ul>
+        </div>
+
+        <div class="pillar-box border-l-4 border-l-teal-500">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Arquitetura</h3>
+          <span class="text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded">Médio Prazo</span>
+          <ul class="text-left mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Padronização de Código (Service Layers).</li>
+            <li>• <strong>Gestão de Licenciamento</strong> (Uso real vs Contratado).</li>
+            <li>• Governança de Integrações (n8n/Astrobox).</li>
+          </ul>
+        </div>
+
+        <div class="pillar-box border-l-4 border-l-purple-500">
+          <h3 class="text-xl font-bold text-gray-800 mb-2">Valor & Inovação</h3>
+          <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Contínuo</span>
+          <ul class="text-left mt-4 space-y-2 text-sm text-gray-600">
+            <li>• Apoio no MVP de <strong>Agentforce</strong>.</li>
+            <li>• Consultoria estratégica: Tuvis vs Nativo.</li>
+            <li>• Workshops de novas clouds.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-8 bg-gray-50 p-4 rounded text-center text-gray-500 text-sm">
+        O Tech Lead atua transversalmente apoiando o Vini na priorização dessas frentes.
+      </div>
+
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>5 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: GESTÃO DE LICENCIAMENTO -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-title">Foco: Gestão de Licenciamento</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <div class="flex items-center gap-10 h-full">
+        <div class="w-1/2">
+          <p class="text-xl text-gray-600 mb-6">
+            Uma das responsabilidades chave do <strong>Tech Lead</strong> será auditar e sugerir otimizações no uso dos recursos contratados.
+          </p>
+          <div class="bg-yellow-50 p-6 rounded-lg border border-yellow-200">
+            <h4 class="font-bold text-yellow-800 mb-2">Perguntas Chave:</h4>
+            <ul class="space-y-3 text-gray-700">
+              <li>🔍 Estamos utilizando 100% das features do <strong>Tuvis</strong>?</li>
+              <li>📉 O consumo de <strong>Data Storage</strong> com logs é eficiente?</li>
+              <li>🤖 Podemos substituir licenças de ferramentas de terceiros por funcionalidades nativas ou IA?</li>
+            </ul>
+          </div>
+        </div>
+        <div class="w-1/2 flex justify-center">
+           <!-- Gráfico Visual Simples com CSS -->
+           <div class="relative w-64 h-64 rounded-full border-8 border-gray-100 flex items-center justify-center">
+             <div class="absolute inset-0 rounded-full border-8 border-blue-500 border-t-transparent transform -rotate-45"></div>
+             <div class="text-center">
+               <span class="block text-3xl font-bold text-gray-800">ROI</span>
+               <span class="text-sm text-gray-500">Eficiência</span>
+             </div>
+           </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>6 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: RITOS E COMUNICAÇÃO -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-title">Ritos de Gestão</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <table class="styled-table w-full text-left border-collapse">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="p-4 border-b">Rito</th>
+            <th class="p-4 border-b">Frequência</th>
+            <th class="p-4 border-b">Participantes</th>
+            <th class="p-4 border-b">Objetivo</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-600">
+          <tr>
+            <td class="p-4 border-b font-bold text-blue-600">Sprint Review</td>
+            <td class="p-4 border-b">Quinzenal</td>
+            <td class="p-4 border-b">Time + Negócio</td>
+            <td class="p-4 border-b">Demo de entregas e Feedback (Jira Hotmart).</td>
+          </tr>
+          <tr>
+            <td class="p-4 border-b font-bold text-teal-600">Acompanhamento People</td>
+            <td class="p-4 border-b">Mensal</td>
+            <td class="p-4 border-b">Leopoldo + Time</td>
+            <td class="p-4 border-b">Saúde, motivação e cultura.</td>
+          </tr>
+          <tr>
+            <td class="p-4 border-b font-bold text-purple-600">Avaliação de Release</td>
+            <td class="p-4 border-b">Por Release</td>
+            <td class="p-4 border-b">Delivery (Marco), Comercial (Deodato) & Sponsors TI</td>
+            <td class="p-4 border-b">Qualidade técnica, KPIs e Alinhamento Estratégico.</td>
+          </tr>
+          <tr>
+            <td class="p-4 border-b font-bold text-orange-600">Workshop Inovação</td>
+            <td class="p-4 border-b">Ad-hoc</td>
+            <td class="p-4 border-b">C3C + Hotmart</td>
+            <td class="p-4 border-b">Demos de novos produtos Salesforce.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>7 / 8</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: FINAL -->
+    <div class="slide" id="slide-8">
+      <div class="flex flex-col items-center justify-center h-full text-center">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C Logo" style="height: 50px; margin-bottom: 2rem;">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Vamos começar?</h2>
+        <p class="text-xl text-gray-500 mb-8 max-w-2xl">
+          Prontos para rodar a primeira Sprint Review nesse novo modelo e acelerar a transformação da Hotmart.
+        </p>
+      </div>
+      <div class="slide-footer">
+        <span>Hotmart - Kick-off PGR</span>
+        <span>8 / 8</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <button class="btn-nav" id="prevBtn" onclick="prevSlide()" disabled>← Anterior</button>
+      <button class="btn-nav" id="nextBtn" onclick="nextSlide()">Próximo →</button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 8;
+
+    function updateSlide() {
+      document.querySelectorAll('.slide').forEach(s => {
+        s.classList.remove('active', 'prev');
+      });
+
+      const active = document.getElementById(`slide-${currentSlide}`);
+      active.classList.add('active');
+
+      for (let i = 1; i < currentSlide; i++) {
+        document.getElementById(`slide-${i}`).classList.add('prev');
+      }
+
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+  </script>
+</body>
+</html>

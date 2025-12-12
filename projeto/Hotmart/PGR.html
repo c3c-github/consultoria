@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PGR - Plano de Gestão de Recursos | Hotmart & C3C</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563; --hotmart-orange: #F04E23;}
+    
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:1.5rem; margin-top: 3rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    
+    /* Document Specific Styles */
+    main section.prose h3{font-size:1.25em; color: #374151; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em;}
+    main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray); list-style-type: disc;}
+    
+    table {width:100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 1rem; margin-bottom: 1rem;}
+    th {background-color: #f3f4f6; color: #374151; padding: 12px; font-weight: 700; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: 0.9rem;}
+    td {padding: 12px; border-bottom: 1px solid #e5e7eb; vertical-align: top; color: #4b5563; font-size: 0.9rem;}
+    tr:last-child td {border-bottom: none;}
+    
+    .info-card {background: #fff; border: 1px solid #e5e7eb; border-left: 4px solid var(--c3c-blue); border-radius: 6px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 2px 4px rgba(0,0,0,0.05);}
+    .role-highlight {color: var(--hotmart-orange); font-weight: bold;}
+
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    
+    <!-- Header -->
+    <header class="bg-white sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="h-8" alt="C3C Logo">
+        <div class="text-sm font-bold text-gray-500">PGR - Hotmart</div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-5xl mx-auto my-8 p-8 bg-white rounded-lg shadow-lg border border-gray-100">
+      <section class="prose max-w-none">
+        
+        <div class="border-b pb-6 mb-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-2">Plano de Gestão de Recursos (PGR)</h1>
+            <p class="text-gray-500">Cliente: <strong>Hotmart</strong> | Versão: 2.0 (Kick-off)</p>
+            <div class="flex gap-2 mt-4">
+                <span class="badge">Salesforce</span>
+                <span class="badge">Tuvis</span>
+                <span class="badge">Consultoria</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">1. Propósito e Cultura</h2>
+        <p>Este plano formaliza a alocação estratégica da C3C Software na Hotmart. Nosso objetivo vai além do desenvolvimento técnico: queremos integrar nossa <strong>Cultura de Consultoria e Inovação</strong> ao time existente.</p>
+        <p>Atuaremos como facilitadores para que a Hotmart escale seu ambiente Salesforce com segurança, resolvendo débitos técnicos e provocando a evolução do negócio através de demonstrações de novas tecnologias, trabalhando em um modelo de Squad integrada.</p>
+
+        <h2 class="section-title">2. Estrutura do Time e Papéis</h2>
+        <div class="info-card border-l-orange-500">
+            <h3 class="mt-0 text-orange-700">Núcleo de Operação (Hotmart & C3C)</h3>
+            <p>A grande diferença deste modelo é que não há barreiras. O Diego faz parte do time.</p>
+            <ul class="mb-0">
+                <li><strong>Vinícius Meroti (Hotmart - PO):</strong> Dono do Produto. Define prioridades de negócio e ROI.</li>
+                <li><strong>Diego (Hotmart - Enabler):</strong> <span class="role-highlight">Membro do time</span>. Fornece contexto histórico, acessos e validação de regras específicas.</li>
+                <li><strong>Tech Lead (C3C):</strong> Atua na estratégia com o Vini (estimativas/arquitetura), é <em>hands-on</em> no código e responsável pela <strong>Gestão de Licenciamento</strong>.</li>
+                <li><strong>Desenvolvedor (C3C):</strong> Focado na vazão do backlog (sustentação e evolutivo) e limpeza de débitos (Logs/Storage).</li>
+            </ul>
+        </div>
+
+        <div class="info-card border-l-blue-500">
+            <h3 class="mt-0 text-blue-700">Governança e Cuidado (Camada C3C)</h3>
+            <ul class="mb-0">
+                <li><strong>People Care (Leopoldo):</strong> Acompanhamento mensal da saúde e motivação dos consultores.</li>
+                <li><strong>Delivery & Estratégia (Marco Rezende / Deodato):</strong> Validação da qualidade das entregas das Releases e alinhamento estratégico com Sponsors de TI.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">3. Estratégia de Atuação</h2>
+        
+        <h3>A. Estabilização e Governança (Curto Prazo)</h3>
+        <ul>
+            <li><strong>Storage & Logs:</strong> Implementação de rotinas (Batch Apex) para limpeza automática de logs de integração (Tuvis/WhatsApp/Astrobox) que consomem storage.</li>
+            <li><strong>Observabilidade:</strong> Melhoria nos logs de erro para capturar falhas do Tuvis e Omnichannel, reduzindo dependência de suporte N3.</li>
+        </ul>
+
+        <h3>B. Arquitetura e Gestão de Licenças (Médio Prazo)</h3>
+        <ul>
+            <li><strong>Padronização:</strong> Implementação de frameworks (Trigger Handler, Service Layer) para sanar dívida técnica.</li>
+            <li><strong>Health Check de Licenciamento:</strong> Auditoria contínua do Tech Lead sobre o uso de licenças (Ex: Tuvis vs Nativo) visando eficiência de custo.</li>
+        </ul>
+
+        <h3>C. Inovação e Workshops (Valor Agregado)</h3>
+        <ul>
+            <li><strong>Salesforce Demos:</strong> Workshops periódicos apresentando produtos (ex: Data Cloud, Einstein) para gerar insights de negócio.</li>
+            <li><strong>Consultoria Tuvis:</strong> Apoio técnico na decisão estratégica sobre ferramenta de mensageria.</li>
+        </ul>
+
+        <h2 class="section-title">4. Metodologia e Ritos</h2>
+        <p>Seguiremos o ciclo de Sprints Quinzenais da Hotmart, utilizando o Jira do cliente.</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Rito</th>
+                    <th>Frequência</th>
+                    <th>Participantes</th>
+                    <th>Objetivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sprint Planning</strong></td>
+                    <td>Quinzenal</td>
+                    <td>Tech Lead + Vini + Diego</td>
+                    <td>Estimativa técnica e definição do Sprint Backlog.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint Review</strong></td>
+                    <td>Quinzenal</td>
+                    <td>Todo o Time (Jira Hotmart)</td>
+                    <td>Apresentação das entregas e coleta de feedback.</td>
+                </tr>
+                <tr>
+                    <td><strong>Acompanhamento People</strong></td>
+                    <td>Mensal</td>
+                    <td>Leopoldo + Time C3C</td>
+                    <td>Garantir bem-estar e alinhamento cultural.</td>
+                </tr>
+                <tr>
+                    <td><strong>Avaliação de Release</strong></td>
+                    <td>Por Release</td>
+                    <td>Deodato, Marco R., Sponsors</td>
+                    <td>Avaliar qualidade do pacote e discutir estratégia.</td>
+                </tr>
+                <tr>
+                    <td><strong>Workshops Inovação</strong></td>
+                    <td>Ad-hoc</td>
+                    <td>C3C Inovação + Hotmart</td>
+                    <td>Demonstrar novas features (ex: Agentforce).</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 class="section-title">5. Indicadores de Sucesso</h2>
+        <ul>
+            <li><strong>Eficiência de Licenciamento:</strong> Identificação de oportunidades de otimização de custos.</li>
+            <li><strong>Estabilidade Operacional:</strong> Redução de intervenções manuais do Diego (Limpeza de dados/Logs).</li>
+            <li><strong>Qualidade da Entrega:</strong> Feedback positivo dos Sponsors na reunião de Avaliação de Release.</li>
+        </ul>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-6 text-sm text-gray-500 bg-white border-t mt-auto">
+      C3C Software - Documento Confidencial
+    </footer>
+  </div>
+</body>
+</html>

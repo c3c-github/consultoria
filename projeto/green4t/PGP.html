@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PGP - Plano de Gerenciamento do Projeto | Green4T</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+  <style>
+    html, body {font-family:'Montserrat',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+    :root{--c3c-blue:#2978FF;--c3c-teal:#1DDDBD;--c3c-gray:#4b5563; --c3c-warning:#f59e0b; --c3c-danger:#ef4444; --c3c-success:#10b981;}
+    .section-title{border-bottom:2px solid var(--c3c-blue);color:var(--c3c-blue);font-weight:700;font-size:1.75rem;margin-bottom:2rem; margin-top: 3rem;}
+    .badge{display:inline-block;padding:0.25rem 0.6rem;border-radius:9999px;font-size:0.75rem;font-weight:600;background:#eef2ff;color:#1e3a8a;margin-right:0.3rem;}
+    
+    main section.prose h2{font-size:1.5em;border-bottom:1px solid #e5e7eb;padding-bottom:.3em; color: #1f2937; font-weight: 700; margin-top: 2em;}
+    main section.prose h3{font-size:1.25em; color: #374151; font-weight: 600; margin-top: 1.5em; margin-bottom: 0.5em;}
+    main section.prose h4{font-size:1.1em; color: #4b5563; font-weight: 600; margin-top: 1.2em;}
+
+    main section.prose p{margin-bottom:1em;line-height:1.6;color:var(--c3c-gray);}
+    main section.prose ul{margin-left:1.5em;margin-bottom:1em;color:var(--c3c-gray); list-style-type: disc;}
+    
+    /* Tables */
+    table {width:100%; border-collapse: separate; border-spacing: 0; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-top: 1rem; margin-bottom: 1rem;}
+    th {background-color: #f3f4f6; color: #374151; padding: 10px; font-weight: 700; text-align: left; border-bottom: 2px solid #e5e7eb; font-size: 0.85rem;}
+    td {padding: 10px; border-bottom: 1px solid #e5e7eb; vertical-align: top; color: #4b5563; font-size: 0.85rem;}
+    tr:last-child td {border-bottom: none;}
+    tr:hover {background-color: #f9fafb;}
+
+    /* Custom Cards */
+    .info-card {background: #fff; border: 1px solid #e5e7eb; border-left: 4px solid var(--c3c-blue); border-radius: 6px; padding: 1rem; margin-bottom: 1rem;}
+    .risk-high {background-color: #fef2f2; color: #991b1b;}
+    .risk-med {background-color: #fffbeb; color: #92400e;}
+
+    /* Roadmap Visual (Mini) */
+    .roadmap-container {display: flex; justify-content: space-between; margin-bottom: 2rem; overflow-x: auto; padding-bottom: 10px;}
+    .roadmap-step {flex: 1; min-width: 80px; text-align: center; position: relative;}
+    .roadmap-step::before {content: ''; position: absolute; top: 12px; left: -50%; width: 100%; height: 3px; background: #e5e7eb; z-index: 0;}
+    .roadmap-step:first-child::before {display: none;}
+    .dot {width: 28px; height: 28px; background: white; border: 3px solid var(--c3c-blue); border-radius: 50%; margin: 0 auto 5px; position: relative; z-index: 1; display: flex; align-items: center; justify-content: center; font-weight: bold; color: var(--c3c-blue); font-size: 0.7rem;}
+
+    /* TOC Sidebar (Hidden on mobile) */
+    .toc {position: fixed; right: 2rem; top: 8rem; width: 200px; font-size: 0.75rem; color: #6b7280; display: none;}
+    @media(min-width: 1280px) {.toc {display: block;}}
+    .toc a {display: block; margin-bottom: 0.5rem; hover:text-blue-600; transition: color 0.2s;}
+
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div class="flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="max-h-[35px]" alt="C3C Logo"></div>
+          <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4 hidden sm:block">Plano de Gerenciamento do Projeto (PGP)</div>
+          <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Green4T</div>
+        </div>
+      </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="flex-grow w-[90vw] max-w-5xl mx-auto my-8 p-6 sm:p-10 lg:p-12 bg-white rounded-lg shadow-lg">
+      <section id="pgp" class="prose max-w-none prose-sm sm:prose-base">
+        
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">Plano de Gerenciamento do Projeto (PGP)</h1>
+        <p class="text-gray-500 mb-8">Projeto Salesforce Green4T - Versão 2.1 - 11/12/2025</p>
+
+        <div class="flex gap-2 mb-8">
+            <span class="badge">Sales Cloud</span>
+            <span class="badge">MuleSoft</span>
+            <span class="badge">IFS Integration</span>
+        </div>
+
+        <h2 id="intro" class="section-title">1. Introdução e Propósito</h2>
+        <p>Este PGP estabelece como o projeto será planejado, executado, monitorado e encerrado. O objetivo central é implementar o <strong>Salesforce como "Fonte da Verdade" (King)</strong>, automatizando o cálculo de TCV e integrando bidirecionalmente com o ERP IFS via MuleSoft, garantindo governança, escalabilidade e visibilidade financeira.</p>
+
+        <h2 id="org" class="section-title">2. Organização do Projeto</h2>
+        <div class="overflow-x-auto">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">Papel</th>
+                        <th width="30%">Nome</th>
+                        <th width="50%">Responsabilidade Principal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Sponsor</strong></td>
+                        <td>Marcio (VP)</td>
+                        <td>Aprovação estratégica, orçamento e desbloqueio de impedimentos críticos.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Líder de Negócio (PO)</strong></td>
+                        <td>Luana Cardoso (Green4T)</td>
+                        <td>Definição de requisitos, priorização do backlog e validação de entregas (UAT).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gerente de Projeto</strong></td>
+                        <td>Karine Cunha (C3C)</td>
+                        <td>Gestão do cronograma, riscos, comunicações e liderança do time técnico.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arquiteto de Soluções</strong></td>
+                        <td>Tulio Sales (C3C)</td>
+                        <td>Desenho técnico, modelo de dados, estratégia de integração e governança.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ponto Focal Técnico</strong></td>
+                        <td>Pedro/Thaina (Green4T)</td>
+                        <td>Apoio em dúvidas sobre infraestrutura Green4T, acessos IFS e dados legados.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 id="scope" class="section-title">3. Plano de Gerenciamento de Escopo</h2>
+        <div class="info-card">
+            <h4 class="mt-0">Declaração de Escopo</h4>
+            <p>Implementar a esteira de vendas E2E (Lead to Cash) no Salesforce, contemplando:</p>
+            <ul class="mb-0">
+                <li>Gestão de Oportunidades e Cotações com estrutura de "Contrato Pai".</li>
+                <li>Cálculo automático de TCV (Vigência + Reajustes).</li>
+                <li>Integração Salesforce ↔ IFS via MuleSoft (Clientes, Contratos, Projetos, Financeiro).</li>
+                <li>Dashboards Executivos no Tableau/Salesforce.</li>
+                <li>Bot de Notificações e Consultas no Slack.</li>
+            </ul>
+        </div>
+        
+        <h4>Critérios de Aceitação</h4>
+        <ul>
+            <li>Cálculo de TCV batendo 100% com planilhas de validação.</li>
+            <li>Integração criando projeto no IFS automaticamente após "Closed Won".</li>
+            <li>Retorno de "Receita Realizada" visível no Salesforce em D+1.</li>
+        </ul>
+
+        <h4>Fora do Escopo (Fase 1)</h4>
+        <ul>
+            <li>Migração de histórico de contratos já encerrados (Inativos).</li>
+            <li>Integração com sistemas de RH ou Folha de Pagamento.</li>
+        </ul>
+
+        <h2 id="schedule" class="section-title">4. Plano de Cronograma</h2>
+        <p>Cronograma baseado em 6 Sprints de 10 dias úteis, com Go-Live previsto para 27/03/2026.</p>
+
+        <!-- Mini Roadmap -->
+        <div class="roadmap-container not-prose">
+            <div class="roadmap-step"><div class="dot">S1</div><span class="text-xs">Fundação</span></div>
+            <div class="roadmap-step"><div class="dot">S2</div><span class="text-xs">Quick Wins</span></div>
+            <div class="roadmap-step"><div class="dot">S3</div><span class="text-xs">Core</span></div>
+            <div class="roadmap-step"><div class="dot">S4</div><span class="text-xs">Integração</span></div>
+            <div class="roadmap-step"><div class="dot">S5</div><span class="text-xs">SIT</span></div>
+            <div class="roadmap-step"><div class="dot">S6</div><span class="text-xs">UAT</span></div>
+            <div class="roadmap-step"><div class="dot bg-green-500 border-green-600 text-white">GL</div><span class="text-xs font-bold text-green-600">27/Mar</span></div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Fase / Sprint</th>
+                    <th>Período</th>
+                    <th>Entregáveis Chave</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Sprint 1</strong></td>
+                    <td>09/12 - 22/12</td>
+                    <td>Setup Org, ERD Final, Design APIs (RAML), VPC MuleSoft.</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="bg-yellow-50 text-center text-xs font-bold text-yellow-800">PAUSA: Recesso de Fim de Ano (23/12 a 04/01)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint 2</strong></td>
+                    <td>05/01 - 16/01</td>
+                    <td>Carga Inicial, Layouts, Mocking Services, Logging Framework.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint 3</strong></td>
+                    <td>19/01 - 30/01</td>
+                    <td>Apex Triggers, LWC, System APIs (IFS Connector).</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint 4</strong></td>
+                    <td>02/02 - 13/02</td>
+                    <td>Integração E2E, Process APIs, Teste de Conectividade.</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="bg-yellow-50 text-center text-xs font-bold text-yellow-800">PAUSA: Carnaval (16/02 a 20/02)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint 5</strong></td>
+                    <td>23/02 - 06/03</td>
+                    <td>Testes Integrados (SIT), Dashboards, Bugfix.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint 6</strong></td>
+                    <td>09/03 - 23/03</td>
+                    <td>UAT, Treinamento, Plano de Deploy.</td>
+                </tr>
+                <tr>
+                    <td><strong>Go-Live</strong></td>
+                    <td>27/03/2026</td>
+                    <td>Deploy Produtivo e Virada de Chave.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="costs" class="section-title">5. Plano de Custos</h2>
+        <p><strong>Componentes de Investimento:</strong></p>
+        <ul>
+            <li><strong>Licenciamento:</strong> Salesforce Sales Cloud (Enterprise), MuleSoft Anypoint Platform (Base + vCores), Slack e Tableau.</li>
+            <li><strong>Serviços:</strong> Squad C3C (Gerente de Projeto, Arquiteto, Devs Salesforce, Devs MuleSoft). <span class="text-red-500 text-xs italic ml-1">*QA não contratado em Serviços.</span></li>
+            <li><strong>Infraestrutura Interna:</strong> Custos de servidores/banco de dados IFS (Green4T).</li>
+        </ul>
+        <p><em>Controle:</em> Tracking mensal realizado pelo GP e validado pelos Sponsors.</p>
+
+        <h2 id="quality" class="section-title">6. Plano de Qualidade</h2>
+        <p><strong>Padrões Técnicos:</strong></p>
+        <ul>
+            <li><strong>Salesforce:</strong> Cobertura de testes Apex > 85% (acima do padrão de 75%), Análise estática de código (PMD/SonarQube), LWC seguindo padrões de design system.</li>
+            <li><strong>MuleSoft:</strong> Testes unitários com MUnit (> 80%), Tratamento de erros global, Uso de Fragments e Templates.</li>
+        </ul>
+        <p><strong>Garantia de Qualidade (QA):</strong></p>
+        <ul>
+            <li><strong>SIT (System Integrated Testing):</strong> Teste técnico da ponta a ponta (SF -> Mule -> IFS) realizado pela C3C na Sprint 5.</li>
+            <li><strong>UAT (User Acceptance Testing):</strong> Homologação de negócio realizada pela Green4T na Sprint 6.</li>
+        </ul>
+
+        <h2 id="comm" class="section-title">7. Plano de Comunicações</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Rito</th>
+                    <th>Frequência</th>
+                    <th>Público</th>
+                    <th>Objetivo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Daily Scrum</strong></td>
+                    <td>Diária (15 min)</td>
+                    <td>Time Projeto</td>
+                    <td>Alinhamento de tarefas, bloqueios e próximo passo.</td>
+                </tr>
+                <tr>
+                    <td><strong>Sprint Review</strong></td>
+                    <td>Quinzenal</td>
+                    <td>PO + Sponsors</td>
+                    <td>Demonstração das entregas da Sprint e validação.</td>
+                </tr>
+                <tr>
+                    <td><strong>Status Report</strong></td>
+                    <td>Quinzenal</td>
+                    <td>Sponsors</td>
+                    <td>Resumo executivo: Semáforo (R/Y/G), Riscos e Cronograma.</td>
+                </tr>
+                <tr>
+                    <td><strong>Comitê de Mudança</strong></td>
+                    <td>Ad-hoc</td>
+                    <td>Sponsors + GP</td>
+                    <td>Aprovação de mudanças de escopo/custo.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="risks" class="section-title">8. Plano de Riscos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Risco</th>
+                    <th>Prob.</th>
+                    <th>Impacto</th>
+                    <th>Plano de Mitigação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-high">
+                    <td><strong>Qualidade dos Dados IFS</strong></td>
+                    <td>Alta</td>
+                    <td>Alto</td>
+                    <td>Realizar saneamento ("De-Para") manual de clientes/produtos antes da Sprint 2.</td>
+                </tr>
+                <tr class="risk-med">
+                    <td><strong>Atraso Liberação Firewall</strong></td>
+                    <td>Média</td>
+                    <td>Alto</td>
+                    <td>Solicitar regras de firewall na Sprint 1 (Design) para garantir acesso na Sprint 3.</td>
+                </tr>
+                <tr class="risk-med">
+                    <td><strong>Feriado Data Magna (25/03)</strong></td>
+                    <td>Certa</td>
+                    <td>Médio</td>
+                    <td>Antecipar Code Freeze para 24/03; Equipe CE de folga no dia crítico de prep.</td>
+                </tr>
+                <tr>
+                    <td><strong>Adoção do Usuário</strong></td>
+                    <td>Média</td>
+                    <td>Médio</td>
+                    <td>Plano de Treinamento robusto e "Champions" internos na área comercial.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="change" class="section-title">9. Plano de Gerenciamento de Mudanças</h2>
+        <p>Qualquer alteração que impacte a <strong>Baseline (Escopo, Tempo ou Custo)</strong> deve seguir o fluxo:</p>
+        <ol class="list-decimal ml-6 text-gray-600">
+            <li><strong>Solicitação:</strong> Registro formal da mudança (Change Request).</li>
+            <li><strong>Análise de Impacto:</strong> C3C avalia impacto em horas, prazo e riscos.</li>
+            <li><strong>Aprovação (CAB):</strong> Sponsors decidem (Go/No-Go) com base no impacto.</li>
+            <li><strong>Implementação:</strong> Atualização do Cronograma/PMP e execução.</li>
+        </ol>
+
+        <h2 id="config" class="section-title">10. Plano de Configuração e Ambientes</h2>
+        <ul>
+            <li><strong>Repositório:</strong> Git (Azure DevOps ou GitHub) com branch strategy (Feature -> Develop -> Master).</li>
+            <li><strong>Ambientes:</strong>
+                <ul class="ml-4 mt-1">
+                    <li><em>Dev (Sandbox):</em> Desenvolvimento e testes unitários.</li>
+                    <li><em>QA/UAT (Partial Copy):</em> Testes integrados e homologação (com dados mascarados).</li>
+                    <li><em>Prod:</em> Ambiente final de produção.</li>
+                </ul>
+            </li>
+        </ul>
+
+        <h2 id="metrics" class="section-title">11. Plano de Monitoramento e Encerramento</h2>
+        <p><strong>KPIs de Sucesso do Projeto:</strong></p>
+        <ul>
+            <li>Go-Live na data planejada (27/03).</li>
+            <li>100% de automação no cálculo de TCV (Fim das planilhas).</li>
+            <li>Integração com IFS funcionando sem erros críticos bloqueantes.</li>
+        </ul>
+        <p><strong>Encerramento:</strong> Termo de Aceite Definitivo assinado pelos Sponsors após o período de Hypercare (10/04/2026).</p>
+
+        <h2 class="section-title">12. Aprovações</h2>
+        <table>
+            <thead><tr><th>Nome</th><th>Papel</th><th>Data</th><th>Assinatura</th></tr></thead>
+            <tbody>
+                <tr><td>Marcio</td><td>Sponsor (Green4T)</td><td></td><td></td></tr>
+                <tr><td>Luana Cardoso</td><td>Product Owner (Green4T)</td><td></td><td></td></tr>
+                <tr><td>Karine Cunha</td><td>Gerente de Projeto (C3C)</td><td></td><td></td></tr>
+            </tbody>
+        </table>
+
+      </section>
+    </main>
+
+    <footer class="text-center py-4 text-xs text-gray-500 border-t bg-white mt-auto">
+      Repositório de Documentação - C3C Software & Green4T - Dezembro 2025
+    </footer>
+  </div>
+</body>
+</html>
