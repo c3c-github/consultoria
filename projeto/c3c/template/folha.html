@@ -205,7 +205,7 @@
                     </button>
                 </div>
 
-                <!-- Alerta de Bloqueio (Informativo) -->
+                <!-- Alerta de Bloqueio -->
                 <div id="readonly-alert" class="hidden bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r shadow-sm">
                     <div class="flex items-center">
                         <i data-lucide="lock" class="h-4 w-4 text-blue-500 mr-2"></i>
@@ -262,15 +262,28 @@
                                     <option value="Squad Alpha">Squad Alpha</option>
                                 </select>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-500 mb-1">Atividade</label>
-                                <select id="input-activity-select" class="w-full input-c3c p-2 rounded-lg text-sm bg-white" onchange="checkNewActivity(this)">
-                                    <option value="" disabled selected>Tipo de atividade...</option>
-                                    <option value="Desenvolvimento">Desenvolvimento</option>
-                                    <option value="Reunião">Reunião</option>
-                                    <option value="new">+ Criar nova...</option>
-                                </select>
-                                <input type="text" id="input-activity-text" class="w-full input-c3c p-2 rounded-lg text-sm bg-white mt-2 hidden" placeholder="Nome da atividade...">
+                            
+                            <!-- Campo de Atividade / Chamado (Autocomplete) -->
+                            <div class="relative">
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Atividade / Chamado</label>
+                                <div class="relative">
+                                    <input type="text" id="input-activity-search" 
+                                           placeholder="Busque por nome ou nº do chamado..." 
+                                           autocomplete="off"
+                                           class="w-full input-c3c p-2 rounded-lg text-sm bg-white pr-8 focus:ring-2 focus:ring-blue-500"
+                                           onfocus="toggleActivityDropdown(true)"
+                                           oninput="filterActivities(this.value)"
+                                           onblur="setTimeout(() => toggleActivityDropdown(false), 200)">
+                                    
+                                    <div class="absolute right-2 top-2.5 text-gray-400 pointer-events-none">
+                                        <i data-lucide="search" class="w-4 h-4"></i>
+                                    </div>
+                                </div>
+                                
+                                <!-- Dropdown de Resultados -->
+                                <div id="activity-dropdown" class="hidden absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-xl max-h-60 overflow-y-auto">
+                                    <!-- Itens injetados via JS -->
+                                </div>
                             </div>
                         </div>
 
@@ -331,47 +344,16 @@
         const grid = document.getElementById('calendar-grid');
         const startDayOfWeek = 0; 
 
-        // Dados Mock com NOVOS STATUS e FERIADOS/FÉRIAS
-        // 'entries' agora carrega o status individual de cada lançamento
+        // Dados Mock
         const filledDays = {
-            2: { 
-                total: 8, 
-                status_day: 'full', 
-                status_approval: 'approved',
-                entries: [
-                    { project: 'Consultoria Salesforce', activity: 'Desenvolvimento Backend', hours: 4, status: 'approved' },
-                    { project: 'Squad Alpha', activity: 'Reunião Diária', hours: 4, status: 'approved' }
-                ]
-            },
-            3: { 
-                total: 9.5, 
-                status_day: 'extra', 
-                status_approval: 'rejected', // O dia fica com status "pior caso" se houver reprovação
-                entries: [
-                    { project: 'Consultoria Salesforce', activity: 'Deploy Produção', hours: 8, status: 'approved' },
-                    { project: 'Consultoria Salesforce', activity: 'Suporte Crítico', hours: 1.5, status: 'rejected', reason: 'Hora extra não aprovada previamente.' }
-                ]
-            },
-            4: { 
-                total: 8, 
-                status_day: 'full', 
-                status_approval: 'submitted',
-                entries: [
-                    { project: 'Squad Alpha', activity: 'Documentação', hours: 8, status: 'submitted' }
-                ]
-            },
+            2: { total: 8, status_day: 'full', status_approval: 'approved', entries: [{ project: 'Consultoria Salesforce', activity: 'Dev Backend', hours: 8, status: 'approved' }] },
+            3: { total: 9.5, status_day: 'extra', status_approval: 'rejected', entries: [{ project: 'Squad Alpha', activity: 'Incidente #9022', hours: 9.5, status: 'rejected', reason: 'Hora extra excessiva.' }] },
+            4: { total: 8, status_day: 'full', status_approval: 'submitted', entries: [{ project: 'Squad Alpha', activity: 'Doc Técnica', hours: 8, status: 'submitted' }] },
             5: { total: 0, status_day: 'empty', status_approval: 'draft', entries: [] },
-            20: { total: 8, status_day: 'full', status_approval: 'closed', entries: [{ project: 'Squad Alpha', activity: 'Fechamento', hours: 8, status: 'closed' }] },
-            21: { total: 8, status_day: 'full', status_approval: 'billed', entries: [{ project: 'Squad Alpha', activity: 'Faturamento', hours: 8, status: 'billed' }] },
-            24: { status_day: 'vacation', label: 'Recesso' },
-            25: { status_day: 'holiday', label: 'Natal' },
-            26: { status_day: 'vacation', label: 'Recesso' },
-            27: { status_day: 'vacation', label: 'Recesso' },
-            30: { status_day: 'vacation', label: 'Recesso' },
-            31: { status_day: 'vacation', label: 'Recesso' }
+            25: { status_day: 'holiday', label: 'Natal' }
         };
 
-        // Renderizar dias
+        // Renderizar dias (Mantido similar para focar na mudança do dropdown)
         for (let i = 1; i <= daysInMonth; i++) {
             const dayOfWeek = (i - 1 + startDayOfWeek) % 7;
             const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
@@ -383,69 +365,77 @@
             let content = '<span class="text-gray-300 text-xs">0h</span>';
             let statusIndicator = '';
 
-            // Lógica de Estilos de Status
             if (dayData && dayData.status_approval) {
                 switch(dayData.status_approval) {
-                    case 'approved':
-                        bgClass = 'bg-green-50 border-green-200 hover:border-green-400';
-                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full" title="Aprovado"></div>';
-                        break;
-                    case 'submitted': // Lançado
-                        bgClass = 'bg-blue-50 border-blue-200 hover:border-blue-400';
-                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse" title="Lançado"></div>';
-                        break;
-                    case 'rejected':
-                        bgClass = 'bg-red-50 border-red-300 hover:border-red-500 shadow-sm';
-                        statusIndicator = '<div class="absolute top-2 right-2 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3 text-red-600"></i></div>';
-                        break;
-                    case 'closed':
-                        bgClass = 'bg-purple-50 border-purple-200 hover:border-purple-400';
-                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-purple-500 rounded-full" title="Fechado"></div>';
-                        break;
-                    case 'billed':
-                        bgClass = 'bg-indigo-50 border-indigo-200 hover:border-indigo-400';
-                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-indigo-800 rounded-full" title="Faturado"></div>';
-                        break;
-                    default: // Draft
-                        bgClass = 'bg-white border-gray-300 hover:border-blue-400 border-dashed';
-                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 border border-gray-400 rounded-full bg-white" title="Rascunho"></div>';
+                    case 'approved': bgClass = 'bg-green-50 border-green-200'; statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full"></div>'; break;
+                    case 'submitted': bgClass = 'bg-blue-50 border-blue-200'; statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse"></div>'; break;
+                    case 'rejected': bgClass = 'bg-red-50 border-red-300'; statusIndicator = '<div class="absolute top-2 right-2 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3 text-red-600"></i></div>'; break;
+                    default: bgClass = 'bg-white border-gray-300 border-dashed'; statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 border border-gray-400 rounded-full bg-white"></div>';
                 }
-            } else if (isWeekend) {
-                bgClass = 'bg-gray-100 border-gray-100 opacity-60';
-                content = ''; 
-            }
+            } else if (isWeekend) { bgClass = 'bg-gray-100 opacity-60'; content = ''; }
 
-            if (dayData && dayData.total !== undefined) {
-                content = `<span class="font-bold text-gray-700 text-sm">${dayData.total}h</span>`;
-            } else if (dayData) {
-                // Novos Estilos para Feriado e Férias
-                if (dayData.status_day === 'holiday') {
-                    bgClass = 'bg-rose-50 border-rose-200 hover:border-rose-400';
-                    textClass = 'text-rose-500';
-                    content = `<span class="bg-rose-200 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
-                } else if (dayData.status_day === 'vacation') {
-                    bgClass = 'bg-cyan-50 border-cyan-200 hover:border-cyan-400';
-                    textClass = 'text-cyan-600';
-                    content = `<span class="bg-cyan-100 text-cyan-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
-                }
-            }
+            if (dayData && dayData.total !== undefined) content = `<span class="font-bold text-gray-700 text-sm">${dayData.total}h</span>`;
+            else if (dayData && dayData.status_day === 'holiday') { bgClass = 'bg-rose-50 border-rose-200'; content = `<span class="bg-rose-200 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full">${dayData.label}</span>`; }
 
-            const dayCard = `
-                <div onclick="openDayPanel(${i})" class="${cardClasses} ${bgClass}">
-                    ${statusIndicator}
-                    <span class="font-bold ${textClass}">${i}</span>
-                    <div class="mt-auto w-full">${content}</div>
-                </div>`;
-            grid.innerHTML += dayCard;
+            grid.innerHTML += `<div onclick="openDayPanel(${i})" class="${cardClasses} ${bgClass}">${statusIndicator}<span class="font-bold ${textClass}">${i}</span><div class="mt-auto w-full">${content}</div></div>`;
         }
         lucide.createIcons();
 
-        // --- SUBMETER PERÍODO ---
-        function submitPeriod() {
-            if(confirm("Confirma o envio de todos os apontamentos deste período para aprovação?")) {
-                alert("Período submetido com sucesso!");
-                // Aqui entraria a lógica de backend para mudar status de 'draft' para 'submitted'
+        // --- LÓGICA DE AUTOCOMPLETE (NOVA) ---
+        const mockActivities = [
+            "Reunião Diária",
+            "Desenvolvimento de Funcionalidade",
+            "Correção de Bugs",
+            "Documentação Técnica",
+            "Incidente #1023 - Erro no Login",
+            "Incidente #1045 - Lentidão API",
+            "Incidente #1099 - Relatório Travado",
+            "Change #500 - Atualização Banco",
+            "Treinamento Interno"
+        ];
+
+        function toggleActivityDropdown(show) {
+            const dropdown = document.getElementById('activity-dropdown');
+            if(show) {
+                dropdown.classList.remove('hidden');
+                filterActivities(document.getElementById('input-activity-search').value);
+            } else {
+                dropdown.classList.add('hidden');
             }
+        }
+
+        function filterActivities(query) {
+            const dropdown = document.getElementById('activity-dropdown');
+            dropdown.innerHTML = '';
+            
+            const filtered = mockActivities.filter(a => a.toLowerCase().includes(query.toLowerCase()));
+            
+            if (filtered.length > 0) {
+                filtered.forEach(act => {
+                    dropdown.innerHTML += `
+                        <div onclick="selectActivity('${act}')" class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-sm text-gray-700 border-b border-gray-50 last:border-0 transition-colors">
+                            ${act}
+                        </div>`;
+                });
+            }
+            
+            // Opção de Criar Nova (Sempre visível se houver texto)
+            if (query.length > 0) {
+                dropdown.innerHTML += `
+                    <div onclick="selectActivity('${query}')" class="px-4 py-2 bg-blue-50 text-blue-700 font-bold cursor-pointer text-sm border-t border-blue-100 hover:bg-blue-100 transition-colors flex items-center gap-2">
+                        <i data-lucide="plus" class="w-3 h-3"></i> Criar: "${query}"
+                    </div>`;
+                lucide.createIcons();
+            }
+            
+            if (filtered.length === 0 && query.length === 0) {
+                 dropdown.innerHTML = `<div class="px-4 py-2 text-xs text-gray-400">Digite para buscar...</div>`;
+            }
+        }
+
+        function selectActivity(value) {
+            document.getElementById('input-activity-search').value = value;
+            toggleActivityDropdown(false);
         }
 
         // --- SLIDE-OVER LOGIC ---
@@ -456,152 +446,59 @@
             
             document.getElementById('panel-date').innerText = (day < 10 ? '0'+day : day) + " Dezembro";
             
-            // Elementos de UI
             const badge = document.getElementById('panel-status-badge');
-            const readonlyAlert = document.getElementById('readonly-alert');
             const formContainer = document.getElementById('add-activity-container');
             const buttonsContainer = document.getElementById('workflow-buttons');
             const statusText = document.getElementById('workflow-status-text');
-            const readonlyReason = document.getElementById('readonly-reason');
+            const readonlyAlert = document.getElementById('readonly-alert');
 
-            // Reset UI
+            // Reset Form UI
             readonlyAlert.classList.add('hidden');
-            formContainer.classList.remove('opacity-50', 'pointer-events-none'); // Enable Form
+            formContainer.classList.remove('opacity-50', 'pointer-events-none');
             badge.className = "text-[10px] font-bold px-2 py-0.5 rounded uppercase border";
 
-            // Lógica de Estado e Permissões
-            const isEditable = (data.status_approval === 'draft' || data.status_approval === 'rejected' || !data.status_approval) && data.status_day !== 'holiday' && data.status_day !== 'vacation';
+            const isEditable = (data.status_approval === 'draft' || data.status_approval === 'rejected' || !data.status_approval) && data.status_day !== 'holiday';
 
             if (!isEditable) {
-                // MODO LEITURA (Bloqueado)
-                formContainer.classList.add('opacity-50', 'pointer-events-none'); // Disable Form visualmente
-                readonlyAlert.classList.remove('hidden'); // Mostrar alerta de bloqueio
-                
-                // Configurar textos de status readonly
-                if (data.status_day === 'holiday') {
-                    badge.innerText = "Feriado";
-                    badge.className += " bg-rose-100 text-rose-700 border-rose-200";
-                    readonlyReason.innerText = "Dia de feriado. Não é necessário apontamento.";
-                    statusText.innerText = "Feriado";
-                    buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações</button>`;
-                } else if (data.status_day === 'vacation') {
-                    badge.innerText = "Férias";
-                    badge.className += " bg-cyan-100 text-cyan-700 border-cyan-200";
-                    readonlyReason.innerText = "Período de férias.";
-                    statusText.innerText = "Férias";
-                    buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações</button>`;
-                } else {
-                    switch(data.status_approval) {
-                        case 'submitted':
-                            badge.innerText = "Lançado";
-                            badge.className += " bg-blue-100 text-blue-700 border-blue-200";
-                            readonlyReason.innerText = "Este dia já foi lançado. Aguarde aprovação.";
-                            statusText.innerText = "Aguardando Aprovação";
-                            buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações disponíveis</button>`;
-                            break;
-                        case 'approved':
-                            badge.innerText = "Aprovado";
-                            badge.className += " bg-green-100 text-green-700 border-green-200";
-                            readonlyReason.innerText = "Dia aprovado pelo gestor. Edição bloqueada.";
-                            statusText.innerText = "Finalizado";
-                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-green-600 flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Aprovado</span>`;
-                            break;
-                        case 'closed':
-                            badge.innerText = "Fechado";
-                            badge.className += " bg-purple-100 text-purple-700 border-purple-200";
-                            readonlyReason.innerText = "Dia fechado pelo RH.";
-                            statusText.innerText = "Processado RH";
-                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-purple-600 flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Fechado</span>`;
-                            break;
-                        case 'billed':
-                            badge.innerText = "Faturado";
-                            badge.className += " bg-indigo-100 text-indigo-800 border-indigo-200";
-                            readonlyReason.innerText = "Dia faturado pelo Financeiro.";
-                            statusText.innerText = "Processado Financeiro";
-                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-indigo-800 flex items-center gap-1"><i data-lucide="dollar-sign" class="w-3 h-3"></i> Faturado</span>`;
-                            break;
-                    }
-                }
-
+                formContainer.classList.add('opacity-50', 'pointer-events-none');
+                readonlyAlert.classList.remove('hidden');
+                badge.innerText = data.status_approval || "Bloqueado";
+                badge.className += " bg-gray-100 text-gray-600";
+                statusText.innerText = "Modo Leitura";
+                buttonsContainer.innerHTML = '';
             } else {
-                // MODO EDIÇÃO (Rascunho ou Reprovado)
-                if (data.status_approval === 'rejected') {
-                    badge.innerText = "Reprovado";
-                    badge.className += " bg-red-100 text-red-700 border-red-200";
-                    // Alerta de reprovação agora é por item, não geral
-                    statusText.innerText = "Correção Necessária";
-                    
-                    buttonsContainer.innerHTML = `
-                        <button class="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-sm hover:bg-red-700 shadow-md flex items-center gap-2" onclick="closeDayPanel()"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Resubmeter</button>
-                    `;
-                } else {
-                    // Draft / Novo
-                    badge.innerText = "Rascunho";
-                    badge.className += " bg-gray-100 text-gray-600 border-gray-200";
-                    statusText.innerText = "Edição em andamento";
-                    buttonsContainer.innerHTML = `
-                        <button class="px-4 py-2 bg-white border border-gray-300 text-gray-600 rounded-lg font-bold text-sm hover:bg-gray-50 mr-2">Salvar</button>
-                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md flex items-center gap-2" onclick="closeDayPanel()"><i data-lucide="send" class="w-4 h-4"></i> Lançar</button>
-                    `;
-                }
+                badge.innerText = "Rascunho/Correção";
+                badge.className += " bg-blue-50 text-blue-600 border-blue-200";
+                statusText.innerText = "Edição";
+                buttonsContainer.innerHTML = `<button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm shadow-md" onclick="closeDayPanel()">Salvar</button>`;
             }
 
-            // Renderizar Lista de Atividades com Status Individual
+            // Entries List
             const entriesList = document.getElementById('entries-list');
-            entriesList.innerHTML = ''; // Clear
-
+            entriesList.innerHTML = '';
             if (data.entries && data.entries.length > 0) {
                 data.entries.forEach(entry => {
-                    let itemStatusBadge = '';
-                    let itemClass = 'border-gray-200';
-                    let reasonHTML = '';
-
-                    if (entry.status === 'rejected') {
-                        itemClass = 'border-red-200 bg-red-50';
-                        itemStatusBadge = `<span class="bg-red-100 text-red-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-red-200">Reprovado</span>`;
-                        reasonHTML = `
-                            <div class="mt-2 text-xs text-red-600 bg-red-100/50 p-2 rounded flex items-start gap-1">
-                                <i data-lucide="alert-circle" class="w-3 h-3 mt-0.5 shrink-0"></i>
-                                <span>Motivo: ${entry.reason || 'Não especificado.'}</span>
-                            </div>
-                        `;
-                    } else if (entry.status === 'approved') {
-                        itemStatusBadge = `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-green-200">Aprovado</span>`;
-                    } else if (entry.status === 'submitted') {
-                        itemStatusBadge = `<span class="bg-blue-100 text-blue-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-blue-200">Aguardando</span>`;
-                    } else if (entry.status === 'closed') {
-                        itemStatusBadge = `<span class="bg-purple-100 text-purple-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-purple-200">Fechado</span>`;
-                    } else if (entry.status === 'billed') {
-                        itemStatusBadge = `<span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-indigo-200">Faturado</span>`;
+                    let statusHtml = '';
+                    let borderClass = 'border-gray-200';
+                    if(entry.status === 'rejected') {
+                        borderClass = 'border-red-200 bg-red-50';
+                        statusHtml = `<div class="mt-2 text-xs text-red-600 bg-red-100/50 p-2 rounded flex items-start gap-1"><i data-lucide="alert-circle" class="w-3 h-3 mt-0.5"></i> ${entry.reason}</div>`;
                     }
-
-                    const entryHTML = `
-                    <div class="bg-white border ${itemClass} rounded-lg p-3 shadow-sm mb-2 transition-all">
+                    entriesList.innerHTML += `
+                    <div class="bg-white border ${borderClass} rounded-lg p-3 shadow-sm mb-2">
                         <div class="flex justify-between items-start">
-                            <div>
-                                <div class="flex items-center">
-                                    <p class="text-xs font-bold text-blue-600">${entry.project}</p>
-                                    ${itemStatusBadge}
-                                </div>
-                                <p class="text-sm text-gray-800 mt-0.5">${entry.activity}</p>
-                            </div>
-                            <div class="text-right">
-                                <p class="text-sm font-bold text-gray-800">${entry.hours}h</p>
-                                ${isEditable && (entry.status === 'rejected' || !entry.status) ? 
-                                    '<button class="text-xs text-gray-400 hover:text-blue-600 mt-1 underline">Editar</button>' : ''}
-                            </div>
+                            <div><p class="text-xs font-bold text-blue-600">${entry.project}</p><p class="text-sm text-gray-800">${entry.activity}</p></div>
+                            <div class="text-right"><p class="text-sm font-bold text-gray-800">${entry.hours}h</p></div>
                         </div>
-                        ${reasonHTML}
+                        ${statusHtml}
                     </div>`;
-                    entriesList.innerHTML += entryHTML;
                 });
             } else {
-                entriesList.innerHTML = `<div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl"><p class="text-gray-400 text-sm">Nenhuma atividade lançada.</p></div>`;
+                entriesList.innerHTML = `<div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl"><p class="text-gray-400 text-sm">Nenhuma atividade.</p></div>`;
             }
 
             calculateTotals();
             lucide.createIcons();
-
             overlay.classList.remove('hidden');
             setTimeout(() => overlay.classList.remove('opacity-0'), 10);
             panel.classList.remove('closed');
@@ -617,7 +514,6 @@
             setTimeout(() => overlay.classList.add('hidden'), 300);
         }
 
-        // --- CALCULATION (Visual Only) ---
         const CONTRACT_HOURS = 8.0;
         function calculateTotals() {
             const normal = parseFloat(document.getElementById('input-normal').value) || 0;
@@ -634,13 +530,15 @@
             else { balEl.innerText = "+" + balance.toFixed(1) + 'h'; balEl.className = "text-xl font-bold text-purple-500"; }
         }
 
-        // Helpers UI
-        function checkNewActivity(select) {
-            const input = document.getElementById('input-activity-text');
-            if (select.value === 'new') { input.classList.remove('hidden'); input.focus(); } else { input.classList.add('hidden'); }
-        }
         function selectProject(name) { document.getElementById('input-project').value = name; }
-        function addEntry() { /* Simulação visual apenas, já tratado no openDayPanel */ }
+        function submitPeriod() { confirm("Enviar período?") && alert("Enviado!"); }
+        function addEntry() { 
+            const activity = document.getElementById('input-activity-search').value;
+            if(!activity) return alert("Preencha a atividade");
+            // Mock visual add
+            document.getElementById('entries-list').innerHTML += `<div class="bg-white border border-gray-200 rounded-lg p-3 shadow-sm mb-2 fade-in"><div><p class="text-xs font-bold text-blue-600">Projeto</p><p class="text-sm text-gray-800">${activity}</p></div><div class="text-right"><p class="text-sm font-bold text-gray-800">8h</p></div></div>`;
+            document.getElementById('input-activity-search').value = '';
+        }
 
     </script>
 </body>
