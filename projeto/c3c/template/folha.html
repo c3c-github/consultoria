@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lançamento de Horas - C3C Workplace</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        c3c: {
+                            blue: '#2978FF',
+                            teal: '#1DDDBD',
+                            dark: '#1a1a1a',
+                            bg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #F8FAFC; }
+        
+        /* Utilitários de Animação */
+        .slide-over { transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .slide-over.closed { transform: translateX(100%); }
+        .slide-over.open { transform: translateX(0); }
+        
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Estilização Customizada de Inputs */
+        .input-c3c {
+            transition: all 0.2s;
+            border: 1px solid #E2E8F0;
+        }
+        .input-c3c:focus {
+            border-color: #2978FF;
+            box-shadow: 0 0 0 3px rgba(41, 120, 255, 0.1);
+            outline: none;
+        }
+        /* Visual de input desabilitado */
+        .input-c3c:disabled {
+            background-color: #F9FAFB;
+            color: #6B7280;
+            border-color: #E5E7EB;
+            cursor: not-allowed;
+        }
+        
+        /* Select desabilitado */
+        select:disabled {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden bg-c3c-bg">
+
+    <!-- 1. SIDEBAR -->
+    <aside class="w-20 lg:w-64 bg-white border-r border-gray-100 flex flex-col z-20 transition-all duration-300">
+        <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-gray-50">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#2978FF] to-[#1DDDBD] rounded-lg flex items-center justify-center text-white font-bold text-xs">C3C</div>
+            <span class="hidden lg:block ml-3 font-bold text-gray-800 tracking-wide text-lg">Workplace</span>
+        </div>
+        <nav class="flex-1 py-6 space-y-2">
+            <a href="#" class="flex items-center justify-center lg:justify-start gap-3 px-4 lg:px-6 py-3 text-gray-400 hover:bg-gray-50 transition-colors">
+                <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+                <span class="hidden lg:block font-medium text-sm">Visão Geral</span>
+            </a>
+            <a href="#" class="flex items-center justify-center lg:justify-start gap-3 px-4 lg:px-6 py-3 bg-[#EEF2FF] text-[#2978FF] border-r-4 border-[#2978FF] font-semibold transition-colors">
+                <i data-lucide="clock" class="w-5 h-5"></i>
+                <span class="hidden lg:block text-sm">Minhas Horas</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- 2. MAIN CONTENT -->
+    <main class="flex-1 flex flex-col relative w-full overflow-hidden">
+        
+        <!-- Header -->
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0">
+            <div class="flex items-center gap-4">
+                <h1 class="text-xl font-bold text-gray-800">Folha de Ponto</h1>
+                <div class="flex items-center bg-gray-50 border border-gray-200 rounded-lg p-1">
+                    <button class="p-1 hover:bg-white rounded shadow-sm text-gray-500"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                    <span class="px-4 text-sm font-bold text-gray-700">Dezembro 2024</span>
+                    <button class="p-1 hover:bg-white rounded shadow-sm text-gray-500"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <!-- Botão de Submeter Geral (Novo) -->
+                <button onclick="submitPeriod()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-bold text-sm shadow-md flex items-center gap-2 transition-transform active:scale-95">
+                    <i data-lucide="send" class="w-4 h-4"></i>
+                    Submeter Período
+                </button>
+
+                <div class="h-8 w-px bg-gray-200"></div>
+
+                <div class="bg-gray-900 text-white px-5 py-2 rounded-xl flex items-center gap-4 shadow-lg">
+                    <div class="text-right">
+                        <p class="text-[10px] uppercase tracking-wider text-gray-400">Banco de Horas</p>
+                        <p class="text-lg font-bold text-[#1DDDBD]">+ 12:30h</p>
+                    </div>
+                    <div class="h-8 w-px bg-gray-700"></div>
+                    <div class="text-right">
+                        <p class="text-[10px] uppercase tracking-wider text-gray-400">Contrato</p>
+                        <p class="text-lg font-bold">168h</p>
+                    </div>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center font-bold text-blue-600 border border-blue-200 cursor-pointer">FS</div>
+            </div>
+        </header>
+
+        <!-- Calendar Grid Area -->
+        <div class="flex-1 overflow-y-auto p-8">
+            
+            <!-- Legenda de Status Atualizada -->
+            <div class="flex flex-wrap gap-4 mb-6 bg-white p-4 rounded-lg border border-gray-100 shadow-sm items-center">
+                <span class="text-xs font-bold text-gray-400 uppercase mr-2 border-r border-gray-200 pr-4">Legenda:</span>
+                
+                <div class="flex items-center gap-2" title="Editável">
+                    <span class="w-3 h-3 rounded-full border border-gray-300 bg-white"></span>
+                    <span class="text-xs text-gray-600 font-medium">Rascunho</span>
+                </div>
+                <div class="flex items-center gap-2" title="Aguardando Aprovação">
+                    <span class="w-3 h-3 rounded-full bg-blue-400 border border-blue-500"></span>
+                    <span class="text-xs text-gray-600 font-medium">Lançado</span>
+                </div>
+                <div class="flex items-center gap-2" title="Requer Correção">
+                    <span class="w-3 h-3 rounded-full bg-red-500 border border-red-600"></span>
+                    <span class="text-xs text-gray-600 font-medium">Reprovado</span>
+                </div>
+                <div class="flex items-center gap-2" title="Bloqueado">
+                    <span class="w-3 h-3 rounded-full bg-green-500 border border-green-600"></span>
+                    <span class="text-xs text-gray-600 font-medium">Aprovado</span>
+                </div>
+                
+                <div class="h-4 w-px bg-gray-200 mx-2"></div>
+
+                <!-- Novos Indicadores -->
+                <div class="flex items-center gap-2" title="Dia Não Útil">
+                    <span class="w-3 h-3 rounded bg-rose-200 border border-rose-300"></span>
+                    <span class="text-xs text-gray-600 font-medium">Feriado</span>
+                </div>
+                <div class="flex items-center gap-2" title="Férias/Recesso">
+                    <span class="w-3 h-3 rounded bg-cyan-100 border border-cyan-300"></span>
+                    <span class="text-xs text-gray-600 font-medium">Férias</span>
+                </div>
+            </div>
+
+            <!-- Cabeçalho Dias da Semana -->
+            <div class="grid grid-cols-7 gap-4 mb-2 text-center">
+                <div class="text-xs font-bold text-red-400 uppercase">Dom</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Seg</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Ter</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Qua</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Qui</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Sex</div>
+                <div class="text-xs font-bold text-gray-400 uppercase">Sáb</div>
+            </div>
+
+            <!-- Grid de Dias -->
+            <div class="grid grid-cols-7 gap-4" id="calendar-grid">
+                <!-- JS Populates Days -->
+            </div>
+        </div>
+
+        <!-- 3. SLIDE-OVER: LANÇAMENTO DIÁRIO -->
+        <div id="slide-overlay" onclick="closeDayPanel()" class="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 hidden transition-opacity opacity-0"></div>
+
+        <div id="day-panel" class="fixed inset-y-0 right-0 w-full md:w-[600px] bg-white shadow-2xl z-40 slide-over closed flex flex-col">
+            
+            <!-- Header do Painel -->
+            <div class="bg-gray-50 border-b border-gray-200 p-6 shrink-0">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase" id="panel-weekday">Segunda-feira</span>
+                            <!-- Badge de Status -->
+                            <span id="panel-status-badge" class="text-[10px] font-bold px-2 py-0.5 rounded uppercase border">Rascunho</span>
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800" id="panel-date">02 Dezembro</h2>
+                    </div>
+                    <button onclick="closeDayPanel()" class="p-2 hover:bg-gray-200 rounded-full transition-colors text-gray-500">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+
+                <!-- Alerta de Reprovação -->
+                <div id="rejection-alert" class="hidden bg-red-50 border-l-4 border-red-500 p-4 rounded-r shadow-sm">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <i data-lucide="alert-circle" class="h-5 w-5 text-red-500"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm text-red-700 font-bold">Lançamento Reprovado</p>
+                            <p class="text-sm text-red-600 mt-1" id="rejection-reason"></p>
+                            <p class="text-xs text-red-500 mt-2 font-medium">Faça as correções e clique em "Resubmeter".</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Alerta de Bloqueio (Informativo) -->
+                <div id="readonly-alert" class="hidden bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r shadow-sm">
+                    <div class="flex items-center">
+                        <i data-lucide="lock" class="h-4 w-4 text-blue-500 mr-2"></i>
+                        <p class="text-xs text-blue-700 font-medium" id="readonly-reason">Este dia está lançado e aguardando aprovação.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Body do Painel -->
+            <div class="flex-1 overflow-y-auto p-6 bg-white relative">
+                
+                <!-- Section: Minhas Alocações -->
+                <div class="mb-8">
+                    <div class="flex justify-between items-end mb-3">
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider">Alocações</h3>
+                        <span class="text-[10px] text-gray-400 flex items-center gap-1"><i data-lucide="arrow-right" class="w-3 h-3"></i> Deslize</span>
+                    </div>
+                    <div class="flex overflow-x-auto gap-3 pb-2 -mx-2 px-2 no-scrollbar snap-x">
+                        <div class="snap-start bg-blue-50 border border-blue-100 rounded-lg p-3 min-w-[200px] w-[200px] flex-shrink-0 cursor-pointer hover:ring-2 ring-blue-400 transition-all relative group" onclick="selectProject('Consultoria Salesforce')">
+                            <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="check-circle" class="w-4 h-4 text-blue-500"></i></div>
+                            <p class="text-xs text-blue-500 font-bold mb-1">Principal (50%)</p>
+                            <p class="font-bold text-gray-800 text-sm truncate">Consultoria Salesforce</p>
+                        </div>
+                        <div class="snap-start bg-teal-50 border border-teal-100 rounded-lg p-3 min-w-[200px] w-[200px] flex-shrink-0 cursor-pointer hover:ring-2 ring-teal-400 transition-all relative group" onclick="selectProject('Squad Alpha')">
+                            <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"><i data-lucide="check-circle" class="w-4 h-4 text-teal-500"></i></div>
+                            <p class="text-xs text-teal-600 font-bold mb-1">Secundário (20%)</p>
+                            <p class="font-bold text-gray-800 text-sm truncate">Squad Alpha</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">Atividades Lançadas</h3>
+                    <div id="entries-list" class="space-y-3">
+                        <div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl">
+                            <p class="text-gray-400 text-sm">Nenhuma atividade lançada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Formulário de Adição (Só aparece se editável) -->
+                <div id="add-activity-container" class="bg-gray-50 rounded-xl p-5 border border-gray-200 shadow-inner transition-opacity">
+                    <h3 class="text-sm font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <i data-lucide="plus-circle" class="w-4 h-4 text-blue-600"></i> Nova Atividade
+                    </h3>
+                    
+                    <form id="activity-form" oninput="calculateTotals()">
+                        <div class="grid grid-cols-1 gap-4 mb-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Projeto</label>
+                                <select id="input-project" class="w-full input-c3c p-2 rounded-lg text-sm bg-white">
+                                    <option value="" disabled selected>Selecione...</option>
+                                    <option value="Consultoria Salesforce">Consultoria Salesforce</option>
+                                    <option value="Squad Alpha">Squad Alpha</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-500 mb-1">Atividade</label>
+                                <select id="input-activity-select" class="w-full input-c3c p-2 rounded-lg text-sm bg-white" onchange="checkNewActivity(this)">
+                                    <option value="" disabled selected>Tipo de atividade...</option>
+                                    <option value="Desenvolvimento">Desenvolvimento</option>
+                                    <option value="Reunião">Reunião</option>
+                                    <option value="new">+ Criar nova...</option>
+                                </select>
+                                <input type="text" id="input-activity-text" class="w-full input-c3c p-2 rounded-lg text-sm bg-white mt-2 hidden" placeholder="Nome da atividade...">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-3 mb-4">
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Normais</label>
+                                <input type="number" id="input-normal" value="0" min="0" max="8" step="0.5" class="w-full input-c3c p-2 rounded-lg text-center font-bold text-gray-700">
+                            </div>
+                            <div>
+                                <label class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Extras</label>
+                                <input type="number" id="input-extra" value="0" min="0" step="0.5" class="w-full input-c3c p-2 rounded-lg text-center font-bold text-gray-700">
+                            </div>
+                             <div>
+                                <label class="block text-[10px] font-bold text-gray-500 mb-1 uppercase">Ausência</label>
+                                <input type="number" id="input-leave" value="0" min="0" step="0.5" class="w-full input-c3c p-2 rounded-lg text-center font-bold text-gray-700">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="button" id="btn-add-entry" onclick="addEntry()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-bold shadow-md transition-transform active:scale-95">
+                                Adicionar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Footer: Validação e Ações de Workflow -->
+            <div class="bg-white border-t border-gray-200 p-6 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] shrink-0 z-50">
+                <div class="flex justify-between items-end mb-4">
+                    <div>
+                        <p class="text-xs text-gray-400 font-bold uppercase">Total do Dia</p>
+                        <p class="text-3xl font-extrabold text-gray-800" id="display-total">0.0h</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-gray-400 font-bold uppercase">Saldo vs Contrato</p>
+                        <p class="text-xl font-bold text-red-500" id="display-balance">-8.0h</p>
+                    </div>
+                </div>
+
+                <!-- Barra de Ações do Workflow (Dinâmica) -->
+                <div id="workflow-actions" class="border-t border-gray-100 pt-4 flex justify-between items-center">
+                    <span id="workflow-status-text" class="text-xs text-gray-500 font-medium">Status: Rascunho</span>
+                    <div class="flex gap-2" id="workflow-buttons">
+                        <!-- JS Injects Buttons Here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // --- GERAÇÃO DO CALENDÁRIO ---
+        const daysInMonth = 31;
+        const grid = document.getElementById('calendar-grid');
+        const startDayOfWeek = 0; 
+
+        // Dados Mock com NOVOS STATUS e FERIADOS/FÉRIAS
+        const filledDays = {
+            2: { total: 8, status_day: 'full', status_approval: 'approved' },
+            3: { total: 9.5, status_day: 'extra', status_approval: 'rejected', rejection_reason: 'Hora extra não aprovada.' },
+            4: { total: 8, status_day: 'full', status_approval: 'submitted' },
+            5: { total: 0, status_day: 'empty', status_approval: 'draft' },
+            20: { total: 8, status_day: 'full', status_approval: 'closed' },
+            21: { total: 8, status_day: 'full', status_approval: 'billed' },
+            // Feriado e Férias Simulados
+            24: { status_day: 'vacation', label: 'Recesso' },
+            25: { status_day: 'holiday', label: 'Natal' },
+            26: { status_day: 'vacation', label: 'Recesso' },
+            27: { status_day: 'vacation', label: 'Recesso' },
+            30: { status_day: 'vacation', label: 'Recesso' },
+            31: { status_day: 'vacation', label: 'Recesso' }
+        };
+
+        // Renderizar dias
+        for (let i = 1; i <= daysInMonth; i++) {
+            const dayOfWeek = (i - 1 + startDayOfWeek) % 7;
+            const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+            const dayData = filledDays[i];
+            
+            let cardClasses = 'relative h-28 rounded-xl border-2 p-4 cursor-pointer transition-all flex flex-col justify-between group ';
+            let bgClass = 'bg-white border-gray-200 hover:border-blue-300';
+            let textClass = 'text-gray-400 group-hover:text-blue-600';
+            let content = '<span class="text-gray-300 text-xs">0h</span>';
+            let statusIndicator = '';
+
+            // Lógica de Estilos de Status
+            if (dayData && dayData.status_approval) {
+                switch(dayData.status_approval) {
+                    case 'approved':
+                        bgClass = 'bg-green-50 border-green-200 hover:border-green-400';
+                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full" title="Aprovado"></div>';
+                        break;
+                    case 'submitted': // Lançado
+                        bgClass = 'bg-blue-50 border-blue-200 hover:border-blue-400';
+                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-blue-400 rounded-full animate-pulse" title="Lançado"></div>';
+                        break;
+                    case 'rejected':
+                        bgClass = 'bg-red-50 border-red-300 hover:border-red-500 shadow-sm';
+                        statusIndicator = '<div class="absolute top-2 right-2 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3 text-red-600"></i></div>';
+                        break;
+                    case 'closed':
+                        bgClass = 'bg-purple-50 border-purple-200 hover:border-purple-400';
+                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-purple-500 rounded-full" title="Fechado"></div>';
+                        break;
+                    case 'billed':
+                        bgClass = 'bg-indigo-50 border-indigo-200 hover:border-indigo-400';
+                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 bg-indigo-800 rounded-full" title="Faturado"></div>';
+                        break;
+                    default: // Draft
+                        bgClass = 'bg-white border-gray-300 hover:border-blue-400 border-dashed';
+                        statusIndicator = '<div class="absolute top-2 right-2 w-2 h-2 border border-gray-400 rounded-full bg-white" title="Rascunho"></div>';
+                }
+            } else if (isWeekend) {
+                bgClass = 'bg-gray-100 border-gray-100 opacity-60';
+                content = ''; 
+            }
+
+            if (dayData && dayData.total !== undefined) {
+                content = `<span class="font-bold text-gray-700 text-sm">${dayData.total}h</span>`;
+            } else if (dayData) {
+                // Novos Estilos para Feriado e Férias
+                if (dayData.status_day === 'holiday') {
+                    // Rose/Rosa para Feriado
+                    bgClass = 'bg-rose-50 border-rose-200 hover:border-rose-400';
+                    textClass = 'text-rose-500';
+                    content = `<span class="bg-rose-200 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
+                } else if (dayData.status_day === 'vacation') {
+                    // Ciano/Teal para Férias
+                    bgClass = 'bg-cyan-50 border-cyan-200 hover:border-cyan-400';
+                    textClass = 'text-cyan-600';
+                    content = `<span class="bg-cyan-100 text-cyan-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
+                }
+            }
+
+            const dayCard = `
+                <div onclick="openDayPanel(${i})" class="${cardClasses} ${bgClass}">
+                    ${statusIndicator}
+                    <span class="font-bold ${textClass}">${i}</span>
+                    <div class="mt-auto w-full">${content}</div>
+                </div>`;
+            grid.innerHTML += dayCard;
+        }
+        lucide.createIcons();
+
+        // --- SUBMETER PERÍODO ---
+        function submitPeriod() {
+            if(confirm("Confirma o envio de todos os apontamentos deste período para aprovação?")) {
+                alert("Período submetido com sucesso!");
+                // Aqui entraria a lógica de backend para mudar status de 'draft' para 'submitted'
+            }
+        }
+
+        // --- SLIDE-OVER LOGIC ---
+        function openDayPanel(day) {
+            const panel = document.getElementById('day-panel');
+            const overlay = document.getElementById('slide-overlay');
+            const data = filledDays[day] || { status_approval: 'draft', total: 0 };
+            
+            document.getElementById('panel-date').innerText = (day < 10 ? '0'+day : day) + " Dezembro";
+            
+            // Elementos de UI
+            const badge = document.getElementById('panel-status-badge');
+            const rejectionAlert = document.getElementById('rejection-alert');
+            const readonlyAlert = document.getElementById('readonly-alert');
+            const formContainer = document.getElementById('add-activity-container');
+            const buttonsContainer = document.getElementById('workflow-buttons');
+            const statusText = document.getElementById('workflow-status-text');
+            const readonlyReason = document.getElementById('readonly-reason');
+
+            // Reset UI
+            rejectionAlert.classList.add('hidden');
+            readonlyAlert.classList.add('hidden');
+            formContainer.classList.remove('opacity-50', 'pointer-events-none'); // Enable Form
+            badge.className = "text-[10px] font-bold px-2 py-0.5 rounded uppercase border";
+
+            // Lógica de Estado e Permissões
+            // REGRA: Só mexe em Rascunho ('draft') ou Reprovado ('rejected')
+            const isEditable = (data.status_approval === 'draft' || data.status_approval === 'rejected' || !data.status_approval) && data.status_day !== 'holiday' && data.status_day !== 'vacation';
+
+            if (!isEditable) {
+                // MODO LEITURA (Bloqueado)
+                formContainer.classList.add('opacity-50', 'pointer-events-none'); // Disable Form visualmente
+                readonlyAlert.classList.remove('hidden'); // Mostrar alerta de bloqueio
+                
+                // Configurar textos de status readonly
+                if (data.status_day === 'holiday') {
+                    badge.innerText = "Feriado";
+                    badge.className += " bg-rose-100 text-rose-700 border-rose-200";
+                    readonlyReason.innerText = "Dia de feriado. Não é necessário apontamento.";
+                    statusText.innerText = "Feriado";
+                    buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações</button>`;
+                } else if (data.status_day === 'vacation') {
+                    badge.innerText = "Férias";
+                    badge.className += " bg-cyan-100 text-cyan-700 border-cyan-200";
+                    readonlyReason.innerText = "Período de férias.";
+                    statusText.innerText = "Férias";
+                    buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações</button>`;
+                } else {
+                    switch(data.status_approval) {
+                        case 'submitted':
+                            badge.innerText = "Lançado";
+                            badge.className += " bg-blue-100 text-blue-700 border-blue-200";
+                            readonlyReason.innerText = "Este dia já foi lançado. Aguarde aprovação.";
+                            statusText.innerText = "Aguardando Aprovação";
+                            buttonsContainer.innerHTML = `<button class="px-4 py-2 text-gray-400 text-xs font-bold cursor-not-allowed">Sem ações disponíveis</button>`;
+                            break;
+                        case 'approved':
+                            badge.innerText = "Aprovado";
+                            badge.className += " bg-green-100 text-green-700 border-green-200";
+                            readonlyReason.innerText = "Dia aprovado pelo gestor. Edição bloqueada.";
+                            statusText.innerText = "Finalizado";
+                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-green-600 flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Aprovado</span>`;
+                            break;
+                        case 'closed':
+                            badge.innerText = "Fechado";
+                            badge.className += " bg-purple-100 text-purple-700 border-purple-200";
+                            readonlyReason.innerText = "Dia fechado pelo RH.";
+                            statusText.innerText = "Processado RH";
+                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-purple-600 flex items-center gap-1"><i data-lucide="lock" class="w-3 h-3"></i> Fechado</span>`;
+                            break;
+                        case 'billed':
+                            badge.innerText = "Faturado";
+                            badge.className += " bg-indigo-100 text-indigo-800 border-indigo-200";
+                            readonlyReason.innerText = "Dia faturado pelo Financeiro.";
+                            statusText.innerText = "Processado Financeiro";
+                            buttonsContainer.innerHTML = `<span class="text-xs font-bold text-indigo-800 flex items-center gap-1"><i data-lucide="dollar-sign" class="w-3 h-3"></i> Faturado</span>`;
+                            break;
+                    }
+                }
+
+            } else {
+                // MODO EDIÇÃO (Rascunho ou Reprovado)
+                if (data.status_approval === 'rejected') {
+                    badge.innerText = "Reprovado";
+                    badge.className += " bg-red-100 text-red-700 border-red-200";
+                    rejectionAlert.classList.remove('hidden');
+                    document.getElementById('rejection-reason').innerText = data.rejection_reason || "Motivo não especificado.";
+                    statusText.innerText = "Correção Necessária";
+                    
+                    buttonsContainer.innerHTML = `
+                        <button class="px-4 py-2 bg-red-600 text-white rounded-lg font-bold text-sm hover:bg-red-700 shadow-md flex items-center gap-2" onclick="closeDayPanel()"><i data-lucide="refresh-cw" class="w-4 h-4"></i> Resubmeter</button>
+                    `;
+                } else {
+                    // Draft / Novo
+                    badge.innerText = "Rascunho";
+                    badge.className += " bg-gray-100 text-gray-600 border-gray-200";
+                    statusText.innerText = "Edição em andamento";
+                    buttonsContainer.innerHTML = `
+                        <button class="px-4 py-2 bg-white border border-gray-300 text-gray-600 rounded-lg font-bold text-sm hover:bg-gray-50 mr-2">Salvar</button>
+                        <button class="px-4 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md flex items-center gap-2" onclick="closeDayPanel()"><i data-lucide="send" class="w-4 h-4"></i> Lançar</button>
+                    `;
+                }
+            }
+
+            // Simular dados na lista
+            const entriesList = document.getElementById('entries-list');
+            if (data.total > 0) {
+                entriesList.innerHTML = `
+                <div class="bg-white border border-gray-200 rounded-lg p-3 flex justify-between items-center shadow-sm">
+                    <div><p class="text-xs font-bold text-blue-600">Consultoria Salesforce</p><p class="text-sm text-gray-800">Atividade Registrada</p></div>
+                    <div class="text-right"><p class="text-sm font-bold text-gray-800">${data.total}h</p></div>
+                </div>`;
+            } else {
+                entriesList.innerHTML = `<div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl"><p class="text-gray-400 text-sm">Nenhuma atividade.</p></div>`;
+            }
+
+            calculateTotals();
+            lucide.createIcons();
+
+            overlay.classList.remove('hidden');
+            setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+            panel.classList.remove('closed');
+            panel.classList.add('open');
+        }
+
+        function closeDayPanel() {
+            const panel = document.getElementById('day-panel');
+            const overlay = document.getElementById('slide-overlay');
+            panel.classList.remove('open');
+            panel.classList.add('closed');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => overlay.classList.add('hidden'), 300);
+        }
+
+        // --- CALCULATION (Visual Only) ---
+        const CONTRACT_HOURS = 8.0;
+        function calculateTotals() {
+            const normal = parseFloat(document.getElementById('input-normal').value) || 0;
+            const extra = parseFloat(document.getElementById('input-extra').value) || 0;
+            const leave = parseFloat(document.getElementById('input-leave').value) || 0;
+            const total = normal + extra + leave;
+            const balance = total - CONTRACT_HOURS;
+
+            document.getElementById('display-total').innerText = total.toFixed(1) + 'h';
+            const balEl = document.getElementById('display-balance');
+            
+            if (balance === 0) { balEl.innerText = "0.0h (OK)"; balEl.className = "text-xl font-bold text-green-500"; }
+            else if (balance < 0) { balEl.innerText = balance.toFixed(1) + 'h'; balEl.className = "text-xl font-bold text-red-500"; }
+            else { balEl.innerText = "+" + balance.toFixed(1) + 'h'; balEl.className = "text-xl font-bold text-purple-500"; }
+        }
+
+        // Helpers UI
+        function checkNewActivity(select) {
+            const input = document.getElementById('input-activity-text');
+            if (select.value === 'new') { input.classList.remove('hidden'); input.focus(); } else { input.classList.add('hidden'); }
+        }
+        function selectProject(name) { document.getElementById('input-project').value = name; }
+        function addEntry() { /* Simulação visual apenas, já tratado no openDayPanel */ }
+
+    </script>
+</body>
+</html>

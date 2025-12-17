@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apresentação Executiva - Diagnóstico Salesforce Hotmart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --c3c-blue: #2978FF;
+      --c3c-dark-blue: #1e3a8a;
+      --c3c-teal: #1DDDBD;
+      --c3c-gray: #4b5563;
+      --bg-gradient: linear-gradient(135deg, #f3f4f6 0%, #e0f2fe 100%);
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Container da Apresentação (Aspect Ratio 16:9) */
+    #deck-container {
+      width: 100%;
+      max-width: 1280px; 
+      aspect-ratio: 16/9;
+      background: white;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+      overflow: hidden;
+      border-radius: 8px;
+    }
+
+    /* Slides */
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3rem 4rem;
+      box-sizing: border-box;
+      opacity: 0;
+      transform: translateX(100px);
+      transition: all 0.5s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      pointer-events: none;
+      background: white;
+      z-index: 1;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+      z-index: 10;
+    }
+
+    .slide.prev {
+      transform: translateX(-100px);
+      opacity: 0;
+      z-index: 0;
+    }
+
+    /* Header e Footer do Slide */
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid var(--c3c-blue);
+      padding-bottom: 1rem;
+    }
+    .slide-title { font-size: 2rem; font-weight: 700; color: var(--c3c-blue); }
+    .slide-logo img { height: 40px; }
+
+    .slide-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #9ca3af;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1rem;
+    }
+
+    /* Controles de Navegação */
+    .controls {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      gap: 10px;
+    }
+    .btn-nav {
+      background: var(--c3c-blue);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .btn-nav:hover { background: var(--c3c-dark-blue); }
+    .btn-nav:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+    /* Estilos Específicos de Conteúdo */
+    .cover-slide {
+      background: var(--bg-gradient);
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .cover-title { font-size: 3.5rem; font-weight: 900; color: var(--c3c-dark-blue); line-height: 1.1; margin-bottom: 1rem; }
+    .cover-subtitle { font-size: 1.5rem; color: var(--c3c-gray); margin-bottom: 3rem; }
+    
+    .card {
+      background: #f8fafc;
+      border-left: 5px solid var(--c3c-blue);
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    .card-red { border-left-color: #ef4444; background: #fef2f2; }
+    .card-teal { border-left-color: var(--c3c-teal); background: #f0fdfa; }
+    
+    .card-title { font-weight: 700; color: var(--c3c-dark-blue); margin-bottom: 0.5rem; display: block; font-size: 1.1rem; }
+    .card-red .card-title { color: #991b1b; }
+
+    .flow-row { display: flex; align-items: stretch; justify-content: space-between; gap: 1rem; margin: 2rem 0; }
+    .flow-box { 
+      background: white; border: 2px solid #e2e8f0; padding: 1.5rem; border-radius: 12px; 
+      text-align: center; flex: 1; font-weight: 600; color: #475569; position: relative;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .flow-box.highlight { border-color: var(--c3c-teal); background: #f0fdfa; color: #0f766e; }
+    .flow-arrow { font-size: 1.5rem; color: var(--c3c-blue); align-self: center; }
+
+    /* Bullet List Customizada */
+    ul.check-list li { margin-bottom: 0.8rem; display: flex; align-items: start; }
+    ul.check-list li i { margin-right: 10px; margin-top: 4px; }
+    
+    /* Nota de Contexto */
+    .context-note {
+      font-size: 0.75rem;
+      color: #6b7280;
+      background: #f3f4f6;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 1rem;
+      border-left: 3px solid #9ca3af;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div id="deck-container">
+    
+    <!-- SLIDE 1: CAPA -->
+    <div class="slide active cover-slide" id="slide-1">
+      <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C Logo" style="height: 60px; margin-bottom: 2rem;">
+      <h1 class="cover-title">Relatório de Diagnóstico<br>Salesforce</h1>
+      <p class="cover-subtitle">Assessment Funcional e Técnico</p>
+      <div class="mt-8">
+        <span class="bg-blue-100 text-blue-800 text-sm font-semibold mr-2 px-4 py-1 rounded-full">Assessment</span>
+        <span class="bg-purple-100 text-purple-800 text-sm font-semibold mr-2 px-4 py-1 rounded-full">Sales Cloud</span>
+        <span class="bg-teal-100 text-teal-800 text-sm font-semibold px-4 py-1 rounded-full">Arquitetura</span>
+      </div>
+      <p style="margin-top: 4rem; color: #64748b; font-size: 0.9rem;"><strong>Cliente:</strong> Hotmart | <strong>Data:</strong> 28 Nov 2025</p>
+    </div>
+
+    <!-- SLIDE 2: SUMÁRIO EXECUTIVO -->
+    <div class="slide" id="slide-2">
+      <div class="slide-header">
+        <div class="slide-title">Sumário Executivo</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+      <div class="flex gap-8 h-full items-start">
+        <div class="w-1/2">
+          <h2 class="text-2xl font-bold text-gray-800 mb-4">Contexto do Diagnóstico</h2>
+          <p class="text-gray-600 mb-4 leading-relaxed text-sm">
+            Este documento consolida as análises realizadas durante as sessões de assessment. O objetivo foi mapear a maturidade atual do ambiente Salesforce, identificar gargalos operacionais e desenhar um plano de ação.
+          </p>
+          <div class="context-note">
+            <strong>Nota Importante:</strong> As conclusões baseiam-se nas entrevistas iniciais. Com o acesso ao ambiente liberado, validaremos as hipóteses via <strong>Health Check</strong> e aprofundaremos o entendimento via <strong>Design Thinking</strong>.
+          </div>
+        </div>
+        <div class="w-1/2 bg-blue-50 p-6 rounded-xl border border-blue-100 flex flex-col justify-center h-full">
+          <h3 class="text-xl font-bold text-blue-900 mb-3"><i class="fas fa-search me-2"></i>Diagnóstico Geral</h3>
+          <p class="text-blue-800 text-sm leading-relaxed">
+            A Hotmart possui uma implementação madura e crítica para o core business. 
+            <br><br>
+            <strong>Pontos Fortes:</strong> Esteira de CI/CD bem estruturada.<br>
+            <strong>Desafios:</strong> Crescimento acelerado e autonomia das áreas geraram débitos técnicos, desafios de governança (Shadow IT) e redundância de ferramentas.
+          </p>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>2 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: VISÃO GERAL (AS-IS) -->
+    <div class="slide" id="slide-3">
+      <div class="slide-header">
+        <div class="slide-title">Visão Geral do Cenário Atual (As-Is)</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+      
+      <div class="grid grid-cols-3 gap-6 h-full mt-4">
+        <div class="card bg-gray-50">
+          <div class="text-4xl mb-4 text-blue-500"><i class="fas fa-sitemap"></i></div>
+          <span class="card-title">Estrutura de Negócio</span>
+          <p class="text-sm text-gray-600">Operação segmentada em 3 unidades (Brasil, LATAM, Europa) com diferentes níveis de maturidade em processos de CRM.</p>
+        </div>
+
+        <div class="card bg-gray-50">
+          <div class="text-4xl mb-4 text-purple-500"><i class="fas fa-network-wired"></i></div>
+          <span class="card-title">Ecossistema Tecnológico</span>
+          <p class="text-sm text-gray-600">Salesforce como Hub central. Integrações customizadas (Apex/REST) com Data Lake (Astrobox), Backoffice e Jira.</p>
+        </div>
+
+        <div class="card bg-gray-50">
+          <div class="text-4xl mb-4 text-teal-500"><i class="fas fa-code-branch"></i></div>
+          <span class="card-title">Cultura de Desenvolvimento</span>
+          <p class="text-sm text-gray-600">Foco em agilidade e autonomia. Uso extensivo de ferramentas low-code externas (n8n, Zapier) pelas áreas de negócio.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>3 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 4: DESAFIOS - ESTABILIDADE E GOVERNANÇA -->
+    <div class="slide" id="slide-4">
+      <div class="slide-header">
+        <div class="slide-title">Desafios: Estabilidade & Governança</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 h-full">
+        <!-- Pilar Estabilidade -->
+        <div>
+          <h3 class="text-lg font-bold text-gray-700 mb-4 border-b pb-2"><i class="fas fa-shield-alt me-2"></i>Pilar de Estabilidade e Sustentação</h3>
+          <div class="space-y-4">
+            <div class="card card-red">
+              <span class="card-title">Instabilidade no Omnichannel</span>
+              <p class="text-sm text-gray-700">Falhas frequentes no canal nativo de WhatsApp. Mensagens de erro genéricas dificultam troubleshooting.</p>
+              <div class="mt-2 text-xs font-bold text-red-700">Impacto: Custo duplicado com contrato Twilio de backup.</div>
+            </div>
+            <div class="card card-red">
+              <span class="card-title">Consumo de Storage</span>
+              <p class="text-sm text-gray-700">Logs de chat geram volume massivo de dados (1 linha/interação), exigindo limpeza manual recorrente.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pilar Governança -->
+        <div>
+          <h3 class="text-lg font-bold text-gray-700 mb-4 border-b pb-2"><i class="fas fa-gavel me-2"></i>Pilar de Governança e Arquitetura</h3>
+          <div class="space-y-4">
+            <div class="card card-red">
+              <span class="card-title">Shadow IT nas Integrações</span>
+              <p class="text-sm text-gray-700">Automações críticas em n8n/Zapier sem governança da TI.</p>
+              <div class="mt-2 text-xs font-bold text-red-700">Impacto: Quebra de processos pós-deploy.</div>
+            </div>
+            <div class="card card-red">
+              <span class="card-title">Débito Técnico</span>
+              <p class="text-sm text-gray-700">Códigos sem padronização e modelo de segurança excessivamente aberto (Public Read/Write).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>4 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 5: DESAFIOS - EFICIÊNCIA E CAPACIDADE -->
+    <div class="slide" id="slide-5">
+      <div class="slide-header">
+        <div class="slide-title">Desafios: Eficiência & Capacidade</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8 h-full">
+        <!-- Pilar Eficiência -->
+        <div>
+          <h3 class="text-lg font-bold text-gray-700 mb-4 border-b pb-2"><i class="fas fa-tachometer-alt me-2"></i>Pilar de Eficiência Operacional</h3>
+          <ul class="space-y-4">
+            <li class="bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-500">
+              <div class="font-bold text-gray-800">Latência na Criação de Contas</div>
+              <p class="text-sm text-gray-600 mt-1">Sincronização com Astrobox a cada 6h gera gap de informação para o time comercial.</p>
+            </li>
+            <li class="bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-500">
+              <div class="font-bold text-gray-800">Processos Manuais</div>
+              <p class="text-sm text-gray-600 mt-1">Cálculo manual do Loyalty Index e abertura de oportunidades de Churn dependem de ação humana.</p>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Pilar Capacidade -->
+        <div>
+          <h3 class="text-lg font-bold text-gray-700 mb-4 border-b pb-2"><i class="fas fa-users-cog me-2"></i>Pilar de Capacidade Técnica</h3>
+          <ul class="space-y-4">
+            <li class="bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-500">
+              <div class="font-bold text-gray-800">Gargalo de Especialização</div>
+              <p class="text-sm text-gray-600 mt-1">Time interno majoritariamente funcional. Carência de Devs Sênior/Arquitetos para refatoração.</p>
+            </li>
+            <li class="bg-gray-50 p-4 rounded-lg border-l-4 border-yellow-500">
+              <div class="font-bold text-gray-800">Sobrecarga com Suporte N1</div>
+              <p class="text-sm text-gray-600 mt-1">Time técnico focado em responder dúvidas básicas de processo ("Como crio uma request?").</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>5 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 6: OPORTUNIDADES - FASE 1 -->
+    <div class="slide" id="slide-6">
+      <div class="slide-header">
+        <div class="slide-title">Plano: Fase 1 - Estabilização (Imediato)</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <p class="text-gray-600 mb-6">Foco em Quick Wins para sanear a base e reduzir custos operacionais.</p>
+
+      <div class="flow-row">
+        <div class="flow-box highlight">
+          <div class="text-3xl mb-2 text-teal-600"><i class="fab fa-whatsapp"></i></div>
+          <span class="block text-sm font-bold text-teal-800 mb-1">Força-Tarefa Omnichannel</span>
+          <p class="text-xs text-gray-500">Diagnóstico e correção do Digital Engagement.</p>
+          <div class="mt-2 text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded inline-block">Meta: Eliminar custo Twilio</div>
+        </div>
+        
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-box highlight">
+          <div class="text-3xl mb-2 text-teal-600"><i class="fas fa-database"></i></div>
+          <span class="block text-sm font-bold text-teal-800 mb-1">Saneamento de Storage</span>
+          <p class="text-xs text-gray-500">Automação de arquivamento de logs e dados.</p>
+          <div class="mt-2 text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded inline-block">Meta: Fim da limpeza manual</div>
+        </div>
+
+        <div class="flow-arrow">→</div>
+
+        <div class="flow-box highlight">
+          <div class="text-3xl mb-2 text-teal-600"><i class="fas fa-robot"></i></div>
+          <span class="block text-sm font-bold text-teal-800 mb-1">Agentforce (IA)</span>
+          <p class="text-xs text-gray-500">Agente "Copiloto" para dúvidas de processo interno.</p>
+          <div class="mt-2 text-xs bg-teal-100 text-teal-800 px-2 py-1 rounded inline-block">Meta: Deflexão de Tickets</div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>6 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 7: OPORTUNIDADES - FASE 2 -->
+    <div class="slide" id="slide-7">
+      <div class="slide-header">
+        <div class="slide-title">Plano: Fase 2 - Governança (Estratégico)</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6 h-full mt-4">
+        <div class="bg-white border-t-4 border-blue-600 p-6 rounded shadow-md">
+          <h4 class="font-bold text-blue-900 mb-3">Tech Lead Consultivo</h4>
+          <p class="text-sm text-gray-600">Implementação de padrões de projeto (Trigger Framework, Service Layer) e refatoração gradual.</p>
+          <div class="mt-4 text-xs font-bold text-blue-600">Benefício: Escalabilidade segura.</div>
+        </div>
+
+        <div class="bg-white border-t-4 border-purple-600 p-6 rounded shadow-md">
+          <h4 class="font-bold text-purple-900 mb-3">Centralização de Integrações</h4>
+          <p class="text-sm text-gray-600">Migração de automações n8n/Zapier para Salesforce ou criação de governança técnica rigorosa.</p>
+          <div class="mt-4 text-xs font-bold text-purple-600">Benefício: Controle de dados.</div>
+        </div>
+
+        <div class="bg-white border-t-4 border-gray-600 p-6 rounded shadow-md">
+          <h4 class="font-bold text-gray-900 mb-3">Otimização de Licenças</h4>
+          <p class="text-sm text-gray-600">Análise de uso vs. contrato (vigência 2026) para identificar desperdícios ou trocas por novas features.</p>
+          <div class="mt-4 text-xs font-bold text-gray-600">Benefício: Eficiência financeira.</div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>7 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: PRÓXIMOS PASSOS -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="slide-title">Próximos Passos Sugeridos</div>
+        <div class="slide-logo"><img src="https://c3c.my.site.com/resource/1677081909000/c3clogo"></div>
+      </div>
+
+      <p class="text-gray-600 mb-6">Ações imediatas para transformar o diagnóstico em execução.</p>
+
+      <div class="grid grid-cols-2 gap-6">
+        <div class="card card-teal flex flex-col justify-center">
+          <div class="flex items-center mb-3">
+            <div class="bg-teal-100 p-3 rounded-full mr-4 text-teal-600"><i class="fas fa-stethoscope fa-lg"></i></div>
+            <span class="card-title text-teal-800 mb-0">1. Health Check Profundo</span>
+          </div>
+          <p class="text-sm text-gray-700">Com o acesso liberado, realizaremos varredura técnica (código, limites, segurança) para validar a extensão dos débitos.</p>
+        </div>
+
+        <div class="card card-teal flex flex-col justify-center">
+          <div class="flex items-center mb-3">
+            <div class="bg-teal-100 p-3 rounded-full mr-4 text-teal-600"><i class="fas fa-lightbulb fa-lg"></i></div>
+            <span class="card-title text-teal-800 mb-0">2. Workshops de Entendimento</span>
+          </div>
+          <p class="text-sm text-gray-700">Dinâmicas de <strong>Design Thinking / Inception</strong> com áreas usuárias para mapear a jornada real e garantir aderência das soluções (ex: Agentforce).</p>
+        </div>
+
+        <div class="card bg-gray-50 border-l-4 border-gray-400 flex flex-col justify-center">
+          <span class="card-title mb-2">3. Priorização do Backlog</span>
+          <p class="text-sm text-gray-600">Definição da ordem de ataque aos débitos críticos (Storage e Omnichannel).</p>
+        </div>
+
+        <div class="card bg-gray-50 border-l-4 border-gray-400 flex flex-col justify-center">
+          <span class="card-title mb-2">4. Definição da Célula</span>
+          <p class="text-sm text-gray-600">Alocação de recursos sênior (Developers e Architects) da C3C para complementar o time.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>8 / 9</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 9: ENCERRAMENTO -->
+    <div class="slide" id="slide-9">
+      <div class="flex flex-col items-center justify-center h-full text-center">
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C Logo" style="height: 50px; margin-bottom: 2rem;">
+        <h2 class="text-4xl font-bold text-gray-800 mb-4">Obrigado!</h2>
+        <p class="text-xl text-gray-500 mb-8">Estamos prontos para iniciar essa jornada de transformação com a Hotmart.</p>
+      </div>
+      <div class="slide-footer">
+        <span>C3C Software - Relatório Hotmart</span>
+        <span>9 / 9</span>
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls">
+      <button class="btn-nav" id="prevBtn" onclick="prevSlide()" disabled>← Anterior</button>
+      <button class="btn-nav" id="nextBtn" onclick="nextSlide()">Próximo →</button>
+    </div>
+
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 9;
+
+    function updateSlide() {
+      // Remove active/prev classes
+      document.querySelectorAll('.slide').forEach(s => {
+        s.classList.remove('active', 'prev');
+      });
+
+      // Set active slide
+      const active = document.getElementById(`slide-${currentSlide}`);
+      active.classList.add('active');
+
+      // Set prev slides (for animation direction)
+      for (let i = 1; i < currentSlide; i++) {
+        document.getElementById(`slide-${i}`).classList.add('prev');
+      }
+
+      // Update buttons
+      document.getElementById('prevBtn').disabled = currentSlide === 1;
+      document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        currentSlide++;
+        updateSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        currentSlide--;
+        updateSlide();
+      }
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+  </script>
+</body>
+</html>

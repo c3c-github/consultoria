@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Apresentação Executiva - C3C & Adama</title>
+  <title>Apresentação Executiva - C3C & Adama (Tech AI Edition)</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
   <style>
     :root {
       /* Identidade Visual C3C Software */
-      --c3c-blue: #2978FF;       /* Azul Vibrante */
-      --c3c-dark-blue: #0f172a;  /* Azul Quase Preto */
-      --c3c-teal: #1DDDBD;       /* Teal/Verde Água */
-      --c3c-gray: #64748b;       /* Slate-500 */
+      --c3c-blue: #2978FF;       
+      --c3c-dark-blue: #0f172a;  
+      --c3c-teal: #1DDDBD;       
+      --c3c-gray: #64748b;       
       --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
     }
     
@@ -28,7 +28,7 @@
       overflow: hidden;
     }
 
-    /* Container da Apresentação */
+    /* Container */
     #deck-container {
       width: 100%;
       max-width: 1280px;
@@ -59,18 +59,8 @@
       z-index: 1;
     }
 
-    .slide.active {
-      opacity: 1;
-      transform: translateX(0);
-      pointer-events: all;
-      z-index: 10;
-    }
-
-    .slide.prev {
-      transform: translateX(-100px);
-      opacity: 0;
-      z-index: 0;
-    }
+    .slide.active { opacity: 1; transform: translateX(0); pointer-events: all; z-index: 10; }
+    .slide.prev { transform: translateX(-100px); opacity: 0; z-index: 0; }
 
     /* Header e Footer */
     .slide-header {
@@ -82,8 +72,7 @@
       padding-bottom: 1rem;
     }
     .slide-title { font-size: 2rem; font-weight: 700; color: var(--c3c-dark-blue); }
-    
-    .c3c-logo-img { height: 45px; width: auto; } /* Tamanho do logo no header */
+    .c3c-logo-img { height: 45px; width: auto; }
 
     .slide-footer {
       margin-top: auto;
@@ -95,27 +84,16 @@
       padding-top: 1rem;
     }
 
-    /* Elementos Visuais */
-    .cover-slide {
-      background: var(--bg-gradient);
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+    /* Estilos Específicos */
+    .cover-slide { background: var(--bg-gradient); justify-content: center; align-items: center; text-align: center; }
     .cover-title { font-size: 3.5rem; font-weight: 900; color: var(--c3c-dark-blue); line-height: 1.1; margin-bottom: 1rem; }
     .cover-subtitle { font-size: 1.5rem; color: var(--c3c-gray); margin-bottom: 3rem; }
     
-    .card {
-      background: white;
-      border: 1px solid #e2e8f0;
-      padding: 1.5rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-      height: 100%;
-    }
+    .card { background: white; border: 1px solid #e2e8f0; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
     .card-blue { border-top: 5px solid var(--c3c-blue); }
     .card-teal { border-top: 5px solid var(--c3c-teal); }
-    
+    .card-purple { border-top: 5px solid #8b5cf6; } /* Novo para Tech AI */
+
     .process-step { 
       background: #f8fafc; border: 2px solid #e2e8f0; padding: 1rem; border-radius: 8px; 
       text-align: center; flex: 1; font-weight: 600; color: #475569; position: relative; font-size: 0.85rem;
@@ -124,28 +102,17 @@
     .process-step.offline { border-color: #94a3b8; background: #f1f5f9; color: #475569; }
     .process-step.online { border-color: var(--c3c-blue); background: #eff6ff; color: var(--c3c-blue); }
     .process-step.agent { border-color: var(--c3c-teal); background: #f0fdfa; color: #0f766e; }
-    .process-step.sap { border-color: #334155; background: #e2e8f0; color: #0f172a; }
+
+    /* Tech Agent Code Block */
+    .code-block {
+      background: #1e293b; color: #a5b4fc; font-family: 'Courier New', monospace; font-size: 0.8rem;
+      padding: 1rem; rounded: 8px; border-left: 4px solid var(--c3c-teal);
+    }
+    .code-comment { color: #64748b; }
 
     /* Controles */
-    .controls {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      display: flex;
-      gap: 10px;
-    }
-    .btn-nav {
-      background: var(--c3c-blue);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
+    .controls { position: absolute; bottom: 20px; right: 20px; z-index: 100; display: flex; gap: 10px; }
+    .btn-nav { background: var(--c3c-blue); color: white; border: none; padding: 10px 20px; border-radius: 50px; cursor: pointer; font-weight: bold; }
     .btn-nav:hover { background: var(--c3c-dark-blue); }
     .btn-nav:disabled { background: #94a3b8; cursor: not-allowed; }
 
@@ -159,16 +126,16 @@
     <div class="slide active cover-slide" id="slide-1">
       <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C Logo" style="height: 80px; margin-bottom: 2rem;">
       <h1 class="cover-title">Transformação CRM Adama<br>Do "Input" à Inteligência</h1>
-      <p class="cover-subtitle">Planejamento, Mobilidade Offline e Agentforce</p>
+      <p class="cover-subtitle">Planejamento, Mobilidade e Agentes Tecnológicos</p>
       
       <div class="flex justify-center gap-4 mt-8">
         <div class="px-6 py-2 bg-blue-100 text-blue-800 rounded-full font-bold text-sm">Sales Planning</div>
         <div class="px-6 py-2 bg-teal-100 text-teal-800 rounded-full font-bold text-sm">Offline First</div>
-        <div class="px-6 py-2 bg-gray-100 text-gray-800 rounded-full font-bold text-sm">Agentforce</div>
+        <div class="px-6 py-2 bg-purple-100 text-purple-800 rounded-full font-bold text-sm">Tech AI Agents</div>
       </div>
     </div>
 
-    <!-- SLIDE 2: CONTEXTO E OBJETIVO -->
+    <!-- SLIDE 2: CONTEXTO -->
     <div class="slide" id="slide-2">
       <div class="slide-header">
         <div class="slide-title">O Desafio de Negócio</div>
@@ -182,28 +149,30 @@
             Hoje, o Salesforce recebe o dado "frio", funcionando majoritariamente para imputação (CPQ) e integração com SAP <strong>após</strong> a negociação ter ocorrido.
           </p>
           <p class="text-lg text-slate-600 mb-4 leading-relaxed">
-            O objetivo é trazer a <strong>estratégia e a negociação para dentro da plataforma</strong>, empoderando o RTV no campo, mesmo sem sinal, e integrando a inteligência comercial (Barter/Aprovações) no momento da visita.
+            O objetivo é triplo: empoderar o <strong>RTV (Vendas)</strong>, agilizar o <strong>CS (Atendimento)</strong> e acelerar a <strong>TI (Desenvolvimento)</strong> com IA Generativa.
           </p>
         </div>
         <div class="w-1/2 grid grid-cols-1 gap-4">
           <div class="card card-blue">
-            <h3 class="font-bold text-blue-600 mb-2">De: Ferramenta de Cadastro</h3>
-            <p class="text-sm text-slate-500">O RTV negocia fora do sistema (papel/excel), confirma com o gestor (telefone), e lança no CPQ apenas para integrar ao SAP.</p>
+            <h3 class="font-bold text-blue-600 mb-2">De: Repositório de Dados</h3>
+            <p class="text-sm text-slate-500">RTV negocia offline, TI demora a entregar novas regras de negócio (backlog) e CS reage a problemas.</p>
           </div>
           <div class="card card-teal">
-            <h3 class="font-bold text-teal-600 mb-2">Para: Ferramenta de Venda</h3>
-            <p class="text-sm text-slate-500">O RTV planeja a safra, negocia offline no tablet, e o <strong>Agentforce (Online)</strong> atua na validação estratégica antes do envio ao SAP.</p>
+            <h3 class="font-bold text-teal-600 mb-2">Para: Motor de Inovação</h3>
+            <p class="text-sm text-slate-500">
+              Negociação offline no tablet, <strong>Tech Agents</strong> criando códigos/regras em minutos e Agentforce validando pedidos online.
+            </p>
           </div>
         </div>
       </div>
       
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>2 / 9</span>
+        <span>2 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 3: AS-IS / DORES -->
+    <!-- SLIDE 3: DORES -->
     <div class="slide" id="slide-3">
       <div class="slide-header">
         <div class="slide-title">Dores e Fricções Atuais</div>
@@ -211,41 +180,39 @@
       </div>
 
       <div class="grid grid-cols-3 gap-6 mt-4">
-        <!-- Dor 1 -->
         <div class="card bg-slate-50 border-t-4 border-red-500">
           <div class="text-4xl mb-4">📶</div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">O "Buraco" Offline</h3>
           <p class="text-sm text-slate-600">
-            A jornada de visitas e negociação no campo sofre com conectividade. O RTV não consegue simular cenários complexos (Barter/Descontos) sem sinal, gerando dependência de planilhas paralelas.
+            A jornada de visitas e negociação no campo sofre com conectividade. O RTV não consegue simular cenários complexos (Barter/Descontos) sem sinal.
           </p>
         </div>
 
-        <!-- Dor 2 -->
         <div class="card bg-slate-50 border-t-4 border-orange-500">
-          <div class="text-4xl mb-4">📉</div>
-          <h3 class="text-xl font-bold text-slate-800 mb-2">Planejamento Desconectado</h3>
-          <p class="text-sm text-slate-600">
-            Falta uma visão consolidada de planejamento de vendas (Metas vs. Potencial) antes da safra. O RTV reage ao mercado em vez de executar um plano estruturado no CRM.
-          </p>
-        </div>
-
-        <!-- Dor 3 -->
-        <div class="card bg-slate-50 border-t-4 border-yellow-500">
           <div class="text-4xl mb-4">✍️</div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">Negociação "Sombra"</h3>
           <p class="text-sm text-slate-600">
-            A negociação real acontece fora do Salesforce. Quando o pedido entra, ele já foi decidido, perdendo-se a inteligência do processo (motivos de perda, objeções, histórico de ofertas).
+            A negociação real acontece fora do Salesforce. Quando o pedido entra, ele já foi decidido, perdendo-se a inteligência do processo.
+          </p>
+        </div>
+        
+        <!-- Nova Dor: Agilidade TI -->
+        <div class="card bg-slate-50 border-t-4 border-purple-500">
+          <div class="text-4xl mb-4">🐢</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Backlog de TI</h3>
+          <p class="text-sm text-slate-600">
+            Ajustar uma regra de desconto ou criar um novo fluxo de aprovação demora semanas, frustrando a área comercial que precisa de agilidade na safra.
           </p>
         </div>
       </div>
       
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>3 / 9</span>
+        <span>3 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 4: SOLUÇÃO - PLANEJAMENTO & MARKETING -->
+    <!-- SLIDE 4: PLANEJAMENTO -->
     <div class="slide" id="slide-4">
       <div class="slide-header">
         <div class="slide-title">1. Planejamento & Captação</div>
@@ -266,15 +233,13 @@
 
         <div class="w-1/2 border-l-2 border-slate-200 pl-8">
           <h3 class="text-xl font-bold text-teal-600 mb-4">Gestão de "Dias de Campo"</h3>
-          <div class="bg-teal-50 p-4 rounded-lg border border-teal-200 mb-4">
-            <h4 class="font-bold text-teal-800 text-sm mb-2">O que é?</h4>
-            <p class="text-xs text-teal-700">
-              Eventos técnicos em lavouras demonstrativas para apresentar resultados de produtos. Ponto chave de captação de leads.
-            </p>
-          </div>
           <p class="text-slate-600 mb-4 text-sm">
-            <strong>Como o Salesforce Atua:</strong> O RTV utiliza o App para check-in via <strong>QR Code</strong> dos produtores presentes.
+            Eventos técnicos em lavouras demonstrativas são pontos chave de captação.
           </p>
+          <div class="bg-teal-50 p-4 rounded-lg border border-teal-200 mb-4 text-center">
+            <div class="text-4xl mb-2">📱🔳</div>
+            <p class="text-sm text-teal-800 font-bold">Check-in via QR Code no App</p>
+          </div>
           <div class="bg-slate-800 text-white p-3 rounded text-sm text-center">
             Produtor Escaneado ➔ Lead no CRM ➔ Agentforce sugere visita de follow-up.
           </div>
@@ -283,18 +248,18 @@
 
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>4 / 9</span>
+        <span>4 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 5: SOLUÇÃO - FLUXO DE PEDIDO E APROVAÇÃO -->
+    <!-- SLIDE 5: NEGOCIAÇÃO -->
     <div class="slide" id="slide-5">
       <div class="slide-header">
         <div class="slide-title">2. Negociação & Fluxo SAP</div>
         <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="c3c-logo-img">
       </div>
 
-      <p class="text-slate-600 mb-6 text-sm">A lógica de integração respeita as regras de negócio: O pedido só desce para o SAP se estiver limpo (aprovado).</p>
+      <p class="text-slate-600 mb-6 text-sm">O pedido só desce para o SAP se estiver limpo (aprovado).</p>
 
       <div class="flex justify-between items-center mb-6 gap-2 w-full">
         <!-- Passo 1 -->
@@ -302,7 +267,6 @@
           <div class="font-bold mb-1 text-slate-600">1. Offline</div>
           <div class="text-xs">RTV negocia, simula Barter e emite pedido no Tablet. (Sem IA)</div>
         </div>
-        
         <div class="text-slate-300">➜</div>
         
         <!-- Passo 2 -->
@@ -310,7 +274,6 @@
           <div class="font-bold mb-1">2. Sync</div>
           <div class="text-xs">Sincronização Online.</div>
         </div>
-        
         <div class="text-slate-300">➜</div>
         
         <!-- Passo 3 -->
@@ -318,41 +281,34 @@
           <div class="font-bold mb-1">3. Agentforce</div>
           <div class="text-xs">Validação Online de regras comerciais e margem.</div>
         </div>
-        
         <div class="text-slate-300">➜</div>
 
         <!-- Passo 4 (Decisão) -->
         <div class="flex flex-col gap-2" style="flex: 1.5;">
           <div class="bg-red-50 border border-red-200 p-2 rounded text-center text-xs text-red-700 font-bold">
-            ⚠ Com Pendência:<br>Workflow de Aprovação (Salesforce)
+            ⚠ Pendente:<br>Workflow no Salesforce
           </div>
           <div class="bg-green-50 border border-green-200 p-2 rounded text-center text-xs text-green-700 font-bold">
-            ✔ Aprovado:<br>Integração SAP Automática
+            ✔ Aprovado:<br>Integração SAP
           </div>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-6">
-        <div class="bg-white p-4 rounded border border-slate-200 shadow-sm">
-          <h4 class="font-bold text-slate-700 mb-2">Inteligência Pós-Sync</h4>
-          <p class="text-sm text-slate-500">O Agentforce atua assim que o dado é sincronizado, alertando o gestor sobre descontos agressivos que precisam de aprovação.</p>
-        </div>
-        <div class="bg-white p-4 rounded border border-slate-200 shadow-sm">
-          <h4 class="font-bold text-slate-700 mb-2">Governança SAP</h4>
-          <p class="text-sm text-slate-500">O SAP fica blindado de pedidos incorretos. Só recebe ordens de venda validadas e aprovadas no Salesforce.</p>
-        </div>
+      <div class="bg-white p-4 rounded border border-slate-200 shadow-sm mt-4">
+        <h4 class="font-bold text-slate-700 mb-1">Inteligência Pós-Sync</h4>
+        <p class="text-sm text-slate-500">O Agentforce atua assim que o dado é sincronizado, alertando o gestor sobre descontos agressivos que precisam de aprovação.</p>
       </div>
 
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>5 / 9</span>
+        <span>5 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 6: AGENTFORCE -->
+    <!-- SLIDE 6: AGENTFORCE DE VENDAS -->
     <div class="slide" id="slide-6">
       <div class="slide-header">
-        <div class="slide-title">A Camada de Inteligência: Agentforce</div>
+        <div class="slide-title">3. Agentes de Negócio (Agentforce)</div>
         <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="c3c-logo-img">
       </div>
 
@@ -360,23 +316,15 @@
         <div class="w-1/2">
           <h3 class="text-2xl font-bold text-teal-600 mb-4">Inteligência Online</h3>
           <p class="text-slate-600 mb-6 leading-relaxed">
-            O <strong>Agentforce</strong> atua na nuvem (Online). Ele processa os dados sincronizados pelo RTV e apoia o Customer Service e a Gestão.
+            O Agentforce processa os dados sincronizados pelo RTV e apoia o Customer Service (CS) e a Gestão.
           </p>
           
           <div class="space-y-4">
             <div class="flex items-start bg-slate-50 p-3 rounded border border-slate-100">
               <span class="text-2xl mr-3">🏢</span>
               <div>
-                <strong class="text-slate-800">Suporte à Aprovação</strong>
-                <p class="text-xs text-slate-500">"Gestor, este pedido tem desconto alto, mas o cliente aumentou o mix em 20%. O Agentforce recomenda a aprovação."</p>
-              </div>
-            </div>
-            
-            <div class="flex items-start bg-slate-50 p-3 rounded border border-slate-100">
-              <span class="text-2xl mr-3">📊</span>
-              <div>
-                <strong class="text-slate-800">Planejamento de Safra</strong>
-                <p class="text-xs text-slate-500">Durante o planejamento (online), o Agentforce sugere o potencial de compra baseado no histórico de safras anteriores.</p>
+                <strong class="text-slate-800">Agente de Aprovação</strong>
+                <p class="text-xs text-slate-500">"Gestor, este pedido tem desconto alto, mas o cliente aumentou o mix em 20%. Recomendo aprovação."</p>
               </div>
             </div>
           </div>
@@ -400,29 +348,86 @@
 
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>6 / 9</span>
+        <span>6 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 7: ROADMAP -->
+    <!-- SLIDE 7: NOVO PILAR - TECH AGENTS -->
     <div class="slide" id="slide-7">
       <div class="slide-header">
-        <div class="slide-title">Roadmap de Valor (ROI)</div>
+        <div class="slide-title">4. Agentes Tecnológicos (DevOps AI)</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="c3c-logo-img">
+      </div>
+
+      <div class="flex gap-8 h-full">
+        <div class="w-5/12">
+          <h3 class="text-2xl font-bold text-purple-600 mb-4">Acelerando a TI</h3>
+          <p class="text-slate-600 mb-6">
+            Não é apenas sobre ajudar quem vende, mas ajudar quem constrói o sistema.
+            O <strong>Agentforce for Developers</strong> permite criar objetos, regras e códigos via Prompt.
+          </p>
+          
+          <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
+            <h4 class="font-bold text-purple-800 mb-2">Casos de Uso na Adama:</h4>
+            <ul class="space-y-2 text-sm text-purple-900">
+              <li>• "Crie um objeto para armazenar laudos de visita com foto."</li>
+              <li>• "Escreva uma regra que bloqueie Barter se a commodity cair 5%."</li>
+              <li>• "Gere um Flow para alertar o CS sobre atraso de entrega."</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="w-7/12 flex flex-col justify-center">
+          <div class="bg-gray-800 rounded-lg shadow-xl p-1">
+            <div class="bg-gray-900 p-2 rounded-t flex items-center gap-2">
+              <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+              <span class="text-xs text-gray-400 ml-2">Agentforce Builder</span>
+            </div>
+            <div class="p-6">
+              <div class="text-purple-300 font-mono text-xs mb-2">// Prompt do Admin</div>
+              <div class="text-white font-mono text-sm mb-4">"Crie uma Validation Rule que impeça alteração de preço após aprovação do Gerente."</div>
+              
+              <div class="text-green-400 font-mono text-xs mb-2">// Agentforce Output (Gerado em segundos)</div>
+              <div class="code-block">
+                AND(<br>
+                &nbsp;&nbsp;ISCHANGED(UnitPrice),<br>
+                &nbsp;&nbsp;ISPICKVAL(Status__c, "Aprovado"),<br>
+                &nbsp;&nbsp;$Profile.Name <> "System Administrator"<br>
+                )
+              </div>
+            </div>
+          </div>
+          <div class="text-center mt-4">
+             <button class="bg-purple-600 text-white px-6 py-2 rounded-full text-sm font-bold shadow hover:bg-purple-700 transition">Ver Video Case: Einstein for Developers</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <span>Diagnóstico CRM Adama</span>
+        <span>7 / 10</span>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: ROADMAP -->
+    <div class="slide" id="slide-8">
+      <div class="slide-header">
+        <div class="slide-title">Roadmap de Valor</div>
         <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="c3c-logo-img">
       </div>
 
       <div class="grid grid-cols-3 gap-4 mt-6 h-full pb-8">
-        
         <!-- Release 1 -->
         <div class="bg-white border-t-8 border-blue-500 shadow-lg rounded-b-lg p-6 flex flex-col">
           <div class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 self-start rounded mb-4">Curto Prazo</div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">Fundação & Planejamento</h3>
           <ul class="text-sm text-slate-600 space-y-2 mb-6 flex-1">
-            <li>• Módulo de Planejamento de Metas (Sales Planning)</li>
-            <li>• App Offline (Visualização & Pedido Básico)</li>
-            <li>• Gestão de Dias de Campo (QR Code)</li>
+            <li>• Sales Planning (Metas)</li>
+            <li>• App Offline (Visualização)</li>
+            <li>• Gestão de Dias de Campo</li>
           </ul>
-          <div class="text-xs text-gray-400 font-bold border-t pt-2">Ganho: Organização da Safra</div>
         </div>
 
         <!-- Release 2 -->
@@ -430,47 +435,43 @@
           <div class="bg-teal-100 text-teal-800 text-xs font-bold px-2 py-1 self-start rounded mb-4">Médio Prazo (Core)</div>
           <h3 class="text-xl font-bold text-slate-800 mb-2">Negociação Complexa</h3>
           <ul class="text-sm text-slate-600 space-y-2 mb-6 flex-1">
-            <li>• Simulação de Barter (Tablet Offline)</li>
-            <li>• Workflow de Aprovações Estruturado</li>
-            <li>• Contrato "Mãe"</li>
-            <li>• Integração SAP condicional (Só Aprovados)</li>
+            <li>• Simulação de Cotação (Offline)</li>
+            <li>• Visitas (Offline)</li>
+            <li>• Pedidos (Offline)</li>
           </ul>
-          <div class="text-xs text-teal-600 font-bold border-t pt-2">Ganho: Governança & Fim das Planilhas</div>
         </div>
 
         <!-- Release 3 -->
-        <div class="bg-white border-t-8 border-slate-600 shadow-lg rounded-b-lg p-6 flex flex-col">
-          <div class="bg-slate-200 text-slate-800 text-xs font-bold px-2 py-1 self-start rounded mb-4">Longo Prazo</div>
-          <h3 class="text-xl font-bold text-slate-800 mb-2">Agentforce & CS</h3>
+        <div class="bg-white border-t-8 border-purple-500 shadow-lg rounded-b-lg p-6 flex flex-col">
+          <div class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 self-start rounded mb-4">Longo Prazo</div>
+          <h3 class="text-xl font-bold text-slate-800 mb-2">Full AI & Service</h3>
           <ul class="text-sm text-slate-600 space-y-2 mb-6 flex-1">
-            <li>• Agentforce (Análise de Carteira Online)</li>
-            <li>• Módulo Customer Service (CS)</li>
+            <li>• Agentforce (CS & Vendas)</li>
+            <li>• Tech Agents (DevOps AI)</li>
             <li>• Portal do Cliente</li>
           </ul>
-          <div class="text-xs text-gray-400 font-bold border-t pt-2">Ganho: Automação Cognitiva & Pós-Venda</div>
         </div>
-
       </div>
 
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>7 / 9</span>
+        <span>8 / 10</span>
       </div>
     </div>
 
-    <!-- SLIDE 8: FECHAMENTO -->
-    <div class="slide" id="slide-8">
+    <!-- SLIDE 9: FECHAMENTO -->
+    <div class="slide" id="slide-9">
       <div class="flex flex-col items-center justify-center h-full text-center">
         <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" style="height: 100px; margin-bottom: 2rem;">
-        <h2 class="text-4xl font-bold text-slate-800 mb-4">Próximos Passos</h2>
+        <h2 class="text-4xl font-bold text-slate-800 mb-4">Vamos Acelerar a Safra?</h2>
         <p class="text-xl text-slate-500 mb-8 max-w-2xl">
-          Transformar o CRM de um repositório de dados em uma vantagem competitiva no campo.
+          Tecnologia C3C + Plataforma Salesforce + Inteligência Adama
         </p>
         <button class="bg-teal-500 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-teal-600 transition">Agendar Discovery Técnico</button>
       </div>
       <div class="slide-footer">
         <span>Diagnóstico CRM Adama</span>
-        <span>8 / 9</span>
+        <span>9 / 10</span>
       </div>
     </div>
 
@@ -484,48 +485,28 @@
 
   <script>
     let currentSlide = 1;
-    const totalSlides = 8;
+    const totalSlides = 9;
 
     function updateSlide() {
-      // Remove active/prev classes
       document.querySelectorAll('.slide').forEach(s => {
         s.classList.remove('active', 'prev');
       });
-
-      // Set active slide
       const active = document.getElementById(`slide-${currentSlide}`);
       active.classList.add('active');
-
-      // Set prev slides (for animation direction)
       for (let i = 1; i < currentSlide; i++) {
         document.getElementById(`slide-${i}`).classList.add('prev');
       }
-
-      // Update buttons
       document.getElementById('prevBtn').disabled = currentSlide === 1;
       document.getElementById('nextBtn').disabled = currentSlide === totalSlides;
     }
 
-    function nextSlide() {
-      if (currentSlide < totalSlides) {
-        currentSlide++;
-        updateSlide();
-      }
-    }
+    function nextSlide() { if (currentSlide < totalSlides) { currentSlide++; updateSlide(); } }
+    function prevSlide() { if (currentSlide > 1) { currentSlide--; updateSlide(); } }
 
-    function prevSlide() {
-      if (currentSlide > 1) {
-        currentSlide--;
-        updateSlide();
-      }
-    }
-
-    // Keyboard navigation
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight') nextSlide();
       if (e.key === 'ArrowLeft') prevSlide();
     });
-
   </script>
 </body>
 </html>

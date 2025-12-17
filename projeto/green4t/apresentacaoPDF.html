@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Green4T - Handout do Projeto Salesforce</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c3c-blue: #2978FF;
+      --c3c-dark-blue: #1e3a8a;
+      --c3c-teal: #1DDDBD;
+      --c3c-gray: #4b5563;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f3f4f6; /* Cinza claro na tela */
+      color: #374151;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Container Principal (A4 simulado na tela) */
+    .document-container {
+      max-width: 210mm; /* Largura A4 */
+      margin: 40px auto;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    /* Seções (Slides convertidos) */
+    .print-section {
+      padding: 40px 50px;
+      border-bottom: 1px dashed #cbd5e1;
+      background: white;
+      min-height: 400px; /* Altura mínima visual */
+      position: relative;
+    }
+    
+    .print-section:last-child {
+      border-bottom: none;
+    }
+
+    /* Cabeçalhos de Seção */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      border-bottom: 3px solid var(--c3c-blue);
+      padding-bottom: 10px;
+    }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: var(--c3c-blue); }
+    .logo-img { height: 35px; }
+
+    /* Estilos Específicos */
+    .cover-page {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+      text-align: center;
+      padding: 80px 40px;
+      min-height: 297mm; /* Altura A4 completa para a capa */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .cover-title { font-size: 4rem; font-weight: 900; color: var(--c3c-dark-blue); line-height: 1.1; margin-bottom: 1rem; }
+    .cover-subtitle { font-size: 1.5rem; color: var(--c3c-gray); margin-bottom: 3rem; }
+
+    /* Cards e Elementos Visuais */
+    .info-card {
+      background: #f8fafc;
+      border-left: 5px solid var(--c3c-blue);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+
+    .flow-row { display: flex; align-items: stretch; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
+    .flow-box { 
+      flex: 1; border: 1px solid #cbd5e1; padding: 1rem; border-radius: 8px; 
+      text-align: center; font-weight: 600; min-width: 120px;
+      background: white;
+    }
+    .flow-arrow { display: flex; align-items: center; color: var(--c3c-blue); font-size: 1.2rem; }
+
+    /* Tabelas */
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th { background: #e2e8f0; text-align: left; padding: 10px; border: 1px solid #cbd5e1; }
+    td { border: 1px solid #cbd5e1; padding: 10px; }
+
+    /* Timeline Horizontal */
+    .timeline-container { display: flex; gap: 10px; margin-top: 20px; overflow-x: auto; }
+    .timeline-box { 
+      flex: 1; border: 1px solid #bfdbfe; background: #eff6ff; padding: 10px; 
+      border-radius: 6px; text-align: center; font-size: 0.85rem; 
+    }
+
+    /* Regras de Impressão */
+    @media print {
+      body { background: white; margin: 0; }
+      .document-container { box-shadow: none; margin: 0; width: 100%; max-width: none; }
+      .print-section { 
+        page-break-inside: avoid; /* Evita quebrar o conteúdo de um slide ao meio */
+        page-break-after: always; /* Força nova página após cada seção principal */
+        border-bottom: none;
+        padding: 40px; /* Margem de impressão segura */
+        min-height: 0; /* Remove altura mínima forçada */
+      }
+      .no-print { display: none !important; }
+      
+      /* Ajustes para caber melhor na folha */
+      .section-title { font-size: 1.5rem; }
+      p, li, td { font-size: 12pt; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Botão Flutuante para Imprimir (Visível apenas na tela) -->
+  <div class="fixed bottom-8 right-8 no-print">
+    <button onclick="window.print()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full shadow-lg transition flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+      </svg>
+      Imprimir / Salvar PDF
+    </button>
+  </div>
+
+  <div class="document-container">
+
+    <!-- 1. CAPA -->
+    <section class="print-section cover-page">
+      <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="C3C Logo" style="height: 80px; margin-bottom: 2rem;">
+      <h1 class="cover-title">Projeto Salesforce<br>Green4T</h1>
+      <p class="cover-subtitle">Material Executivo do Projeto</p>
+      
+      <div class="flex gap-4 mt-8 flex-wrap justify-center">
+        <span class="border border-blue-500 text-blue-800 font-bold py-2 px-6 rounded-full bg-white">Sales Cloud</span>
+        <span class="border border-purple-500 text-purple-800 font-bold py-2 px-6 rounded-full bg-white">MuleSoft</span>
+        <span class="border border-green-500 text-green-800 font-bold py-2 px-6 rounded-full bg-white">Integração IFS</span>
+      </div>
+
+      <div class="mt-auto pt-10 text-gray-500 text-sm">
+        <p>Versão Impressa - Dezembro 2025</p>
+        <p>Confidencial - Uso Interno</p>
+      </div>
+    </section>
+
+    <!-- 2. OBJETIVO -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Objetivo do Projeto</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+      
+      <div class="flex gap-8 items-start">
+        <div class="w-2/3">
+          <h3 class="text-xl font-bold text-gray-800 mb-4">Centralização & Governança</h3>
+          <p class="text-gray-700 mb-4 leading-relaxed text-justify">
+            Estabelecer a plataforma Salesforce como a <strong>"Fonte da Verdade"</strong> para a administração de vendas, eliminando controles paralelos em planilhas e garantindo integridade financeira.
+          </p>
+          <div class="bg-blue-50 p-4 rounded-lg border border-blue-100 mt-4">
+            <h4 class="font-bold text-blue-900 mb-2">Entregas Chave:</h4>
+            <ul class="list-disc ml-5 space-y-2 text-gray-700">
+              <li>Automação completa do cálculo de TCV.</li>
+              <li>Integração bidirecional automática (MuleSoft ↔ IFS).</li>
+              <li>Gestão proativa de renovações e reajustes contratuais.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="w-1/3 bg-gray-50 border border-gray-200 p-6 rounded text-center">
+          <div class="text-5xl mb-2">👑</div>
+          <h3 class="font-bold text-blue-900 text-lg">Salesforce as King</h3>
+          <p class="text-sm text-gray-600 mt-2">Visão 360º unificada sem silos de informação.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. PAPÉIS E RESPONSABILIDADES -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Papéis e Responsabilidades</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <div class="mb-6">
+        <h3 class="text-sm font-bold text-gray-400 uppercase border-b border-gray-200 pb-1 mb-3">Nível Estratégico</h3>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="info-card">
+            <span class="block text-blue-600 font-bold text-sm">Sponsor (VP)</span>
+            <div class="text-lg font-bold text-gray-800">Marcio</div>
+            <p class="text-xs text-gray-500">Aprovação orçamentária e estratégica.</p>
+          </div>
+          <div class="info-card">
+            <span class="block text-blue-600 font-bold text-sm">Product Owner (Green4T)</span>
+            <div class="text-lg font-bold text-gray-800">Luana Cardoso</div>
+            <p class="text-xs text-gray-500">Regras de negócio e homologação (UAT).</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-bold text-gray-400 uppercase border-b border-gray-200 pb-1 mb-3">Nível Tático & Técnico</h3>
+        <div class="grid grid-cols-3 gap-4">
+          <div class="border border-gray-200 p-3 rounded">
+            <div class="text-sm font-bold text-gray-700">Gerente de Projeto</div>
+            <div class="text-blue-600 font-semibold">Karine Cunha</div>
+          </div>
+          <div class="border border-gray-200 p-3 rounded">
+            <div class="text-sm font-bold text-gray-700">Arquiteto de Soluções</div>
+            <div class="text-blue-600 font-semibold">Tulio Sales</div>
+          </div>
+          <div class="border border-gray-200 p-3 rounded">
+            <div class="text-sm font-bold text-gray-700">Ponto Focal TI</div>
+            <div class="text-blue-600 font-semibold">Pedro / Thaina</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. AS-IS -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">AS-IS: Cenário Atual</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+      
+      <p class="mb-6">O processo atual apresenta rupturas manuais críticas que impactam a agilidade e a confiabilidade dos dados.</p>
+
+      <div class="flow-row">
+        <div class="flow-box">Venda Salesforce</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box bg-red-50 border-red-200 text-red-700">
+          <span class="text-xs uppercase font-bold block mb-1">Manual</span>
+          Email p/ Faturamento
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box bg-red-50 border-red-200 text-red-700">
+          <span class="text-xs uppercase font-bold block mb-1">Manual</span>
+          Digitação IFS
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box bg-yellow-50 border-yellow-200 text-yellow-800">
+          <span class="text-xs uppercase font-bold block mb-1">Excel</span>
+          Cálculo TCV
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded border border-gray-200 mt-4">
+        <h4 class="font-bold text-red-700 mb-2">Principais Impactos:</h4>
+        <ul class="list-disc ml-5 text-sm space-y-1">
+          <li>Divergência de valores entre CRM (Vendas) e ERP (Financeiro).</li>
+          <li>Dependência de planilhas complexas para cálculo de comissões e TCV.</li>
+          <li>Falta de visibilidade da margem real do projeto no momento da venda.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 5. PROBLEMAS E NECESSIDADES -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Mapa de Problemas e Necessidades</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th width="30%">Problema</th>
+            <th width="35%">Consequência</th>
+            <th width="35%">Solução (Necessidade)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="font-bold text-red-700">TCV em Planilhas</td>
+            <td>Dados desatualizados, risco de erro de fórmula, visão distorcida.</td>
+            <td class="font-bold text-blue-700">Cálculo Nativo no Salesforce (Automático).</td>
+          </tr>
+          <tr>
+            <td class="font-bold text-red-700">Integração Manual</td>
+            <td>Lentidão no faturamento, erro de digitação (CNPJ, Endereço).</td>
+            <td class="font-bold text-blue-700">Integração MuleSoft (Gatilho Closed Won).</td>
+          </tr>
+          <tr>
+            <td class="font-bold text-red-700">Contratos Fragmentados</td>
+            <td>Visão do cliente quebrada em múltiplos registros soltos.</td>
+            <td class="font-bold text-blue-700">Estrutura de Contrato Pai (Hierarquia).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 6. TO-BE -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">TO-BE: Cenário Futuro</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <p class="mb-6">Automação total do fluxo "Lead-to-Cash" com governança sistêmica.</p>
+
+      <div class="flow-row">
+        <div class="flow-box border-teal-200 bg-teal-50 text-teal-800">
+          <span class="text-xs uppercase font-bold block mb-1">Trigger</span>
+          Salesforce (Won)
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box border-purple-200 bg-purple-50 text-purple-800">
+          <span class="text-xs uppercase font-bold block mb-1">API</span>
+          MuleSoft
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box border-green-200 bg-green-50 text-green-800">
+          <span class="text-xs uppercase font-bold block mb-1">Automático</span>
+          IFS (Criação)
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-box border-blue-200 bg-blue-50 text-blue-800">
+          <span class="text-xs uppercase font-bold block mb-1">Cálculo</span>
+          Salesforce (TCV)
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mt-6">
+        <div class="info-card">
+          <span class="block text-green-700 font-bold mb-1">Ganhos Operacionais</span>
+          <p class="text-sm">Zero intervenção manual na criação de projetos. Redução drástica de tempo administrativo.</p>
+        </div>
+        <div class="info-card">
+          <span class="block text-green-700 font-bold mb-1">Ganhos Estratégicos</span>
+          <p class="text-sm">Visibilidade financeira em tempo real dentro do CRM. Gestão proativa de renovações.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. ENGENHARIA DE VALOR -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Engenharia de Valor</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <div class="grid grid-cols-3 gap-6">
+        <div class="text-center p-4 border border-gray-200 rounded">
+          <div class="text-3xl mb-2">⏱️</div>
+          <h4 class="font-bold text-gray-800">Eficiência</h4>
+          <p class="text-sm text-gray-600 mt-2">Redução de ~20h mensais em tarefas manuais de planilhas.</p>
+        </div>
+        <div class="text-center p-4 border border-gray-200 rounded">
+          <div class="text-3xl mb-2">🎯</div>
+          <h4 class="font-bold text-gray-800">Assertividade</h4>
+          <p class="text-sm text-gray-600 mt-2">Eliminação de disparidade entre Forecast e Realizado.</p>
+        </div>
+        <div class="text-center p-4 border border-gray-200 rounded">
+          <div class="text-3xl mb-2">🔄</div>
+          <h4 class="font-bold text-gray-800">Recorrência</h4>
+          <p class="text-sm text-gray-600 mt-2">Proteção da base com alertas automáticos de renovação.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. CRONOGRAMA -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Cronograma Macro</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <div class="flex justify-between bg-blue-50 p-3 rounded mb-4 font-bold text-sm border border-blue-100">
+        <span>Início: 09/Dez/25</span>
+        <span class="text-green-700">Go-Live: 27/Mar/26</span>
+        <span>Duração: 6 Sprints</span>
+      </div>
+
+      <div class="timeline-container pb-2">
+        <div class="timeline-box">
+          <strong class="text-blue-700 block">Dez/25</strong>
+          Sprint 1<br><span class="text-xs">Fundação</span>
+        </div>
+        <div class="timeline-box bg-yellow-50 border-yellow-200">
+          <strong class="text-yellow-700 block">Pausa</strong>
+          Recesso<br><span class="text-xs">Fim de Ano</span>
+        </div>
+        <div class="timeline-box">
+          <strong class="text-blue-700 block">Jan/26</strong>
+          Sprint 2 & 3<br><span class="text-xs">Quick Wins / Core</span>
+        </div>
+        <div class="timeline-box">
+          <strong class="text-blue-700 block">Fev/26</strong>
+          Sprint 4<br><span class="text-xs">Integração</span>
+        </div>
+        <div class="timeline-box bg-purple-50 border-purple-200">
+          <strong class="text-purple-700 block">Mar/26</strong>
+          Sprint 5 & 6<br><span class="text-xs">SIT / UAT</span>
+        </div>
+        <div class="timeline-box bg-green-100 border-green-300">
+          <strong class="text-green-800 block">27/Mar</strong>
+          Go-Live<br><span class="text-xs">Produção</span>
+        </div>
+      </div>
+      
+      <p class="text-xs text-gray-500 mt-2 italic">* Considera pausas de Recesso e Carnaval.</p>
+    </section>
+
+    <!-- 9. PLANO DE COMUNICAÇÕES -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Plano de Comunicações</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <h4 class="font-bold text-gray-700 mb-2 border-b pb-1">Ritos Recorrentes</h4>
+          <ul class="space-y-3">
+            <li class="p-3 bg-gray-50 rounded border-l-4 border-blue-500">
+              <div class="flex justify-between font-bold text-sm">
+                <span>Daily Scrum</span>
+                <span class="text-gray-500">Diário</span>
+              </div>
+              <p class="text-xs mt-1">Alinhamento tático do time.</p>
+            </li>
+            <li class="p-3 bg-gray-50 rounded border-l-4 border-teal-500">
+              <div class="flex justify-between font-bold text-sm">
+                <span>Status Report</span>
+                <span class="text-gray-500">Quinzenal</span>
+              </div>
+              <p class="text-xs mt-1">Semáforo e riscos para Sponsors.</p>
+            </li>
+          </ul>
+        </div>
+        
+        <div>
+          <h4 class="font-bold text-gray-700 mb-2 border-b pb-1">Ferramentas</h4>
+          <ul class="list-disc ml-5 text-sm space-y-2">
+            <li><strong>Slack:</strong> Comunicação rápida e bots.</li>
+            <li><strong>Email:</strong> Formalizações contratuais/escopo.</li>
+            <li><strong>Jira/Azure DevOps:</strong> Gestão de tarefas.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. GESTÃO DE MUDANÇAS -->
+    <section class="print-section">
+      <div class="section-header">
+        <div class="section-title">Gestão de Mudanças</div>
+        <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" class="logo-img">
+      </div>
+
+      <div class="flex justify-between gap-4 text-center mt-6">
+        <div class="flex-1 p-3 border border-gray-200 rounded">
+          <div class="font-bold text-gray-400 text-xl mb-1">1</div>
+          <div class="font-bold text-sm">Solicitação</div>
+          <div class="text-xs text-gray-500">Registro formal</div>
+        </div>
+        <div class="self-center text-gray-300">→</div>
+        <div class="flex-1 p-3 border border-blue-200 bg-blue-50 rounded">
+          <div class="font-bold text-blue-300 text-xl mb-1">2</div>
+          <div class="font-bold text-sm text-blue-900">Análise</div>
+          <div class="text-xs text-blue-700">Impacto (C3C)</div>
+        </div>
+        <div class="self-center text-gray-300">→</div>
+        <div class="flex-1 p-3 border border-purple-200 bg-purple-50 rounded">
+          <div class="font-bold text-purple-300 text-xl mb-1">3</div>
+          <div class="font-bold text-sm text-purple-900">Aprovação</div>
+          <div class="text-xs text-purple-700">CAB (Sponsors)</div>
+        </div>
+        <div class="self-center text-gray-300">→</div>
+        <div class="flex-1 p-3 border border-green-200 bg-green-50 rounded">
+          <div class="font-bold text-green-300 text-xl mb-1">4</div>
+          <div class="font-bold text-sm text-green-900">Execução</div>
+          <div class="text-xs text-green-700">Implementação</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. ENCERRAMENTO -->
+    <section class="print-section flex flex-col justify-center items-center text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-4">Obrigado!</h2>
+      <p class="text-gray-600 mb-8 max-w-lg">Estamos prontos para iniciar a jornada de transformação digital da Green4T com Salesforce e MuleSoft.</p>
+      
+      <div class="border-t border-gray-200 pt-8 w-full max-w-md">
+        <p class="font-bold text-gray-700 mb-2">Próximos Passos:</p>
+        <ul class="text-sm text-gray-600 space-y-1">
+          <li>Kick-off Oficial</li>
+          <li>Início da Sprint 1 (Fundação)</li>
+          <li>Definição da agenda de Dailies</li>
+        </ul>
+      </div>
+
+      <div class="mt-12 text-xs text-gray-400">
+        C3C Software - www.c3c.com.br
+      </div>
+    </section>
+
+  </div>
+</body>
+</html>
