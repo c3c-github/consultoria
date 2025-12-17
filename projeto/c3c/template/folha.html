@@ -205,20 +205,6 @@
                     </button>
                 </div>
 
-                <!-- Alerta de Reprovação -->
-                <div id="rejection-alert" class="hidden bg-red-50 border-l-4 border-red-500 p-4 rounded-r shadow-sm">
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <i data-lucide="alert-circle" class="h-5 w-5 text-red-500"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-sm text-red-700 font-bold">Lançamento Reprovado</p>
-                            <p class="text-sm text-red-600 mt-1" id="rejection-reason"></p>
-                            <p class="text-xs text-red-500 mt-2 font-medium">Faça as correções e clique em "Resubmeter".</p>
-                        </div>
-                    </div>
-                </div>
-                
                 <!-- Alerta de Bloqueio (Informativo) -->
                 <div id="readonly-alert" class="hidden bg-blue-50 border-l-4 border-blue-400 p-3 rounded-r shadow-sm">
                     <div class="flex items-center">
@@ -346,14 +332,37 @@
         const startDayOfWeek = 0; 
 
         // Dados Mock com NOVOS STATUS e FERIADOS/FÉRIAS
+        // 'entries' agora carrega o status individual de cada lançamento
         const filledDays = {
-            2: { total: 8, status_day: 'full', status_approval: 'approved' },
-            3: { total: 9.5, status_day: 'extra', status_approval: 'rejected', rejection_reason: 'Hora extra não aprovada.' },
-            4: { total: 8, status_day: 'full', status_approval: 'submitted' },
-            5: { total: 0, status_day: 'empty', status_approval: 'draft' },
-            20: { total: 8, status_day: 'full', status_approval: 'closed' },
-            21: { total: 8, status_day: 'full', status_approval: 'billed' },
-            // Feriado e Férias Simulados
+            2: { 
+                total: 8, 
+                status_day: 'full', 
+                status_approval: 'approved',
+                entries: [
+                    { project: 'Consultoria Salesforce', activity: 'Desenvolvimento Backend', hours: 4, status: 'approved' },
+                    { project: 'Squad Alpha', activity: 'Reunião Diária', hours: 4, status: 'approved' }
+                ]
+            },
+            3: { 
+                total: 9.5, 
+                status_day: 'extra', 
+                status_approval: 'rejected', // O dia fica com status "pior caso" se houver reprovação
+                entries: [
+                    { project: 'Consultoria Salesforce', activity: 'Deploy Produção', hours: 8, status: 'approved' },
+                    { project: 'Consultoria Salesforce', activity: 'Suporte Crítico', hours: 1.5, status: 'rejected', reason: 'Hora extra não aprovada previamente.' }
+                ]
+            },
+            4: { 
+                total: 8, 
+                status_day: 'full', 
+                status_approval: 'submitted',
+                entries: [
+                    { project: 'Squad Alpha', activity: 'Documentação', hours: 8, status: 'submitted' }
+                ]
+            },
+            5: { total: 0, status_day: 'empty', status_approval: 'draft', entries: [] },
+            20: { total: 8, status_day: 'full', status_approval: 'closed', entries: [{ project: 'Squad Alpha', activity: 'Fechamento', hours: 8, status: 'closed' }] },
+            21: { total: 8, status_day: 'full', status_approval: 'billed', entries: [{ project: 'Squad Alpha', activity: 'Faturamento', hours: 8, status: 'billed' }] },
             24: { status_day: 'vacation', label: 'Recesso' },
             25: { status_day: 'holiday', label: 'Natal' },
             26: { status_day: 'vacation', label: 'Recesso' },
@@ -411,12 +420,10 @@
             } else if (dayData) {
                 // Novos Estilos para Feriado e Férias
                 if (dayData.status_day === 'holiday') {
-                    // Rose/Rosa para Feriado
                     bgClass = 'bg-rose-50 border-rose-200 hover:border-rose-400';
                     textClass = 'text-rose-500';
                     content = `<span class="bg-rose-200 text-rose-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
                 } else if (dayData.status_day === 'vacation') {
-                    // Ciano/Teal para Férias
                     bgClass = 'bg-cyan-50 border-cyan-200 hover:border-cyan-400';
                     textClass = 'text-cyan-600';
                     content = `<span class="bg-cyan-100 text-cyan-700 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">${dayData.label}</span>`;
@@ -445,13 +452,12 @@
         function openDayPanel(day) {
             const panel = document.getElementById('day-panel');
             const overlay = document.getElementById('slide-overlay');
-            const data = filledDays[day] || { status_approval: 'draft', total: 0 };
+            const data = filledDays[day] || { status_approval: 'draft', total: 0, entries: [] };
             
             document.getElementById('panel-date').innerText = (day < 10 ? '0'+day : day) + " Dezembro";
             
             // Elementos de UI
             const badge = document.getElementById('panel-status-badge');
-            const rejectionAlert = document.getElementById('rejection-alert');
             const readonlyAlert = document.getElementById('readonly-alert');
             const formContainer = document.getElementById('add-activity-container');
             const buttonsContainer = document.getElementById('workflow-buttons');
@@ -459,13 +465,11 @@
             const readonlyReason = document.getElementById('readonly-reason');
 
             // Reset UI
-            rejectionAlert.classList.add('hidden');
             readonlyAlert.classList.add('hidden');
             formContainer.classList.remove('opacity-50', 'pointer-events-none'); // Enable Form
             badge.className = "text-[10px] font-bold px-2 py-0.5 rounded uppercase border";
 
             // Lógica de Estado e Permissões
-            // REGRA: Só mexe em Rascunho ('draft') ou Reprovado ('rejected')
             const isEditable = (data.status_approval === 'draft' || data.status_approval === 'rejected' || !data.status_approval) && data.status_day !== 'holiday' && data.status_day !== 'vacation';
 
             if (!isEditable) {
@@ -524,8 +528,7 @@
                 if (data.status_approval === 'rejected') {
                     badge.innerText = "Reprovado";
                     badge.className += " bg-red-100 text-red-700 border-red-200";
-                    rejectionAlert.classList.remove('hidden');
-                    document.getElementById('rejection-reason').innerText = data.rejection_reason || "Motivo não especificado.";
+                    // Alerta de reprovação agora é por item, não geral
                     statusText.innerText = "Correção Necessária";
                     
                     buttonsContainer.innerHTML = `
@@ -543,16 +546,57 @@
                 }
             }
 
-            // Simular dados na lista
+            // Renderizar Lista de Atividades com Status Individual
             const entriesList = document.getElementById('entries-list');
-            if (data.total > 0) {
-                entriesList.innerHTML = `
-                <div class="bg-white border border-gray-200 rounded-lg p-3 flex justify-between items-center shadow-sm">
-                    <div><p class="text-xs font-bold text-blue-600">Consultoria Salesforce</p><p class="text-sm text-gray-800">Atividade Registrada</p></div>
-                    <div class="text-right"><p class="text-sm font-bold text-gray-800">${data.total}h</p></div>
-                </div>`;
+            entriesList.innerHTML = ''; // Clear
+
+            if (data.entries && data.entries.length > 0) {
+                data.entries.forEach(entry => {
+                    let itemStatusBadge = '';
+                    let itemClass = 'border-gray-200';
+                    let reasonHTML = '';
+
+                    if (entry.status === 'rejected') {
+                        itemClass = 'border-red-200 bg-red-50';
+                        itemStatusBadge = `<span class="bg-red-100 text-red-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-red-200">Reprovado</span>`;
+                        reasonHTML = `
+                            <div class="mt-2 text-xs text-red-600 bg-red-100/50 p-2 rounded flex items-start gap-1">
+                                <i data-lucide="alert-circle" class="w-3 h-3 mt-0.5 shrink-0"></i>
+                                <span>Motivo: ${entry.reason || 'Não especificado.'}</span>
+                            </div>
+                        `;
+                    } else if (entry.status === 'approved') {
+                        itemStatusBadge = `<span class="bg-green-100 text-green-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-green-200">Aprovado</span>`;
+                    } else if (entry.status === 'submitted') {
+                        itemStatusBadge = `<span class="bg-blue-100 text-blue-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-blue-200">Aguardando</span>`;
+                    } else if (entry.status === 'closed') {
+                        itemStatusBadge = `<span class="bg-purple-100 text-purple-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-purple-200">Fechado</span>`;
+                    } else if (entry.status === 'billed') {
+                        itemStatusBadge = `<span class="bg-indigo-100 text-indigo-700 text-[9px] font-bold px-1.5 py-0.5 rounded ml-2 border border-indigo-200">Faturado</span>`;
+                    }
+
+                    const entryHTML = `
+                    <div class="bg-white border ${itemClass} rounded-lg p-3 shadow-sm mb-2 transition-all">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center">
+                                    <p class="text-xs font-bold text-blue-600">${entry.project}</p>
+                                    ${itemStatusBadge}
+                                </div>
+                                <p class="text-sm text-gray-800 mt-0.5">${entry.activity}</p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-sm font-bold text-gray-800">${entry.hours}h</p>
+                                ${isEditable && (entry.status === 'rejected' || !entry.status) ? 
+                                    '<button class="text-xs text-gray-400 hover:text-blue-600 mt-1 underline">Editar</button>' : ''}
+                            </div>
+                        </div>
+                        ${reasonHTML}
+                    </div>`;
+                    entriesList.innerHTML += entryHTML;
+                });
             } else {
-                entriesList.innerHTML = `<div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl"><p class="text-gray-400 text-sm">Nenhuma atividade.</p></div>`;
+                entriesList.innerHTML = `<div id="empty-state" class="text-center py-8 border-2 border-dashed border-gray-100 rounded-xl"><p class="text-gray-400 text-sm">Nenhuma atividade lançada.</p></div>`;
             }
 
             calculateTotals();
