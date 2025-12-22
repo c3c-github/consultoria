@@ -42,9 +42,9 @@
         /* Animação do Cronômetro */
         .timer-pulse { animation: pulse-red 2s infinite; }
         @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+            0% { text-shadow: 0 0 0 rgba(239, 68, 68, 0); }
+            50% { text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+            100% { text-shadow: 0 0 0 rgba(239, 68, 68, 0); }
         }
 
         /* Scrollbar fina */
@@ -55,17 +55,18 @@
 
         /* Abas Internas Ativas */
         .tab-active {
-            border-top: 2px solid #2978FF;
-            background-color: white;
-            color: #1a1a1a;
+            border-bottom: 2px solid #2978FF;
+            color: #2978FF;
+            font-weight: 700;
         }
         .tab-inactive {
-            border-top: 2px solid transparent;
+            border-bottom: 2px solid transparent;
             color: #6B7280;
+            font-weight: 500;
         }
         .tab-inactive:hover {
-            background-color: white;
-            color: #2978FF;
+            color: #1a1a1a;
+            border-bottom: 2px solid #E5E7EB;
         }
     </style>
 </head>
@@ -87,21 +88,17 @@
                 <i data-lucide="headset" class="w-5 h-5"></i>
                 <span class="hidden lg:block text-sm">Mesa de Operações</span>
             </a>
-            <a href="#" class="flex items-center justify-center lg:justify-start gap-3 px-4 lg:px-6 py-3 text-gray-400 hover:bg-gray-50 transition-colors">
-                <i data-lucide="clock" class="w-5 h-5"></i>
-                <span class="hidden lg:block font-medium text-sm">Minhas Horas</span>
-            </a>
         </nav>
         
-        <!-- Widget Status do Agente -->
+        <!-- Widget Status -->
         <div class="p-4 border-t border-gray-100 bg-gray-50">
             <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-gray-500 uppercase">Meu Status</span>
+                <span class="text-xs font-bold text-gray-500 uppercase">Status</span>
                 <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse" id="agent-status-led"></span>
             </div>
-            <select id="agent-status-select" onchange="updateAgentStatus(this.value)" class="w-full text-xs border-gray-300 rounded p-1 bg-white text-gray-700 font-bold focus:ring-0 cursor-pointer">
+            <select id="agent-status-select" onchange="updateAgentStatus(this.value)" class="w-full text-xs border-gray-300 rounded p-1 bg-white text-gray-700 font-bold cursor-pointer">
                 <option value="available">🟢 Disponível</option>
-                <option value="busy">🔴 Em Atendimento</option>
+                <option value="busy">🔴 Ocupado</option>
                 <option value="break">☕ Pausa</option>
             </select>
         </div>
@@ -110,364 +107,494 @@
     <!-- 2. MAIN CONTENT -->
     <main class="flex-1 flex flex-col relative w-full overflow-hidden">
         
-        <!-- Header: Filas e Alocação -->
+        <!-- Header Principal -->
         <header class="h-16 bg-white border-b border-gray-200 flex items-center justify-between px-6 shrink-0 shadow-sm z-10">
             <div class="flex items-center gap-4">
                 <h1 class="text-lg font-bold text-gray-800 flex items-center gap-2">
                     <i data-lucide="layers" class="w-5 h-5 text-indigo-600"></i>
-                    Gestão de Chamados
+                    Operação N2
                 </h1>
-                <div class="h-6 w-px bg-gray-200"></div>
                 
-                <!-- Pills de Alocação -->
-                <div class="flex gap-2">
-                    <div class="flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-100 rounded-full">
-                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                        <span class="text-xs font-bold text-blue-700">Squad Salesforce (N2)</span>
-                    </div>
-                    <div class="flex items-center gap-2 px-3 py-1 bg-purple-50 border border-purple-100 rounded-full">
-                        <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-                        <span class="text-xs font-bold text-purple-700">Infraestrutura Geral</span>
+                <!-- Cronômetro Global -->
+                <div class="hidden md:flex items-center bg-gray-100 rounded-full px-4 py-1.5 border border-gray-200 ml-4">
+                    <div class="text-xl font-mono font-bold text-gray-600 mr-3 w-24 text-center" id="global-timer">00:00:00</div>
+                    <div class="flex gap-1">
+                        <button id="global-play" onclick="startGlobalTimer()" class="p-1.5 bg-green-500 hover:bg-green-600 text-white rounded-full transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled title="Selecione um chamado primeiro">
+                            <i data-lucide="play" class="w-3 h-3 fill-current"></i>
+                        </button>
+                        <button id="global-pause" onclick="pauseGlobalTimer()" class="hidden p-1.5 bg-yellow-400 hover:bg-yellow-500 text-white rounded-full transition-transform active:scale-95">
+                            <i data-lucide="pause" class="w-3 h-3 fill-current"></i>
+                        </button>
+                        <button id="global-stop" onclick="stopGlobalTimer()" class="hidden p-1.5 bg-red-500 hover:bg-red-600 text-white rounded-full transition-transform active:scale-95">
+                            <i data-lucide="square" class="w-3 h-3 fill-current"></i>
+                        </button>
                     </div>
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
                 <div class="text-right">
-                    <p class="text-[10px] text-gray-400 font-bold uppercase">Produtividade Hoje</p>
-                    <p class="text-sm font-bold text-gray-800">4h 15m (3 tickets)</p>
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Total Hoje</p>
+                    <p class="text-sm font-bold text-indigo-600" id="total-hours-today">0h 0m</p>
                 </div>
             </div>
         </header>
 
-        <!-- Content Area: Split View -->
+        <!-- Content Area -->
         <div class="flex-1 flex overflow-hidden">
             
-            <!-- COLUNA ESQUERDA: LISTAS (40%) -->
-            <div class="w-[450px] flex flex-col border-r border-gray-200 bg-white">
+            <!-- LISTA DE CHAMADOS (Esquerda) -->
+            <div class="w-[400px] flex flex-col border-r border-gray-200 bg-white">
                 
-                <!-- Abas de Navegação -->
+                <!-- Abas da Lista -->
                 <div class="flex border-b border-gray-200">
-                    <button onclick="switchTab('my-tickets')" id="tab-my-tickets" class="flex-1 py-3 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 hover:bg-indigo-50 transition-colors">
+                    <button onclick="switchListTab('my')" id="list-tab-my" class="flex-1 py-3 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50">
                         Meus (<span id="count-my">2</span>)
                     </button>
-                    <button onclick="switchTab('queue')" id="tab-queue" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors">
-                        Fila (<span id="count-queue">5</span>)
+                    <button onclick="switchListTab('queue')" id="list-tab-queue" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:bg-gray-50">
+                        Fila (<span id="count-queue">2</span>)
                     </button>
-                    <button onclick="switchTab('team')" id="tab-team" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors">
-                        Equipe (<span id="count-team">3</span>)
+                    <button onclick="switchListTab('team')" id="list-tab-team" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:bg-gray-50">
+                        Equipe (<span id="count-team">1</span>)
                     </button>
                 </div>
 
-                <!-- Filtros Rápidos -->
-                <div class="p-3 border-b border-gray-100 flex gap-2 bg-white">
-                    <input type="text" placeholder="Buscar ID ou Cliente..." class="flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    <button class="p-1.5 bg-gray-100 rounded-lg hover:bg-gray-200"><i data-lucide="filter" class="w-4 h-4 text-gray-600"></i></button>
+                <!-- Lista: Meus Casos -->
+                <div id="list-view-my" class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/30">
+                    <!-- JS Populates -->
                 </div>
 
-                <!-- Lista: MEUS CASOS -->
-                <div id="list-my-tickets" class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
-                    <div onclick="loadTicket(1, 'my')" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-green-500 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all relative">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-xs font-mono font-bold text-gray-600">#4505</span>
-                            <span class="text-[10px] font-bold text-green-600 bg-green-50 px-2 rounded">Em Andamento</span>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm mb-1">Criação de Usuário Salesforce</h4>
-                        <div class="flex justify-between items-end">
-                            <span class="text-[10px] text-gray-500 bg-gray-100 px-1.5 rounded">Tech Solutions</span>
-                            <span class="text-[10px] text-gray-400">SLA: 4h</span>
-                        </div>
-                    </div>
-                    <div onclick="loadTicket(3, 'my')" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-yellow-400 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all opacity-80">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-xs font-mono font-bold text-gray-600">#4498</span>
-                            <span class="text-[10px] font-bold text-yellow-600 bg-yellow-50 px-2 rounded">Aguardando Cliente</span>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm mb-1">Dúvida Relatório Leads</h4>
-                        <div class="flex justify-between items-end">
-                            <span class="text-[10px] text-gray-500 bg-gray-100 px-1.5 rounded">Banco Alpha</span>
-                            <span class="text-[10px] text-gray-400">SLA: 2d</span>
-                        </div>
-                    </div>
+                <!-- Lista: Fila Geral -->
+                <div id="list-view-queue" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/30">
+                    <!-- JS Populates -->
                 </div>
 
-                <!-- Lista: FILA GERAL (Modo Leitura/Puxar) -->
-                <div id="list-queue" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
-                    <div onclick="loadTicket(4502, 'queue')" class="cursor-pointer bg-white border border-l-4 border-l-red-500 border-gray-200 rounded-lg p-3 shadow-sm group hover:ring-2 ring-indigo-200">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-xs font-mono font-bold text-red-600">#4502 (Crítico)</span>
-                            <span class="text-[10px] font-bold text-red-500 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3"></i> SLA Vencido</span>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm mb-1">Erro 500 Checkout VTEX</h4>
-                        <p class="text-xs text-gray-500 mb-2">Varejo Express</p>
-                    </div>
-                    <div onclick="loadTicket(4510, 'queue')" class="cursor-pointer bg-white border border-l-4 border-l-gray-300 border-gray-200 rounded-lg p-3 shadow-sm group hover:ring-2 ring-indigo-200">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-xs font-mono font-bold text-gray-500">#4510</span>
-                            <span class="text-[10px] font-bold text-gray-400">Nível 1</span>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm mb-1">Reset de Senha AD</h4>
-                        <p class="text-xs text-gray-500 mb-2">Tech Solutions</p>
-                    </div>
-                </div>
-
-                <!-- Lista: EQUIPE (Modo Apoio) -->
-                <div id="list-team" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
-                    <div onclick="loadTicket(9001, 'team')" class="cursor-pointer bg-white border border-l-4 border-l-blue-400 border-gray-200 rounded-lg p-3 shadow-sm hover:ring-2 ring-blue-200">
-                        <div class="flex justify-between mb-1">
-                            <span class="text-xs font-mono font-bold text-gray-600">#9001</span>
-                            <div class="flex items-center gap-1">
-                                <span class="w-4 h-4 rounded-full bg-blue-100 text-[8px] flex items-center justify-center font-bold text-blue-700">PL</span>
-                                <span class="text-[10px] font-bold text-blue-600">Pedro Lima</span>
-                            </div>
-                        </div>
-                        <h4 class="font-bold text-gray-800 text-sm mb-1">Lentidão API Salesforce</h4>
-                        <p class="text-xs text-gray-500">Banco Alpha - Em análise há 2h</p>
-                    </div>
+                <!-- Lista: Equipe -->
+                <div id="list-view-team" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/30">
+                    <!-- JS Populates -->
                 </div>
             </div>
 
-            <!-- COLUNA DIREITA: DETALHE & WORKFLOW (60%) -->
-            <div class="flex-1 bg-gray-50 flex flex-col relative" id="ticket-workspace">
+            <!-- DETALHE DO CHAMADO (Direita) -->
+            <div class="flex-1 bg-white flex flex-col relative" id="ticket-workspace">
                 
-                <!-- Barra de Aviso (Contexto) -->
-                <div id="context-banner" class="hidden px-4 py-2 text-xs font-bold text-center"></div>
-
-                <!-- Barra de Ferramentas / Cronômetro -->
-                <div class="bg-white border-b border-gray-200 p-4 shadow-sm z-20 flex justify-between items-center">
-                    <div class="flex items-center gap-3">
-                        <div id="active-ticket-indicator" class="hidden flex flex-col">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase">Ticket Atual:</span>
-                            <span class="text-sm font-bold text-indigo-600" id="current-working-id">#4505</span>
-                        </div>
-                        <div class="h-8 w-px bg-gray-200 hidden" id="divider-timer"></div>
-                        <!-- Cronômetro -->
-                        <div class="flex items-center gap-2">
-                            <div class="text-3xl font-mono font-bold text-gray-800 tracking-wider" id="timer-display">00:00:00</div>
-                            <div class="flex gap-1" id="timer-controls">
-                                <button id="btn-start" onclick="startTimer()" class="p-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-sm transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                                    <i data-lucide="play" class="w-5 h-5 fill-current"></i>
-                                </button>
-                                <button id="btn-pause" onclick="pauseTimer()" class="hidden p-2 bg-yellow-400 hover:bg-yellow-500 text-white rounded-lg shadow-sm transition-transform active:scale-95">
-                                    <i data-lucide="pause" class="w-5 h-5 fill-current"></i>
-                                </button>
-                                <button id="btn-stop" onclick="stopTimer()" class="hidden p-2 bg-red-500 hover:bg-red-600 text-white rounded-lg shadow-sm transition-transform active:scale-95">
-                                    <i data-lucide="square" class="w-5 h-5 fill-current"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Botão de Ação Principal (Dinâmico) -->
-                    <div id="main-action-area">
-                        <div class="flex items-center gap-2">
-                            <select id="ticket-status" class="bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded p-2" disabled>
-                                <option value="open">Aberto</option>
-                                <option value="progress">Em Andamento</option>
-                                <option value="pending">Aguardando</option>
-                                <option value="resolved">Resolvido</option>
-                            </select>
-                            <button onclick="saveTicketChanges()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2 disabled:opacity-50" id="btn-save" disabled>
-                                <i data-lucide="save" class="w-4 h-4"></i> Salvar
-                            </button>
-                        </div>
-                    </div>
+                <!-- Estado Vazio -->
+                <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 text-gray-400 z-0">
+                    <i data-lucide="mouse-pointer-2" class="w-16 h-16 mb-4 text-gray-300"></i>
+                    <p class="text-sm font-medium">Selecione um chamado para iniciar.</p>
                 </div>
 
-                <!-- Conteúdo do Ticket -->
-                <div id="ticket-content-area" class="flex-1 overflow-y-auto p-6 hidden">
+                <!-- Painel de Conteúdo -->
+                <div id="ticket-panel" class="flex-1 flex flex-col h-full hidden z-10 bg-white">
                     
-                    <!-- Cabeçalho do Ticket -->
-                    <div class="mb-6">
-                        <div class="flex justify-between items-start">
+                    <!-- Barra de Contexto (Avisos) -->
+                    <div id="context-banner" class="hidden px-6 py-2 text-xs font-bold text-center border-b border-gray-100"></div>
+
+                    <!-- Header do Chamado -->
+                    <div class="px-6 py-4 border-b border-gray-200 bg-white flex justify-between items-start">
+                        <div>
+                            <div class="flex items-center gap-3 mb-1">
+                                <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded text-xs font-mono font-bold" id="detail-id">#ID</span>
+                                <span class="text-xs text-indigo-600 font-bold uppercase tracking-wider" id="detail-client">CLIENTE</span>
+                                <span class="text-xs text-red-500 font-bold flex items-center gap-1" id="detail-sla-container"><i data-lucide="clock" class="w-3 h-3"></i> SLA: <span id="detail-sla"></span></span>
+                            </div>
+                            <h1 class="text-xl font-bold text-gray-900" id="detail-title">Titulo</h1>
+                        </div>
+                        
+                        <!-- Ações Rápidas (Dinâmico) -->
+                        <div class="flex gap-2" id="header-actions">
+                            <!-- JS Injects Buttons -->
+                        </div>
+                    </div>
+
+                    <!-- Navegação Interna -->
+                    <div class="px-6 pt-2 border-b border-gray-200 bg-gray-50/50 flex gap-6">
+                        <button onclick="switchDetailTab('info')" id="dt-info" class="pb-3 text-sm tab-active">Informações</button>
+                        <button onclick="switchDetailTab('logs')" id="dt-logs" class="pb-3 text-sm tab-inactive">Histórico & Tempos</button>
+                        <button onclick="switchDetailTab('meta')" id="dt-meta" class="pb-3 text-sm tab-inactive">Metadados</button>
+                    </div>
+
+                    <!-- Conteúdo das Abas -->
+                    <div class="flex-1 overflow-y-auto p-6 bg-gray-50">
+                        
+                        <!-- ABA 1: INFO -->
+                        <div id="view-info" class="space-y-6">
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+                                <h3 class="text-xs font-bold text-gray-400 uppercase mb-2">Descrição</h3>
+                                <p class="text-sm text-gray-700 leading-relaxed" id="detail-desc">...</p>
+                            </div>
+                            <!-- Comentários -->
                             <div>
-                                <h1 class="text-2xl font-bold text-gray-900 leading-tight mb-2" id="detail-title">Titulo do Ticket</h1>
-                                <div class="flex items-center gap-3 text-sm">
-                                    <span class="bg-gray-200 text-gray-700 px-2 py-0.5 rounded font-mono font-bold" id="detail-id">#ID</span>
-                                    <span class="flex items-center gap-1 text-gray-500"><i data-lucide="briefcase" class="w-3 h-3"></i> <span id="detail-client">Cliente</span></span>
-                                    <span class="flex items-center gap-1 text-red-500 font-bold"><i data-lucide="clock" class="w-3 h-3"></i> <span id="detail-sla">SLA</span></span>
+                                <h3 class="text-xs font-bold text-gray-400 uppercase mb-2">Comentários Recentes</h3>
+                                <div id="comments-list" class="space-y-3"></div>
+                                <div class="mt-3 flex gap-2 hidden" id="comment-box">
+                                    <input type="text" id="quick-comment" placeholder="Adicionar anotação..." class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none">
+                                    <button onclick="postComment()" class="bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700"><i data-lucide="send" class="w-4 h-4"></i></button>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Abas Internas (Navegação) -->
-                    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[400px] flex flex-col">
-                        <div class="flex border-b border-gray-200 bg-gray-50">
-                            <button onclick="switchDetailTab('details')" id="tab-details" class="px-6 py-3 text-sm font-bold tab-active transition-colors">Detalhes & Histórico</button>
-                            <button onclick="switchDetailTab('attachments')" id="tab-attachments" class="px-6 py-3 text-sm font-bold tab-inactive transition-colors">Anexos (2)</button>
-                            <button onclick="switchDetailTab('metadata')" id="tab-metadata" class="px-6 py-3 text-sm font-bold tab-inactive transition-colors">Metadados</button>
+                        <!-- ABA 2: LOGS DE TEMPO -->
+                        <div id="view-logs" class="hidden h-full flex flex-col">
+                            <div class="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden flex-1">
+                                <div class="p-4 border-b border-gray-100 bg-gray-50 flex justify-between items-center">
+                                    <h3 class="font-bold text-gray-800 text-sm">Apontamentos Realizados</h3>
+                                    <span class="text-xs font-mono text-gray-500 bg-gray-200 px-2 py-1 rounded" id="ticket-total-time">Total: 0h 0m</span>
+                                </div>
+                                <div class="overflow-y-auto max-h-[400px]">
+                                    <table class="w-full text-sm text-left">
+                                        <thead class="bg-gray-50 text-gray-500 text-xs uppercase font-bold sticky top-0">
+                                            <tr>
+                                                <th class="px-4 py-2">Data/Hora</th>
+                                                <th class="px-4 py-2">Resumo</th>
+                                                <th class="px-4 py-2">Tipo</th>
+                                                <th class="px-4 py-2 text-right">Duração</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-100" id="logs-table-body"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="p-6 flex-1 flex flex-col relative">
-                            
-                            <!-- TAB 1: DETALHES -->
-                            <div id="view-details" class="flex-1 flex flex-col">
-                                <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100 mb-6">
-                                    <p class="text-xs font-bold text-blue-800 uppercase mb-2">Descrição do Incidente</p>
-                                    <p class="text-sm text-gray-700 leading-relaxed" id="detail-desc">...</p>
+                        <!-- ABA 3: METADADOS -->
+                        <div id="view-meta" class="hidden">
+                            <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Prioridade</label>
+                                    <select class="w-full border border-gray-300 rounded p-2 text-sm"><option>Alta</option><option>Média</option></select>
                                 </div>
-
-                                <div class="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 max-h-[300px]" id="comments-timeline">
-                                    <!-- Comentários -->
+                                <div>
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Status</label>
+                                    <select class="w-full border border-gray-300 rounded p-2 text-sm" id="meta-status-select"><option value="open">Aberto</option><option value="progress">Em Andamento</option></select>
                                 </div>
-
-                                <div class="mt-auto pt-4 border-t border-gray-100" id="comment-box">
-                                    <label class="text-xs font-bold text-gray-500 uppercase mb-2 block">Adicionar Atualização</label>
-                                    <div class="flex gap-2">
-                                        <textarea id="new-comment-text" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none h-20" placeholder="Descreva o que foi feito..."></textarea>
-                                        <button onclick="addComment()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-lg shadow-sm font-bold transition-colors">
-                                            <i data-lucide="send" class="w-5 h-5"></i>
-                                        </button>
-                                    </div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs font-bold text-gray-400 uppercase mb-1">Tags</label>
+                                    <input type="text" class="w-full border border-gray-300 rounded p-2 text-sm" value="bug, login, critico">
+                                </div>
+                                <div class="col-span-2 text-right">
+                                    <button onclick="alert('Salvo!')" class="text-xs font-bold text-indigo-600 hover:underline">Salvar Alterações</button>
                                 </div>
                             </div>
-
-                            <!-- TAB 2: ANEXOS (Novo) -->
-                            <div id="view-attachments" class="hidden flex-1">
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                                    <!-- Anexo Mock -->
-                                    <div class="group relative bg-gray-50 border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white hover:shadow-md transition-all cursor-pointer">
-                                        <i data-lucide="file-text" class="w-8 h-8 text-gray-400 group-hover:text-indigo-600 mb-2"></i>
-                                        <span class="text-xs font-bold text-gray-700 text-center truncate w-full">log_erro_500.txt</span>
-                                        <span class="text-[10px] text-gray-400">12 KB</span>
-                                        <button class="absolute top-2 right-2 text-gray-300 hover:text-indigo-600"><i data-lucide="download" class="w-4 h-4"></i></button>
-                                    </div>
-                                    <div class="group relative bg-gray-50 border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white hover:shadow-md transition-all cursor-pointer">
-                                        <i data-lucide="image" class="w-8 h-8 text-gray-400 group-hover:text-indigo-600 mb-2"></i>
-                                        <span class="text-xs font-bold text-gray-700 text-center truncate w-full">print_tela.png</span>
-                                        <span class="text-[10px] text-gray-400">2.4 MB</span>
-                                        <button class="absolute top-2 right-2 text-gray-300 hover:text-indigo-600"><i data-lucide="download" class="w-4 h-4"></i></button>
-                                    </div>
-                                </div>
-                                
-                                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-50 transition-colors cursor-pointer">
-                                    <i data-lucide="upload-cloud" class="w-8 h-8 mb-2"></i>
-                                    <p class="text-sm font-medium">Arraste arquivos aqui ou clique para fazer upload</p>
-                                </div>
-                            </div>
-
-                            <!-- TAB 3: METADADOS (Novo) -->
-                            <div id="view-metadata" class="hidden flex-1">
-                                <div class="grid grid-cols-2 gap-6">
-                                    <div>
-                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Prioridade</p>
-                                        <span class="inline-flex items-center gap-1 bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Alta</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Categoria</p>
-                                        <span class="text-sm font-medium text-gray-800">Incidente / Software</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Aberto Em</p>
-                                        <span class="text-sm font-medium text-gray-800">22/12/2025 08:30</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">SLA Vencimento</p>
-                                        <span class="text-sm font-bold text-red-600">22/12/2025 12:30 (Vencido)</span>
-                                    </div>
-                                    <div class="col-span-2">
-                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Tags</p>
-                                        <div class="flex gap-2">
-                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#vtex</span>
-                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#checkout</span>
-                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#api-error</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
+
                     </div>
                 </div>
-
-                <!-- Empty State -->
-                <div id="empty-workspace" class="flex-1 flex flex-col items-center justify-center text-gray-400 text-center opacity-60">
-                    <i data-lucide="monitor" class="w-16 h-16 mb-4 text-gray-300"></i>
-                    <h3 class="text-lg font-bold text-gray-500">Nenhum chamado selecionado</h3>
-                    <p class="text-sm">Selecione um chamado da lista para visualizar.</p>
-                </div>
-
             </div>
         </div>
     </main>
 
-    <!-- Modal de Registro -->
-    <div id="log-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <!-- (Conteúdo Modal idêntico ao anterior) -->
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-md transform scale-95 transition-transform duration-300">
+    <!-- MODAL DE APONTAMENTO -->
+    <div id="time-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300">
             <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-indigo-50 rounded-t-xl">
-                <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4"></i> Finalizar Sessão</h3>
+                <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i data-lucide="clock" class="w-4 h-4"></i> Registrar Tempo</h3>
             </div>
             <div class="p-6">
-                <div class="flex gap-4 mb-4">
-                    <div class="flex-1">
-                        <label class="block text-xs text-gray-500 font-bold mb-1">Tempo Total</label>
-                        <input type="text" id="modal-time" class="w-full border border-gray-300 rounded p-2 font-mono font-bold text-lg text-center bg-gray-50" readonly>
-                    </div>
-                    <div class="flex-1">
-                        <label class="block text-xs text-gray-500 font-bold mb-1">Classificação</label>
-                        <select class="w-full border border-gray-300 rounded p-2 text-sm bg-white"><option>Atendimento N2</option><option>Investigação</option></select>
-                    </div>
+                <div class="mb-4 bg-gray-50 p-2 rounded border border-gray-200">
+                    <p class="text-[10px] text-gray-400 font-bold uppercase">Apontando em:</p>
+                    <p class="text-sm font-bold text-gray-800 truncate" id="modal-ticket-name">#ID - Titulo</p>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-xs text-gray-500 font-bold mb-1">Resumo</label>
-                    <input type="text" class="w-full border border-gray-300 rounded p-2 text-sm" value="Atendimento ticket..." id="log-summary">
+                    <label class="block text-xs text-gray-500 font-bold mb-1">Duração</label>
+                    <input type="text" id="modal-duration" class="w-full border border-gray-300 rounded p-2 text-lg text-center font-mono font-bold text-indigo-600 focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Ex: 1h 30m">
+                    <p class="text-[10px] text-gray-400 mt-1 text-center">Formatos: "01:30", "90", "1h 30m"</p>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs text-gray-500 font-bold mb-1">Descrição do Trabalho</label>
+                    <input type="text" id="modal-desc" class="w-full border border-gray-300 rounded p-2 text-sm" placeholder="O que foi feito?">
                 </div>
                 <div class="flex justify-end gap-2">
-                    <button onclick="closeLogModal()" class="px-4 py-2 text-gray-500 font-bold text-xs hover:bg-gray-100 rounded">Cancelar</button>
-                    <button onclick="confirmLog()" class="px-4 py-2 bg-indigo-600 text-white font-bold text-xs rounded hover:bg-indigo-700 shadow-md">Salvar</button>
+                    <button onclick="closeModal()" class="px-4 py-2 text-gray-500 font-bold text-xs hover:bg-gray-100 rounded">Cancelar</button>
+                    <button onclick="saveLog()" class="px-4 py-2 bg-indigo-600 text-white font-bold text-xs rounded hover:bg-indigo-700 shadow-md">Confirmar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Alerta Bloqueio -->
-    <div id="alert-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
-        <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 border-l-4 border-red-500">
-            <div class="p-6">
-                <div class="flex items-center gap-3 mb-3 text-red-600"><i data-lucide="alert-octagon" class="w-8 h-8"></i><h3 class="text-lg font-bold">Ação Bloqueada</h3></div>
-                <p class="text-sm text-gray-600 mb-4" id="alert-message">Você já possui um chamado ativo para este cliente.</p>
-                <div class="flex justify-end"><button onclick="closeAlert()" class="px-4 py-2 bg-gray-100 text-gray-700 font-bold text-sm rounded hover:bg-gray-200">Entendido</button></div>
-            </div>
-        </div>
+    <!-- Toast -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-gray-900 text-white px-4 py-3 rounded-lg shadow-xl translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3 z-50">
+        <i data-lucide="check-circle" class="w-5 h-5 text-green-400"></i>
+        <span class="text-sm font-bold" id="toast-msg">Operação realizada!</span>
     </div>
 
     <script>
         lucide.createIcons();
 
-        // --- DADOS ---
-        const myTickets = {
-            1: { id: '#4505', title: 'Criação de Usuário', client: 'Tech Solutions', sla: '4h', desc: 'Novo colaborador comercial.', status: 'progress', comments: [] },
-            3: { id: '#4498', title: 'Dúvida Relatório', client: 'Banco Alpha', sla: '2d', desc: 'Dúvida filtros mensais.', status: 'pending', comments: [] }
-        };
-        const queueTickets = {
-            4502: { id: '#4502', title: 'Erro 500 Checkout VTEX', client: 'Varejo Express', sla: 'Vencido', desc: 'Crítico: Loja parada.', status: 'open' },
-            4510: { id: '#4510', title: 'Reset Senha AD', client: 'Tech Solutions', sla: '8h', desc: 'Usuário bloqueado.', status: 'open' }
-        };
-        const teamTickets = {
-            9001: { id: '#9001', title: 'Lentidão API Salesforce', client: 'Banco Alpha', sla: '2h', desc: 'Lentidão intermitente.', status: 'progress', owner: 'Pedro Lima', comments: [{text: 'Analisando logs...', time: '10:00'}] }
+        // --- DADOS UNIFICADOS ---
+        // list: 'my', 'queue', 'team'
+        const tickets = {
+            '1': { id: '#4505', title: 'Erro Crítico no Login', client: 'Tech Solutions', sla: '4h', desc: 'Usuários não conseguem logar no portal.', status: 'Em Andamento', list: 'my', logs: [], comments: [{user: 'N1', text: 'Escalado', time: '09:00'}] },
+            '2': { id: '#4498', title: 'Relatório Vazio', client: 'Banco Alpha', sla: '2d', desc: 'Relatório mensal vindo em branco.', status: 'Pendente', list: 'my', logs: [], comments: [] },
+            '4502': { id: '#4502', title: 'Erro 500 Checkout', client: 'Varejo Express', sla: 'Vencido', desc: 'Loja parada.', status: 'Aberto', list: 'queue', logs: [], comments: [] },
+            '4510': { id: '#4510', title: 'Reset Senha AD', client: 'Tech Solutions', sla: '8h', desc: 'Bloqueado.', status: 'Aberto', list: 'queue', logs: [], comments: [] },
+            '9001': { id: '#9001', title: 'Lentidão API', client: 'Banco Alpha', sla: '2h', desc: 'Lentidão.', status: 'Em Andamento', list: 'team', owner: 'Pedro Lima', logs: [], comments: [] }
         };
 
-        let currentTicketId = null;
-        let currentScope = 'my'; // 'my', 'queue', 'team'
-        let timerInterval = null;
-        let seconds = 0;
-        let isRunning = false;
+        let activeTicketId = null;
+        let globalSeconds = 0;
+        let globalInterval = null;
+        let globalIsRunning = false;
+        let runningOnTicketId = null; 
 
-        // --- NAVEGAÇÃO ---
-        function switchTab(tab) {
-            ['my-tickets', 'queue', 'team'].forEach(t => {
-                document.getElementById(`tab-${t}`).className = `flex-1 py-3 text-sm font-bold border-b-2 transition-colors ${tab === t ? 'text-indigo-600 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 border-transparent hover:text-gray-700 hover:bg-gray-50'}`;
-                document.getElementById(`list-${t}`).classList.toggle('hidden', tab !== t);
+        // --- INICIALIZAÇÃO ---
+        function renderLists() {
+            renderList('my', 'list-view-my');
+            renderList('queue', 'list-view-queue');
+            renderList('team', 'list-view-team');
+        }
+
+        function renderList(type, containerId) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            Object.keys(tickets).forEach(key => {
+                const t = tickets[key];
+                if(t.list === type) {
+                    let badgeColor = 'bg-gray-100 text-gray-600';
+                    if(t.status === 'Em Andamento') badgeColor = 'bg-green-100 text-green-700';
+                    if(t.status === 'Pendente') badgeColor = 'bg-yellow-100 text-yellow-700';
+                    if(t.sla === 'Vencido') badgeColor = 'bg-red-100 text-red-700';
+
+                    let extraInfo = t.client;
+                    if(type === 'team') extraInfo = `${t.owner} • ${t.client}`;
+
+                    container.innerHTML += `
+                    <div onclick="selectTicket('${key}')" id="card-${key}" class="ticket-card cursor-pointer bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md hover:border-indigo-300 transition-all mb-2">
+                        <div class="flex justify-between items-start mb-1">
+                            <span class="text-xs font-mono font-bold text-gray-600">${t.id}</span>
+                            <span class="text-[10px] ${badgeColor} px-1.5 py-0.5 rounded font-bold">${t.status}</span>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm mb-1 line-clamp-1">${t.title}</h4>
+                        <div class="flex justify-between items-center text-xs text-gray-500">
+                            <span>${extraInfo}</span>
+                            <div id="badge-time-${key}"></div>
+                        </div>
+                    </div>`;
+                }
             });
         }
 
-        function switchDetailTab(tabName) {
-            ['details', 'attachments', 'metadata'].forEach(t => {
-                const btn = document.getElementById(`tab-${t}`);
+        // --- SELEÇÃO DE TICKET ---
+        function selectTicket(id) {
+            activeTicketId = id;
+            const t = tickets[id];
+
+            // Highlight
+            document.querySelectorAll('.ticket-card').forEach(el => el.classList.remove('border-indigo-500', 'bg-indigo-50'));
+            document.getElementById(`card-${id}`).classList.add('border-indigo-500', 'bg-indigo-50');
+
+            // Show Panel
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('ticket-panel').classList.remove('hidden');
+
+            // Fill Data
+            document.getElementById('detail-id').innerText = t.id;
+            document.getElementById('detail-client').innerText = t.client;
+            document.getElementById('detail-title').innerText = t.title;
+            document.getElementById('detail-desc').innerText = t.desc;
+            document.getElementById('detail-sla').innerText = t.sla;
+
+            // Context Logic
+            setupContext(t);
+            renderComments(id);
+            renderLogs(id);
+            switchDetailTab('info');
+        }
+
+        function setupContext(t) {
+            const banner = document.getElementById('context-banner');
+            const actions = document.getElementById('header-actions');
+            const commentBox = document.getElementById('comment-box');
+            const globalPlay = document.getElementById('global-play');
+
+            // Default
+            banner.className = "hidden";
+            commentBox.classList.remove('hidden');
+            globalPlay.disabled = false;
+            globalPlay.title = "Iniciar";
+
+            if (t.list === 'queue') {
+                banner.className = "bg-yellow-100 text-yellow-800 px-6 py-2 text-xs font-bold text-center block";
+                banner.innerText = "Modo Leitura: Este chamado está na fila.";
+                commentBox.classList.add('hidden');
+                globalPlay.disabled = true;
+                actions.innerHTML = `<button onclick="pullTicket('${activeTicketId}')" class="flex items-center gap-2 px-3 py-2 bg-indigo-600 text-white text-xs font-bold rounded-lg hover:bg-indigo-700 shadow-md"><i data-lucide="download" class="w-4 h-4"></i> Puxar Chamado</button>`;
+            } 
+            else if (t.list === 'team') {
+                banner.className = "bg-blue-100 text-blue-800 px-6 py-2 text-xs font-bold text-center block";
+                banner.innerText = `Em atendimento por ${t.owner}. Você está em modo de apoio.`;
+                actions.innerHTML = `
+                    <button onclick="openManualEntry()" class="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50"><i data-lucide="edit-3" class="w-4 h-4"></i> Lançar Apoio</button>
+                    <button onclick="startContextTimer()" class="flex items-center gap-2 px-3 py-2 bg-green-600 text-white text-xs font-bold rounded-lg hover:bg-green-700 shadow-md"><i data-lucide="play" class="w-4 h-4"></i> Cronometrar Apoio</button>
+                `;
+            } 
+            else {
+                // My Ticket
+                actions.innerHTML = `
+                    <button onclick="openManualEntry()" class="flex items-center gap-2 px-3 py-2 bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded-lg hover:bg-gray-50"><i data-lucide="edit-3" class="w-4 h-4"></i> Lançar Horas</button>
+                    <button onclick="startContextTimer()" class="flex items-center gap-2 px-3 py-2 bg-green-600 text-white text-xs font-bold rounded-lg hover:bg-green-700 shadow-md"><i data-lucide="play" class="w-4 h-4"></i> Iniciar Trabalho</button>
+                `;
+            }
+            lucide.createIcons();
+        }
+
+        // --- AÇÕES DE NEGÓCIO ---
+        function pullTicket(id) {
+            if(confirm("Puxar este chamado para sua fila?")) {
+                tickets[id].list = 'my';
+                tickets[id].status = 'Em Andamento';
+                renderLists();
+                switchListTab('my');
+                selectTicket(id);
+                showToast("Chamado atribuído a você!");
+            }
+        }
+
+        function switchListTab(tab) {
+            ['my', 'queue', 'team'].forEach(t => {
+                document.getElementById(`list-tab-${t}`).className = `flex-1 py-3 text-sm font-bold border-b-2 transition-colors ${tab === t ? 'text-indigo-600 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 border-transparent hover:bg-gray-50'}`;
+                document.getElementById(`list-view-${t}`).classList.toggle('hidden', tab !== t);
+            });
+        }
+
+        // --- CRONÔMETRO ---
+        function startGlobalTimer() {
+            if(!activeTicketId) return alert("Selecione um chamado.");
+            if(globalIsRunning) return;
+            
+            runningOnTicketId = activeTicketId;
+            globalIsRunning = true;
+            document.getElementById('global-play').classList.add('hidden');
+            document.getElementById('global-pause').classList.remove('hidden');
+            document.getElementById('global-stop').classList.remove('hidden');
+            document.getElementById('global-timer').classList.add('text-red-600', 'timer-pulse');
+            
+            globalInterval = setInterval(() => {
+                globalSeconds++;
+                const h = Math.floor(globalSeconds / 3600).toString().padStart(2,'0');
+                const m = Math.floor((globalSeconds % 3600) / 60).toString().padStart(2,'0');
+                const s = (globalSeconds % 60).toString().padStart(2,'0');
+                document.getElementById('global-timer').innerText = `${h}:${m}:${s}`;
+            }, 1000);
+        }
+
+        function pauseGlobalTimer() {
+            globalIsRunning = false;
+            clearInterval(globalInterval);
+            document.getElementById('global-play').classList.remove('hidden');
+            document.getElementById('global-pause').classList.add('hidden');
+            document.getElementById('global-timer').classList.remove('timer-pulse');
+        }
+
+        function stopGlobalTimer() {
+            pauseGlobalTimer();
+            openLogModal(true);
+        }
+
+        function startContextTimer() { startGlobalTimer(); }
+
+        // --- APONTAMENTO ---
+        function openManualEntry() { openLogModal(false); }
+
+        function openLogModal(fromTimer) {
+            const t = tickets[activeTicketId];
+            document.getElementById('modal-ticket-name').innerText = `${t.id} - ${t.title}`;
+            
+            if(fromTimer) {
+                const h = Math.floor(globalSeconds / 3600).toString().padStart(2,'0');
+                const m = Math.floor((globalSeconds % 3600) / 60).toString().padStart(2,'0');
+                document.getElementById('modal-duration').value = `${h}:${m}`;
+                document.getElementById('modal-duration').readOnly = false; 
+            } else {
+                document.getElementById('modal-duration').value = '';
+                document.getElementById('modal-duration').placeholder = 'Ex: 30m, 1h';
+            }
+            
+            document.getElementById('time-modal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('time-modal').classList.remove('opacity-0');
+                document.querySelector('#time-modal > div').classList.remove('scale-95');
+            }, 10);
+        }
+
+        function saveLog() {
+            const durationStr = document.getElementById('modal-duration').value;
+            const desc = document.getElementById('modal-desc').value || "Atendimento";
+            let minutes = 0;
+
+            // Parser simples
+            if(durationStr.includes(':')) {
+                const p = durationStr.split(':');
+                minutes = (+p[0]*60) + (+p[1]);
+            } else if(durationStr.includes('h') || durationStr.includes('m')) {
+                // Mock parse for "1h 30m"
+                minutes = 90; 
+            } else {
+                minutes = parseInt(durationStr) || 0;
+            }
+
+            if(minutes <= 0) { alert("Tempo inválido"); return; }
+
+            tickets[activeTicketId].logs.push({
+                date: new Date().toLocaleDateString('pt-BR') + ' ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}),
+                desc: desc,
+                type: 'Técnico',
+                minutes: minutes
+            });
+
+            // Se veio do timer, resetar
+            if(globalSeconds > 0 && !globalIsRunning) {
+                globalSeconds = 0;
+                document.getElementById('global-timer').innerText = "00:00:00";
+                document.getElementById('global-stop').classList.add('hidden');
+            }
+
+            renderLogs(activeTicketId);
+            closeModal();
+            showToast("Apontamento Salvo!");
+        }
+
+        function closeModal() {
+            document.getElementById('time-modal').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('time-modal').classList.add('hidden'), 300);
+        }
+
+        function renderLogs(id) {
+            const t = tickets[id];
+            const tbody = document.getElementById('logs-table-body');
+            tbody.innerHTML = '';
+            let total = 0;
+            
+            t.logs.forEach(l => {
+                total += l.minutes;
+                const h = Math.floor(l.minutes/60);
+                const m = l.minutes%60;
+                tbody.innerHTML += `
+                <tr class="border-b border-gray-50 last:border-0">
+                    <td class="px-4 py-2 text-xs text-gray-500">${l.date}</td>
+                    <td class="px-4 py-2 text-sm text-gray-800">${l.desc}</td>
+                    <td class="px-4 py-2 text-xs text-gray-500">${l.type}</td>
+                    <td class="px-4 py-2 text-right font-mono text-xs font-bold text-indigo-600">${h}h ${m}m</td>
+                </tr>`;
+            });
+            
+            const th = Math.floor(total/60);
+            const tm = total%60;
+            document.getElementById('ticket-total-time').innerText = `Total: ${th}h ${tm}m`;
+            
+            // Badge na lista
+            const badge = document.getElementById(`badge-time-${id}`);
+            if(badge && total > 0) badge.innerHTML = `<i data-lucide="clock" class="w-3 h-3 text-indigo-500"></i> ${th}h ${tm}m`;
+            lucide.createIcons();
+        }
+
+        // --- EXTRAS ---
+        function switchDetailTab(tab) {
+            ['info', 'logs', 'meta'].forEach(t => {
+                const btn = document.getElementById(`dt-${t}`);
                 const view = document.getElementById(`view-${t}`);
-                if (t === tabName) {
+                if(t === tab) {
                     btn.classList.add('tab-active');
                     btn.classList.remove('tab-inactive');
                     view.classList.remove('hidden');
@@ -479,188 +606,31 @@
             });
         }
 
-        // --- LOAD TICKET (Central Logic) ---
-        function loadTicket(id, scope) {
-            currentScope = scope;
-            currentTicketId = id;
-            
-            // Dados
-            let t;
-            if(scope === 'my') t = myTickets[id];
-            else if(scope === 'queue') t = queueTickets[id];
-            else if(scope === 'team') t = teamTickets[id];
-
-            // UI Setup
-            document.getElementById('empty-workspace').classList.add('hidden');
-            document.getElementById('ticket-content-area').classList.remove('hidden');
-            document.getElementById('divider-timer').classList.remove('hidden');
-            document.getElementById('active-ticket-indicator').classList.remove('hidden');
-            switchDetailTab('details'); // Reset tab
-
-            // Fill Data
-            document.getElementById('current-working-id').innerText = t.id;
-            document.getElementById('detail-title').innerText = t.title;
-            document.getElementById('detail-id').innerText = t.id;
-            document.getElementById('detail-client').innerText = t.client;
-            document.getElementById('detail-sla').innerText = t.sla;
-            document.getElementById('detail-desc').innerText = t.desc;
-
-            // Header Banner Logic
-            const banner = document.getElementById('context-banner');
-            const mainAction = document.getElementById('main-action-area');
-            const statusSelect = document.getElementById('ticket-status');
-            const saveBtn = document.getElementById('btn-save');
-            const commentBox = document.getElementById('comment-box');
-
-            if (scope === 'queue') {
-                // MODO LEITURA (Preview)
-                banner.className = "bg-yellow-100 text-yellow-800 px-4 py-2 text-xs font-bold text-center block";
-                banner.innerText = "Modo de Leitura: Este chamado está na fila. Puxe para iniciar o atendimento.";
-                
-                statusSelect.disabled = true;
-                saveBtn.disabled = true;
-                commentBox.classList.add('hidden');
-                document.getElementById('btn-start').disabled = true;
-
-                // Botão de Ação: Puxar
-                mainAction.innerHTML = `
-                    <button onclick="pullTicket(${id}, '${t.client}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
-                        <i data-lucide="download" class="w-4 h-4"></i> Puxar para Mim
-                    </button>`;
-
-            } else if (scope === 'team') {
-                // MODO APOIO (Collaboration)
-                banner.className = "bg-blue-100 text-blue-800 px-4 py-2 text-xs font-bold text-center block";
-                banner.innerText = `Em atendimento por ${t.owner}. Você pode apoiar registrando atividades.`;
-                
-                statusSelect.disabled = true; // Não muda status do dono
-                saveBtn.disabled = true;
-                commentBox.classList.add('hidden'); // Só comenta se iniciar apoio
-                document.getElementById('btn-start').disabled = true;
-
-                // Botão de Ação: Apoiar
-                mainAction.innerHTML = `
-                    <button onclick="startSupport(${id})" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
-                        <i data-lucide="users" class="w-4 h-4"></i> Apoiar Atendimento
-                    </button>`;
-
-            } else {
-                // MODO EDIÇÃO (Meus Casos)
-                banner.className = "hidden";
-                statusSelect.disabled = false;
-                saveBtn.disabled = false;
-                commentBox.classList.remove('hidden');
-                
-                // Botão Padrão: Salvar
-                mainAction.innerHTML = `
-                    <div class="flex items-center gap-2">
-                        <select id="ticket-status" class="bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded p-2 focus:ring-indigo-500 focus:border-indigo-500">
-                            <option value="open" ${t.status === 'open' ? 'selected' : ''}>Aberto</option>
-                            <option value="progress" ${t.status === 'progress' ? 'selected' : ''}>Em Andamento</option>
-                            <option value="pending" ${t.status === 'pending' ? 'selected' : ''}>Aguardando</option>
-                            <option value="resolved" ${t.status === 'resolved' ? 'selected' : ''}>Resolvido</option>
-                        </select>
-                        <button onclick="saveTicketChanges()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
-                            <i data-lucide="save" class="w-4 h-4"></i> Salvar
-                        </button>
-                    </div>`;
-                
-                if (!isRunning) document.getElementById('btn-start').disabled = false;
-            }
-
-            renderComments(t);
-            lucide.createIcons();
+        function renderComments(id) {
+            const list = document.getElementById('comments-list');
+            list.innerHTML = '';
+            tickets[id].comments.forEach(c => {
+                list.innerHTML += `<div class="bg-gray-50 p-2 rounded text-xs border border-gray-100"><span class="font-bold text-gray-700">${c.user}:</span> ${c.text} <span class="block text-[9px] text-gray-400 mt-1">${c.time}</span></div>`;
+            });
         }
 
-        // --- AÇÕES ESPECÍFICAS ---
-        function pullTicket(id, clientName) {
-            const hasConflict = Object.values(myTickets).some(ticket => ticket.client === clientName && ticket.status !== 'resolved');
-            if (hasConflict) {
-                showAlert(`Você já possui um chamado ativo para <strong>${clientName}</strong>. Finalize-o antes.`);
-                return;
-            }
-            if(confirm(`Atribuir chamado ${id} para você?`)) {
-                const t = queueTickets[id];
-                myTickets[id] = { ...t, status: 'progress', comments: [] };
-                // Em app real, removeria da queue. Aqui simulamos troca de contexto.
-                switchTab('my-tickets');
-                loadTicket(id, 'my');
-            }
+        function postComment() {
+            const txt = document.getElementById('quick-comment').value;
+            if(!txt) return;
+            tickets[activeTicketId].comments.unshift({user:'Eu', text: txt, time: 'Agora'});
+            renderComments(activeTicketId);
+            document.getElementById('quick-comment').value = '';
         }
 
-        function startSupport(id) {
-            // Transformar ticket de Time em "Meu Caso" (Temporário/Apoio)
-            if(confirm("Deseja iniciar sessão de apoio neste chamado?")) {
-                const t = teamTickets[id];
-                // Adiciona como 'my' mas mantendo flag de apoio
-                myTickets[id] = { ...t, isSupport: true }; 
-                switchTab('my-tickets');
-                loadTicket(id, 'my');
-                alert("Você entrou no modo de apoio. O tempo será registrado em seu nome.");
-            }
+        function showToast(msg) {
+            document.getElementById('toast-msg').innerText = msg;
+            const t = document.getElementById('toast');
+            t.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => t.classList.add('translate-y-20', 'opacity-0'), 3000);
         }
 
-        // --- DEMAIS FUNÇÕES (Comments, Timer, Alerts) ---
-        function renderComments(ticket) {
-            const timeline = document.getElementById('comments-timeline');
-            timeline.innerHTML = '';
-            if (!ticket.comments || ticket.comments.length === 0) {
-                timeline.innerHTML = `<div class="text-center text-xs text-gray-400 py-4 italic">Sem histórico.</div>`;
-            } else {
-                ticket.comments.forEach(c => {
-                    timeline.innerHTML += `
-                    <div class="flex gap-3 fade-in">
-                        <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">User</div>
-                        <div class="bg-white border border-gray-200 p-3 rounded-lg w-full shadow-sm">
-                            <p class="text-sm text-gray-600">${c.text}</p>
-                            <span class="text-[10px] text-gray-400 block mt-1">${c.time || 'Recente'}</span>
-                        </div>
-                    </div>`;
-                });
-            }
-        }
-
-        function addComment() {
-            const text = document.getElementById('new-comment-text').value;
-            if (!text.trim()) return;
-            const t = currentScope === 'my' ? myTickets[currentTicketId] : null;
-            if (t) {
-                t.comments.push({ text: text, time: 'Agora' });
-                renderComments(t);
-                document.getElementById('new-comment-text').value = '';
-            }
-        }
-
-        // Timer (Simplificado)
-        function startTimer() { isRunning = true; updateUI(true); timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000); }
-        function pauseTimer() { isRunning = false; updateUI(false); clearInterval(timerInterval); }
-        function stopTimer() { pauseTimer(); openLogModal(); }
-        function updateUI(running) {
-            document.getElementById('btn-start').classList.toggle('hidden', running);
-            document.getElementById('btn-pause').classList.toggle('hidden', !running);
-            document.getElementById('btn-stop').classList.toggle('hidden', !running);
-            document.getElementById('timer-display').classList.toggle('text-red-500', running);
-        }
-        function updateTimerDisplay() {
-            const h = Math.floor(seconds / 3600).toString().padStart(2,'0'), m = Math.floor((seconds%3600)/60).toString().padStart(2,'0'), s = (seconds%60).toString().padStart(2,'0');
-            document.getElementById('timer-display').innerText = `${h}:${m}:${s}`;
-        }
-        
-        // Modals
-        function openLogModal() { 
-            document.getElementById('modal-time').value = document.getElementById('timer-display').innerText;
-            document.getElementById('log-summary').value = `Atendimento ${currentTicketId}`;
-            document.getElementById('log-modal').classList.remove('hidden'); 
-        }
-        function closeLogModal() { document.getElementById('log-modal').classList.add('hidden'); }
-        function confirmLog() { closeLogModal(); seconds = 0; updateTimerDisplay(); updateUI(false); alert("Salvo!"); }
-        function saveTicketChanges() { alert("Salvo!"); }
-        function showAlert(msg) { document.getElementById('alert-message').innerHTML = msg; document.getElementById('alert-modal').classList.remove('hidden'); }
-        function closeAlert() { document.getElementById('alert-modal').classList.add('hidden'); }
-        function updateAgentStatus(v) { 
-            const led = document.getElementById('agent-status-led');
-            led.className = `w-2 h-2 rounded-full ${v==='available'?'bg-green-500 animate-pulse':(v==='busy'?'bg-red-500':'bg-yellow-500')}`;
-        }
+        // Init
+        renderLists();
     </script>
 </body>
 </html>
