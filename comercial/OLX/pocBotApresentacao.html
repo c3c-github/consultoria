@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Showcase POC | OLX Seller Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --olx-purple: #6E0AD6;
+            --olx-dark-purple: #4a0594;
+            --olx-orange: #F28000;
+            --olx-green: #8CE563;
+            --gray-bg: #F4F6F8;
+            --text-color: #333;
+            --terminal-bg: #1e1e1e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Nunito Sans', sans-serif; }
+        
+        body { background-color: var(--gray-bg); color: var(--text-color); padding-bottom: 50px; }
+
+        /* HEADER */
+        header {
+            background: linear-gradient(135deg, var(--olx-purple) 0%, var(--olx-dark-purple) 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            border-bottom: 5px solid var(--olx-orange);
+        }
+        header h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+        header p { font-size: 1.2rem; opacity: 0.9; }
+        .badge-poc {
+            background: var(--olx-orange); color: white; padding: 5px 15px; 
+            border-radius: 20px; font-size: 0.8rem; font-weight: bold; text-transform: uppercase;
+            display: inline-block; margin-top: 10px;
+        }
+
+        /* CONTAINER */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* SECTIONS */
+        section { margin-top: 40px; }
+        .section-title { 
+            font-size: 1.8rem; color: var(--olx-purple); margin-bottom: 20px; 
+            border-left: 5px solid var(--olx-green); padding-left: 15px;
+        }
+
+        /* GRID CARDS */
+        .grid-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        
+        .card {
+            background: white; padding: 25px; border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: transform 0.3s ease;
+            border-top: 3px solid transparent;
+        }
+        .card:hover { transform: translateY(-5px); border-top: 3px solid var(--olx-purple); }
+        .card h3 { color: var(--olx-dark-purple); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .card p { font-size: 0.95rem; color: #666; line-height: 1.5; }
+        
+        .tag { font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: bold; }
+        .tag.internal { background: #e3f2fd; color: #1565c0; } /* Blue for Apex */
+        .tag.external { background: #fbe9e7; color: #d84315; } /* Orange for Heroku */
+
+        /* INTERACTIVE TERMINAL */
+        .terminal-window {
+            background: var(--terminal-bg); color: #00ff00; font-family: 'Courier New', monospace;
+            padding: 20px; border-radius: 8px; min-height: 250px; overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin-top: 20px;
+        }
+        .log-entry { margin-bottom: 8px; border-bottom: 1px solid #333; padding-bottom: 5px; }
+        .log-time { color: #888; font-size: 0.8rem; margin-right: 10px; }
+        .log-type { color: var(--olx-orange); font-weight: bold; }
+
+        /* BUTTONS */
+        .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 15px; }
+        .btn {
+            padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer;
+            font-weight: bold; font-size: 0.9rem; transition: background 0.2s;
+        }
+        .btn-primary { background: var(--olx-purple); color: white; }
+        .btn-primary:hover { background: var(--olx-dark-purple); }
+        .btn-secondary { background: white; border: 1px solid #ccc; color: #333; }
+        .btn-secondary:hover { background: #eee; }
+
+        /* NEXT STEPS */
+        .roadmap-list { list-style: none; }
+        .roadmap-item {
+            background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px;
+            display: flex; align-items: center; gap: 15px;
+            opacity: 0.7; /* Dimmed to show future */
+        }
+        .roadmap-item.active { opacity: 1; border-left: 4px solid var(--olx-green); }
+        .roadmap-icon { font-size: 1.5rem; }
+
+        /* ALERT BOX */
+        .alert-box {
+            background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px;
+            border: 1px solid #ffeeba; margin-top: 20px; font-size: 0.9rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <span class="badge-poc">Prova de Conceito (POC)</span>
+            <h1>OLX Seller Bot Assistant</h1>
+            <p>Arquitetura, Serviços e Experiência do Usuário</p>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <section>
+            <h2 class="section-title">Pilares da Solução</h2>
+            <div class="grid-features">
+                <div class="card">
+                    <h3>
+                        <span class="tag internal">Apex Internal</span>
+                        Validação de Dados
+                    </h3>
+                    <p>Sanitização de CPF/CNPJ com cálculo matemático de dígito verificador (Módulo 11) e busca segura na base de Contas (Salesforce).</p>
+                </div>
+                <div class="card">
+                    <h3>
+                        <span class="tag external">Node.js + Heroku</span>
+                        Integração Externa
+                    </h3>
+                    <p>Serviço hospedado no Heroku que simula o CRM legado da OLX, retornando Planos e Pacotes Extras em JSON complexo.</p>
+                </div>
+                <div class="card">
+                    <h3>
+                        <span class="tag internal">Omni-Channel</span>
+                        Gestão de Fila
+                    </h3>
+                    <p>Lógica preditiva que analisa o tamanho da fila e tempo médio de espera para decidir entre transbordo ou ticket offline.</p>
+                </div>
+                <div class="card">
+                    <h3>
+                        <span class="tag internal">Analytics</span>
+                        Logs & Monitoria
+                    </h3>
+                    <p>Objeto customizado <code>Bot_Service_Log__c</code> que rastreia sucesso, falhas e latência de cada interação do robô.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="section-title">Roadmap & Próximos Passos</h2>
+            
+            <div class="alert-box">
+                <strong>Nota de Escopo:</strong> A funcionalidade de <em>Geração Automática de Casos (Lifecycle Management)</em> foi removida desta apresentação para focar na estabilidade das integrações e será detalhada na Fase 2.
+            </div>
+
+            <ul class="roadmap-list" style="margin-top: 20px;">
+                <li class="roadmap-item active">
+                    <span class="roadmap-icon">✅</span>
+                    <div>
+                        <strong>Fase 1 (Concluído):</strong> Estrutura do Bot, Validações, Integração Heroku, Logs e Pesquisa NPS In-Chat.
+                    </div>
+                </li>
+                <li class="roadmap-item">
+                    <span class="roadmap-icon">📱</span>
+                    <div>
+                        <strong>Fase 2: Experiência Mobile</strong>
+                        <br>Habilitar App "Salesforce" e "Service Cloud Go" para agentes responderem transbordos via celular com notificações push.
+                    </div>
+                </li>
+                <li class="roadmap-item">
+                    <span class="roadmap-icon">💼</span>
+                    <div>
+                        <strong>Fase 3: Gestão de Ciclo de Vida (Casos)</strong>
+                        <br>Reintrodução da lógica de criação de Cases vinculados à <code>MessagingSession</code> para rastreabilidade completa do atendimento.
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+    </div>
+
+    <script>
+        const consoleDiv = document.getElementById('consoleOutput');
+
+        function log(type, message, details) {
+            const now = new Date().toLocaleTimeString();
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerHTML = `
+                <span class="log-time">[${now}]</span> 
+                <span class="log-type">${type}:</span> ${message}
+                <br><span style="color: #ccc; font-size: 0.85rem; padding-left: 20px;">> ${details}</span>
+            `;
+            consoleDiv.appendChild(entry);
+            consoleDiv.scrollTop = consoleDiv.scrollHeight;
+        }
+
+        function clearLog() {
+            consoleDiv.innerHTML = '<div class="log-entry"><span class="log-time">SYSTEM</span> Console limpo. Pronto.</div>';
+        }
+
+        function runService(serviceName) {
+            if (serviceName === 'validate') {
+                log('APEX_CALL', 'Executando BotDocumentValidator...', 'Input: 123.456.789-00');
+                setTimeout(() => {
+                    log('SUCCESS', 'CPF Válido', 'Status: FOUND | AccountId: 0018800002XYZ | Latency: 45ms');
+                    log('DB_LOG', 'Registro criado em Bot_Service_Log__c', 'Type: INTERNAL');
+                }, 800);
+            }
+            
+            else if (serviceName === 'heroku') {
+                log('HTTP_REQ', 'GET https://olx-poc-mock.../plan-consumption', 'Header: Bearer Auth');
+                setTimeout(() => {
+                    const jsonMock = '{"general": {"name": "DIAMANTE", "available": 12}, "extras": [{"name": "DESTAQUE", "total": 5}]}';
+                    log('HTTP_RES', '200 OK', jsonMock);
+                    log('APEX_PARSE', 'Tratamento de Lista de Extras', 'Resumo gerado: "12 disponíveis + Destaque"');
+                }, 1200);
+            }
+
+            else if (serviceName === 'queue') {
+                log('OMNI_CHK', 'Consultando PendingServiceRouting...', 'Queue: Fila_N1_Humano');
+                setTimeout(() => {
+                    const random = Math.random();
+                    if (random > 0.5) {
+                        log('QUEUE_STAT', 'Fila Aceitável', 'Size: 2 | Wait: 45s | Busy: false');
+                    } else {
+                        log('QUEUE_STAT', 'Fila Lotada (Transbordo Crítico)', 'Size: 8 | Wait: 420s | Busy: true');
+                    }
+                }, 600);
+            }
+
+            else if (serviceName === 'survey') {
+                log('CHAT_EVT', 'Usuário selecionou nota 10', 'Trigger: Survey Question');
+                setTimeout(() => {
+                    log('APEX_CALL', 'BotInlineSurveyService', 'Criando SurveyInvitation + SurveyResponse');
+                    log('SUCCESS', 'NPS Registrado', 'Score: 10 | InvitationId: 0Ki880000... | Mode: Anonymous');
+                }, 500);
+            }
+        }
+    </script>
+</body>
+</html>
