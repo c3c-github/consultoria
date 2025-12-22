@@ -52,6 +52,21 @@
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Abas Internas Ativas */
+        .tab-active {
+            border-top: 2px solid #2978FF;
+            background-color: white;
+            color: #1a1a1a;
+        }
+        .tab-inactive {
+            border-top: 2px solid transparent;
+            color: #6B7280;
+        }
+        .tab-inactive:hover {
+            background-color: white;
+            color: #2978FF;
+        }
     </style>
 </head>
 <body class="h-screen flex overflow-hidden bg-c3c-bg">
@@ -134,10 +149,13 @@
                 <!-- Abas de Navegação -->
                 <div class="flex border-b border-gray-200">
                     <button onclick="switchTab('my-tickets')" id="tab-my-tickets" class="flex-1 py-3 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 hover:bg-indigo-50 transition-colors">
-                        Meus Casos (<span id="count-my">2</span>)
+                        Meus (<span id="count-my">2</span>)
                     </button>
                     <button onclick="switchTab('queue')" id="tab-queue" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors">
-                        Fila Geral (<span id="count-queue">5</span>)
+                        Fila (<span id="count-queue">5</span>)
+                    </button>
+                    <button onclick="switchTab('team')" id="tab-team" class="flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors">
+                        Equipe (<span id="count-team">3</span>)
                     </button>
                 </div>
 
@@ -149,8 +167,7 @@
 
                 <!-- Lista: MEUS CASOS -->
                 <div id="list-my-tickets" class="flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
-                    <!-- Ticket Ativo (Exemplo) -->
-                    <div onclick="loadTicket(1)" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-green-500 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all relative">
+                    <div onclick="loadTicket(1, 'my')" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-green-500 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all relative">
                         <div class="flex justify-between mb-1">
                             <span class="text-xs font-mono font-bold text-gray-600">#4505</span>
                             <span class="text-[10px] font-bold text-green-600 bg-green-50 px-2 rounded">Em Andamento</span>
@@ -161,9 +178,7 @@
                             <span class="text-[10px] text-gray-400">SLA: 4h</span>
                         </div>
                     </div>
-
-                    <!-- Ticket Pendente (Exemplo) -->
-                    <div onclick="loadTicket(3)" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-yellow-400 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all opacity-80">
+                    <div onclick="loadTicket(3, 'my')" class="ticket-card cursor-pointer bg-white border border-l-4 border-l-yellow-400 border-gray-200 rounded-lg p-3 hover:shadow-md transition-all opacity-80">
                         <div class="flex justify-between mb-1">
                             <span class="text-xs font-mono font-bold text-gray-600">#4498</span>
                             <span class="text-[10px] font-bold text-yellow-600 bg-yellow-50 px-2 rounded">Aguardando Cliente</span>
@@ -176,32 +191,38 @@
                     </div>
                 </div>
 
-                <!-- Lista: FILA GERAL (Oculta por padrão) -->
+                <!-- Lista: FILA GERAL (Modo Leitura/Puxar) -->
                 <div id="list-queue" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
-                    <!-- Ticket Crítico na Fila -->
-                    <div class="bg-white border border-l-4 border-l-red-500 border-gray-200 rounded-lg p-3 shadow-sm group">
+                    <div onclick="loadTicket(4502, 'queue')" class="cursor-pointer bg-white border border-l-4 border-l-red-500 border-gray-200 rounded-lg p-3 shadow-sm group hover:ring-2 ring-indigo-200">
                         <div class="flex justify-between mb-1">
                             <span class="text-xs font-mono font-bold text-red-600">#4502 (Crítico)</span>
                             <span class="text-[10px] font-bold text-red-500 flex items-center gap-1"><i data-lucide="alert-circle" class="w-3 h-3"></i> SLA Vencido</span>
                         </div>
                         <h4 class="font-bold text-gray-800 text-sm mb-1">Erro 500 Checkout VTEX</h4>
                         <p class="text-xs text-gray-500 mb-2">Varejo Express</p>
-                        <button onclick="pullTicket(4502, 'Varejo Express')" class="w-full py-1.5 bg-indigo-50 text-indigo-700 text-xs font-bold rounded hover:bg-indigo-100 transition-colors flex items-center justify-center gap-1">
-                            <i data-lucide="download" class="w-3 h-3"></i> Puxar Chamado
-                        </button>
                     </div>
-
-                    <!-- Ticket Normal na Fila -->
-                    <div class="bg-white border border-l-4 border-l-gray-300 border-gray-200 rounded-lg p-3 shadow-sm group">
+                    <div onclick="loadTicket(4510, 'queue')" class="cursor-pointer bg-white border border-l-4 border-l-gray-300 border-gray-200 rounded-lg p-3 shadow-sm group hover:ring-2 ring-indigo-200">
                         <div class="flex justify-between mb-1">
                             <span class="text-xs font-mono font-bold text-gray-500">#4510</span>
                             <span class="text-[10px] font-bold text-gray-400">Nível 1</span>
                         </div>
                         <h4 class="font-bold text-gray-800 text-sm mb-1">Reset de Senha AD</h4>
                         <p class="text-xs text-gray-500 mb-2">Tech Solutions</p>
-                        <button onclick="pullTicket(4510, 'Tech Solutions')" class="w-full py-1.5 bg-gray-100 text-gray-600 text-xs font-bold rounded hover:bg-gray-200 transition-colors flex items-center justify-center gap-1">
-                            <i data-lucide="download" class="w-3 h-3"></i> Puxar Chamado
-                        </button>
+                    </div>
+                </div>
+
+                <!-- Lista: EQUIPE (Modo Apoio) -->
+                <div id="list-team" class="hidden flex-1 overflow-y-auto p-3 space-y-2 bg-gray-50/50">
+                    <div onclick="loadTicket(9001, 'team')" class="cursor-pointer bg-white border border-l-4 border-l-blue-400 border-gray-200 rounded-lg p-3 shadow-sm hover:ring-2 ring-blue-200">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-xs font-mono font-bold text-gray-600">#9001</span>
+                            <div class="flex items-center gap-1">
+                                <span class="w-4 h-4 rounded-full bg-blue-100 text-[8px] flex items-center justify-center font-bold text-blue-700">PL</span>
+                                <span class="text-[10px] font-bold text-blue-600">Pedro Lima</span>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm mb-1">Lentidão API Salesforce</h4>
+                        <p class="text-xs text-gray-500">Banco Alpha - Em análise há 2h</p>
                     </div>
                 </div>
             </div>
@@ -209,18 +230,21 @@
             <!-- COLUNA DIREITA: DETALHE & WORKFLOW (60%) -->
             <div class="flex-1 bg-gray-50 flex flex-col relative" id="ticket-workspace">
                 
-                <!-- Barra de Ferramentas / Cronômetro (Fixo no Topo) -->
+                <!-- Barra de Aviso (Contexto) -->
+                <div id="context-banner" class="hidden px-4 py-2 text-xs font-bold text-center"></div>
+
+                <!-- Barra de Ferramentas / Cronômetro -->
                 <div class="bg-white border-b border-gray-200 p-4 shadow-sm z-20 flex justify-between items-center">
                     <div class="flex items-center gap-3">
                         <div id="active-ticket-indicator" class="hidden flex flex-col">
-                            <span class="text-[10px] font-bold text-gray-400 uppercase">Trabalhando em:</span>
+                            <span class="text-[10px] font-bold text-gray-400 uppercase">Ticket Atual:</span>
                             <span class="text-sm font-bold text-indigo-600" id="current-working-id">#4505</span>
                         </div>
                         <div class="h-8 w-px bg-gray-200 hidden" id="divider-timer"></div>
                         <!-- Cronômetro -->
                         <div class="flex items-center gap-2">
                             <div class="text-3xl font-mono font-bold text-gray-800 tracking-wider" id="timer-display">00:00:00</div>
-                            <div class="flex gap-1">
+                            <div class="flex gap-1" id="timer-controls">
                                 <button id="btn-start" onclick="startTimer()" class="p-2 bg-green-500 hover:bg-green-600 text-white rounded-lg shadow-sm transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                                     <i data-lucide="play" class="w-5 h-5 fill-current"></i>
                                 </button>
@@ -234,21 +258,23 @@
                         </div>
                     </div>
 
-                    <!-- Ações de Workflow -->
-                    <div class="flex items-center gap-2">
-                        <select id="ticket-status" class="bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded p-2 focus:ring-indigo-500 focus:border-indigo-500" disabled>
-                            <option value="open">Aberto</option>
-                            <option value="progress">Em Andamento</option>
-                            <option value="pending">Aguardando Cliente</option>
-                            <option value="resolved">Resolvido</option>
-                        </select>
-                        <button onclick="saveTicketChanges()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2 disabled:opacity-50" id="btn-save" disabled>
-                            <i data-lucide="save" class="w-4 h-4"></i> Salvar
-                        </button>
+                    <!-- Botão de Ação Principal (Dinâmico) -->
+                    <div id="main-action-area">
+                        <div class="flex items-center gap-2">
+                            <select id="ticket-status" class="bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded p-2" disabled>
+                                <option value="open">Aberto</option>
+                                <option value="progress">Em Andamento</option>
+                                <option value="pending">Aguardando</option>
+                                <option value="resolved">Resolvido</option>
+                            </select>
+                            <button onclick="saveTicketChanges()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2 disabled:opacity-50" id="btn-save" disabled>
+                                <i data-lucide="save" class="w-4 h-4"></i> Salvar
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Conteúdo do Ticket (Abas) -->
+                <!-- Conteúdo do Ticket -->
                 <div id="ticket-content-area" class="flex-1 overflow-y-auto p-6 hidden">
                     
                     <!-- Cabeçalho do Ticket -->
@@ -265,78 +291,113 @@
                         </div>
                     </div>
 
-                    <!-- Abas Internas -->
+                    <!-- Abas Internas (Navegação) -->
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[400px] flex flex-col">
                         <div class="flex border-b border-gray-200 bg-gray-50">
-                            <button class="px-6 py-3 text-sm font-bold text-gray-700 bg-white border-t-2 border-indigo-500">Detalhes & Histórico</button>
-                            <button class="px-6 py-3 text-sm font-bold text-gray-500 hover:text-indigo-600 hover:bg-white transition-colors">Anexos (2)</button>
-                            <button class="px-6 py-3 text-sm font-bold text-gray-500 hover:text-indigo-600 hover:bg-white transition-colors">SLA & Metadados</button>
+                            <button onclick="switchDetailTab('details')" id="tab-details" class="px-6 py-3 text-sm font-bold tab-active transition-colors">Detalhes & Histórico</button>
+                            <button onclick="switchDetailTab('attachments')" id="tab-attachments" class="px-6 py-3 text-sm font-bold tab-inactive transition-colors">Anexos (2)</button>
+                            <button onclick="switchDetailTab('metadata')" id="tab-metadata" class="px-6 py-3 text-sm font-bold tab-inactive transition-colors">Metadados</button>
                         </div>
 
-                        <div class="p-6 flex-1 flex flex-col">
-                            <!-- Descrição -->
-                            <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100 mb-6">
-                                <p class="text-xs font-bold text-blue-800 uppercase mb-2">Descrição do Incidente</p>
-                                <p class="text-sm text-gray-700 leading-relaxed" id="detail-desc">
-                                    Descrição completa aqui...
-                                </p>
-                            </div>
+                        <div class="p-6 flex-1 flex flex-col relative">
+                            
+                            <!-- TAB 1: DETALHES -->
+                            <div id="view-details" class="flex-1 flex flex-col">
+                                <div class="bg-blue-50/50 p-4 rounded-lg border border-blue-100 mb-6">
+                                    <p class="text-xs font-bold text-blue-800 uppercase mb-2">Descrição do Incidente</p>
+                                    <p class="text-sm text-gray-700 leading-relaxed" id="detail-desc">...</p>
+                                </div>
 
-                            <!-- Timeline de Comentários -->
-                            <div class="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 max-h-[300px]" id="comments-timeline">
-                                <!-- Comentário Mock -->
-                                <div class="flex gap-3">
-                                    <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">N1</div>
-                                    <div class="bg-gray-100 p-3 rounded-lg rounded-tl-none w-full">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <span class="text-xs font-bold text-gray-700">Analista N1</span>
-                                            <span class="text-[10px] text-gray-400">Ontem 14:30</span>
-                                        </div>
-                                        <p class="text-sm text-gray-600">Escalando para N2 pois requer acesso ao banco de dados.</p>
+                                <div class="flex-1 overflow-y-auto space-y-4 mb-4 pr-2 max-h-[300px]" id="comments-timeline">
+                                    <!-- Comentários -->
+                                </div>
+
+                                <div class="mt-auto pt-4 border-t border-gray-100" id="comment-box">
+                                    <label class="text-xs font-bold text-gray-500 uppercase mb-2 block">Adicionar Atualização</label>
+                                    <div class="flex gap-2">
+                                        <textarea id="new-comment-text" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none h-20" placeholder="Descreva o que foi feito..."></textarea>
+                                        <button onclick="addComment()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-lg shadow-sm font-bold transition-colors">
+                                            <i data-lucide="send" class="w-5 h-5"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Input de Novo Comentário -->
-                            <div class="mt-auto pt-4 border-t border-gray-100">
-                                <label class="text-xs font-bold text-gray-500 uppercase mb-2 block">Adicionar Atualização</label>
-                                <div class="flex gap-2">
-                                    <textarea id="new-comment-text" class="w-full border border-gray-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-indigo-500 outline-none resize-none h-20" placeholder="Descreva o que foi feito ou solicite informações..."></textarea>
-                                    <button onclick="addComment()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-lg shadow-sm font-bold transition-colors">
-                                        <i data-lucide="send" class="w-5 h-5"></i>
-                                    </button>
+                            <!-- TAB 2: ANEXOS (Novo) -->
+                            <div id="view-attachments" class="hidden flex-1">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                    <!-- Anexo Mock -->
+                                    <div class="group relative bg-gray-50 border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white hover:shadow-md transition-all cursor-pointer">
+                                        <i data-lucide="file-text" class="w-8 h-8 text-gray-400 group-hover:text-indigo-600 mb-2"></i>
+                                        <span class="text-xs font-bold text-gray-700 text-center truncate w-full">log_erro_500.txt</span>
+                                        <span class="text-[10px] text-gray-400">12 KB</span>
+                                        <button class="absolute top-2 right-2 text-gray-300 hover:text-indigo-600"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                    </div>
+                                    <div class="group relative bg-gray-50 border border-gray-200 rounded-lg p-4 flex flex-col items-center justify-center hover:bg-white hover:shadow-md transition-all cursor-pointer">
+                                        <i data-lucide="image" class="w-8 h-8 text-gray-400 group-hover:text-indigo-600 mb-2"></i>
+                                        <span class="text-xs font-bold text-gray-700 text-center truncate w-full">print_tela.png</span>
+                                        <span class="text-[10px] text-gray-400">2.4 MB</span>
+                                        <button class="absolute top-2 right-2 text-gray-300 hover:text-indigo-600"><i data-lucide="download" class="w-4 h-4"></i></button>
+                                    </div>
                                 </div>
-                                <div class="flex gap-4 mt-2">
-                                    <label class="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
-                                        <input type="checkbox" class="rounded text-indigo-600 focus:ring-indigo-500"> Notificar Cliente
-                                    </label>
-                                    <label class="flex items-center gap-2 text-xs text-gray-600 cursor-pointer">
-                                        <input type="checkbox" class="rounded text-indigo-600 focus:ring-indigo-500" checked> Visível Apenas Internamente
-                                    </label>
+                                
+                                <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 flex flex-col items-center justify-center text-gray-400 hover:bg-gray-50 transition-colors cursor-pointer">
+                                    <i data-lucide="upload-cloud" class="w-8 h-8 mb-2"></i>
+                                    <p class="text-sm font-medium">Arraste arquivos aqui ou clique para fazer upload</p>
                                 </div>
                             </div>
+
+                            <!-- TAB 3: METADADOS (Novo) -->
+                            <div id="view-metadata" class="hidden flex-1">
+                                <div class="grid grid-cols-2 gap-6">
+                                    <div>
+                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Prioridade</p>
+                                        <span class="inline-flex items-center gap-1 bg-red-100 text-red-700 text-xs font-bold px-2 py-1 rounded"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Alta</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Categoria</p>
+                                        <span class="text-sm font-medium text-gray-800">Incidente / Software</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Aberto Em</p>
+                                        <span class="text-sm font-medium text-gray-800">22/12/2025 08:30</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">SLA Vencimento</p>
+                                        <span class="text-sm font-bold text-red-600">22/12/2025 12:30 (Vencido)</span>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <p class="text-xs text-gray-400 font-bold uppercase mb-1">Tags</p>
+                                        <div class="flex gap-2">
+                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#vtex</span>
+                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#checkout</span>
+                                            <span class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">#api-error</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
 
-                <!-- Empty State (Direita) -->
+                <!-- Empty State -->
                 <div id="empty-workspace" class="flex-1 flex flex-col items-center justify-center text-gray-400 text-center opacity-60">
                     <i data-lucide="monitor" class="w-16 h-16 mb-4 text-gray-300"></i>
                     <h3 class="text-lg font-bold text-gray-500">Nenhum chamado selecionado</h3>
-                    <p class="text-sm">Selecione um chamado da lista para começar a trabalhar.</p>
+                    <p class="text-sm">Selecione um chamado da lista para visualizar.</p>
                 </div>
 
             </div>
         </div>
     </main>
 
-    <!-- Modal de Registro de Tempo (Stop) -->
+    <!-- Modal de Registro -->
     <div id="log-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
+        <!-- (Conteúdo Modal idêntico ao anterior) -->
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-md transform scale-95 transition-transform duration-300">
             <div class="p-5 border-b border-gray-100 flex justify-between items-center bg-indigo-50 rounded-t-xl">
-                <h3 class="font-bold text-indigo-900 flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> Finalizar Sessão de Trabalho
-                </h3>
+                <h3 class="font-bold text-indigo-900 flex items-center gap-2"><i data-lucide="check-circle" class="w-4 h-4"></i> Finalizar Sessão</h3>
             </div>
             <div class="p-6">
                 <div class="flex gap-4 mb-4">
@@ -346,39 +407,28 @@
                     </div>
                     <div class="flex-1">
                         <label class="block text-xs text-gray-500 font-bold mb-1">Classificação</label>
-                        <select class="w-full border border-gray-300 rounded p-2 text-sm bg-white">
-                            <option>Atendimento N2</option>
-                            <option>Investigação</option>
-                            <option>Reunião</option>
-                        </select>
+                        <select class="w-full border border-gray-300 rounded p-2 text-sm bg-white"><option>Atendimento N2</option><option>Investigação</option></select>
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label class="block text-xs text-gray-500 font-bold mb-1">Resumo para Folha de Ponto</label>
-                    <input type="text" class="w-full border border-gray-300 rounded p-2 text-sm" value="Atendimento técnico ticket #..." id="log-summary">
+                    <label class="block text-xs text-gray-500 font-bold mb-1">Resumo</label>
+                    <input type="text" class="w-full border border-gray-300 rounded p-2 text-sm" value="Atendimento ticket..." id="log-summary">
                 </div>
                 <div class="flex justify-end gap-2">
                     <button onclick="closeLogModal()" class="px-4 py-2 text-gray-500 font-bold text-xs hover:bg-gray-100 rounded">Cancelar</button>
-                    <button onclick="confirmLog()" class="px-4 py-2 bg-indigo-600 text-white font-bold text-xs rounded hover:bg-indigo-700 shadow-md">Salvar na Folha</button>
+                    <button onclick="confirmLog()" class="px-4 py-2 bg-indigo-600 text-white font-bold text-xs rounded hover:bg-indigo-700 shadow-md">Salvar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Alerta de Bloqueio (Concorrência) -->
+    <!-- Alerta Bloqueio -->
     <div id="alert-modal" class="fixed inset-0 modal-backdrop z-50 hidden flex items-center justify-center opacity-0 transition-opacity duration-300 p-4">
         <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm transform scale-95 transition-transform duration-300 border-l-4 border-red-500">
             <div class="p-6">
-                <div class="flex items-center gap-3 mb-3 text-red-600">
-                    <i data-lucide="alert-octagon" class="w-8 h-8"></i>
-                    <h3 class="text-lg font-bold">Ação Bloqueada</h3>
-                </div>
-                <p class="text-sm text-gray-600 mb-4" id="alert-message">
-                    Você já possui um chamado em aberto para este cliente. Finalize ou pause o atual antes de iniciar outro.
-                </p>
-                <div class="flex justify-end">
-                    <button onclick="closeAlert()" class="px-4 py-2 bg-gray-100 text-gray-700 font-bold text-sm rounded hover:bg-gray-200">Entendido</button>
-                </div>
+                <div class="flex items-center gap-3 mb-3 text-red-600"><i data-lucide="alert-octagon" class="w-8 h-8"></i><h3 class="text-lg font-bold">Ação Bloqueada</h3></div>
+                <p class="text-sm text-gray-600 mb-4" id="alert-message">Você já possui um chamado ativo para este cliente.</p>
+                <div class="flex justify-end"><button onclick="closeAlert()" class="px-4 py-2 bg-gray-100 text-gray-700 font-bold text-sm rounded hover:bg-gray-200">Entendido</button></div>
             </div>
         </div>
     </div>
@@ -386,129 +436,184 @@
     <script>
         lucide.createIcons();
 
-        // --- DADOS (Mock) ---
-        // Tickets do Usuário (Meus Casos)
+        // --- DADOS ---
         const myTickets = {
-            1: { id: '#4505', title: 'Criação de Usuário Salesforce', client: 'Tech Solutions', sla: '4h', desc: 'Novo colaborador no setor comercial. Perfil: Sales Rep.', status: 'progress', comments: [] },
-            3: { id: '#4498', title: 'Dúvida Relatório Leads', client: 'Banco Alpha', sla: '2d', desc: 'Usuário com dúvida sobre os filtros do relatório mensal.', status: 'pending', comments: [] }
+            1: { id: '#4505', title: 'Criação de Usuário', client: 'Tech Solutions', sla: '4h', desc: 'Novo colaborador comercial.', status: 'progress', comments: [] },
+            3: { id: '#4498', title: 'Dúvida Relatório', client: 'Banco Alpha', sla: '2d', desc: 'Dúvida filtros mensais.', status: 'pending', comments: [] }
         };
-
-        // Fila Geral (Backlog)
         const queueTickets = {
             4502: { id: '#4502', title: 'Erro 500 Checkout VTEX', client: 'Varejo Express', sla: 'Vencido', desc: 'Crítico: Loja parada.', status: 'open' },
-            4510: { id: '#4510', title: 'Reset de Senha AD', client: 'Tech Solutions', sla: '8h', desc: 'Usuário bloqueado.', status: 'open' }
+            4510: { id: '#4510', title: 'Reset Senha AD', client: 'Tech Solutions', sla: '8h', desc: 'Usuário bloqueado.', status: 'open' }
+        };
+        const teamTickets = {
+            9001: { id: '#9001', title: 'Lentidão API Salesforce', client: 'Banco Alpha', sla: '2h', desc: 'Lentidão intermitente.', status: 'progress', owner: 'Pedro Lima', comments: [{text: 'Analisando logs...', time: '10:00'}] }
         };
 
         let currentTicketId = null;
+        let currentScope = 'my'; // 'my', 'queue', 'team'
         let timerInterval = null;
         let seconds = 0;
         let isRunning = false;
 
-        // --- NAVEGAÇÃO DE ABAS (LISTA) ---
+        // --- NAVEGAÇÃO ---
         function switchTab(tab) {
-            const btnMy = document.getElementById('tab-my-tickets');
-            const btnQueue = document.getElementById('tab-queue');
-            const listMy = document.getElementById('list-my-tickets');
-            const listQueue = document.getElementById('list-queue');
-
-            if (tab === 'my-tickets') {
-                btnMy.className = "flex-1 py-3 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 transition-colors";
-                btnQueue.className = "flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors";
-                listMy.classList.remove('hidden');
-                listQueue.classList.add('hidden');
-            } else {
-                btnQueue.className = "flex-1 py-3 text-sm font-bold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50 transition-colors";
-                btnMy.className = "flex-1 py-3 text-sm font-bold text-gray-500 border-b-2 border-transparent hover:text-gray-700 hover:bg-gray-50 transition-colors";
-                listQueue.classList.remove('hidden');
-                listMy.classList.add('hidden');
-            }
+            ['my-tickets', 'queue', 'team'].forEach(t => {
+                document.getElementById(`tab-${t}`).className = `flex-1 py-3 text-sm font-bold border-b-2 transition-colors ${tab === t ? 'text-indigo-600 border-indigo-600 bg-indigo-50/50' : 'text-gray-500 border-transparent hover:text-gray-700 hover:bg-gray-50'}`;
+                document.getElementById(`list-${t}`).classList.toggle('hidden', tab !== t);
+            });
         }
 
-        // --- CARREGAR TICKET (MEUS CASOS) ---
-        function loadTicket(id) {
-            const t = myTickets[id];
-            currentTicketId = id;
+        function switchDetailTab(tabName) {
+            ['details', 'attachments', 'metadata'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const view = document.getElementById(`view-${t}`);
+                if (t === tabName) {
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('tab-inactive');
+                    view.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('tab-inactive');
+                    view.classList.add('hidden');
+                }
+            });
+        }
 
-            // UI Changes
+        // --- LOAD TICKET (Central Logic) ---
+        function loadTicket(id, scope) {
+            currentScope = scope;
+            currentTicketId = id;
+            
+            // Dados
+            let t;
+            if(scope === 'my') t = myTickets[id];
+            else if(scope === 'queue') t = queueTickets[id];
+            else if(scope === 'team') t = teamTickets[id];
+
+            // UI Setup
             document.getElementById('empty-workspace').classList.add('hidden');
             document.getElementById('ticket-content-area').classList.remove('hidden');
-            document.getElementById('active-ticket-indicator').classList.remove('hidden');
             document.getElementById('divider-timer').classList.remove('hidden');
-            
-            // Populate Header
+            document.getElementById('active-ticket-indicator').classList.remove('hidden');
+            switchDetailTab('details'); // Reset tab
+
+            // Fill Data
             document.getElementById('current-working-id').innerText = t.id;
             document.getElementById('detail-title').innerText = t.title;
             document.getElementById('detail-id').innerText = t.id;
             document.getElementById('detail-client').innerText = t.client;
             document.getElementById('detail-sla').innerText = t.sla;
             document.getElementById('detail-desc').innerText = t.desc;
-            
-            // Populate Status
-            const statusSelect = document.getElementById('ticket-status');
-            statusSelect.value = t.status;
-            statusSelect.disabled = false;
-            document.getElementById('btn-save').disabled = false;
 
-            // Enable Timer Start if not running
-            if (!isRunning) {
-                document.getElementById('btn-start').disabled = false;
+            // Header Banner Logic
+            const banner = document.getElementById('context-banner');
+            const mainAction = document.getElementById('main-action-area');
+            const statusSelect = document.getElementById('ticket-status');
+            const saveBtn = document.getElementById('btn-save');
+            const commentBox = document.getElementById('comment-box');
+
+            if (scope === 'queue') {
+                // MODO LEITURA (Preview)
+                banner.className = "bg-yellow-100 text-yellow-800 px-4 py-2 text-xs font-bold text-center block";
+                banner.innerText = "Modo de Leitura: Este chamado está na fila. Puxe para iniciar o atendimento.";
+                
+                statusSelect.disabled = true;
+                saveBtn.disabled = true;
+                commentBox.classList.add('hidden');
+                document.getElementById('btn-start').disabled = true;
+
+                // Botão de Ação: Puxar
+                mainAction.innerHTML = `
+                    <button onclick="pullTicket(${id}, '${t.client}')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Puxar para Mim
+                    </button>`;
+
+            } else if (scope === 'team') {
+                // MODO APOIO (Collaboration)
+                banner.className = "bg-blue-100 text-blue-800 px-4 py-2 text-xs font-bold text-center block";
+                banner.innerText = `Em atendimento por ${t.owner}. Você pode apoiar registrando atividades.`;
+                
+                statusSelect.disabled = true; // Não muda status do dono
+                saveBtn.disabled = true;
+                commentBox.classList.add('hidden'); // Só comenta se iniciar apoio
+                document.getElementById('btn-start').disabled = true;
+
+                // Botão de Ação: Apoiar
+                mainAction.innerHTML = `
+                    <button onclick="startSupport(${id})" class="bg-green-600 hover:bg-green-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
+                        <i data-lucide="users" class="w-4 h-4"></i> Apoiar Atendimento
+                    </button>`;
+
             } else {
-                // Se já estiver rodando, mantemos o timer rodando, mas mudamos o contexto visual?
-                // Regra: Timer é global. Se mudar de ticket, o timer continua contando para o anterior até parar?
-                // Simplificação: Timer pausa ao mudar de contexto ou avisa.
-                // Neste protótipo, assumimos que o timer é do "Ticket Ativo no Workspace".
+                // MODO EDIÇÃO (Meus Casos)
+                banner.className = "hidden";
+                statusSelect.disabled = false;
+                saveBtn.disabled = false;
+                commentBox.classList.remove('hidden');
+                
+                // Botão Padrão: Salvar
+                mainAction.innerHTML = `
+                    <div class="flex items-center gap-2">
+                        <select id="ticket-status" class="bg-white border border-gray-300 text-gray-700 text-xs font-bold rounded p-2 focus:ring-indigo-500 focus:border-indigo-500">
+                            <option value="open" ${t.status === 'open' ? 'selected' : ''}>Aberto</option>
+                            <option value="progress" ${t.status === 'progress' ? 'selected' : ''}>Em Andamento</option>
+                            <option value="pending" ${t.status === 'pending' ? 'selected' : ''}>Aguardando</option>
+                            <option value="resolved" ${t.status === 'resolved' ? 'selected' : ''}>Resolvido</option>
+                        </select>
+                        <button onclick="saveTicketChanges()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded shadow-sm flex items-center gap-2">
+                            <i data-lucide="save" class="w-4 h-4"></i> Salvar
+                        </button>
+                    </div>`;
+                
+                if (!isRunning) document.getElementById('btn-start').disabled = false;
             }
 
             renderComments(t);
+            lucide.createIcons();
         }
 
-        // --- REGRA DE NEGÓCIO: PUXAR CHAMADO (COM VALIDAÇÃO) ---
+        // --- AÇÕES ESPECÍFICAS ---
         function pullTicket(id, clientName) {
-            // 1. Verificar Concorrência
-            // Procurar nos "Meus Tickets" se já existe algo desse cliente com status != resolved
-            const hasConflict = Object.values(myTickets).some(ticket => 
-                ticket.client === clientName && ticket.status !== 'resolved'
-            );
-
+            const hasConflict = Object.values(myTickets).some(ticket => ticket.client === clientName && ticket.status !== 'resolved');
             if (hasConflict) {
-                showAlert(`Você já possui um chamado ativo para <strong>${clientName}</strong> em "Meus Casos".<br>Finalize-o ou coloque em espera antes de puxar outro.`);
+                showAlert(`Você já possui um chamado ativo para <strong>${clientName}</strong>. Finalize-o antes.`);
                 return;
             }
-
-            // 2. Sucesso: Mover para Meus Casos (Simulado)
-            if(confirm(`Confirmar atribuição do chamado ${id} para sua fila?`)) {
-                // Mock da movimentação
+            if(confirm(`Atribuir chamado ${id} para você?`)) {
                 const t = queueTickets[id];
-                // Adiciona aos meus
-                myTickets[id] = { ...t, status: 'progress', comments: [] }; // Assume progresso ao puxar
-                // Remove da fila (Visualmente apenas recarregaria, aqui vamos simular um reload)
-                alert(`Chamado ${id} atribuído a você com sucesso!`);
+                myTickets[id] = { ...t, status: 'progress', comments: [] };
+                // Em app real, removeria da queue. Aqui simulamos troca de contexto.
                 switchTab('my-tickets');
-                loadTicket(id);
+                loadTicket(id, 'my');
             }
         }
 
-        // --- SISTEMA DE COMENTÁRIOS ---
+        function startSupport(id) {
+            // Transformar ticket de Time em "Meu Caso" (Temporário/Apoio)
+            if(confirm("Deseja iniciar sessão de apoio neste chamado?")) {
+                const t = teamTickets[id];
+                // Adiciona como 'my' mas mantendo flag de apoio
+                myTickets[id] = { ...t, isSupport: true }; 
+                switchTab('my-tickets');
+                loadTicket(id, 'my');
+                alert("Você entrou no modo de apoio. O tempo será registrado em seu nome.");
+            }
+        }
+
+        // --- DEMAIS FUNÇÕES (Comments, Timer, Alerts) ---
         function renderComments(ticket) {
             const timeline = document.getElementById('comments-timeline');
             timeline.innerHTML = '';
-            
-            // Mock de histórico inicial se vazio
             if (!ticket.comments || ticket.comments.length === 0) {
-                timeline.innerHTML = `
-                    <div class="text-center text-xs text-gray-400 py-4 italic">Início do atendimento.</div>
-                `;
+                timeline.innerHTML = `<div class="text-center text-xs text-gray-400 py-4 italic">Sem histórico.</div>`;
             } else {
                 ticket.comments.forEach(c => {
                     timeline.innerHTML += `
                     <div class="flex gap-3 fade-in">
-                        <div class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-xs font-bold text-indigo-600 shrink-0">EU</div>
+                        <div class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 shrink-0">User</div>
                         <div class="bg-white border border-gray-200 p-3 rounded-lg w-full shadow-sm">
-                            <div class="flex justify-between items-center mb-1">
-                                <span class="text-xs font-bold text-gray-700">Você</span>
-                                <span class="text-[10px] text-gray-400">Agora</span>
-                            </div>
                             <p class="text-sm text-gray-600">${c.text}</p>
+                            <span class="text-[10px] text-gray-400 block mt-1">${c.time || 'Recente'}</span>
                         </div>
                     </div>`;
                 });
@@ -518,106 +623,43 @@
         function addComment() {
             const text = document.getElementById('new-comment-text').value;
             if (!text.trim()) return;
-            
-            if (currentTicketId && myTickets[currentTicketId]) {
-                myTickets[currentTicketId].comments.push({ text: text, time: new Date() });
-                renderComments(myTickets[currentTicketId]);
+            const t = currentScope === 'my' ? myTickets[currentTicketId] : null;
+            if (t) {
+                t.comments.push({ text: text, time: 'Agora' });
+                renderComments(t);
                 document.getElementById('new-comment-text').value = '';
-                // Auto scroll
-                const timeline = document.getElementById('comments-timeline');
-                timeline.scrollTop = timeline.scrollHeight;
             }
         }
 
-        function saveTicketChanges() {
-            const status = document.getElementById('ticket-status').value;
-            if (currentTicketId && myTickets[currentTicketId]) {
-                myTickets[currentTicketId].status = status;
-                alert("Alterações salvas com sucesso.");
-                // O ideal seria atualizar a lista visualmente também (badges)
-            }
+        // Timer (Simplificado)
+        function startTimer() { isRunning = true; updateUI(true); timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000); }
+        function pauseTimer() { isRunning = false; updateUI(false); clearInterval(timerInterval); }
+        function stopTimer() { pauseTimer(); openLogModal(); }
+        function updateUI(running) {
+            document.getElementById('btn-start').classList.toggle('hidden', running);
+            document.getElementById('btn-pause').classList.toggle('hidden', !running);
+            document.getElementById('btn-stop').classList.toggle('hidden', !running);
+            document.getElementById('timer-display').classList.toggle('text-red-500', running);
         }
-
-        // --- UTILITÁRIOS VISUAIS ---
-        function updateAgentStatus(status) {
-            const led = document.getElementById('agent-status-led');
-            if (status === 'available') led.className = "w-2 h-2 bg-green-500 rounded-full animate-pulse";
-            if (status === 'busy') led.className = "w-2 h-2 bg-red-500 rounded-full";
-            if (status === 'break') led.className = "w-2 h-2 bg-yellow-500 rounded-full";
-        }
-
-        function showAlert(msg) {
-            document.getElementById('alert-message').innerHTML = msg;
-            const modal = document.getElementById('alert-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('div').classList.remove('scale-95'); }, 10);
-        }
-
-        function closeAlert() {
-            const modal = document.getElementById('alert-modal');
-            modal.classList.add('opacity-0');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
-        }
-
-        // --- TIMER LOGIC (Mantida do anterior) ---
         function updateTimerDisplay() {
-            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
-            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
-            const s = (seconds % 60).toString().padStart(2, '0');
+            const h = Math.floor(seconds / 3600).toString().padStart(2,'0'), m = Math.floor((seconds%3600)/60).toString().padStart(2,'0'), s = (seconds%60).toString().padStart(2,'0');
             document.getElementById('timer-display').innerText = `${h}:${m}:${s}`;
         }
-
-        function startTimer() {
-            if (isRunning) return;
-            isRunning = true;
-            document.getElementById('btn-start').classList.add('hidden');
-            document.getElementById('btn-pause').classList.remove('hidden');
-            document.getElementById('btn-stop').classList.remove('hidden');
-            document.getElementById('timer-display').classList.add('text-red-500', 'timer-pulse');
-            document.getElementById('timer-display').classList.remove('text-gray-800');
-            updateAgentStatus('busy'); // Auto-set status
-            document.getElementById('agent-status-select').value = 'busy';
-
-            timerInterval = setInterval(() => { seconds++; updateTimerDisplay(); }, 1000);
-        }
-
-        function pauseTimer() {
-            isRunning = false;
-            clearInterval(timerInterval);
-            document.getElementById('btn-start').classList.remove('hidden');
-            document.getElementById('btn-pause').classList.add('hidden');
-            document.getElementById('timer-display').classList.remove('timer-pulse');
-        }
-
-        function stopTimer() {
-            pauseTimer();
-            const t = myTickets[currentTicketId];
+        
+        // Modals
+        function openLogModal() { 
             document.getElementById('modal-time').value = document.getElementById('timer-display').innerText;
-            document.getElementById('log-summary').value = `Atendimento ticket ${t.id}`;
-            
-            const modal = document.getElementById('log-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => { modal.classList.remove('opacity-0'); modal.querySelector('div').classList.remove('scale-95'); }, 10);
+            document.getElementById('log-summary').value = `Atendimento ${currentTicketId}`;
+            document.getElementById('log-modal').classList.remove('hidden'); 
         }
-
-        function confirmLog() {
-            closeLogModal();
-            seconds = 0;
-            updateTimerDisplay();
-            document.getElementById('timer-display').classList.add('text-gray-800');
-            document.getElementById('timer-display').classList.remove('text-red-500');
-            document.getElementById('btn-stop').classList.add('hidden');
-            updateAgentStatus('available');
-            document.getElementById('agent-status-select').value = 'available';
-            alert("Tempo registrado na folha!");
-        }
-
-        function closeLogModal() {
-            const modal = document.getElementById('log-modal');
-            modal.classList.add('opacity-0');
-            modal.querySelector('div').classList.add('scale-95');
-            setTimeout(() => { modal.classList.add('hidden'); }, 300);
+        function closeLogModal() { document.getElementById('log-modal').classList.add('hidden'); }
+        function confirmLog() { closeLogModal(); seconds = 0; updateTimerDisplay(); updateUI(false); alert("Salvo!"); }
+        function saveTicketChanges() { alert("Salvo!"); }
+        function showAlert(msg) { document.getElementById('alert-message').innerHTML = msg; document.getElementById('alert-modal').classList.remove('hidden'); }
+        function closeAlert() { document.getElementById('alert-modal').classList.add('hidden'); }
+        function updateAgentStatus(v) { 
+            const led = document.getElementById('agent-status-led');
+            led.className = `w-2 h-2 rounded-full ${v==='available'?'bg-green-500 animate-pulse':(v==='busy'?'bg-red-500':'bg-yellow-500')}`;
         }
     </script>
 </body>
