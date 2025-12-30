@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salesforce Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --sf-blue: #0176D3;
+            --sf-dark-blue: #0b2347;
+            --sf-bg: #F3F3F3;
+            --sf-card: #FFFFFF;
+            --sf-text: #3E3E3C;
+            --sf-success: #027e46;
+            --sf-danger: #c23934;
+            --sf-warning: #ffb75d;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--sf-bg);
+            color: var(--sf-text);
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: var(--sf-card);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border-top: 4px solid var(--sf-blue);
+        }
+
+        .header h1 { margin: 0; font-size: 1.25rem; color: var(--sf-dark-blue); }
+        .header-meta { font-size: 0.85rem; color: #706e6b; }
+
+        .btn-refresh {
+            background-color: var(--sf-blue);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-refresh:hover { background-color: #005fb2; }
+
+        /* --- KPI Cards --- */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-card {
+            background: var(--sf-card);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 4px;
+            background: var(--sf-blue);
+        }
+
+        .kpi-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; color: #706e6b; margin-bottom: 5px; }
+        .kpi-value { font-size: 2rem; font-weight: 700; color: var(--sf-dark-blue); }
+        .kpi-trend { font-size: 0.8rem; margin-top: 5px; display: flex; align-items: center; gap: 4px; }
+        
+        .trend-up { color: var(--sf-success); }
+        .trend-down { color: var(--sf-danger); }
+
+        /* --- Layout de Conteúdo --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+        }
+
+        .chart-container {
+            background: var(--sf-card);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--sf-dark-blue);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* --- Tabela Estilizada --- */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .styled-table th { text-align: left; padding: 10px; color: #706e6b; font-weight: 600; border-bottom: 1px solid #ddd; }
+        .styled-table td { padding: 12px 10px; border-bottom: 1px solid #f3f3f3; color: var(--sf-text); }
+        .styled-table tr:last-child td { border-bottom: none; }
+
+        /* Tags de Etapas */
+        .step-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            background: #eef4ff;
+            color: var(--sf-blue);
+            margin-right: 4px;
+            margin-bottom: 4px;
+            border: 1px solid #d8e6fe;
+        }
+
+        .status-dot {
+            height: 10px; width: 10px; border-radius: 50%; display: inline-block; margin-right: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div>
+            <h1>Performance de Conversas</h1>
+            <span class="header-meta"><i class="fab fa-aws"></i> AWS Data Lake • <i class="fab fa-salesforce"></i> Salesforce CRM</span>
+        </div>
+        <button class="btn-refresh" onclick="updateDashboard()">
+            <i class="fas fa-sync-alt"></i> Atualizar Dados
+        </button>
+    </div>
+
+    <div class="kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-label">Volume Total</div>
+            <div class="kpi-value" id="kpi-total">0</div>
+            <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs ontem</div>
+        </div>
+        <div class="kpi-card" style="border-left-color: var(--sf-success);">
+            <div class="kpi-label">Retenção (Bot)</div>
+            <div class="kpi-value" id="kpi-retencao">0%</div>
+            <div class="kpi-trend trend-up"><i class="fas fa-check"></i> Meta atingida</div>
+        </div>
+        <div class="kpi-card" style="border-left-color: var(--sf-warning);">
+            <div class="kpi-label">T.M.A. (Médio)</div>
+            <div class="kpi-value" id="kpi-tma">0s</div>
+            <div class="kpi-trend trend-down"><i class="fas fa-clock"></i> Estável</div>
+        </div>
+        <div class="kpi-card" style="border-left-color: var(--sf-danger);">
+            <div class="kpi-label">Erros Críticos</div>
+            <div class="kpi-value" id="kpi-erros">0</div>
+            <div class="kpi-trend trend-down"><i class="fas fa-exclamation-triangle"></i> Atenção CPF</div>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        
+        <div class="chart-container">
+            <div class="section-title">Jornadas Mais Frequentes</div>
+            <div style="overflow-y: auto; max-height: 400px;">
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Cenário de Navegação</th>
+                            <th style="width: 100px;">Volume</th>
+                            <th style="width: 80px;">%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="chart-container" style="height: 250px;">
+                <div class="section-title">Status da Sessão</div>
+                <div style="flex: 1; position: relative;">
+                    <canvas style="height: 205px;" id="chartStatus"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-container" style="height: 250px;">
+                <div class="section-title">Erros por Etapa</div>
+                <div style="flex: 1; position: relative;">
+                    <canvas id="chartErrors"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- CONFIGURAÇÃO E DADOS --- //
+
+        let charts = {}; // Armazena instâncias dos gráficos para destruir antes de recriar
+
+        // Função para Gerar Dados Fictícios (Simulação Extrapolada)
+        function generateData() {
+            const totalSessions = 800 + Math.floor(Math.random() * 400); // Entre 800 e 1200
+            
+            // Definição dos Arquétipos de Jornada
+            const scenarios = [
+                { 
+                    name: "Cadastro Completo", 
+                    steps: ["Saudação", "Nome", "Email", "CPF", "Sucesso"], 
+                    type: "success", 
+                    weight: 0.4 
+                },
+                { 
+                    name: "Abandono no CPF", 
+                    steps: ["Saudação", "Nome", "Email", "CPF", "Abandono"], 
+                    type: "drop", 
+                    weight: 0.2 
+                },
+                { 
+                    name: "Transbordo Humano", 
+                    steps: ["Menu", "Falar Atendente", "Fila", "Humano"], 
+                    type: "human", 
+                    weight: 0.15 
+                },
+                { 
+                    name: "Erro de Validação", 
+                    steps: ["Saudação", "Nome", "CPF Inválido", "Retry", "Erro"], 
+                    type: "error", 
+                    weight: 0.1 
+                },
+                { 
+                    name: "Consulta FAQ", 
+                    steps: ["Menu", "Dúvidas", "Política", "Fim"], 
+                    type: "success", 
+                    weight: 0.15 
+                }
+            ];
+
+            let data = [];
+            let statusCounts = { success: 0, drop: 0, human: 0, error: 0 };
+            let totalTime = 0;
+
+            for (let i = 0; i < totalSessions; i++) {
+                // Sorteio ponderado
+                let rand = Math.random();
+                let sum = 0;
+                let chosen = scenarios[0];
+                for (let s of scenarios) {
+                    sum += s.weight;
+                    if (rand <= sum) { chosen = s; break; }
+                }
+
+                statusCounts[chosen.type]++;
+                // Tempo aleatório entre 30s e 300s
+                totalTime += 30 + Math.floor(Math.random() * 270);
+
+                data.push({
+                    scenario: chosen.name,
+                    steps: chosen.steps,
+                    type: chosen.type
+                });
+            }
+
+            return {
+                total: totalSessions,
+                data: data,
+                counts: statusCounts,
+                avgTime: Math.round(totalTime / totalSessions)
+            };
+        }
+
+        // --- RENDERIZAÇÃO --- //
+
+        function updateDashboard() {
+            const dataset = generateData();
+
+            // 1. Atualizar KPIs (Texto)
+            animateValue("kpi-total", parseInt(document.getElementById("kpi-total").innerText), dataset.total, 800);
+            document.getElementById("kpi-retencao").innerText = Math.round(((dataset.counts.success + dataset.counts.drop) / dataset.total) * 100) + "%";
+            document.getElementById("kpi-tma").innerText = Math.floor(dataset.avgTime / 60) + "m " + (dataset.avgTime % 60) + "s";
+            document.getElementById("kpi-erros").innerText = dataset.counts.error;
+
+            // 2. Atualizar Tabela (Com limpeza prévia para evitar loop/crescimento)
+            const tbody = document.getElementById("table-body");
+            tbody.innerHTML = ""; // <--- O SEGREDO: Limpa tudo antes de adicionar
+
+            // Agrupar jornadas para a tabela
+            let journeyGroups = {};
+            dataset.data.forEach(d => {
+                journeyGroups[d.scenario] = journeyGroups[d.scenario] || { count: 0, steps: d.steps, type: d.type };
+                journeyGroups[d.scenario].count++;
+            });
+
+            // Ordenar e renderizar
+            Object.values(journeyGroups)
+                .sort((a, b) => b.count - a.count)
+                .forEach(group => {
+                    const tr = document.createElement("tr");
+                    
+                    // Criar badges das etapas
+                    const stepsHtml = group.steps.map(step => `<span class="step-badge">${step}</span>`).join("");
+                    const pct = ((group.count / dataset.total) * 100).toFixed(1);
+                    
+                    // Definir cor do ponto de status
+                    let dotColor = "#ccc";
+                    if(group.type === 'success') dotColor = "var(--sf-success)";
+                    if(group.type === 'error') dotColor = "var(--sf-danger)";
+                    if(group.type === 'human') dotColor = "var(--sf-blue)";
+                    if(group.type === 'drop') dotColor = "var(--sf-warning)";
+
+                    tr.innerHTML = `
+                        <td>
+                            <div style="font-weight:600; margin-bottom:4px;">
+                                <span class="status-dot" style="background:${dotColor}"></span>${group.steps[0]} → ...
+                            </div>
+                            <div>${stepsHtml}</div>
+                        </td>
+                        <td><strong>${group.count}</strong></td>
+                        <td><span style="color:#706e6b; font-size:0.85rem;">${pct}%</span></td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+
+            // 3. Renderizar Gráficos (Chart.js)
+            renderCharts(dataset);
+        }
+
+        function renderCharts(dataset) {
+            // Configuração comum
+            Chart.defaults.font.family = "'Segoe UI', 'Helvetica', 'Arial', sans-serif";
+            Chart.defaults.color = "#706e6b";
+
+            // -- Gráfico 1: Status (Doughnut) --
+            destroyChart('chartStatus'); // Destrói o anterior se existir
+            const ctxStatus = document.getElementById('chartStatus').getContext('2d');
+            charts['chartStatus'] = new Chart(ctxStatus, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Sucesso', 'Abandono', 'Humano', 'Erro'],
+                    datasets: [{
+                        data: [dataset.counts.success, dataset.counts.drop, dataset.counts.human, dataset.counts.error],
+                        backgroundColor: ['#027e46', '#ffb75d', '#0176D3', '#c23934'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8 } }
+                    }
+                }
+            });
+
+            // -- Gráfico 2: Erros/Abandonos (Bar Horizontal) --
+            // Simula dados específicos de erros
+            destroyChart('chartErrors');
+            const ctxErrors = document.getElementById('chartErrors').getContext('2d');
+            charts['chartErrors'] = new Chart(ctxErrors, {
+                type: 'bar',
+                data: {
+                    labels: ['Validação CPF', 'Input Email', 'Timeout', 'API Indisponível'],
+                    datasets: [{
+                        label: 'Ocorrências',
+                        data: [
+                            Math.floor(dataset.counts.error * 0.6), 
+                            Math.floor(dataset.counts.drop * 0.3), 
+                            Math.floor(dataset.counts.drop * 0.5), 
+                            Math.floor(dataset.counts.error * 0.4)
+                        ],
+                        backgroundColor: '#c23934',
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { x: { grid: { display: false } }, y: { grid: { display: false } } },
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        // Helper para destruir gráficos antigos (evita bugs de memória e visual)
+        function destroyChart(id) {
+            if (charts[id]) {
+                charts[id].destroy();
+            }
+        }
+
+        // Efeito visual de contagem nos números
+        function animateValue(id, start, end, duration) {
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Inicializar ao carregar
+        updateDashboard();
+
+    </script>
+</body>
+</html>
