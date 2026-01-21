@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLX Salesforce Migration: Discovery Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6C63FF;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #5a52d5;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .flow-arrow-down {
+            width: 2px;
+            height: 20px;
+            background-color: #9CA3AF;
+            margin: 0 auto;
+        }
+
+        .text-primary { color: #6C63FF; }
+        .bg-primary { background-color: #6C63FF; }
+        .border-primary { border-color: #6C63FF; }
+        
+        .text-secondary { color: #F50057; }
+        .bg-secondary { background-color: #F50057; }
+        
+        .text-accent { color: #00B0FF; }
+        .bg-accent { background-color: #00B0FF; }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+    </style>
+    <!-- 
+        Palette Selected: Vibrant Tech
+        Primary: #6C63FF (Purple)
+        Secondary: #F50057 (Pink/Red)
+        Accent: #00B0FF (Blue)
+        Background: #F3F4F6
+        Surface: #FFFFFF
+    -->
+    <!--
+        Plan Narrative & Structure Summary:
+        1. Intro/Stats: Big numbers for 8 meetings, 11 stakeholders, 40 questions, 120 intents.
+        2. Pain Points: Comparison of "Data Black Box" vs "Operational Silos" with bold highlights.
+        3. Distribution Charts: Doubts by theme (Donut) and Intents by Bot (Bar).
+        4. Architecture: HTML block diagram showing Salesforce Bot -> Omni -> Slack/Agents -> Data Lake.
+        5. Integrations: Grid of cards for Finance, Ads, Ops APIs, emphasized as examples.
+        
+        NO SVG or Mermaid JS used in this implementation.
+    -->
+    <!--
+        Chart Choices Summary:
+        1. Doubts Distribution -> Donut Chart -> Goal: Compare/Composition. No SVG.
+        2. Intents Volume -> Bar Chart -> Goal: Compare. No SVG.
+    -->
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="max-w-7xl mx-auto mb-12 text-center">
+        <div class="inline-block px-4 py-1 mb-4 text-xs font-bold tracking-wider text-white uppercase bg-primary rounded-full">
+            Relatório de Discovery
+        </div>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">
+            Migração <span class="text-primary">Salesforce OLX</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Insights do processo de <span class="font-bold">Discovery</span>, definição de escopo técnico e estratégia para a transformação do atendimento conversacional.
+        </p>
+    </header>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-primary pl-4">Engajamento & Metodologia</h2>
+            <p class="mt-2 text-gray-600">
+                O escopo foi consolidado através de um ciclo consultivo intensivo envolvendo <span class="font-bold">11 especialistas-chave</span> da OLX.
+            </p>
+        </div>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl font-extrabold text-primary mb-2">8</div>
+                <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Sessões de Discovery</div>
+                <p class="text-xs text-gray-400 mt-2">Ciclo de 5 a 10 reuniões</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl font-extrabold text-secondary mb-2">11</div>
+                <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Stakeholders OLX</div>
+                <p class="text-xs text-gray-400 mt-2">Liderança, TI, Dados & UX</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl font-extrabold text-accent mb-2">40+</div>
+                <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Dúvidas Técnicas</div>
+                <p class="text-xs text-gray-400 mt-2">Mapeadas e Solucionadas</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition-transform duration-300">
+                <div class="text-5xl font-extrabold text-gray-800 mb-2">120+</div>
+                <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide">Intenções Mapeadas</div>
+                <p class="text-xs text-gray-400 mt-2">CX, PRO e Pay</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-secondary pl-4">Diagnóstico de Dores Críticas</h2>
+            <p class="mt-2 text-gray-600">
+                A motivação para a migração concentra-se em dois pilares fundamentais que limitam a operação atual.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border-t-4 border-gray-800">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl mr-4">⬛</div>
+                        <h3 class="text-xl font-bold text-gray-900">A <span class="font-bold uppercase">Caixa Preta</span> de Dados</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        A equipe de Analytics enfrenta "cegueira" operacional. Não é possível rastrear com precisão onde o usuário abandona o fluxo ou qual o tempo de retenção por etapa.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-start"><span class="text-secondary mr-2">✖</span> Sem rastreio granular de Drop-off.</li>
+                        <li class="flex items-start"><span class="text-secondary mr-2">✖</span> Dificuldade em otimizar a árvore de decisão.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md overflow-hidden border-t-4 border-gray-800">
+                <div class="p-8">
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-2xl mr-4">🧩</div>
+                        <h3 class="text-xl font-bold text-gray-900">Silos Operacionais</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">
+                        Fragmentação do histórico do cliente. A transição entre canais (ZAP, Pay) ou áreas (Comercial, Cobrança) resulta em perda de contexto.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-2">
+                        <li class="flex items-start"><span class="text-secondary mr-2">✖</span> Cliente repete a história múltiplas vezes.</li>
+                        <li class="flex items-start"><span class="text-secondary mr-2">✖</span> Equipes externas (<span class="font-bold">Cobrança</span>) isoladas.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-accent pl-4">Distribuição do Escopo</h2>
+            <p class="mt-2 text-gray-600">
+                Análise de onde concentraram-se os esforços de mapeamento técnico e o volume de automação previsto.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Foco das Discussões Técnicas</h3>
+                <p class="text-xs text-gray-500 mb-6">Distribuição das ~40 dúvidas críticas levantadas durante o discovery por tema.</p>
+                <div class="chart-container">
+                    <canvas id="doubtsChart"></canvas>
+                </div>
+                <p class="text-sm text-center text-gray-500 mt-4 italic">
+                    Engenharia e Dados representam <span class="font-bold">60%</span> da complexidade do projeto.
+                </p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-md p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Volume de Automação (<span class="font-bold">120+ Fluxos</span>)</h3>
+                <p class="text-xs text-gray-500 mb-6">Estimativa de distribuição das intenções entre as unidades de negócio.</p>
+                <div class="chart-container">
+                    <canvas id="intentsChart"></canvas>
+                </div>
+                <p class="text-sm text-center text-gray-500 mt-4 italic">
+                    Bots PRO e Pay possuem alta carga transacional.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-primary pl-4">Arquitetura Híbrida Proposta</h2>
+            <p class="mt-2 text-gray-600">
+                O modelo soluciona os silos integrando equipes externas através do <span class="font-bold text-primary">Slack</span>.
+            </p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-lg p-8 overflow-x-auto">
+            <div class="min-w-[800px] flex flex-col items-center">
+                <div class="flex gap-8 mb-4">
+                    <div class="w-48 bg-gray-100 rounded-lg p-4 border-2 border-gray-300 text-center shadow-sm">
+                        <div class="text-2xl mb-1">📱</div>
+                        <div class="font-bold text-gray-700">WhatsApp / Web</div>
+                        <div class="text-xs text-gray-500">Canal de Entrada</div>
+                    </div>
+                </div>
+
+                <div class="flow-arrow-down"></div>
+
+                <div class="w-64 bg-primary text-white rounded-lg p-4 border-2 border-primary text-center shadow-md z-10">
+                    <div class="text-2xl mb-1">🤖</div>
+                    <div class="font-bold">Einstein Bot</div>
+                    <div class="text-xs text-white opacity-80">Autosserviço & Triagem</div>
+                </div>
+
+                <div class="w-full max-w-2xl mt-0">
+                    <div class="flex justify-center">
+                        <div class="flow-arrow-down h-8"></div>
+                    </div>
+                    <div class="border-t-2 border-gray-400 w-3/4 mx-auto h-4 rounded-t-sm"></div>
+                    <div class="flex justify-between w-3/4 mx-auto px-12 -mt-4">
+                        <div class="flow-arrow-down h-8"></div>
+                        <div class="flow-arrow-down h-8"></div>
+                    </div>
+                </div>
+
+                <div class="flex gap-16 justify-center w-full mt-0">
+                    <div class="w-64 bg-white rounded-lg p-4 border-2 border-accent text-center shadow-sm">
+                        <div class="text-2xl mb-1">☁️</div>
+                        <div class="font-bold text-accent">Service Cloud</div>
+                        <div class="text-xs text-gray-500">Omni-Channel Routing</div>
+                        <div class="mt-2 text-xs bg-accent text-white py-1 rounded">Agentes Licenciados</div>
+                    </div>
+
+                    <div class="w-64 bg-white rounded-lg p-4 border-2 border-secondary text-center shadow-sm">
+                        <div class="text-2xl mb-1">💬</div>
+                        <div class="font-bold text-secondary">Slack Connect</div>
+                        <div class="text-xs text-gray-500">Case Swarming</div>
+                        <div class="mt-2 text-xs bg-secondary text-white py-1 rounded">Cobrança (Sem Licença)</div>
+                    </div>
+                </div>
+
+                <div class="w-full flex justify-center mt-4">
+                    <div class="flow-arrow-down h-8"></div>
+                </div>
+
+                <div class="w-96 bg-gray-800 text-white rounded-lg p-4 border-2 border-gray-700 text-center shadow-md">
+                    <div class="text-2xl mb-1">📊</div>
+                    <div class="font-bold">Data Strategy (S3 / Data Lake)</div>
+                    <div class="text-xs text-gray-400">Auditoria & Analytics de Jornada</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto mb-16">
+        <div class="mb-6">
+            <h2 class="text-2xl font-bold text-gray-800 border-l-4 border-primary pl-4">Destaques de Integração (Autosserviço)</h2>
+            <p class="mt-2 text-gray-600 italic text-sm">
+                Abaixo estão exemplos selecionados do ecossistema de <span class="font-bold">120+ fluxos mapeados</span> e <span class="font-bold">30+ pontos de integração API</span>.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-primary hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-primary text-lg">FIN-01</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">Faturas Dinâmicas</h4>
+                <p class="text-sm text-gray-600">Consulta de status, valor e vencimento via API de Faturamento.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-primary hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-primary text-lg">FIN-02</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">2ª Via & Pix</h4>
+                <p class="text-sm text-gray-600">Geração de boleto PDF e código Pix "Copia e Cola" nativo no chat.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-accent hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-accent text-lg">PAY-01</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">Saldo & Saque</h4>
+                <p class="text-sm text-gray-600">Consulta de saldo em carteira e validação de regras para saque.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-gray-800 hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-gray-800 text-lg">AD-01</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">Anúncios Recusados</h4>
+                <p class="text-sm text-gray-600">Diagnóstico via API para informar motivo e título do anúncio.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-secondary hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-secondary text-lg">ACC-01</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">Validação Cadastral</h4>
+                <p class="text-sm text-gray-600">Checagem de match (CPF + Email) e consulta de Blocklist.</p>
+            </div>
+
+            <div class="bg-white p-6 rounded-lg shadow border-l-4 border-gray-500 hover:shadow-lg transition-shadow">
+                <div class="flex justify-between items-start mb-2">
+                    <span class="font-bold text-gray-600 text-lg">OPS-01</span>
+                    <span class="bg-gray-100 text-xs px-2 py-1 rounded text-gray-500">Exemplo</span>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">Deduplicação</h4>
+                <p class="text-sm text-gray-600">Busca proativa de casos em aberto para evitar redundância.</p>
+            </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+            <div class="inline-flex items-center bg-gray-100 rounded-full px-4 py-2 text-xs font-semibold text-gray-500 border border-gray-200">
+                <span class="mr-2">ℹ️</span>
+                Existem outros <span class="font-bold">114 fluxos transacionais</span> detalhados na matriz de requisitos completa.
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center text-gray-500 py-8 border-t border-gray-200">
+        <p class="text-sm">Gerado para OLX Brasil • Baseado no Relatório de Discovery (21 de Janeiro, 2026)</p>
+    </footer>
+
+    <script>
+        function wrapLabel(label, maxLength = 16) {
+            if (label.length <= maxLength) return label;
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + ' ' + words[i]).length <= maxLength) {
+                    currentLine += ' ' + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const commonTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        const ctxDoubts = document.getElementById('doubtsChart').getContext('2d');
+        const rawDoubtsLabels = ["Arquitetura & Integração", "Dados & Analytics", "Experiência (UX)", "Regras de Negócio"];
+        const doubtsLabels = rawDoubtsLabels.map(l => wrapLabel(l));
+
+        new Chart(ctxDoubts, {
+            type: 'doughnut',
+            data: {
+                labels: doubtsLabels,
+                datasets: [{
+                    data: [30, 30, 20, 20],
+                    backgroundColor: ['#6C63FF', '#F50057', '#00B0FF', '#FFC400'],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'right',
+                        labels: { font: { size: 11 } }
+                    },
+                    tooltip: commonTooltipConfig
+                }
+            }
+        });
+
+        const ctxIntents = document.getElementById('intentsChart').getContext('2d');
+        const rawIntentsLabels = ["OLX PRO (Financeiro/Ads)", "OLX Pay (Carteira)", "CX Core (Suporte Geral)"];
+        const intentsLabels = rawIntentsLabels.map(l => wrapLabel(l));
+
+        new Chart(ctxIntents, {
+            type: 'bar',
+            data: {
+                labels: intentsLabels,
+                datasets: [{
+                    label: 'Volume de Intenções Estimado',
+                    data: [50, 40, 30],
+                    backgroundColor: ['#6C63FF', '#00B0FF', '#00E676'],
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f3f4f6' }
+                    },
+                    x: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: commonTooltipConfig
+                }
+            }
+        });
+    </script>
+</body>
+</html>

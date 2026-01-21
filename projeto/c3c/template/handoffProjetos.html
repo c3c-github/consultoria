@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Handover - Projetos</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f4f6f7;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Botão de Impressão (Não sai no papel) */
+        .no-print-bar {
+            text-align: right;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        button.btn-print {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        button.btn-print:hover {
+            background-color: #2980b9;
+        }
+
+        /* Estilo do Cartão do Cliente */
+        .client-report {
+            background: white;
+            padding: 40px; /* Margem interna para impressão */
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--primary-color);
+        }
+
+        /* Cabeçalho do Relatório */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        .header .meta {
+            text-align: right;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Seções */
+        .section {
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            background-color: #ecf0f1;
+            padding: 8px 12px;
+            font-weight: bold;
+            color: var(--primary-color);
+            border-left: 4px solid var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Grids e Tabelas */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .info-group {
+            margin-bottom: 10px;
+        }
+
+        .info-label {
+            font-weight: bold;
+            font-size: 13px;
+            color: #555;
+            display: block;
+        }
+
+        .info-value {
+            font-size: 14px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        table th, table td {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            color: white;
+        }
+        .bg-red { background-color: var(--accent-color); }
+        .bg-green { background-color: #27ae60; }
+        .bg-yellow { background-color: #f39c12; }
+
+        /* Área de Assinatura */
+        .signatures {
+            margin-top: 50px;
+            display: flex;
+            justify-content: space-between;
+            page-break-inside: avoid;
+        }
+        .sig-line {
+            width: 40%;
+            border-top: 1px solid #000;
+            padding-top: 5px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        /* --- CONFIGURAÇÃO DE IMPRESSÃO --- */
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                font-size: 12pt;
+            }
+            .container {
+                width: 100%;
+                max-width: none;
+            }
+            .no-print-bar {
+                display: none;
+            }
+            .client-report {
+                box-shadow: none;
+                margin: 0;
+                border-radius: 0;
+                /* O segredo: Quebra de página antes de cada cliente, exceto o primeiro */
+                break-before: page; 
+                border-top: none; /* Remove borda colorida no print se preferir PB */
+            }
+            .client-report:first-of-type {
+                break-before: auto;
+            }
+            .section-title {
+                /* Força a impressão da cor de fundo */
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            a {
+                text-decoration: none;
+                color: black;
+            }
+            /* Adiciona o link visível se for impresso em papel */
+            a[href]:after {
+                content: " (" attr(href) ")";
+                font-size: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="no-print-bar">
+            <strong>Dica:</strong> Cada cliente sairá em uma página separada.
+            <button class="btn-print" onclick="window.print()">🖨️ Imprimir Relatório</button>
+        </div>
+
+        <div id="reports-container">
+            </div>
+    </div>
+
+    <script>
+        // DADOS MOCKADOS (AQUI VOCÊ OU O LÍDER PREENCHEM)
+        const data = [
+            {
+                cliente: "Hotmart",
+                dataRelatorio: new Date().toLocaleDateString(),
+                contatos: "João Silva (CTO) - Decisor<br>Maria (PM) - Operacional",
+                contrato: "Contrato #9923 - Vence em Dez/2026",
+                rituais: "Daily (09:00), Weekly (Sex 15:00)",
+                equipe: [
+                    { nome: "Dev 1", funcao: "Fullstack", alocacao: "100%", inicio: "01/01/24", fim: "Indef." },
+                    { nome: "Tech Lead", funcao: "Líder", alocacao: "50%", inicio: "01/06/24", fim: "Indef." }
+                ],
+                saudeTime: "Estável. Tech Lead sobrecarregado.",
+                cronograma: "Fase 2 entregue. Iniciando Discovery Fase 3.",
+                proximosPassos: "1. Validar protótipo até terça.<br>2. Renovar acesso VPN do Dev 1.",
+                riscos: "Risco de estouro de horas se o escopo da Fase 3 crescer.",
+                financeiro: "Medição de Dezembro pendente de aprovação.",
+                acessos: "Docs no Confluence (Link X). Repos no GitLab (Grupo Y).",
+                comentarios: "Cliente muito técnico, gosta de detalhes nas Dailies."
+            },
+            {
+                cliente: "Superlógica",
+                dataRelatorio: new Date().toLocaleDateString(),
+                contatos: "Roberto (Gerente) - Decisor",
+                contrato: "Contrato Body Shop #1120",
+                rituais: "Reunião Quinzenal (Seg 14:00)",
+                equipe: [
+                    { nome: "Dev Senior", funcao: "Backend", alocacao: "100%", inicio: "10/02/24", fim: "30/06/25" }
+                ],
+                saudeTime: "Risco de Turnover (Dev recebeu sondagens).",
+                cronograma: "Sprints rodando em dia.",
+                proximosPassos: "1. Agendar feedback com Dev Senior.<br>2. Alinhar renovação contratual.",
+                riscos: "Saída do desenvolvedor impactaria entrega crítica.",
+                financeiro: "Tudo em dia.",
+                acessos: "Azure DevOps - Projeto Alpha.",
+                comentarios: "Foco total na entrega da API de Pagamentos."
+            }
+            // Adicione os outros clientes aqui (Funcional, Menzoil, etc.)
+        ];
+
+        function renderReports() {
+            const container = document.getElementById('reports-container');
+            let html = '';
+
+            data.forEach(item => {
+                // Cria as linhas da tabela de equipe dinamicamente
+                const teamRows = item.equipe.map(m => `
+                    <tr>
+                        <td>${m.nome}</td>
+                        <td>${m.funcao}</td>
+                        <td>${m.alocacao}</td>
+                        <td>${m.inicio}</td>
+                        <td>${m.fim}</td>
+                    </tr>
+                `).join('');
+
+                html += `
+                <div class="client-report">
+                    <div class="header">
+                        <h1>${item.cliente}</h1>
+                        <div class="meta">
+                            Gerado em: ${item.dataRelatorio}<br>
+                            Handover Técnico
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">1. Dados e Contratos</div>
+                        <div class="grid-2">
+                            <div class="info-group">
+                                <span class="info-label">Contatos Chave:</span>
+                                <span class="info-value">${item.contatos}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Contrato/Vigência:</span>
+                                <span class="info-value">${item.contrato}</span>
+                            </div>
+                        </div>
+                        <div class="info-group" style="margin-top: 10px;">
+                            <span class="info-label">Rituais e Reuniões:</span>
+                            <span class="info-value">${item.rituais}</span>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">2. Time e Alocação</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Função</th>
+                                    <th>%</th>
+                                    <th>Início</th>
+                                    <th>Fim Previsto</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${teamRows}
+                            </tbody>
+                        </table>
+                        <div class="info-group" style="margin-top: 10px; background: #fff3cd; padding: 10px; border-radius: 4px;">
+                            <span class="info-label">Saúde do Time / Clima:</span>
+                            <span class="info-value">${item.saudeTime}</span>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">3. Status e Execução</div>
+                        <div class="grid-2">
+                            <div class="info-group">
+                                <span class="info-label">Status Macro:</span>
+                                <span class="info-value">${item.cronograma}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label" style="color: #c0392b;">Próximos Passos (Urgente):</span>
+                                <span class="info-value">${item.proximosPassos}</span>
+                            </div>
+                        </div>
+                        <div class="info-group" style="margin-top: 10px;">
+                            <span class="info-label">Riscos e Oportunidades:</span>
+                            <span class="info-value">${item.riscos}</span>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">4. Administrativo e Técnico</div>
+                        <div class="grid-2">
+                            <div class="info-group">
+                                <span class="info-label">Financeiro (Pendências):</span>
+                                <span class="info-value">${item.financeiro}</span>
+                            </div>
+                            <div class="info-group">
+                                <span class="info-label">Acessos e Repositórios:</span>
+                                <span class="info-value">${item.acessos}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="section">
+                        <div class="info-group">
+                            <span class="info-label">Comentários Adicionais:</span>
+                            <p class="info-value" style="font-style: italic;">"${item.comentarios}"</p>
+                        </div>
+                    </div>
+
+                    <div class="signatures">
+                        <div class="sig-line">Líder Anterior (Entregue por)</div>
+                        <div class="sig-line">Novo Responsável (Recebido por)</div>
+                    </div>
+                </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Inicializa
+        renderReports();
+    </script>
+</body>
+</html>

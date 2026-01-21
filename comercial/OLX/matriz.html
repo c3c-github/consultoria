@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discovery & Resultados - Matriz de Requisitos Consolidada</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://c3c.my.site.com/resource/1677081909000/c3clogo" type="image/png">
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <style>
+        html, body {
+            font-family: 'Montserrat', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            width: 100%;
+        }
+        :root {
+            --c3c-teal: #1DDDBD;
+            --c3c-blue: #2978FF;
+        }
+        .brand-color { color: var(--c3c-blue); }
+        .brand-bg { background-color: var(--c3c-blue); }
+        .brand-accent-bg { background-color: var(--c3c-teal); }
+        
+        .section-title {
+            border-bottom: 2px solid var(--c3c-blue);
+            padding-bottom: 0.5rem;
+            color: var(--c3c-blue);
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .logo-container img { max-height: 35px; width: auto; }
+
+        .prose h3 { 
+            font-size: 1.25rem; 
+            font-weight: 700; 
+            color: var(--c3c-blue); 
+            margin-top: 2.5rem; 
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .prose table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; font-size: 0.8rem; }
+        .prose th { background-color: #f3f4f6; padding: 0.75rem; text-align: left; border: 1px solid #e5e7eb; font-weight: 700; color: #374151; }
+        .prose td { padding: 0.75rem; border: 1px solid #e5e7eb; vertical-align: top; line-height: 1.4; }
+        
+        .bg-tech { background-color: #f0f7ff; color: #1e40af; font-weight: 600; font-family: monospace; font-size: 0.75rem; }
+        .id-badge { background: #e5e7eb; padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <div class="flex flex-col min-h-screen">
+        <header class="bg-white/90 backdrop-blur-lg sticky top-0 z-20 shadow-sm border-b border-gray-200">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                 <div class="flex justify-between items-center h-16">
+                     <div class="logo-container h-full flex items-center">
+                          <img src="https://c3c.my.site.com/resource/1677081909000/c3clogo" alt="Logo C3C Software">
+                     </div>
+                     <div class="text-lg font-semibold text-gray-700 text-center flex-grow px-4">Bíblia do Escopo: Matriz de Requisitos Consolidada</div>
+                     <div class="text-sm font-medium text-gray-500 min-w-[150px] text-right">Projeto Salesforce Implementation</div>
+                 </div>
+             </div>
+        </header>
+
+        <main class="flex-grow w-[95vw] max-w-6xl mx-auto my-8 p-6 sm:p-10 bg-white rounded-lg shadow-lg">
+             <section class="fade-in prose max-w-none">
+                 <h2 class="section-title">Resultados do Discovery & Diagnóstico</h2>
+
+                 <div class="mb-8 p-6 bg-blue-50 rounded-lg border border-blue-100">
+                    <p class="m-0 text-sm leading-relaxed text-blue-900">
+                        Esta é a <strong>Matriz de Requisitos Funcionais e Técnicos Consolidada</strong>, unificando a estrutura de segurança e navegação com a profundidade transacional dos fluxos de negócio. Este documento serve como a base única de verdade para o time de implementação Salesforce.
+                    </p>
+                 </div>
+
+                 <!-- 1. Segurança, Identidade e Acesso -->
+                 <h3><i data-feather="shield" class="w-5 h-5"></i> 1. Segurança, Identidade e Acesso (Gatekeeper)</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Requisito</th>
+                            <th width="42%">Detalhe Funcional & Regra (AS-IS)</th>
+                            <th width="35%">Solução Salesforce (TO-BE)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">SEC-01</span></td><td><b>Validação Cadastral</b></td><td>Solicitar Nome, E-mail e CPF/CNPJ. Validar existência na base. Se não existir, desviar para "Cadastro não encontrado".</td><td class="bg-tech">Flow + Apex: Consulta Contact/Account ou API User Check. Retorna variáveis de contexto.</td></tr>
+                        <tr><td><span class="id-badge">SEC-02</span></td><td><b>Identificação Perfil</b></td><td>Diferenciar automaticamente OLX Pay (B2C) ou OLX PRO (B2B) para carregar o Menu Principal correto.</td><td class="bg-tech">Flow de Decisão: Baseado no Login, define CustomerSegment.</td></tr>
+                        <tr><td><span class="id-badge">SEC-03</span></td><td><b>Bloqueio Seg.</b></td><td>Verificar flag de fraude ou bloqueio judicial. Se True, exibir mensagem de bloqueio e impedir navegação.</td><td class="bg-tech">Check Condition: Verificar campo Status_Bloqueio__c no início.</td></tr>
+                        <tr><td><span class="id-badge">SEC-04</span></td><td><b>Conflito Dados</b></td><td>Identificar uso de telefone/CPF já atrelado a outra conta. Disparar fluxo CONFLITO-DADOS.</td><td class="bg-tech">Apex/Integration: Consulta duplicidade via API.</td></tr>
+                        <tr><td><span class="id-badge">SEC-05</span></td><td><b>LGPD</b></td><td>Exibição mandatória da Política de Privacidade e aceite ("Continuar") antes da interação.</td><td class="bg-tech">Dialog Inicial: Grava ConsentDate na sessão/contato.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <!-- 2. Autosserviço Financeiro (OLX PRO) -->
+                 <h3><i data-feather="dollar-sign" class="w-5 h-5"></i> 2. Autosserviço Financeiro e Contratual (OLX PRO)</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Fluxo</th>
+                            <th width="42%">Regra de Negócio e Dados Necessários</th>
+                            <th width="35%">Solução Técnica (Integração)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">FIN-01</span></td><td><b>Consultar Faturas</b></td><td>Listar as últimas 5 faturas: Vencimento, Valor, Status (Pago/Aberto) e Forma Pagto.</td><td class="bg-tech">Apex Callout: API CONSULTAR-FATURA (Renderização em Carrossel).</td></tr>
+                        <tr><td><span class="id-badge">FIN-02</span></td><td><b>2ª Via Boleto</b></td><td>Se houver débito em aberto, gerar link PDF ou linha digitável.</td><td class="bg-tech">Integration: Botão aciona API que retorna URL do boleto.</td></tr>
+                        <tr><td><span class="id-badge">FIN-03</span></td><td><b>Status Contrato</b></td><td>Se suspenso/cancelado, bloquear "Publicar Anúncio" e forçar fluxo financeiro.</td><td class="bg-tech">Variable Check: ContractStatus != Active redireciona para Regularização.</td></tr>
+                        <tr><td><span class="id-badge">FIN-04</span></td><td><b>Consumo Limites</b></td><td>Exibir: Total de Anúncios Contratados vs. Utilizados e Data de Renovação.</td><td class="bg-tech">Apex Callout: Consumir API CONSUMO-LIMITE.</td></tr>
+                        <tr><td><span class="id-badge">FIN-05</span></td><td><b>Alerta Proativo</b></td><td>Se houver fatura vencida, exibir alerta imediato antes do Menu Principal.</td><td class="bg-tech">Bot Rule: Se OverdueDebt > 0, vai para Diálogo de Cobrança.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <!-- 3. Autosserviço de Carteira (OLX Pay) -->
+                 <h3><i data-feather="credit-card" class="w-5 h-5"></i> 3. Autosserviço de Carteira e Pagamentos (OLX Pay)</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Fluxo</th>
+                            <th width="42%">Regra de Negócio e Dados Necessários</th>
+                            <th width="35%">Solução Técnica (Integração)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">PAY-01</span></td><td><b>Consulta Saldo</b></td><td>Exibir saldo disponível e bloqueado.</td><td class="bg-tech">Apex Callout: Integração com sistema de Wallet.</td></tr>
+                        <tr><td><span class="id-badge">PAY-02</span></td><td><b>Saque</b></td><td>Permitir se Saldo > R$1,00. Validar dados bancários (Agência sem dígito).</td><td class="bg-tech">Flow com Validação: Inputs com Regex + Chamada de API.</td></tr>
+                        <tr><td><span class="id-badge">PAY-03</span></td><td><b>Inativação Conta</b></td><td>Bloquear se: Saldo > 0, Saque Pendente ou Venda em Andamento.</td><td class="bg-tech">Complex Condition: Consulta 3 endpoints (Saldo, Saques, Pedidos).</td></tr>
+                        <tr><td><span class="id-badge">PAY-04</span></td><td><b>Status Entrega</b></td><td>Rastrear pedido via Correios/Logística. Exibir status detalhado.</td><td class="bg-tech">Integration: Consulta API Logística via OrderId.</td></tr>
+                        <tr><td><span class="id-badge">PAY-05</span></td><td><b>Prob. Etiqueta</b></td><td>Permitir re-geração de etiqueta de envio se status permitir.</td><td class="bg-tech">Integration: Trigger de reenvio por e-mail via API OLX.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <!-- 4. Autosserviço de Anúncios (Core/ZAP) -->
+                 <h3><i data-feather="layout" class="w-5 h-5"></i> 4. Autosserviço de Anúncios e Conteúdo (Core/ZAP)</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Fluxo</th>
+                            <th width="42%">Regra de Negócio e Dados Necessários</th>
+                            <th width="35%">Solução Técnica (Integração)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">AD-01</span></td><td><b>Anúncio Recusado</b></td><td>Buscar últimos 3 anúncios recusados. Exibir: Data, Título, Motivo.</td><td class="bg-tech">Apex Callout: Consulta API AdReview e itera lista.</td></tr>
+                        <tr><td><span class="id-badge">AD-02</span></td><td><b>Destaque Inativo</b></td><td>Verificar se pagamento do destaque foi processado.</td><td class="bg-tech">Integration: Consultar status de pagamento do AdId.</td></tr>
+                        <tr><td><span class="id-badge">AD-03</span></td><td><b>Integração XML</b></td><td>Suporte técnico para integradores de anúncios em massa.</td><td class="bg-tech">Knowledge Base: Direciona para artigos do Developer Portal.</td></tr>
+                        <tr><td><span class="id-badge">AD-04</span></td><td><b>Vídeo no Anúncio</b></td><td>Validar URL do YouTube e regras de vídeo (ex: não aceita Shorts).</td><td class="bg-tech">Regex/Logic: Validar formato do link.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <!-- 5. Transbordo e Slack -->
+                 <h3><i data-feather="users" class="w-5 h-5"></i> 5. Arquitetura de Transbordo e Híbrida (Salesforce + Slack)</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Requisito</th>
+                            <th width="42%">Detalhe da Solução e Regra</th>
+                            <th width="35%">Solução Salesforce (TO-BE)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">OPS-01</span></td><td><b>Caso Existente</b></td><td>Antes de abrir ticket, checar se já existe caso aberto recente.</td><td class="bg-tech">Flow (Get Records): Consultar Case (Status!=Closed).</td></tr>
+                        <tr><td><span class="id-badge">OPS-02</span></td><td><b>Filas (Omni)</b></td><td>Roteamento por habilidade: ZAP vai para ZAP, Pay para Pay.</td><td class="bg-tech">Omni-Channel Flow: Regras baseadas em ServiceChannel.</td></tr>
+                        <tr><td><span class="id-badge">OPS-03</span></td><td><b>Disponibilidade</b></td><td>Se Fila Cheia ou Fora de Horário, oferecer abertura de ticket offline.</td><td class="bg-tech">Check Availability Action: Verifica capacidade no Omni.</td></tr>
+                        <tr><td><span class="id-badge">OPS-04</span></td><td><b>Transbordo Slack</b></td><td>Time de Cobrança (sem licença Salesforce) atende via Slack.</td><td class="bg-tech">Slack Swarming: Bot cria Case e sincroniza com Canal Slack.</td></tr>
+                        <tr><td><span class="id-badge">OPS-05</span></td><td><b>Mobilidade</b></td><td>Consultores de campo respondem via celular mantendo histórico.</td><td class="bg-tech">Salesforce/Slack Mobile App via Interaxa Connector.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <!-- 6. Mídia, UX e Analytics -->
+                 <h3><i data-feather="bar-chart-2" class="w-5 h-5"></i> 6. Mídia, UX e Analytics</h3>
+                 <table>
+                    <thead>
+                        <tr>
+                            <th width="8%">ID</th>
+                            <th width="15%">Requisito</th>
+                            <th width="42%">Detalhe</th>
+                            <th width="35%">Solução Salesforce (TO-BE)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="id-badge">UX-01</span></td><td><b>Áudio e Arq.</b></td><td>Suporte bidirecional para áudio e imagens (prints).</td><td class="bg-tech">Messaging for In-App and Web / WhatsApp Nativo.</td></tr>
+                        <tr><td><span class="id-badge">UX-02</span></td><td><b>CSAT In-Chat</b></td><td>Pesquisa de satisfação (1-5 e comentário) dentro da janela.</td><td class="bg-tech">Survey Component: Fluxo nativo no final do bot.</td></tr>
+                        <tr><td><span class="id-badge">AN-01</span></td><td><b>Data Lake</b></td><td>Enviar transcrições completas para S3/Data Lake para auditoria.</td><td class="bg-tech">Data Cloud / Conversation Data API.</td></tr>
+                        <tr><td><span class="id-badge">AN-02</span></td><td><b>ID Único Jornada</b></td><td>Rastrear o cliente desde o "Oi" até o fim do caso humano.</td><td class="bg-tech">MessagingSession ID como chave primária.</td></tr>
+                    </tbody>
+                 </table>
+
+                 <h2 class="section-title mt-12">Resumo de Implementação</h2>
+                 <div class="grid md:grid-cols-3 gap-6 mb-12">
+                    <div class="border p-5 rounded-lg bg-gray-50">
+                        <div class="text-xs font-bold text-gray-400 mb-1 uppercase">Total de Integrações</div>
+                        <div class="text-2xl font-bold brand-color">~30 APIs</div>
+                        <div class="text-xs mt-1">Apex Callouts e External Services</div>
+                    </div>
+                    <div class="border p-5 rounded-lg bg-gray-50">
+                        <div class="text-xs font-bold text-gray-400 mb-1 uppercase">Modelo de Dados</div>
+                        <div class="text-2xl font-bold brand-color">B2B + B2C</div>
+                        <div class="text-xs mt-1">Suporte simultâneo CPF/CNPJ</div>
+                    </div>
+                    <div class="border p-5 rounded-lg bg-gray-50">
+                        <div class="text-xs font-bold text-gray-400 mb-1 uppercase">Arquitetura</div>
+                        <div class="text-2xl font-bold brand-color">Híbrida</div>
+                        <div class="text-xs mt-1">Salesforce + Slack Connect</div>
+                    </div>
+                 </div>
+             </section>
+        </main>
+
+        <footer class="text-center py-6 text-xs text-gray-500 border-t bg-white">
+            Relatório de Discovery - C3C Software | Matriz de Requisitos Consolidada - 2024
+        </footer>
+    </div>
+
+    <button id="scrollToTopBtn" class="hidden fixed bottom-6 right-6 brand-accent-bg text-white p-3 rounded-full shadow-lg transition-all z-50">
+       <i data-feather="arrow-up" class="h-6 w-6"></i>
+    </button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            feather.replace();
+            const fadeInElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            fadeInElements.forEach(el => observer.observe(el));
+            
+            const btn = document.getElementById('scrollToTopBtn');
+            window.addEventListener('scroll', () => btn.classList.toggle('hidden', window.scrollY < 300));
+            btn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+</body>
+</html>
