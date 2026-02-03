@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proposta BQSC + Superplayer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800;900&family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-bqsc-dark: #26555C;
+            --color-bqsc-orange: #F2935C;
+            --color-bqsc-light: #F8F9FA;
+            --color-bqsc-green-leaf: #5C817D;
+            --color-sp-purple: #5F259F;
+        }
+
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        /* Cores */
+        .text-bqsc-dark { color: var(--color-bqsc-dark); }
+        .bg-bqsc-dark { background-color: var(--color-bqsc-dark); }
+        .text-bqsc-orange { color: var(--color-bqsc-orange); }
+        .bg-bqsc-orange { background-color: var(--color-bqsc-orange); }
+        .text-sp-purple { color: var(--color-sp-purple); }
+        .bg-sp-purple { background-color: var(--color-sp-purple); }
+        .bg-bqsc-light { background-color: var(--color-bqsc-light); }
+        .text-bqsc-green-leaf { color: var(--color-bqsc-green-leaf); }
+        .bg-bqsc-green-leaf { background-color: var(--color-bqsc-green-leaf); }
+
+        body {
+            font-family: 'Poppins', 'Nunito', sans-serif;
+            -webkit-print-color-adjust: exact; /* Força impressão de cores de fundo */
+            print-color-adjust: exact;
+        }
+
+        /* --- CONFIGURAÇÃO DE IMPRESSÃO --- */
+        @media print {
+            @page {
+                size: landscape; /* Sugere orientação paisagem */
+                margin: 0;
+            }
+            body {
+                background: white;
+            }
+            /* Esconde botões e barras de navegação na impressão */
+            .no-print {
+                display: none !important;
+            }
+            /* Força cada seção a ser uma página nova */
+            section {
+                break-after: page;
+                page-break-after: always;
+                height: 100vh !important;
+                display: flex !important;
+                page-break-inside: avoid;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            /* Ajustes finos para caber na folha A4 paisagem */
+            .print-container {
+                max-width: 100% !important;
+                width: 100% !important;
+                padding: 2rem !important;
+            }
+        }
+
+        /* --- Estilos Visuais --- */
+        .escalada-step {
+            transition: all 0.3s ease;
+        }
+        .escalada-step:hover {
+            transform: translateX(-5px);
+            background-color: var(--color-bqsc-green-leaf);
+            color: white;
+        }
+        
+        /* Larguras da escada */
+        .step-1 { width: 100%; opacity: 0.7; }
+        .step-2 { width: 92%; opacity: 0.8; }
+        .step-3 { width: 84%; opacity: 0.9; }
+        .step-4 { width: 76%; }
+        .step-5 { width: 68%; }
+        .step-6 { width: 60%; background-color: var(--color-bqsc-orange); color: white; border: none; }
+
+        .stat-card {
+            transition: transform 0.3s;
+        }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-50 py-3 px-6 flex justify-between items-center no-print">
+        <div class="flex items-center gap-2">
+            <span class="font-bold text-bqsc-dark">Bem Que Se Come</span>
+            <span class="text-gray-400">+</span>
+            <span class="font-bold text-sp-purple">Superplayer & Co</span>
+        </div>
+        <button onclick="window.print()" class="bg-bqsc-dark text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-bqsc-green-leaf transition flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+            Imprimir / Salvar PDF
+        </button>
+    </nav>
+
+    <main class="w-full max-w-5xl mx-auto bg-white shadow-2xl my-0 md:my-20 print:shadow-none print:my-0 print:max-w-none">
+
+        <section class="min-h-screen flex flex-col justify-center items-center text-center p-8 md:p-16 border-b border-gray-100 relative overflow-hidden print-container">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-bqsc-orange/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <img src="https://bemquesecome.com.br/img/logo.png" alt="Logo" class="h-32 md:h-48 object-contain mb-8 relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black text-bqsc-dark mb-4 tracking-tight">Proposta de Parceria</h1>
+            <div class="w-24 h-2 bg-bqsc-orange rounded-full mb-6"></div>
+            <p class="text-xl md:text-2xl text-gray-500 font-medium max-w-2xl">
+                Unindo Nutrição, Lúdico e Tecnologia para transformar a alimentação infantil.
+            </p>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 print-container">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark">A Nossa Conexão</h2>
+                <p class="text-gray-500 mt-2">Entendendo o processo de aprendizado alimentar</p>
+            </div>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-12 h-full">
+                <div class="w-full md:w-1/2 flex justify-center">
+                    <img src="https://c3c-github.github.io/consultoria/comercial/BQSC/hortaArildo.png" 
+                         class="max-h-[300px] md:max-h-[400px] object-contain drop-shadow-xl" 
+                         alt="Arildo e Tuco">
+                </div>
+                
+                <div class="w-full md:w-1/2 flex flex-col items-end">
+                    <div class="flex flex-col-reverse gap-2 w-full max-w-[300px]">
+                        <div class="w-full bg-white border border-gray-200 p-3 rounded-lg text-center font-bold text-bqsc-dark step-1">Tolerar</div>
+                        <div class="w-full bg-white border border-gray-200 p-3 rounded-lg text-center font-bold text-bqsc-dark step-2">Interagir</div>
+                        <div class="w-full bg-white border border-gray-200 p-3 rounded-lg text-center font-bold text-bqsc-dark step-3">Cheirar</div>
+                        <div class="w-full bg-white border border-gray-200 p-3 rounded-lg text-center font-bold text-bqsc-dark step-4">Tocar</div>
+                        <div class="w-full bg-white border border-gray-200 p-3 rounded-lg text-center font-bold text-bqsc-dark step-5">Provar</div>
+                        <div class="w-full bg-bqsc-orange text-white p-3 rounded-lg text-center font-bold shadow-lg step-6">Comer!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 bg-gray-50 print:bg-white print-container">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark">Resultados Explosivos</h2>
+                <p class="text-gray-500 mt-2">Dados dos últimos 90 dias (Out/24 a Jan/25)</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+                
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center stat-card">
+                    <span class="text-4xl font-black text-bqsc-dark">193,2 Mil</span>
+                    <span class="text-sm font-bold text-gray-500 uppercase mt-1">Seguidores Totais</span>
+                    <span class="text-xs text-green-600 font-bold mt-2 bg-green-50 px-2 py-1 rounded">+36,5% (+51.707 novos)</span>
+                    <p class="text-xs text-gray-400 mt-2">Crescimento 100% Orgânico</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center stat-card">
+                    <span class="text-4xl font-black text-bqsc-orange">5,2 Milhões</span>
+                    <span class="text-sm font-bold text-gray-500 uppercase mt-1">Contas Alcançadas</span>
+                    <span class="text-xs text-bqsc-orange font-bold mt-2 bg-orange-50 px-2 py-1 rounded">+62,6% no período</span>
+                    <p class="text-xs text-gray-400 mt-2">16,1 Mi Visualizações totais</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center stat-card">
+                    <span class="text-4xl font-black text-sp-purple">88,2%</span>
+                    <span class="text-sm font-bold text-gray-500 uppercase mt-1">Novos Públicos</span>
+                    <p class="text-sm text-gray-600 mt-2">Das 1,3 Mi de interações, a grande maioria vem de <strong>não-seguidores</strong>.</p>
+                    <span class="text-xs text-purple-600 font-bold mt-2">Furando a bolha</span>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col items-center text-center stat-card">
+                    <span class="text-4xl font-black text-blue-600">428 Mil</span>
+                    <span class="text-sm font-bold text-gray-500 uppercase mt-1">Compartilhamentos</span>
+                    <p class="text-sm text-gray-600 mt-2">Conteúdo altamente viral e salvável.</p>
+                    <span class="text-xs text-blue-600 font-bold mt-2 bg-blue-50 px-2 py-1 rounded">+206% Visitas ao Perfil</span>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 print-container">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-12 text-center">Quem Faz Acontecer</h2>
+            
+            <div class="flex flex-col md:flex-row items-center gap-10 bg-white md:bg-gray-50 md:p-10 rounded-3xl md:border border-gray-100 print:bg-white print:border-none print:p-0">
+                <div class="text-center">
+                    <img src="https://bemquesecome.com.br/img/profile.jpg" class="w-48 h-48 rounded-full border-4 border-white shadow-lg mx-auto object-cover" alt="Olívia">
+                    <h3 class="text-2xl font-black text-bqsc-dark mt-4">Olívia</h3>
+                    <p class="text-bqsc-orange font-bold uppercase text-sm">Fundadora BQSC</p>
+                </div>
+                <div class="flex-1 space-y-4 text-lg text-gray-600">
+                    <p>Apaixonada por crianças e alimentação saudável. <strong class="text-bqsc-dark">Técnica e graduanda em nutrição</strong>, especialista em Introdução Alimentar.</p>
+                    <p class="italic border-l-4 border-bqsc-dark pl-4 text-bqsc-dark">"Meu propósito é trabalhar por mais crianças comendo bem!"</p>
+                    <p>Leva conhecimento atualizado para cuidadores no Brasil e no mundo, com atendimentos online e presenciais em Ribeirão Preto-SP.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 print-container">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-16 text-center">Unindo Forças</h2>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-8 w-full">
+                <div class="bg-sp-purple text-white p-8 rounded-2xl shadow-lg w-full text-center print:shadow-none print:border print:border-gray-200 print:text-black">
+                    <h3 class="text-2xl font-bold mb-2 print:text-sp-purple">Superplayer & Co</h3>
+                    <p class="opacity-90">Plataforma, Tecnologia e Personagens Lúdicos.</p>
+                </div>
+                
+                <div class="text-5xl font-light text-gray-300">+</div>
+
+                <div class="bg-white border-2 border-bqsc-orange p-8 rounded-2xl shadow-lg w-full text-center print:shadow-none">
+                    <h3 class="text-2xl font-bold text-bqsc-dark mb-2">Bem Que Se Come</h3>
+                    <p class="text-gray-600">Conteúdo Prático, Autoridade Técnica e Comunidade.</p>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-2xl font-bold text-gray-700">= Ecossistema completo de nutrição infantil.</p>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 print-container">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-12 text-center">Nossos Pilares</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="text-center p-6 border rounded-xl bg-white">
+                    <div class="text-4xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold text-bqsc-dark mb-2">Conexão</h3>
+                    <p class="text-gray-600">Confiança estabelecida com pais e mães.</p>
+                </div>
+                <div class="text-center p-6 border rounded-xl bg-white">
+                    <div class="text-4xl mb-4">🥗</div>
+                    <h3 class="text-xl font-bold text-bqsc-dark mb-2">Técnica</h3>
+                    <p class="text-gray-600">Receitas validadas e nutricionalmente ricas.</p>
+                </div>
+                <div class="text-center p-6 border rounded-xl bg-white">
+                    <div class="text-4xl mb-4">🚀</div>
+                    <h3 class="text-xl font-bold text-bqsc-dark mb-2">Viralização</h3>
+                    <p class="text-gray-600">Alto engajamento orgânico.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center p-8 md:p-16 border-b border-gray-100 print-container">
+            <h2 class="text-3xl md:text-4xl font-extrabold text-bqsc-dark mb-12 text-center">Ideias para Co-criação</h2>
+            
+            <div class="bg-white border border-gray-200 rounded-2xl p-8 md:p-12 shadow-sm">
+                <ul class="space-y-6">
+                    <li class="flex items-start">
+                        <span class="text-bqsc-green-leaf font-bold text-xl mr-3">✓</span>
+                        <div>
+                            <strong class="text-bqsc-dark text-lg block">Lançamentos Sazonais</strong>
+                            <span class="text-gray-600">Ex: Guia de Lancheiras Volta às Aulas com Arildo.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-bqsc-green-leaf font-bold text-xl mr-3">✓</span>
+                        <div>
+                            <strong class="text-bqsc-dark text-lg block">Produtos Perenes</strong>
+                            <span class="text-gray-600">Ex: E-book de receitas divertidas do Chef Tuco.</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-bqsc-green-leaf font-bold text-xl mr-3">✓</span>
+                        <div>
+                            <strong class="text-bqsc-dark text-lg block">Experiências Híbridas</strong>
+                            <span class="text-gray-600">Livros interativos, Workshops e Hortas educacionais.</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="min-h-screen flex flex-col justify-center items-center text-center p-8 md:p-16 print-container">
+            <img src="https://bemquesecome.com.br/img/logo.png" alt="Logo" class="h-24 mb-6 opacity-80">
+            <h2 class="text-5xl font-black text-bqsc-dark mb-6">Vamos começar?</h2>
+            <p class="text-gray-500 text-lg mb-8">Estamos prontos para o próximo passo.</p>
+            
+            <div class="bg-gray-100 px-8 py-4 rounded-full no-print">
+                <span class="text-bqsc-dark font-bold">Contato:</span> olivia@bemquesecome.com.br
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-6 text-gray-400 text-sm no-print">
+        &copy; 2025 Bem Que Se Come + Superplayer & Co
+    </footer>
+
+</body>
+</html>
