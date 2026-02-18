@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê Executivo: Projeto Olgacolor</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Palette Definition: Vibrant Corporate (Deep Navy, Electric Blue, Alert Orange) -->
+    <!-- 
+        Palette Name: "Strategic Velocity"
+        Primary Dark: #1e1b4b (Indigo 950)
+        Primary Brand: #3b82f6 (Blue 500)
+        Accent Alert: #f97316 (Orange 500)
+        Success: #10b981 (Emerald 500)
+        Danger: #ef4444 (Red 500)
+        Background: #f8fafc (Slate 50)
+    -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#1e1b4b',
+                            primary: '#3b82f6',
+                            accent: '#f97316',
+                            success: '#10b981',
+                            danger: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Chart Container Styling per Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        /* Timeline Styling */
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #e2e8f0;
+            transform: translateX(-50%);
+            z-index: 0;
+        }
+        
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+    <!-- NO SVG USED: All icons are Unicode or CSS shapes. NO MERMAID JS USED. -->
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans leading-relaxed">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-brand-dark text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-bold uppercase tracking-wider">Dossiê Executivo <span class="text-brand-primary">Olgacolor</span></h1>
+                <p class="text-sm text-slate-400 mt-1">Status de Recuperação & Plano 80/20</p>
+            </div>
+            <div class="mt-4 md:mt-0 flex gap-4 text-sm font-semibold">
+                <span class="px-3 py-1 bg-brand-accent rounded text-white shadow">Status: Crítico</span>
+                <span class="px-3 py-1 bg-brand-primary rounded text-white shadow">Fase: Recuperação</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 max-w-7xl">
+
+        <!-- Section 1: Introduction & Context -->
+        <section class="mb-12">
+            <div class="bg-white rounded-xl shadow-md p-8 border-l-8 border-brand-accent">
+                <h2 class="text-2xl font-bold text-brand-dark mb-4">Visão Executiva</h2>
+                <p class="text-lg text-slate-600 mb-4">
+                    O projeto Salesforce Olgacolor enfrenta um momento decisivo. Impactado severamente por bloqueios de infraestrutura externos e uma lacuna de 8 meses na entrega de documentações vitais, o cronograma original foi comprometido.
+                </p>
+                <p class="text-lg text-slate-600">
+                    Apesar desses desafios exógenos, a C3C Software entregou acima do escopo contratado. Acionamos agora um <strong>Plano de Contingência (Estratégia 80/20)</strong> para garantir a operacionalização da "Máquina de Vendas" (Tiragem de Pedidos), isolando complexidades não essenciais para uma segunda fase.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 2: Key Metrics (Big Numbers) -->
+        <section class="mb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-lg shadow-md p-6 text-center border-t-4 border-brand-primary transform hover:-translate-y-1 transition duration-300">
+                <div class="text-5xl font-extrabold text-brand-primary mb-2">8 Meses</div>
+                <div class="text-sm font-bold text-slate-500 uppercase">Atraso de Insumos (Cliente)</div>
+                <p class="text-xs text-slate-400 mt-2">Documentação de API entregue apenas em Dez/2025</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center border-t-4 border-brand-accent transform hover:-translate-y-1 transition duration-300">
+                <div class="text-5xl font-extrabold text-brand-accent mb-2">15+</div>
+                <div class="text-sm font-bold text-slate-500 uppercase">Integrações Realizadas</div>
+                <p class="text-xs text-slate-400 mt-2">Contra apenas 6 contratadas originalmente</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-6 text-center border-t-4 border-brand-success transform hover:-translate-y-1 transition duration-300">
+                <div class="text-5xl font-extrabold text-brand-success mb-2">100%</div>
+                <div class="text-sm font-bold text-slate-500 uppercase">Foco na Venda</div>
+                <p class="text-xs text-slate-400 mt-2">Plano 80/20 prioriza a tiragem de pedidos</p>
+            </div>
+        </section>
+
+        <!-- Section 3: Timeline of Impediments -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-brand-dark mb-2">Cronograma de Bloqueios</h2>
+            <p class="text-slate-600 mb-8 max-w-3xl">Uma reconstrução factual dos eventos que impediram o progresso fluido do projeto, demonstrando a dependência de terceiros.</p>
+            
+            <div class="relative py-10">
+                <!-- Vertical Line -->
+                <div class="timeline-line hidden md:block"></div>
+
+                <!-- Item 1 -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative z-10">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-brand-primary shadow-xl w-10 h-10 rounded-full justify-center text-white font-bold text-lg">1</div>
+                    <div class="order-1 w-full md:w-5/12 bg-white rounded-lg shadow-md px-6 py-4 border-l-4 border-brand-primary mt-4 md:mt-0">
+                        <h3 class="mb-1 font-bold text-brand-dark">Março - Maio</h3>
+                        <p class="text-sm text-slate-600"><strong>Mapeamento "No Escuro":</strong> Início sem documentação técnica do SAP. Time C3C mapeou 864 tabelas manualmente devido à falta de insumos do parceiro SPS.</p>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative z-10">
+                    <div class="order-1 w-full md:w-5/12 bg-white rounded-lg shadow-md px-6 py-4 border-r-4 border-brand-accent text-right mt-4 md:mt-0 md:text-right text-left">
+                        <h3 class="mb-1 font-bold text-brand-dark">Junho - Novembro</h3>
+                        <p class="text-sm text-slate-600"><strong>Crise de Integração:</strong> Time do cliente falhou na entrega das APIs de pedidos. Mudanças constantes de estratégia e ausência de Ponto Focal (PO) decisório.</p>
+                    </div>
+                    <div class="z-20 flex items-center order-1 bg-brand-accent shadow-xl w-10 h-10 rounded-full justify-center text-white font-bold text-lg">2</div>
+                    <div class="order-1 w-full md:w-5/12"></div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="flex flex-col md:flex-row items-center justify-between mb-8 relative z-10">
+                    <div class="order-1 w-full md:w-5/12"></div>
+                    <div class="z-20 flex items-center order-1 bg-brand-danger shadow-xl w-10 h-10 rounded-full justify-center text-white font-bold text-lg">!</div>
+                    <div class="order-1 w-full md:w-5/12 bg-white rounded-lg shadow-md px-6 py-4 border-l-4 border-brand-danger mt-4 md:mt-0">
+                        <h3 class="mb-1 font-bold text-brand-dark">12 de Dezembro</h3>
+                        <p class="text-sm text-slate-600"><strong>O Marco do Atraso:</strong> A documentação oficial da API de Middleware (necessária para substituir a falha anterior) só foi entregue nesta data, travando o Core do projeto até então.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Scope Analysis (Chart) -->
+        <section class="mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Text Content -->
+                <div class="flex flex-col justify-center">
+                    <h2 class="text-2xl font-bold text-brand-dark mb-4">Contratado vs. Realizado</h2>
+                    <p class="text-slate-600 mb-4">
+                        A C3C atuou em boa fé (Good Faith), absorvendo complexidades ocultas. Enquanto a proposta original previa um cenário simples com 6 interfaces e documentação pronta, a realidade exigiu a construção de 15+ interfaces e engenharia reversa de documentação.
+                    </p>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <span class="mr-2 text-brand-success text-xl">✓</span>
+                            <span class="text-sm text-slate-700"><strong>Overdelivery:</strong> Entregas muito acima do volume comercial.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="mr-2 text-brand-accent text-xl">⚠</span>
+                            <span class="text-sm text-slate-700"><strong>Retrabalho:</strong> Múltiplas refatorações devido a 3 mudanças de estratégia de dados do cliente.</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-lg font-bold text-slate-700 mb-4 text-center">Volume de Integrações</h3>
+                    <div class="chart-container">
+                        <canvas id="scopeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Team Management & Burnout Context -->
+        <section class="mb-16 bg-white rounded-xl shadow-md overflow-hidden">
+            <div class="bg-brand-dark px-6 py-4 border-b border-slate-700">
+                <h2 class="text-xl font-bold text-white">Gestão de Crise & Equipe</h2>
+            </div>
+            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h3 class="text-lg font-bold text-brand-danger mb-2">Impacto Humano (Burnout)</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        A alta volatilidade e pressão gerada pelos atrasos de terceiros resultaram no afastamento médico do Líder de Projeto original em Nov/Dez.
+                    </p>
+                    <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+                        <p class="text-xs font-semibold text-red-800 uppercase mb-1">Ação Corretiva Imediata</p>
+                        <p class="text-sm text-red-900">Substituição do recurso e blindagem do time técnico.</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-brand-primary mb-2">Nova Estratégia: Modelo Híbrido</h3>
+                    <p class="text-slate-600 text-sm mb-4">
+                        Para mitigar a falta de governança interna do cliente, alteramos o modelo de trabalho.
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex-1 bg-blue-50 p-4 rounded-lg border border-blue-100 text-center">
+                            <span class="block text-2xl font-bold text-brand-primary">2x</span>
+                            <span class="text-xs text-blue-800 font-semibold">Semana Presencial</span>
+                        </div>
+                        <div class="flex-1 text-sm text-slate-600">
+                            Novo Analista de Requisitos atua in-loco para forçar definições e aprovações rápidas.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Recovery Plan (80/20 Strategy) -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-brand-dark mb-2">Plano de Recuperação 80/20</h2>
+            <p class="text-slate-600 mb-8">Estrutura de "War Room" dividida em duas frentes para garantir o Go-Live do essencial.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Squad 1 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-brand-primary">
+                    <h3 class="text-lg font-bold text-brand-dark mb-1">Squad 1: UX & Negócio</h3>
+                    <p class="text-xs text-slate-400 mb-4 uppercase font-bold tracking-wide">Foco: Front-end & Regras</p>
+                    <ul class="text-sm space-y-2 text-slate-600">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-brand-primary rounded-full mr-2"></span>Analista Híbrido</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-brand-primary rounded-full mr-2"></span>Desenvolvedor Front</li>
+                        <li class="mt-2 pt-2 border-t border-slate-100 italic">Meta: Validação da experiência de tiragem de pedido.</li>
+                    </ul>
+                </div>
+
+                <!-- Strategy Visual (Donut) -->
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center">
+                    <h3 class="text-sm font-bold text-slate-500 mb-2 uppercase">Foco Estratégico</h3>
+                    <div class="chart-container" style="height: 200px; max-height: 200px;">
+                        <canvas id="strategyChart"></canvas>
+                    </div>
+                    <p class="text-center text-xs text-slate-400 mt-2">100% dos Esforços em "Tiragem de Pedido"</p>
+                </div>
+
+                <!-- Squad 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-6 border-t-4 border-brand-accent">
+                    <h3 class="text-lg font-bold text-brand-dark mb-1">Squad 2: Core & Integração</h3>
+                    <p class="text-xs text-slate-400 mb-4 uppercase font-bold tracking-wide">Foco: Dados & Estabilidade</p>
+                    <ul class="text-sm space-y-2 text-slate-600">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-brand-accent rounded-full mr-2"></span>Arquiteto de Soluções</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-brand-accent rounded-full mr-2"></span>Dev Sênior Backend</li>
+                        <li class="mt-2 pt-2 border-t border-slate-100 italic">Meta: Conexão Middleware e fluxo transacional.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: MVP Definition (In vs Out) -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold text-brand-dark mb-6 text-center">Definição de MVP (Go-Live)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- IN: The Green Zone -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+                    <div class="bg-green-50 p-4 border-b border-green-100 flex justify-between items-center">
+                        <h3 class="font-bold text-green-800">✅ O QUE ENTRA (MVP)</h3>
+                        <span class="text-xs font-bold bg-green-200 text-green-800 px-2 py-1 rounded">Imediato</span>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start text-sm text-slate-700">
+                                <span class="text-green-500 font-bold mr-2">✓</span>
+                                Gestão completa de Contas e Contatos.
+                            </li>
+                            <li class="flex items-start text-sm text-slate-700">
+                                <span class="text-green-500 font-bold mr-2">✓</span>
+                                Catálogo de Produtos e Listas de Preço.
+                            </li>
+                            <li class="flex items-start text-sm text-slate-700 font-bold bg-green-50 p-1 rounded">
+                                <span class="text-green-500 font-bold mr-2">✓</span>
+                                Fluxo de Tiragem de Pedidos (Standard/Custom).
+                            </li>
+                            <li class="flex items-start text-sm text-slate-700">
+                                <span class="text-green-500 font-bold mr-2">✓</span>
+                                Integração de envio de pedido para o SAP.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- OUT: The Red Zone -->
+                <div class="bg-white rounded-xl shadow-md overflow-hidden border border-slate-200">
+                    <div class="bg-red-50 p-4 border-b border-red-100 flex justify-between items-center">
+                        <h3 class="font-bold text-red-800">❌ O QUE FICA PARA FASE 2</h3>
+                        <span class="text-xs font-bold bg-red-200 text-red-800 px-2 py-1 rounded">Pós-Go Live</span>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-start text-sm text-slate-700">
+                                <span class="text-red-400 font-bold mr-2">✕</span>
+                                Contrato de valor e sua gestão (Complexidade Fiscal).
+                            </li>
+                            <li class="flex items-start text-sm text-slate-700">
+                                <span class="text-red-400 font-bold mr-2">✕</span>
+                                Criação de "pedidos filhos" de antecipados por nota fiscal.
+                            </li>
+                            <li class="flex items-start text-sm text-slate-700 font-bold bg-red-50 p-1 rounded">
+                                <span class="text-red-400 font-bold mr-2">✕</span>
+                                Itens da Sprint 5 (Extra Escopo não contratado).
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section 8: Call to Action -->
+        <section class="bg-brand-dark rounded-xl shadow-xl p-8 text-white text-center">
+            <h2 class="text-2xl font-bold mb-4">Solicitação de Apoio Salesforce</h2>
+            <p class="mb-6 max-w-2xl mx-auto text-slate-300">
+                Para o sucesso desta retomada, precisamos do apoio institucional do AE e CS da Salesforce.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto text-left">
+                <div class="bg-white/10 p-4 rounded border border-white/20">
+                    <h4 class="font-bold text-brand-primary mb-1">1. Blindagem Técnica</h4>
+                    <p class="text-sm text-slate-300">Apoio para garantir o foco exclusivo no Go-Live de pedidos.</p>
+                </div>
+                <div class="bg-white/10 p-4 rounded border border-white/20">
+                    <h4 class="font-bold text-brand-primary mb-1">2. Governança Conjunta</h4>
+                    <p class="text-sm text-slate-300">Presença nas reuniões de check-point semanais para reforçar a adesão ao plano 80/20 junto à diretoria.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-200 py-6 mt-12">
+        <div class="container mx-auto px-4 text-center text-slate-500 text-sm">
+            <p>&copy; 2026 C3C Software. Documento Confidencial.</p>
+        </div>
+    </footer>
+
+    <!-- Chart Logic -->
+    <script>
+        // --- UTILITY: Label Wrapping Logic (Mandatory) ---
+        function formatLabels(labels) {
+            const MAX_LENGTH = 16;
+            return labels.map(label => {
+                if (label.length <= MAX_LENGTH) return label;
+                const words = label.split(' ');
+                const lines = [];
+                let currentLine = words[0];
+
+                for (let i = 1; i < words.length; i++) {
+                    if ((currentLine + " " + words[i]).length <= MAX_LENGTH) {
+                        currentLine += " " + words[i];
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = words[i];
+                    }
+                }
+                lines.push(currentLine);
+                return lines;
+            });
+        }
+
+        // --- UTILITY: Tooltip Callback (Mandatory) ---
+        const commonTooltipOptions = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: Scope Analysis (Bar Chart) ---
+        const scopeCtx = document.getElementById('scopeChart').getContext('2d');
+        const scopeLabels = ["Interfaces", "Documentação", "Funcionalidades"];
+        const formattedScopeLabels = formatLabels(scopeLabels);
+
+        new Chart(scopeCtx, {
+            type: 'bar',
+            data: {
+                labels: formattedScopeLabels,
+                datasets: [
+                    {
+                        label: 'Contratado (Proposta)',
+                        data: [6, 1, 4], // 6 interfaces, 1 doc set (assumed), 4 sprint blocks
+                        backgroundColor: '#94a3b8', // Slate 400 (Inactive/Base)
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Realizado (Entregue)',
+                        data: [15, 3, 5], // 15 interfaces, 3 rewrites, 5 sprint blocks (inc extra)
+                        backgroundColor: '#3b82f6', // Brand Primary
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { position: 'bottom' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: 'Unidades / Complexidade' }
+                    }
+                }
+            }
+        });
+
+        // --- CHART 2: Strategy Focus (Donut Chart) ---
+        const strategyCtx = document.getElementById('strategyChart').getContext('2d');
+        const strategyLabels = ["Tiragem de Pedidos (MVP)", "Antecipados & Extras (Fase 2)"];
+        const formattedStrategyLabels = formatLabels(strategyLabels);
+
+        new Chart(strategyCtx, {
+            type: 'doughnut',
+            data: {
+                labels: formattedStrategyLabels,
+                datasets: [{
+                    data: [80, 20],
+                    backgroundColor: [
+                        '#10b981', // Success Green (Focus)
+                        '#e2e8f0'  // Slate 200 (Deferred)
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    tooltip: commonTooltipOptions,
+                    legend: { display: false } // Hide legend for cleaner "widget" look
+                },
+                cutout: '70%'
+            }
+        });
+
+    </script>
+</body>
+</html>

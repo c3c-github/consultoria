@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geo-Intelligence Strategic Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f9ff; color: #0f172a; }
+        
+        /* Chart Container Styling Rules */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Constraint width for readability */
+            height: 350px;    /* Base height */
+            max-height: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        
+        /* Vibrant Palette: Brilliant Blues & Cyan Accents */
+        .bg-vibrant-primary { background-color: #0ea5e9; } /* Sky 500 */
+        .bg-vibrant-dark { background-color: #0369a1; } /* Sky 700 */
+        .text-vibrant-primary { color: #0ea5e9; }
+        .text-vibrant-dark { color: #0369a1; }
+        .border-vibrant { border-color: #0ea5e9; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #0ea5e9; border-radius: 4px; }
+    </style>
+    <!-- 
+        Palette Name: Brilliant Blues & Energy
+        HEX: #0ea5e9, #0369a1, #e0f2fe, #0f172a
+        Reason: Matches the "Karina Plásticos" brand preference and the "Professional & Stylish" theme.
+        NO SVG USED. NO MERMAID JS USED.
+    -->
+</head>
+<body class="antialiased selection:bg-sky-200 selection:text-sky-900">
+
+    <!-- Header Section -->
+    <header class="bg-gradient-to-r from-slate-900 to-sky-900 text-white py-16 px-6 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="inline-block bg-sky-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4 uppercase tracking-widest shadow-lg">Strategic Report</div>
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4 leading-tight">Geospatial Intelligence <br><span class="text-sky-400">for Sales Optimization</span></h1>
+            <p class="text-lg md:text-xl text-sky-100 max-w-2xl font-light">Transforming field data into actionable insights. Moving from simple control to strategic enablement using the Google Maps Platform.</p>
+        </div>
+        <!-- Abstract Decoration (CSS only) -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-sky-500 rounded-full opacity-10 blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12 space-y-20">
+
+        <!-- SECTION 1: The Context -->
+        <section>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-sky-500 pl-4">The Shift: Control vs. Enablement</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Historically, GPS tracking was viewed as a "Big Brother" mechanism. The modern approach flips this narrative. By using **Location Intelligence (LI)** and **Field Force Automation (FFA)**, we automate bureaucratic tasks (like check-ins) and optimize routes. This isn't about watching the seller; it's about giving them more time to sell.
+                    </p>
+                    <div class="bg-white p-6 rounded-xl shadow-md border-t-4 border-sky-500">
+                        <h3 class="font-bold text-slate-800 mb-2">Key Insight</h3>
+                        <p class="text-sm text-slate-600">A typical unoptimized seller spends up to <strong>40%</strong> of their day in unproductive travel. Geospatial tools aim to reclaim this lost revenue time.</p>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-lg font-bold text-slate-700 mb-6 text-center">Daily Time Allocation: Traditional vs. Optimized</h3>
+                    <!-- CHART 1: Stacked Bar Chart -->
+                    <div class="chart-container">
+                        <canvas id="efficiencyChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-slate-400 mt-4">Source: Industry Benchmarks & Report Analysis</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Architecture -->
+        <section class="bg-slate-50 rounded-3xl p-8 md:p-12 shadow-inner">
+            <h2 class="text-3xl font-bold text-slate-800 mb-8 text-center">System Architecture</h2>
+            <p class="text-center text-slate-600 max-w-3xl mx-auto mb-12">
+                A robust solution requires a three-layer architecture to securely process data and deliver insights. We utilize the Google Maps Platform for its superior data quality in Brazil.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Layer 1 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-b-4 border-slate-300">
+                    <div class="text-4xl mb-4">🗄️</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">1. Data Layer</h3>
+                    <p class="text-sm text-slate-500 mb-4 uppercase tracking-wide font-bold">Backend</p>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-300 rounded-full mr-2"></span>PostgreSQL + PostGIS</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-300 rounded-full mr-2"></span>CRM Data (Clients)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-slate-300 rounded-full mr-2"></span>GPS Logs</li>
+                    </ul>
+                </div>
+
+                <!-- Layer 2 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-b-4 border-sky-500 transform md:-translate-y-4">
+                    <div class="text-4xl mb-4">⚙️</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">2. Processing Layer</h3>
+                    <p class="text-sm text-sky-500 mb-4 uppercase tracking-wide font-bold">Middleware & APIs</p>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-sky-500 rounded-full mr-2"></span>Routes API (Optimization)</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-sky-500 rounded-full mr-2"></span>Geocoding API</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-sky-500 rounded-full mr-2"></span>Distance Matrix</li>
+                    </ul>
+                </div>
+
+                <!-- Layer 3 -->
+                <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 border-b-4 border-cyan-400">
+                    <div class="text-4xl mb-4">🖥️</div>
+                    <h3 class="text-xl font-bold text-slate-800 mb-2">3. Visualization</h3>
+                    <p class="text-sm text-cyan-500 mb-4 uppercase tracking-wide font-bold">Frontend</p>
+                    <ul class="text-slate-600 text-sm space-y-2">
+                        <li class="flex items-center"><span class="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>React / Angular</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>Google Maps JS API</li>
+                        <li class="flex items-center"><span class="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>deck.gl (Heatmaps)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Technical Deep Dive - Heatmaps -->
+        <section>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
+                    <h3 class="text-lg font-bold text-slate-700 mb-2">Rendering Performance: Native vs. WebGL</h3>
+                    <p class="text-xs text-slate-500 mb-6">Comparison of rendering points capacity before dropping frame rate (FPS).</p>
+                    <!-- CHART 2: Plotly Performance Chart -->
+                    <div id="performanceChart" class="w-full h-[350px]"></div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <h2 class="text-3xl font-bold text-slate-800 mb-4 border-l-4 border-cyan-400 pl-4">Advanced Visualization</h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        A critical finding in the technical analysis is the depreciation of the native Google Maps Heatmap layer. To handle large historical datasets (e.g., a year of visits), we must adopt <strong>deck.gl</strong>.
+                    </p>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Deck.gl utilizes <strong>WebGL</strong> to leverage the GPU, allowing the visualization of hundreds of thousands of data points without crashing the browser, whereas traditional CPU rendering struggles after a few thousand points.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-slate-100 p-4 rounded-lg">
+                            <h4 class="font-bold text-slate-800">Legacy Heatmap</h4>
+                            <p class="text-xs text-slate-500">CPU Bound</p>
+                            <p class="text-xs text-red-500 mt-1">Deprecated May '25</p>
+                        </div>
+                        <div class="bg-sky-50 p-4 rounded-lg border border-sky-100">
+                            <h4 class="font-bold text-sky-700">deck.gl</h4>
+                            <p class="text-xs text-slate-500">GPU Accelerated</p>
+                            <p class="text-xs text-green-500 mt-1">Recommended</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Economic Viability -->
+        <section class="bg-white rounded-3xl p-8 shadow-xl border-t border-slate-100">
+             <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-slate-800 mb-4 text-center">Structure of Costs (2025-2026)</h2>
+                <p class="text-center text-slate-600 mb-10">
+                    The Google Maps Platform operates on a "pay-as-you-go" model. Understanding the cost drivers is essential for ROI. The estimated monthly cost per seller ranges between <strong>$3.00 and $5.00</strong>.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                         <!-- CHART 3: Doughnut Cost Chart -->
+                         <div class="chart-container">
+                            <canvas id="costChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800 mb-4">Cost Optimization Strategies</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">💾</span>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-700">Geocoding Cache</h4>
+                                    <p class="text-xs text-slate-500">Store lat/long in your database. Never geocode the same client address twice.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">⏱️</span>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-700">Session Tokens</h4>
+                                    <p class="text-xs text-slate-500">Group autocomplete keystrokes into a single session to reduce API calls significantly.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="text-2xl mr-3">📉</span>
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-700">Daily Quotas</h4>
+                                    <p class="text-xs text-slate-500">Set hard limits in the Google Cloud Console to prevent budget overruns from loops.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- SECTION 5: Roadmap & Compliance -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <!-- Roadmap -->
+            <div>
+                <h2 class="text-2xl font-bold text-slate-800 mb-8 border-b pb-2">Implementation Roadmap</h2>
+                <div class="space-y-0 pl-4 border-l-2 border-slate-200">
+                    
+                    <div class="relative pl-8 pb-8">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-slate-300 border-2 border-white"></div>
+                        <h4 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-1">Month 1</h4>
+                        <h3 class="text-lg font-bold text-slate-800">Data Sanitation & Backend</h3>
+                        <p class="text-sm text-slate-600 mt-2">Export client base, batch geocoding, and setup of the database infrastructure.</p>
+                    </div>
+
+                    <div class="relative pl-8 pb-8">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-sky-300 border-2 border-white"></div>
+                        <h4 class="text-sm font-bold text-sky-500 uppercase tracking-widest mb-1">Month 2</h4>
+                        <h3 class="text-lg font-bold text-slate-800">The "Live" Dashboard</h3>
+                        <p class="text-sm text-slate-600 mt-2">Mobile coordinate capture, real-time tracking visualization, and cluster implementation.</p>
+                    </div>
+
+                    <div class="relative pl-8 pb-8">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-sky-500 border-2 border-white"></div>
+                        <h4 class="text-sm font-bold text-sky-500 uppercase tracking-widest mb-1">Month 3</h4>
+                        <h3 class="text-lg font-bold text-slate-800">Route Intelligence (TSP)</h3>
+                        <p class="text-sm text-slate-600 mt-2">Implementing Routes API, Waypoint optimization, and proximity search for gap filling.</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-cyan-500 border-2 border-white"></div>
+                        <h4 class="text-sm font-bold text-cyan-500 uppercase tracking-widest mb-1">Month 4+</h4>
+                        <h3 class="text-lg font-bold text-slate-800">Advanced Analytics</h3>
+                        <p class="text-sm text-slate-600 mt-2">deck.gl integration for heatmaps, revenue overlays, and predictive ETA analysis.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Legal/Compliance -->
+            <div class="bg-slate-800 text-white rounded-2xl p-8 shadow-2xl">
+                <h2 class="text-2xl font-bold mb-6 text-sky-400">LGPD & Legal Compliance</h2>
+                <p class="text-slate-300 text-sm mb-6">Tracking employees in Brazil is legal but requires strict adherence to privacy laws (LGPD) and labor laws (CLT).</p>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                        <span class="text-sm font-medium">Transparency Principle</span>
+                        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded">Mandatory</span>
+                    </div>
+                    <p class="text-xs text-slate-400 px-3 -mt-2 mb-2">Employees must be explicitly notified (Contract Addendum).</p>
+
+                    <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                        <span class="text-sm font-medium">Purpose Limitation</span>
+                        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded">Mandatory</span>
+                    </div>
+                    <p class="text-xs text-slate-400 px-3 -mt-2 mb-2">Tracking is only allowed during working hours. System must have "Privacy by Design" toggles.</p>
+
+                    <div class="flex items-center justify-between p-3 bg-slate-700 rounded-lg">
+                        <span class="text-sm font-medium">Data Security</span>
+                        <span class="text-xs bg-green-500 text-white px-2 py-1 rounded">Critical</span>
+                    </div>
+                    <p class="text-xs text-slate-400 px-3 -mt-2 mb-2">Location history is personal data. Leaks are severe infractions.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800">
+        <p class="mb-2">Generated for Karina Plásticos &bull; Geospatial Strategy Team</p>
+        <p class="text-xs text-slate-600">Based on "Painel de Geolocalização para Vendas.pdf" | 2026</p>
+    </footer>
+
+    <!-- SCRIPT SECTION -->
+    <script>
+        // --- HELPER: Label Wrapping for Chart.js ---
+        function wrapLabel(str, maxLen) {
+            if (str.length <= maxLen) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + " " + words[i]).length <= maxLen) {
+                    currentLine += " " + words[i];
+                } else {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        // --- GLOBAL: Tooltip Config ---
+        const globalTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    } else {
+                        return label;
+                    }
+                }
+            }
+        };
+
+        // --- CHART 1: Efficiency Stacked Bar Chart (Chart.js) ---
+        const ctxEfficiency = document.getElementById('efficiencyChart').getContext('2d');
+        const labelsEfficiency = ['Traditional Day', 'Optimized Day'];
+        
+        new Chart(ctxEfficiency, {
+            type: 'bar',
+            data: {
+                labels: labelsEfficiency,
+                datasets: [
+                    {
+                        label: 'Selling / Meeting Clients',
+                        data: [35, 60],
+                        backgroundColor: '#0ea5e9', // Sky 500
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Driving / Logistics',
+                        data: [45, 25],
+                        backgroundColor: '#64748b', // Slate 500
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Admin / Reporting',
+                        data: [20, 15], // Reduced admin due to automation
+                        backgroundColor: '#94a3b8', // Slate 400
+                        borderRadius: 4,
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { 
+                        stacked: true, 
+                        max: 100,
+                        title: { display: true, text: '% of Work Day' }
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: globalTooltipConfig,
+                    title: { display: false }
+                }
+            }
+        });
+
+        // --- CHART 2: Performance Plot (Plotly.js) ---
+        // Using scattergl for WebGL rendering to show performance difference
+        
+        const xValues = [1000, 5000, 10000, 50000, 100000, 200000];
+        const yNative = [60, 45, 20, 5, 1, 0]; // CPU Frames Per Second drops fast
+        const yDeckGL = [60, 60, 60, 58, 55, 50]; // GPU holds steady
+
+        const trace1 = {
+            x: xValues,
+            y: yNative,
+            mode: 'lines+markers',
+            name: 'Native Heatmap (CPU)',
+            line: { color: '#ef4444', width: 3 },
+            type: 'scattergl' // WebGL enabled
+        };
+
+        const trace2 = {
+            x: xValues,
+            y: yDeckGL,
+            mode: 'lines+markers',
+            name: 'deck.gl (WebGL/GPU)',
+            line: { color: '#0ea5e9', width: 4 },
+            type: 'scattergl' // WebGL enabled
+        };
+
+        const layoutPlotly = {
+            title: { text: 'Rendering Capacity (FPS vs Data Points)', font: { family: 'Inter', size: 16, color: '#334155' } },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            xaxis: { 
+                title: 'Number of Data Points', 
+                type: 'log', 
+                gridcolor: '#e2e8f0',
+                tickfont: { family: 'Inter', color: '#64748b' }
+            },
+            yaxis: { 
+                title: 'Frames Per Second (FPS)', 
+                range: [0, 70],
+                gridcolor: '#e2e8f0',
+                tickfont: { family: 'Inter', color: '#64748b' }
+            },
+            margin: { t: 40, b: 40, l: 60, r: 20 },
+            legend: { x: 0.7, y: 1 }
+        };
+
+        Plotly.newPlot('performanceChart', [trace1, trace2], layoutPlotly, {responsive: true, displayModeBar: false});
+
+        // --- CHART 3: Cost Doughnut Chart (Chart.js) ---
+        const ctxCost = document.getElementById('costChart').getContext('2d');
+        const labelsCostRaw = ['Routes API (Advanced Optimization)', 'Geocoding & Places', 'Dynamic Maps (Views)'];
+        const labelsCostWrapped = labelsCostRaw.map(l => wrapLabel(l, 20));
+
+        new Chart(ctxCost, {
+            type: 'doughnut',
+            data: {
+                labels: labelsCostWrapped,
+                datasets: [{
+                    data: [60, 25, 15], // Estimated breakdown based on report scenarios
+                    backgroundColor: [
+                        '#0ea5e9', // Sky 500 (Primary Driver)
+                        '#06b6d4', // Cyan 500
+                        '#cbd5e1'  // Slate 300
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' },
+                    tooltip: globalTooltipConfig,
+                    title: { 
+                        display: true, 
+                        text: 'Est. API Cost Distribution',
+                        font: { size: 16, family: 'Inter' },
+                        color: '#334155'
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>

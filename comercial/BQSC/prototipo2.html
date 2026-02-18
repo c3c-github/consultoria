@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funil Bem Que Se Come | Protótipos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Nunito', 'sans-serif'] },
+                    colors: {
+                        brand: {
+                            orange: '#F27A54',
+                            orangeHover: '#D96540',
+                            green: '#357A68',
+                            greenHover: '#2A6152',
+                            blue: '#2B6CB0',
+                            bg: '#FFFBF5',
+                            dark: '#2D3748'
+                        }
+                    }
+                }
+            }
+        }
+        
+        function showPage(pageId) {
+            // Oculta todas as páginas do protótipo
+            document.querySelectorAll('.funnel-page').forEach(el => el.classList.add('hidden'));
+            // Mostra a selecionada
+            document.getElementById(pageId).classList.remove('hidden');
+            
+            // Estiliza os botões do menu do topo
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-yellow-400', 'scale-105');
+                btn.classList.add('opacity-70');
+            });
+            
+            const activeBtn = document.getElementById('btn-' + pageId);
+            activeBtn.classList.remove('opacity-70');
+            activeBtn.classList.add('ring-4', 'ring-yellow-400', 'scale-105');
+            
+            window.scrollTo(0, 0);
+        }
+    </script>
+</head>
+<body class="bg-gray-100 text-brand-dark antialiased selection:bg-brand-orange selection:text-white">
+
+    <div class="bg-gray-900 sticky top-0 z-50 p-4 shadow-2xl border-b border-gray-700">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-white font-black text-sm uppercase tracking-widest flex items-center gap-2">
+                <span class="text-xl">⚙️</span> Simulador de Funil
+            </div>
+            <div class="flex flex-wrap justify-center gap-3">
+                <button id="btn-page-receitas" onclick="showPage('page-receitas')" class="nav-btn bg-brand-orange text-white px-4 py-2 rounded-xl font-bold text-sm transition-all ring-4 ring-yellow-400 scale-105 shadow-lg">
+                    1. Combo Receitas (A Isca)
+                </button>
+                <button id="btn-page-semeia" onclick="showPage('page-semeia')" class="nav-btn bg-brand-green text-white px-4 py-2 rounded-xl font-bold text-sm transition-all opacity-70 hover:opacity-100">
+                    2. Curso Semeia (O Premium)
+                </button>
+                <button id="btn-page-guia" onclick="showPage('page-guia')" class="nav-btn bg-brand-blue text-white px-4 py-2 rounded-xl font-bold text-sm transition-all opacity-70 hover:opacity-100">
+                    3. Guia Semeia (O Resgate)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto md:py-8">
+        <div class="bg-white md:rounded-[3rem] shadow-2xl overflow-hidden border border-gray-100 relative">
+            
+            <div id="page-receitas" class="funnel-page block bg-brand-bg">
+                <header class="bg-orange-50/50 py-6 text-center border-b border-orange-100">
+                    <h2 class="text-brand-orange font-black text-2xl tracking-tight">🥣 Bem Que Se Come</h2>
+                </header>
+                
+                <section class="pt-16 pb-20 px-6 max-w-4xl mx-auto text-center">
+                    <div class="inline-block bg-white text-brand-orange font-black px-5 py-2 rounded-full text-xs uppercase tracking-widest mb-8 shadow-sm border border-orange-100">
+                        🍓 Especial Introdução Alimentar & BLW
+                    </div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-gray-900">
+                        O cardápio do seu bebê resolvido. <br><span class="text-brand-orange">Sem você passar horas na cozinha.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-gray-600 mb-12 font-medium max-w-2xl mx-auto">
+                        Leve o Combo Definitivo com 75 receitas práticas: Lanchinhos, Pãezinhos e o menu completo para a Festinha de 1 Ano. Zero açúcar e liberadas para menores de 2 anos.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6 mb-16 text-left">
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-orange-50 transform transition hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-5xl mb-4 text-center">🥐</div>
+                            <h3 class="font-black text-xl mb-2 text-gray-800 text-center">Pãezinhos</h3>
+                            <p class="text-sm text-gray-500 font-bold text-center">Sem farinha branca, sal ou conservantes de padaria.</p>
+                        </div>
+                        <div class="bg-brand-orange p-8 rounded-3xl shadow-xl border border-orange-400 transform transition hover:-translate-y-2 scale-105 z-10 text-white">
+                            <div class="text-5xl mb-4 text-center">🎂</div>
+                            <h3 class="font-black text-xl mb-2 text-center">Festinhas</h3>
+                            <p class="text-sm text-orange-100 font-bold text-center">O bolo de mesversário perfeito e 100% sem açúcar.</p>
+                        </div>
+                        <div class="bg-white p-8 rounded-3xl shadow-sm border border-orange-50 transform transition hover:-translate-y-2 hover:shadow-xl">
+                            <div class="text-5xl mb-4 text-center">🥪</div>
+                            <h3 class="font-black text-xl mb-2 text-gray-800 text-center">Lanchinhos</h3>
+                            <p class="text-sm text-gray-500 font-bold text-center">Ideias nutritivas e rápidas para a lancheira da creche.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-white max-w-md mx-auto p-8 md:p-10 rounded-[2.5rem] shadow-2xl border-2 border-brand-orange relative text-left">
+                        <div class="absolute -top-5 left-1/2 transform -translate-x-1/2 bg-brand-orange text-white text-xs font-black px-6 py-2 rounded-full uppercase tracking-wider shadow-lg whitespace-nowrap">
+                            Acesso Imediato
+                        </div>
+                        <p class="text-gray-400 font-bold line-through mb-1 text-sm text-center mt-2">Valor original: R$ 247,00</p>
+                        <p class="text-5xl font-black text-gray-900 mb-8 text-center">R$ 147<span class="text-2xl text-gray-400">,00</span></p>
+                        
+                        <button class="w-full py-5 text-center bg-brand-orange hover:bg-brand-orangeHover text-white rounded-2xl font-black text-xl shadow-lg shadow-orange-200 transition-transform transform hover:-translate-y-1 mb-6">
+                            BAIXAR O COMBO AGORA ➔
+                        </button>
+                        
+                        <div class="bg-blue-50/80 rounded-2xl p-4 border border-dashed border-blue-300 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-blue-200 text-blue-800 text-[9px] font-black px-2 py-1 rounded-bl-lg uppercase">Simulação Hotmart</div>
+                            <label class="flex items-start gap-3 cursor-pointer mt-3">
+                                <input type="checkbox" checked class="mt-1 w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-600 accent-blue-600">
+                                <div>
+                                    <span class="block text-sm font-black text-blue-900 mb-1 uppercase tracking-wider text-xs">🚨 Evite engasgos</span>
+                                    <span class="block text-xs font-bold text-blue-800/80 leading-tight">Você tem a receita, mas tem o método? Adicione o Guia Passo a Passo Semeia por <strong class="bg-blue-200 px-1 rounded text-blue-900">+R$ 67,00</strong>.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="page-semeia" class="funnel-page hidden bg-white">
+                <header class="bg-brand-green py-3 text-center shadow-sm">
+                    <h2 class="text-green-100 font-black text-xs tracking-widest uppercase">⚠️ Vagas Abertas: Assista ao vídeo abaixo</h2>
+                </header>
+                
+                <section class="pt-16 pb-20 px-6 text-center bg-gradient-to-b from-green-50/50 to-white">
+                    <div class="max-w-4xl mx-auto">
+                        <div class="inline-flex items-center gap-2 bg-white text-brand-green font-black px-5 py-2 rounded-full text-xs uppercase tracking-widest mb-6 shadow-sm border border-green-100">
+                            👩‍⚕️ Método com Chancela de Médica Pediatra
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-gray-900">
+                            A Introdução Alimentar Segura, <br><span class="text-brand-green underline decoration-yellow-400 decoration-4 underline-offset-4">Sem Medo de Engasgo.</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-gray-600 mb-12 font-medium max-w-2xl mx-auto">
+                            O único passo a passo em vídeo que ensina os cortes seguros e a diferença entre ânsia e engasgo real, sem você depender de "achismos" da internet.
+                        </p>
+                        
+                        <div class="w-full max-w-3xl mx-auto bg-gray-900 aspect-video rounded-3xl shadow-2xl flex items-center justify-center mb-16 border-4 border-white relative overflow-hidden group cursor-pointer ring-1 ring-black/5">
+                            <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=1000&q=80')] bg-cover bg-center opacity-50 mix-blend-overlay transition-transform duration-700 group-hover:scale-105"></div>
+                            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors"></div>
+                            <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center pl-2 shadow-[0_0_30px_rgba(250,204,21,0.5)] group-hover:scale-110 transition-transform z-10">
+                                <svg class="w-10 h-10 text-yellow-900" fill="currentColor" viewBox="0 0 20 20"><path d="M4 4l12 6-12 6z"></path></svg>
+                            </div>
+                            <span class="absolute bottom-4 left-6 text-white font-bold text-sm z-10 bg-black/50 px-3 py-1 rounded-lg backdrop-blur-sm">▶ Clique para assistir</span>
+                        </div>
+
+                        <div class="flex flex-col md:flex-row items-center gap-10 max-w-4xl mx-auto text-left">
+                            <div class="w-full md:w-1/2 space-y-6">
+                                <h3 class="text-3xl font-black text-gray-900 mb-2">Sua paz garantida:</h3>
+                                <ul class="space-y-4 font-bold text-gray-700 text-lg">
+                                    <li class="flex items-center gap-4"><span class="bg-green-100 text-brand-green w-10 h-10 rounded-xl flex items-center justify-center shrink-0">🔪</span> Aulas de Cortes Seguros (BLW)</li>
+                                    <li class="flex items-center gap-4"><span class="bg-green-100 text-brand-green w-10 h-10 rounded-xl flex items-center justify-center shrink-0">🫁</span> Diferença: Engasgo x Reflexo GAG</li>
+                                    <li class="flex items-center gap-4"><span class="bg-green-100 text-brand-green w-10 h-10 rounded-xl flex items-center justify-center shrink-0">👶</span> Sinais de Prontidão do Bebê</li>
+                                </ul>
+                            </div>
+
+                            <div class="w-full md:w-1/2 bg-gray-50 rounded-[2.5rem] p-8 md:p-10 shadow-xl border border-gray-100 relative">
+                                <div class="absolute -top-4 right-8 bg-yellow-400 text-yellow-900 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-sm">
+                                    7 Dias de Garantia
+                                </div>
+                                <p class="text-gray-400 font-bold line-through mb-1 text-sm mt-2">Valor do Curso: R$ 597,00</p>
+                                <p class="text-5xl font-black text-brand-green mb-8">R$ 352<span class="text-2xl text-green-700/50">,70</span></p>
+                                
+                                <button class="block w-full py-5 text-center bg-brand-green hover:bg-brand-greenHover text-white rounded-2xl font-black text-xl shadow-lg shadow-green-200 transition-transform transform hover:-translate-y-1 mb-6">
+                                    GARANTIR MINHA VAGA
+                                </button>
+                                
+                                <div class="space-y-3 relative">
+                                    <div class="absolute -top-6 right-0 bg-gray-200 text-gray-600 text-[9px] font-black px-2 py-1 rounded-t-lg uppercase z-10">Simulação Checkout</div>
+                                    <div class="bg-orange-50 rounded-2xl p-4 border border-dashed border-orange-300 relative z-20">
+                                        <label class="flex items-start gap-3 cursor-pointer">
+                                            <input type="checkbox" checked class="mt-1 w-5 h-5 rounded border-gray-300 text-brand-orange focus:ring-brand-orange accent-brand-orange">
+                                            <div>
+                                                <span class="block text-sm font-black text-orange-900 mb-1 uppercase tracking-wider text-[10px]">🚨 Facilite a Rotina</span>
+                                                <span class="block text-[11px] font-bold text-orange-800/80 leading-tight">Leve o Combo 75 Receitas Práticas por <strong class="bg-orange-200 px-1 rounded text-orange-900">+R$ 67,00</strong>.</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="bg-blue-50 rounded-2xl p-4 border border-dashed border-blue-300 relative z-20">
+                                        <label class="flex items-start gap-3 cursor-pointer">
+                                            <input type="checkbox" checked class="mt-1 w-5 h-5 rounded border-gray-300 text-brand-blue focus:ring-brand-blue accent-brand-blue">
+                                            <div>
+                                                <span class="block text-sm font-black text-blue-900 mb-1 uppercase tracking-wider text-[10px]">🚨 Consulta Rápida</span>
+                                                <span class="block text-[11px] font-bold text-blue-800/80 leading-tight">Leve a Apostila do Curso para ler no celular por <strong class="bg-blue-200 px-1 rounded text-blue-900">+R$ 47,00</strong>.</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="page-guia" class="funnel-page hidden bg-gray-900">
+                <header class="bg-gray-800 py-4 text-center border-b border-gray-700">
+                    <h2 class="text-gray-300 font-black text-sm tracking-widest uppercase flex items-center justify-center gap-2">
+                        <span class="text-brand-orange">🔒</span> Página Oculta • Apenas Convidados
+                    </h2>
+                </header>
+                
+                <section class="pt-16 pb-24 px-6 text-center text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/20 rounded-full blur-[100px]"></div>
+                    <div class="absolute bottom-0 left-0 w-64 h-64 bg-brand-green/20 rounded-full blur-[100px]"></div>
+                    
+                    <div class="max-w-3xl mx-auto relative z-10">
+                        <h1 class="text-4xl md:text-5xl font-black leading-tight mb-6">
+                            O curso em vídeo pesou no seu orçamento este mês?
+                        </h1>
+                        <p class="text-xl text-gray-400 mb-12 font-medium leading-relaxed">
+                            Eu vi que você não finalizou o Semeia. A introdução alimentar não pode esperar. Por isso, liberei uma <span class="text-white font-bold border-b border-brand-green pb-1">alternativa de leitura rápida</span> para você não fazer isso no escuro.
+                        </p>
+                        
+                        <div class="bg-gray-800 p-8 md:p-12 rounded-[3rem] border border-gray-700 text-left shadow-2xl flex flex-col sm:flex-row items-center gap-8">
+                            <div class="w-32 h-44 bg-gray-700 rounded-2xl shadow-inner border border-gray-600 flex flex-col items-center justify-center p-4 text-center transform -rotate-3 shrink-0">
+                                <span class="text-4xl mb-2">📱</span>
+                                <span class="font-black text-[10px] text-gray-300 uppercase tracking-widest">Guia<br>PDF</span>
+                            </div>
+                            
+                            <div class="flex-1">
+                                <h3 class="text-2xl md:text-3xl font-black text-white mb-2">Guia Alimentar Semeia</h3>
+                                <p class="text-gray-400 font-medium mb-6 text-sm">Todo o método validado pela pediatra, resumido em formato de leitura. Consulte rapidamente no celular na hora de cozinhar.</p>
+                                
+                                <ul class="space-y-3 font-bold text-gray-300 mb-8 text-sm">
+                                    <li class="flex items-center gap-3"><span class="text-brand-green">✅</span> Tabelas práticas de cortes e evolução.</li>
+                                    <li class="flex items-center gap-3"><span class="text-brand-green">✅</span> Sinais de prontidão e GAG x Engasgo.</li>
+                                    <li class="flex items-center gap-3"><span class="text-brand-green">✅</span> Menos da metade do preço do curso.</li>
+                                </ul>
+
+                                <div class="flex flex-col xl:flex-row items-center justify-between gap-6 border-t border-gray-700 pt-6">
+                                    <div class="text-center xl:text-left">
+                                        <span class="block text-xs text-gray-500 font-bold uppercase tracking-wider mb-1 line-through">Curso: R$ 352,70</span>
+                                        <span class="text-4xl font-black text-white">R$ 167<span class="text-xl text-gray-500">,00</span></span>
+                                    </div>
+                                    <button class="w-full xl:w-auto px-8 py-4 bg-brand-blue hover:bg-blue-600 text-white text-center rounded-2xl font-black text-lg shadow-lg shadow-blue-900/50 transition-transform transform hover:-translate-y-1">
+                                        QUERO O GUIA ESCRITO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+        </div>
+
+        <footer class="mt-8 text-center px-6">
+            <div class="bg-white border border-gray-200 rounded-3xl p-6 md:p-8 mb-6 text-left flex flex-col md:flex-row gap-6 items-start md:items-center shadow-sm max-w-4xl mx-auto">
+                <div class="text-4xl grayscale opacity-80 shrink-0">👩‍⚕️</div>
+                <div>
+                    <strong class="text-gray-900 block mb-2 text-xs uppercase tracking-widest font-black">Validação e Responsabilidade Médica</strong>
+                    <p class="text-sm font-semibold text-gray-600 leading-relaxed">
+                        O Método Semeia (Cursos e Guias) é revisado e validado pela <span class="text-brand-green font-bold">Dra. Nathalia [Sobrenome da Médica], Médica Pediatra - CRM [Número]</span>. Este material é educativo e não substitui consultas presenciais regulares com o pediatra.
+                    </p>
+                </div>
+            </div>
+            <p class="text-sm font-bold text-gray-400 mb-8">&copy; 2026 Bem Que Se Come. Todos os direitos reservados.</p>
+        </footer>
+
+    </div>
+</body>
+</html>

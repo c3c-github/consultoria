@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plano de Recuperação Olgacolor - Dossiê Executivo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        c3c: {
+                            blue: '#002F6C', // Azul Institucional Escuro
+                            light: '#0070D2', // Azul Salesforce
+                            accent: '#F26522' // Laranja destaque
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .slide {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .logo-h {
+            height: 40px;
+            object-fit: contain;
+        }
+        /* Custom Scrollbar for tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-slate-800 h-screen w-screen overflow-hidden flex flex-col">
+
+    <!-- Header Fixo -->
+    <header class="bg-white shadow-sm py-4 px-8 flex justify-between items-center z-50 h-20">
+        <div class="flex items-center gap-6">
+            <!-- Logos -->
+            <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="C3C Logo" class="logo-h">
+            <div class="h-8 w-px bg-gray-300"></div>
+            <img src="https://www.sparkplug.ai/wp-content/uploads/2023/10/salesforce-logo.png" alt="Salesforce Logo" class="logo-h">
+            <div class="h-8 w-px bg-gray-300"></div>
+            <img src="https://olgacolor.com.br/wp-content/uploads/2019/07/logo-olga-color-250.png" alt="Olgacolor Logo" class="logo-h">
+        </div>
+        <div class="text-right">
+            <h1 class="text-sm font-bold text-gray-400 tracking-widest uppercase">Plano de Recuperação</h1>
+            <p class="text-xs text-gray-400">09/02/2026</p>
+        </div>
+    </header>
+
+    <!-- Main Content Area (Slides) -->
+    <main class="flex-1 relative w-full h-full p-8 md:p-12 overflow-hidden flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+
+        <!-- SLIDE 1: Capa -->
+        <div class="slide active flex-col justify-center items-center text-center w-full max-w-5xl h-full" id="slide-1">
+            <div class="bg-white p-16 rounded-2xl shadow-2xl border-t-8 border-c3c-blue w-full">
+                <span class="bg-blue-100 text-c3c-blue px-4 py-2 rounded-full text-sm font-bold tracking-wide uppercase mb-6 inline-block">Dossiê Executivo</span>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 mb-6 leading-tight">
+                    Projeto Olgacolor:<br>
+                    <span class="text-c3c-light">Plano 80/20</span>
+                </h1>
+                <p class="text-xl text-slate-500 max-w-2xl mx-auto mb-12">
+                    Diagnóstico, Cronograma de Retomada e Estratégia de Entrega do MVP.
+                </p>
+                <div class="grid grid-cols-3 gap-8 max-w-3xl mx-auto text-left">
+                    <div class="border-l-4 border-c3c-accent pl-4">
+                        
+                    </div>
+                    <div class="border-l-4 border-c3c-light pl-4">
+                        <p class="text-sm text-gray-400 font-bold uppercase">Estratégia</p>
+                        <p class="text-2xl font-bold text-slate-800">Foco em Vendas</p>
+                    </div>
+                    <div class="border-l-4 border-green-500 pl-4">
+                        <p class="text-sm text-gray-400 font-bold uppercase">Status</p>
+                        <p class="text-2xl font-bold text-slate-800">Recuperação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Contexto (Vendido vs Real) -->
+        <div class="slide flex-col w-full max-w-6xl h-full justify-center" id="slide-2">
+            <h2 class="text-3xl font-bold text-c3c-blue mb-8 border-b pb-4">1. O Desafio: Expectativa vs. Realidade</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                <!-- Expectativa -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-l-8 border-gray-300">
+                    <h3 class="text-xl font-bold text-gray-500 mb-6 flex items-center">
+                        <span class="bg-gray-200 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">A</span>
+                        O que foi Contratado
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-gray-400 mr-2 mt-1">●</span>
+                            <p class="text-gray-600"><strong>6 Interfaces</strong> mapeadas.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 mr-2 mt-1">●</span>
+                            <p class="text-gray-600">Premissa de <strong>documentação SAP pronta</strong>.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-400 mr-2 mt-1">●</span>
+                            <p class="text-gray-600">Complexidade Baixa/Média.</p>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Realidade -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-l-8 border-c3c-accent relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-c3c-accent text-white text-xs font-bold px-3 py-1 rounded-bl-lg">CENÁRIO ATUAL</div>
+                    <h3 class="text-xl font-bold text-c3c-accent mb-6 flex items-center">
+                        <span class="bg-orange-100 text-c3c-accent rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">B</span>
+                        A Realidade Entregue (Good Faith)
+                    </h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span class="text-c3c-accent mr-2 mt-1 font-bold">➜</span>
+                            <p class="text-slate-700"><strong>15+ Interfaces</strong> desenvolvidas para sustentar o negócio.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-c3c-accent mr-2 mt-1 font-bold">➜</span>
+                            <p class="text-slate-700"><strong>Zero documentação SAP.</strong> C3C mapeou 864 tabelas via engenharia reversa.</p>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-c3c-accent mr-2 mt-1 font-bold">➜</span>
+                            <p class="text-slate-700">Atraso de 8 meses na entrega de APIs pelo cliente.</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Linha do Tempo e Bloqueios -->
+        <div class="slide flex-col w-full max-w-6xl h-full justify-center" id="slide-3">
+            <h2 class="text-3xl font-bold text-c3c-blue mb-2">2. Jornada & Bloqueios Críticos</h2>
+            <p class="text-gray-500 mb-8">Como fatores externos impactaram o cronograma original.</p>
+            
+            <div class="relative mt-8">
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gray-200"></div>
+                
+                <!-- Event 1 -->
+                <div class="flex items-center justify-between mb-8 w-full relative z-10">
+                    <div class="w-5/12 text-right pr-8">
+                        <h4 class="font-bold text-lg text-slate-800">Início sem Dados</h4>
+                        <p class="text-sm text-gray-500">Março - Maio</p>
+                        <p class="text-sm mt-2 text-slate-600">Parceiro SPS não entregou documentação. C3C atuou "no escuro".</p>
+                    </div>
+                    <div class="w-8 h-8 bg-gray-400 rounded-full border-4 border-white shadow"></div>
+                    <div class="w-5/12 pl-8"></div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="flex items-center justify-between mb-8 w-full relative z-10">
+                    <div class="w-5/12 pr-8"></div>
+                    <div class="w-8 h-8 bg-c3c-light rounded-full border-4 border-white shadow"></div>
+                    <div class="w-5/12 pl-8 text-left">
+                        <h4 class="font-bold text-lg text-slate-800">Labirinto da Integração</h4>
+                        <p class="text-sm text-gray-500">Junho - Novembro</p>
+                        <p class="text-sm mt-2 text-slate-600">Falha na entrega de APIs pelo cliente. 3 mudanças de estratégia (Retrabalho).</p>
+                    </div>
+                </div>
+
+                <!-- Event 3 - CRITICAL -->
+                <div class="flex items-center justify-between w-full relative z-10">
+                    <div class="w-5/12 text-right pr-8">
+                        <h4 class="font-bold text-xl text-c3c-accent">O Desbloqueio Tardio</h4>
+                        <p class="text-sm font-bold text-c3c-accent">12 DE DEZEMBRO DE 2025</p>
+                        <p class="text-sm mt-2 text-slate-700 bg-orange-50 p-3 rounded border border-orange-200 shadow-sm inline-block">
+                            Somente nesta data a documentação oficial da API de Middleware foi entregue. <br>8 meses de bloqueio no Core.
+                        </p>
+                    </div>
+                    <div class="w-10 h-10 bg-c3c-accent rounded-full border-4 border-white shadow-lg animate-pulse"></div>
+                    <div class="w-5/12 pl-8">
+                         <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                             <p class="text-xs text-red-800 font-bold">IMPACTO HUMANO</p>
+                             <p class="text-xs text-red-700">Burnout da Liderança Técnica devido à pressão. <br>Recurso substituído e estratégia híbrida ativada.</p>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Estratégia 80/20 -->
+        <div class="slide flex-col w-full max-w-6xl h-full justify-center" id="slide-4">
+            <h2 class="text-3xl font-bold text-c3c-blue mb-4">3. O Plano de Guerra: Estratégia 80/20</h2>
+            <p class="text-xl text-slate-600 mb-10 max-w-4xl">
+                Objetivo único: Colocar a <strong>"Máquina de Vendas"</strong> (Tiragem de Pedidos) para rodar, isolando complexidades contratuais para a Fase 2.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Squad 1 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border-t-8 border-c3c-light transform hover:-translate-y-1 transition duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-slate-800">Squad 1: UX & Negócio</h3>
+                        <span class="bg-blue-100 text-c3c-light px-3 py-1 rounded text-xs font-bold uppercase">Front & Fluxo</span>
+                    </div>
+                    <p class="text-slate-600 mb-6">Garantir que a ferramenta seja amigável e funcional para o vendedor.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 mr-4">P</div>
+                            <div>
+                                <p class="font-bold text-slate-800">Priscila (Híbrida)</p>
+                                <p class="text-xs text-slate-500">Cadastros, Treinamento e QA In-loco</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 mr-4">J</div>
+                            <div>
+                                <p class="font-bold text-slate-800">Jully</p>
+                                <p class="text-xs text-slate-500">Ferramentas Customizadas & UX</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Squad 2 -->
+                <div class="bg-white rounded-xl shadow-lg p-8 border-t-8 border-c3c-blue transform hover:-translate-y-1 transition duration-300">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-2xl font-bold text-slate-800">Squad 2: Core & Integração</h3>
+                        <span class="bg-indigo-100 text-c3c-blue px-3 py-1 rounded text-xs font-bold uppercase">Dados & SAP</span>
+                    </div>
+                    <p class="text-slate-600 mb-6">Garantir a integridade dos dados financeiros e conexão com SAP.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 mr-4">T</div>
+                            <div>
+                                <p class="font-bold text-slate-800">Túlio</p>
+                                <p class="text-xs text-slate-500">Arquiteto de Soluções</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 mr-4">O</div>
+                            <div>
+                                <p class="font-bold text-slate-800">Olga</p>
+                                <p class="text-xs text-slate-500">Líder Técnica & Integrações Críticas</p>
+                            </div>
+                        </div>
+                         <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-slate-200 flex items-center justify-center font-bold text-slate-600 mr-4">V</div>
+                            <div>
+                                <p class="font-bold text-slate-800">Victor Lucas</p>
+                                <p class="text-xs text-slate-500">Backend & EDI</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Cronograma -->
+        <div class="slide flex-col w-full max-w-6xl h-full justify-center" id="slide-5">
+             <div class="flex justify-between items-end mb-6 border-b pb-4">
+                <h2 class="text-3xl font-bold text-c3c-blue">4. Cronograma Tático (5 Ciclos)</h2>
+                <div class="text-right">
+                    
+                </div>
+            </div>
+
+            <div class="grid grid-cols-5 gap-4 h-96">
+                <!-- Week 1 -->
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200 flex flex-col">
+                    <div class="bg-gray-100 text-gray-600 text-xs font-bold uppercase py-1 px-2 rounded mb-3 text-center">Semana 1</div>
+                    <h4 class="font-bold text-c3c-blue mb-2">Fundação</h4>
+                    <ul class="text-xs text-slate-600 space-y-2 flex-1 overflow-y-auto">
+                        <li>• Gestão de Contas</li>
+                        <li>• Visão 360</li>
+                        <li>• Orçamento Básico</li>
+                        <li>• Descontos</li>
+                    </ul>
+                </div>
+
+                <!-- Week 2 -->
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200 flex flex-col relative">
+                     <div class="absolute -top-3 right-2 bg-yellow-400 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">CARNAVAL</div>
+                    <div class="bg-gray-100 text-gray-600 text-xs font-bold uppercase py-1 px-2 rounded mb-3 text-center">Semana 2</div>
+                    <h4 class="font-bold text-c3c-blue mb-2">Core & Backend</h4>
+                    <ul class="text-xs text-slate-600 space-y-2 flex-1 overflow-y-auto">
+                        <li>• Pré-venda Normal</li>
+                        <li>• Pedido Normal</li>
+                        <li>• Geração de PDFs</li>
+                        <li>• Retornos SAP</li>
+                    </ul>
+                </div>
+
+                <!-- Week 3 -->
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200 flex flex-col">
+                    <div class="bg-gray-100 text-gray-600 text-xs font-bold uppercase py-1 px-2 rounded mb-3 text-center">Semana 3</div>
+                    <h4 class="font-bold text-c3c-blue mb-2">Produtividade</h4>
+                    <ul class="text-xs text-slate-600 space-y-2 flex-1 overflow-y-auto">
+                        <li>• <strong>Ferramenta Custom</strong></li>
+                        <li>• UX Orçamento Ágil</li>
+                        <li>• Anexos e Documentos</li>
+                    </ul>
+                </div>
+
+                <!-- Week 4 -->
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200 flex flex-col">
+                    <div class="bg-gray-100 text-gray-600 text-xs font-bold uppercase py-1 px-2 rounded mb-3 text-center">Semana 4</div>
+                    <h4 class="font-bold text-c3c-blue mb-2">Fiscal & Nota</h4>
+                    <ul class="text-xs text-slate-600 space-y-2 flex-1 overflow-y-auto">
+                        <li>• Antecipado por Nota (Mãe/Filho)</li>
+                        <li>• Integração NFs</li>
+                        <li>• Integração Boletos</li>
+                    </ul>
+                </div>
+
+                <!-- Week 5 -->
+                <div class="bg-white p-4 rounded-lg shadow border border-gray-200 flex flex-col">
+                    <div class="bg-gray-100 text-gray-600 text-xs font-bold uppercase py-1 px-2 rounded mb-3 text-center">Semana 5</div>
+                    <h4 class="font-bold text-c3c-blue mb-2">Extras / EDI</h4>
+                    <ul class="text-xs text-slate-600 space-y-2 flex-1 overflow-y-auto">
+                        <li>• Integração EDI</li>
+                        <li>• Lotes de Terceiros</li>
+                        <li>• Ajustes Finais</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-blue-50 p-4 rounded-lg border border-blue-100 flex justify-between items-center">
+                <div class="text-sm text-slate-600">
+                    <strong>Pós-Dev:</strong> Homologação ➜ <strong>Go-Live    </strong> ➜ Hypercare (4 semanas)
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Escopo MVP -->
+        <div class="slide flex-col w-full max-w-6xl h-full justify-center" id="slide-6">
+            <h2 class="text-3xl font-bold text-c3c-blue mb-8">5. Definição do Escopo (MVP)</h2>
+            <div class="grid grid-cols-2 gap-12 h-full">
+                <!-- IN -->
+                <div class="border border-green-200 rounded-xl bg-green-50/50 p-6 flex flex-col h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center font-bold mr-3">✓</div>
+                        <h3 class="text-xl font-bold text-green-800">No Escopo (MVP)</h3>
+                    </div>
+                    <div class="flex-1 overflow-y-auto pr-2">
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-green-400 text-sm text-slate-700">
+                                <strong>Fluxo Completo de Vendas</strong><br>Cadastros, Orçamento, Pedido.
+                            </li>
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-green-400 text-sm text-slate-700">
+                                <strong>Ferramenta Customizada</strong><br>Alta produtividade de tiragem.
+                            </li>
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-green-400 text-sm text-slate-700">
+                                <strong>Antecipado por Nota Fiscal</strong><br>Controle de saldo Mãe/Filho via NF.
+                            </li>
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-green-400 text-sm text-slate-700">
+                                <strong>Integrações Core</strong><br>SAP, Middleware, EDI, Boletos.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- OUT -->
+                <div class="border border-red-200 rounded-xl bg-red-50/50 p-6 flex flex-col h-full">
+                    <div class="flex items-center mb-6">
+                        <div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center font-bold mr-3">X</div>
+                        <h3 class="text-xl font-bold text-red-800">Fase 2 (Pós-Go Live)</h3>
+                    </div>
+                    <div class="flex-1 overflow-y-auto pr-2">
+                        <p class="text-xs text-red-600 mb-4 italic">Itens sem regra de negócio definida ou alta complexidade.</p>
+                        <ul class="space-y-3">
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-red-400 text-sm text-slate-700 opacity-75">
+                                <strong>Antecipado por Contrato</strong><br>Toda gestão de contratos e saldos complexos (Sprint 5).
+                            </li>
+                            <li class="p-3 bg-white rounded shadow-sm border-l-4 border-red-400 text-sm text-slate-700 opacity-75">
+                                <strong>Fluxos Fiscais Exóticos</strong><br>Casos de exceção não mapeados no 80/20.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Governança -->
+        <div class="slide flex-col w-full max-w-5xl h-full justify-center items-center" id="slide-7">
+            <h2 class="text-3xl font-bold text-c3c-blue mb-10">6. Solicitação de Apoio & Governança</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+                <!-- Card 1 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center border-t-4 border-c3c-accent">
+                    <div class="text-4xl mb-4">🛡️</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Blindagem de Escopo</h3>
+                    <p class="text-sm text-slate-600">Apoio formal para congelar o escopo na Sprint 4. Novos itens apenas após o Go-Live.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center border-t-4 border-c3c-light">
+                    <div class="text-4xl mb-4">🔄</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Cadência Rigorosa</h3>
+                    <p class="text-sm text-slate-600">
+                        <strong>Daily (15min):</strong> Desbloqueio técnico.<br>
+                        <strong>Weekly:</strong> Status Executivo com presença da Salesforce.
+                    </p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white p-8 rounded-xl shadow-lg text-center border-t-4 border-green-500">
+                    <div class="text-4xl mb-4">🔌</div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2">Apoio em Integração</h3>
+                    <p class="text-sm text-slate-600">Ultimato para entrega de Endpoints (NFs, Boletos) na Semana 1. SLA de 24h para dúvidas.</p>
+                </div>
+            </div>
+
+            <div class="mt-12 text-center">
+                 <p class="text-slate-400 text-sm mb-2">Compromisso C3C Software</p>
+                 <p class="text-2xl font-bold text-c3c-blue">Transparência, Resiliência e Entrega.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Navigation Footer -->
+    <footer class="bg-white shadow-up p-4 z-50 flex justify-between items-center border-t border-gray-200">
+        <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Slide</span>
+            <span id="slide-counter" class="text-lg font-bold text-c3c-blue">1 / 7</span>
+        </div>
+        
+        <div class="flex gap-4">
+            <button onclick="prevSlide()" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-gray-300 font-bold transition flex items-center">
+                ← Voltar
+            </button>
+            <button onclick="nextSlide()" class="px-6 py-2 rounded-full bg-c3c-blue text-white hover:bg-blue-900 font-bold transition flex items-center shadow-lg shadow-blue-900/20">
+                Avançar →
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 7;
+
+        function updateSlide() {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show current slide
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            if(activeSlide) {
+                activeSlide.classList.add('active');
+            }
+
+            // Update counter
+            document.getElementById('slide-counter').innerText = `${currentSlide} / ${totalSlides}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
