@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Report - C3C & Olga Color</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e293b; }
+        .timeline-line { position: absolute; left: 28px; top: 0; bottom: 0; width: 2px; background-color: #e2e8f0; z-index: 0; }
+        .timeline-dot { position: relative; z-index: 10; width: 16px; height: 16px; border-radius: 50%; border: 3px solid #fff; }
+        .brand-c3c { color: #004a99; }
+        .bg-c3c { background-color: #004a99; }
+        .text-olga { color: #e30613; }
+        .border-olga { border-color: #e30613; }
+        @media print {
+            .no-print { display: none; }
+            body { background-color: white; }
+            .shadow-sm { shadow: none; border: 1px solid #eee; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 py-10 px-4">
+
+    <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden border border-gray-100">
+        <!-- Header do Relatório -->
+        <div class="p-8 border-b-4 border-olga">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
+                <div class="flex items-center gap-4">
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="C3C" class="h-10">
+                    <div class="h-8 w-px bg-gray-200"></div>
+                    <img src="https://olgacolor.com.br/wp-content/uploads/2019/07/logo-olga-color-250.png" alt="Olga Color" class="h-10">
+                </div>
+                <div class="text-left md:text-right">
+                    <h1 class="text-2xl font-black text-gray-900 tracking-tight">STATUS REPORT</h1>
+                    <p class="text-sm font-bold text-blue-600">Projeto Salesforce Olga Color</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-50 p-4 rounded-xl">
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-gray-400">Data do Relatório</p>
+                    <p class="text-sm font-semibold">26 de Fevereiro, 2026</p>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-gray-400">Responsável</p>
+                    <p class="text-sm font-semibold">Equipa de Projetos C3C</p>
+                </div>
+                <div>
+                    <p class="text-[10px] uppercase font-bold text-gray-400">Progresso Geral</p>
+                    <div class="flex items-center gap-2">
+                        <div class="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-green-500 h-full" style="width: 25%"></div>
+                        </div>
+                        <span class="text-xs font-bold">25%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conteúdo: Linha do Tempo -->
+        <div class="p-8">
+            <h2 class="text-lg font-bold text-gray-800 mb-8 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                </svg>
+                Cronograma de Macroatividades
+            </h2>
+
+            <div class="relative">
+                <div class="timeline-line"></div>
+                
+                <div id="timelineContainer" class="space-y-12">
+                    <!-- Gerado por JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Próximos Passos -->
+        <div class="p-8 bg-gray-50 border-t border-gray-100">
+            <h3 class="text-sm font-bold text-gray-900 uppercase mb-4 tracking-widest">Observações & Próximos Passos</h3>
+            <ul class="text-sm text-gray-600 space-y-2">
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-bold">•</span>
+                    Finalização das validações de regras de negócio para Proposta Normal.
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-bold">•</span>
+                    Início do levantamento técnico para Ferramentas Customizadas (Semana 3).
+                </li>
+                <li class="flex items-start gap-2">
+                    <span class="text-blue-500 font-bold">•</span>
+                    Ajuste nos templates de PDF conforme feedback da reunião técnica.
+                </li>
+            </ul>
+        </div>
+        
+        <footer class="p-6 text-center text-[10px] text-gray-400 uppercase tracking-widest">
+            Documento Gerado para Acompanhamento Executivo - C3C Software
+        </footer>
+    </div>
+
+    <script>
+        const macros = [
+            {
+                nome: "Cadastro de Contas e Contactos",
+                periodo: "09/02 - 12/02",
+                progresso: 100,
+                status: "Concluído",
+                semana: "1",
+                detalhe: "Integração SAP validada e fluxos de criação ativos."
+            },
+            {
+                nome: "Processo de Proposta 'Normal'",
+                periodo: "12/02 - 27/02",
+                progresso: 65,
+                status: "Em Validação",
+                semana: "2",
+                detalhe: "Campos obrigatórios configurados; aguardando aceite final da equipa Olga."
+            },
+            {
+                nome: "Oportunidade e Pré-venda 'Normal'",
+                periodo: "12/02 - 16/02",
+                progresso: 40,
+                status: "Em Execução",
+                semana: "2",
+                detalhe: "Regras de validação para Alumínio e Acabamentos em teste."
+            },
+            {
+                nome: "Ferramentas Customizadas (Orç/Ped/PV)",
+                periodo: "24/02 - 27/02",
+                progresso: 10,
+                status: "Iniciando",
+                semana: "3",
+                detalhe: "Configuração inicial dos campos de Cliente Pagador."
+            },
+            {
+                nome: "Visão 360 e Análise de Similaridade",
+                periodo: "24/02 - 27/02",
+                progresso: 0,
+                status: "Planeado",
+                semana: "3",
+                detalhe: "Aguardando conclusão do módulo de orçamentos."
+            },
+            {
+                nome: "Gestão de Antecipados (Mãe/Filho)",
+                periodo: "02/03 - 13/03",
+                progresso: 0,
+                status: "Planeado",
+                semana: "4",
+                detalhe: "Fase de desenho de arquitetura de dados."
+            }
+        ];
+
+        const container = document.getElementById('timelineContainer');
+
+        macros.forEach(m => {
+            const item = document.createElement('div');
+            item.className = "relative pl-16";
+            
+            const dotColor = m.progresso === 100 ? 'bg-green-500 ring-4 ring-green-100' : 
+                           (m.progresso > 0 ? 'bg-blue-600 ring-4 ring-blue-100' : 'bg-gray-300');
+            
+            item.innerHTML = `
+                <div class="absolute left-0 top-1">
+                    <div class="timeline-dot ${dotColor}"></div>
+                </div>
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-1">
+                    <h3 class="font-bold text-gray-800">${m.nome}</h3>
+                    <div class="flex items-center gap-3">
+                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${m.periodo}</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-gray-100 text-gray-600 font-bold border border-gray-200 uppercase">${m.status}</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mb-3">${m.detalhe}</p>
+                
+                <div class="flex items-center gap-4">
+                    <div class="flex-grow bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-blue-600 h-full transition-all duration-1000" style="width: ${m.progresso}%"></div>
+                    </div>
+                    <span class="text-[10px] font-bold text-gray-400 w-8">${m.progresso}%</span>
+                </div>
+            `;
+            container.appendChild(item);
+        });
+    </script>
+</body>
+</html>

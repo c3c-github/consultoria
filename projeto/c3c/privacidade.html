@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declaração de Segurança e Privacidade | C3C Software</title>
+    <!-- Google Fonts: Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            teal: '#1DDDBD',
+                            blue: '#2978FF',
+                            light: '#F2F2F2',
+                            dark: '#000000'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'brand-gradient': 'linear-gradient(135deg, #1DDDBD 0%, #2978FF 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F2F2F2;
+            color: #1a1a1a;
+        }
+        .policy-card {
+            transition: transform 0.3s ease;
+        }
+        .policy-card:hover {
+            transform: translateY(-4px);
+        }
+        .active-link {
+            color: #2978FF;
+            font-weight: 700;
+            border-left: 3px solid #1DDDBD;
+            padding-left: 12px;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #1DDDBD;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Progress Bar -->
+    <div id="progress-bar" class="fixed top-0 left-0 h-1 bg-brand-gradient z-[100] transition-all duration-150" style="width: 0%"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="C3C Software Logo" class="h-10 w-auto" onerror="this.src='https://placehold.co/150x50/000000/FFFFFF?text=C3C+Software'">
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="https://c3csoftware.com.br" class="text-sm font-semibold text-gray-600 hover:text-brand-blue transition-colors">Voltar para o Site</a>
+                    <a href="mailto:privacidade@c3csoftware.com.br" class="px-5 py-2 text-sm font-bold text-white bg-brand-gradient rounded-full hover:opacity-90 shadow-lg shadow-brand-blue/20 transition-all">Fale com o DPO</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-20 bg-brand-dark overflow-hidden">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-brand-teal via-brand-blue to-transparent"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <span class="inline-block px-4 py-1.5 mb-6 text-xs font-extrabold tracking-widest text-brand-teal uppercase bg-brand-teal/10 rounded-full border border-brand-teal/20">
+                Jurídico & Segurança
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+                Declaração de <span class="text-transparent bg-clip-text bg-brand-gradient">Segurança e Privacidade</span>
+            </h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">
+                Atualizado em Fevereiro de 2026. Transparência e compromisso com o ativo mais valioso de sua empresa: os dados.
+            </p>
+        </div>
+    </section>
+
+    <!-- Content Layout -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Sidebar Navigation -->
+            <aside class="lg:w-1/4">
+                <div class="sticky top-32 bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100">
+                    <h3 class="text-sm font-extrabold text-brand-dark uppercase tracking-widest mb-6 flex items-center">
+                        <i data-lucide="list" class="w-4 h-4 mr-2 text-brand-blue"></i>
+                        Sumário
+                    </h3>
+                    <ul class="space-y-4 text-sm font-medium text-gray-500">
+                        <li><a href="#compromisso" class="hover:text-brand-blue transition-all flex items-center">1. Nosso Compromisso</a></li>
+                        <li><a href="#lgpd" class="hover:text-brand-blue transition-all flex items-center">2. Conformidade LGPD</a></li>
+                        <li><a href="#infraestrutura" class="hover:text-brand-blue transition-all flex items-center">3. Infraestrutura e Acesso</a></li>
+                        <li><a href="#sdlc" class="hover:text-brand-blue transition-all flex items-center">4. Ciclo de Software Seguro</a></li>
+                        <li><a href="#cultura" class="hover:text-brand-blue transition-all flex items-center">5. Pessoas e Cultura</a></li>
+                        <li><a href="#incidentes" class="hover:text-brand-blue transition-all flex items-center">6. Gestão de Incidentes</a></li>
+                    </ul>
+                    <div class="mt-8 pt-8 border-t border-gray-100">
+                        <div class="flex items-center space-x-3 text-brand-blue">
+                            <i data-lucide="shield-check" class="w-6 h-6"></i>
+                            <span class="text-xs font-bold leading-tight">Ambiente Certificado Salesforce Partner</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Text Content -->
+            <div class="lg:w-3/4 space-y-12">
+                
+                <!-- Section 1 -->
+                <section id="compromisso" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-teal/10 flex items-center justify-center mr-4">
+                            <i data-lucide="heart" class="text-brand-teal w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">1. Nosso Compromisso com a Confiança</h2>
+                    </div>
+                    <div class="prose prose-lg text-gray-600 leading-relaxed space-y-4">
+                        <p>Na <strong>C3C Software</strong>, entendemos que ao escolher nossos serviços de implementação e desenvolvimento Salesforce, você está nos confiando seu ativo mais valioso: os dados de seus clientes. A segurança da informação não é apenas um requisito técnico para nós; é o alicerce de nossa cultura corporativa e um pilar inegociável em todas as nossas entregas.</p>
+                        <p>Esta declaração descreve, de forma transparente, as medidas técnicas e organizacionais que adotamos para proteger a confidencialidade, integridade e disponibilidade dos dados, em conformidade com a <strong>Lei Geral de Proteção de Dados (LGPD)</strong> e as melhores práticas globais de segurança em nuvem.</p>
+                    </div>
+                </section>
+
+                <!-- Section 2 -->
+                <section id="lgpd" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center mr-4">
+                            <i data-lucide="file-check" class="text-brand-blue w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">2. Conformidade e Privacidade de Dados (LGPD)</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6 mb-8">
+                        <div class="p-6 rounded-2xl bg-brand-light border border-gray-200">
+                            <h4 class="font-bold text-brand-blue mb-2 text-sm uppercase">Processador (Operador)</h4>
+                            <p class="text-sm text-gray-600">Agimos estritamente sob as instruções documentadas de nossos clientes, garantindo que nenhum dado seja processado para finalidades alheias.</p>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-brand-light border border-gray-200">
+                            <h4 class="font-bold text-brand-teal mb-2 text-sm uppercase">Privacy by Design</h4>
+                            <p class="text-sm text-gray-600">Projetos incorporam requisitos de privacidade desde a concepção: minimização, retenção e controles granulares.</p>
+                        </div>
+                    </div>
+                    <div class="bg-brand-dark text-white p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between">
+                        <div class="mb-4 md:mb-0">
+                            <p class="text-brand-teal font-extrabold text-xs uppercase tracking-widest mb-1">Encarregado de Dados (DPO)</p>
+                            <p class="text-sm">Para solicitações de titulares ou dúvidas:</p>
+                        </div>
+                        <a href="mailto:privacidade@c3csoftware.com.br" class="flex items-center text-lg font-bold hover:text-brand-teal transition-colors underline decoration-brand-teal underline-offset-4">
+                            privacidade@c3csoftware.com.br
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Section 3 -->
+                <section id="infraestrutura" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-8">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-teal/10 flex items-center justify-center mr-4">
+                            <i data-lucide="lock" class="text-brand-teal w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">3. Segurança da Infraestrutura e Acesso</h2>
+                    </div>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-blue mb-4 flex items-center">
+                                <span class="w-2 h-2 rounded-full bg-brand-blue mr-3"></span>
+                                3.1. Controle de Acesso e Identidade
+                            </h3>
+                            <ul class="grid md:grid-cols-2 gap-4">
+                                <li class="flex items-start">
+                                    <i data-lucide="shield" class="w-5 h-5 text-brand-teal mr-2 mt-1"></i>
+                                    <span class="text-sm text-gray-600"><strong>MFA Obrigatório:</strong> Autenticação Multifator para todos os sistemas corporativos.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="shield" class="w-5 h-5 text-brand-teal mr-2 mt-1"></i>
+                                    <span class="text-sm text-gray-600"><strong>Menor Privilégio:</strong> Acessos estritamente necessários com revisões periódicas.</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i data-lucide="shield" class="w-5 h-5 text-brand-teal mr-2 mt-1"></i>
+                                    <span class="text-sm text-gray-600"><strong>Login Grant:</strong> Uso oficial de "Concessão de Acesso" eliminando senhas compartilhadas.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-lg font-bold text-brand-blue mb-4 flex items-center">
+                                <span class="w-2 h-2 rounded-full bg-brand-blue mr-3"></span>
+                                3.2. Proteção de Dispositivos e Rede
+                            </h3>
+                            <div class="bg-brand-light p-6 rounded-2xl border-l-4 border-brand-teal">
+                                <p class="text-sm text-gray-600 leading-relaxed">
+                                    Todos os nossos endpoints possuem <strong>criptografia de disco total</strong> e proteção avançada. O tráfego administrativo é realizado exclusivamente via conexões criptografadas (VPN/TLS), garantindo segurança total em modelo de trabalho remoto.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4 -->
+                <section id="sdlc" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center mr-4">
+                            <i data-lucide="code" class="text-brand-blue w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">4. Ciclo de Desenvolvimento Seguro (SDLC)</h2>
+                    </div>
+                    <div class="prose prose-lg text-gray-600 mb-8">
+                        <p>Como parceiros especializados no ecossistema Salesforce, aplicamos rigorosos padrões de engenharia de software.</p>
+                    </div>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-teal/30">
+                                <i data-lucide="search" class="text-brand-teal w-5 h-5"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-brand-dark mb-2">SAST</h5>
+                            <p class="text-xs text-gray-500">Varreduras automatizadas para detectar injeção de SOQL ou falhas de permissão.</p>
+                        </div>
+                        <div class="text-center p-4 border-x border-gray-100">
+                            <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-blue/30">
+                                <i data-lucide="eye-off" class="text-brand-blue w-5 h-5"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-brand-dark mb-2">Data Masking</h5>
+                            <p class="text-xs text-gray-500">Anonimização de dados em Full Sandboxes e ambientes de teste.</p>
+                        </div>
+                        <div class="text-center p-4">
+                            <div class="w-12 h-12 bg-brand-light rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-teal/30">
+                                <i data-lucide="key" class="text-brand-teal w-5 h-5"></i>
+                            </div>
+                            <h5 class="font-bold text-sm text-brand-dark mb-2">Secret Mgmt</h5>
+                            <p class="text-xs text-gray-500">Gerenciamento de credenciais via cofres digitais da plataforma.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5 -->
+                <section id="cultura" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-teal/10 flex items-center justify-center mr-4">
+                            <i data-lucide="users" class="text-brand-teal w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">5. Pessoas e Cultura de Segurança</h2>
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="md:w-1/2 space-y-4">
+                            <div class="flex items-start">
+                                <div class="mt-1 bg-brand-teal p-1 rounded mr-3 text-white">
+                                    <i data-lucide="check" class="w-3 h-3"></i>
+                                </div>
+                                <p class="text-sm text-gray-600"><strong>Acordos de Confidencialidade (NDA):</strong> Todos os colaboradores e parceiros assinam compromissos rígidos.</p>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="mt-1 bg-brand-teal p-1 rounded mr-3 text-white">
+                                    <i data-lucide="check" class="w-3 h-3"></i>
+                                </div>
+                                <p class="text-sm text-gray-600"><strong>Capacitação Salesforce:</strong> Trilhas obrigatórias de segurança na plataforma e boas práticas de proteção.</p>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 bg-brand-gradient p-1 rounded-3xl">
+                            <div class="bg-white rounded-[22px] p-6 text-center">
+                                <p class="text-brand-blue font-bold text-xl italic italic">"A tecnologia mais segura é operada por pessoas conscientes."</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 6 -->
+                <section id="incidentes" class="bg-white rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100 policy-card">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center mr-4">
+                            <i data-lucide="alert-triangle" class="text-brand-blue w-6 h-6"></i>
+                        </div>
+                        <h2 class="text-2xl font-extrabold text-brand-dark">6. Gestão de Incidentes</h2>
+                    </div>
+                    <div class="prose prose-lg text-gray-600 space-y-4">
+                        <p>Mantemos um plano de resposta a incidentes para detectar, analisar e responder prontamente a qualquer evento de segurança. Em conformidade com a legislação e nossos contratos, comprometemo-nos a notificar nossos clientes sem demora indevida em caso de qualquer incidente que possa afetar a segurança de seus dados.</p>
+                        <div class="mt-8 p-6 bg-yellow-50 border border-yellow-100 rounded-2xl flex items-start">
+                            <i data-lucide="info" class="w-5 h-5 text-yellow-600 mr-4 mt-1"></i>
+                            <p class="text-xs text-yellow-800 font-medium">
+                                Esta declaração é informativa e não substitui os termos detalhados em nossos contratos de prestação de serviços (MSA) ou Acordos de Processamento de Dados (DPA).
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white pt-20 pb-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-16">
+                <div>
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="C3C Logo White" class="h-10 mb-8 brightness-0 invert">
+                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                        Especialistas em Salesforce, focados em transformar negócios através de implementações seguras e inteligentes.
+                    </p>
+                    <div class="text-xs text-gray-500 space-y-2">
+                        <p class="flex items-start"><i data-lucide="map-pin" class="w-4 h-4 mr-2 text-brand-teal flex-shrink-0"></i> Praça São Paulo Office – R. Henri Dunant, 792 – Conjunto 609/610 – Chácara Santo Antônio, São Paulo – SP, 04709-110</p>
+                        <p class="flex items-center"><i data-lucide="file-text" class="w-4 h-4 mr-2 text-brand-blue flex-shrink-0"></i> CNPJ: 34.268.618/0001-59</p>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-extrabold mb-6 text-brand-teal uppercase tracking-widest text-xs">Empresa</h4>
+                    <ul class="space-y-4 text-sm text-gray-400">
+                        <li><a href="https://c3csoftware.com.br/quem-somos/" class="hover:text-white transition-colors">Sobre Nós</a></li>
+                        <li><a href="https://c3csoftware.com.br/blog/" class="hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="mailto:contato@c3csoftware.com.br" class="hover:text-white transition-colors">Contato</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-extrabold mb-6 text-brand-blue uppercase tracking-widest text-xs">Conecte-se</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://www.linkedin.com/company/c3c-software/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-blue transition-all">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.instagram.com/c3csoftware/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-brand-teal transition-all">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 C3C Software Ltda. Todos os direitos reservados.</p>
+                <p class="mt-4 md:mt-0 italic">Secure Engineering with Salesforce Excellence.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Progress Bar logic
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+        });
+
+        // Scrollspy-like logic for Sidebar Links
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('aside ul li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active-link');
+                link.classList.add('text-gray-500');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active-link');
+                    link.classList.remove('text-gray-500');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

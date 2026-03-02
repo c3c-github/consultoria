@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cockpit Executivo Comercial 360º | Olgacolor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --primary: #0055a5;
+            --secondary: #00a8ff;
+            --success: #00e676;
+            --danger: #ff4b4b;
+            --warning: #f5a623;
+            --dark-glass: rgba(15, 20, 30, 0.85);
+            --border-glass: rgba(255, 255, 255, 0.15);
+            --bg-color: #0a0f18;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Montserrat', sans-serif; }
+
+        body {
+            background: linear-gradient(to bottom, rgba(5, 10, 20, 0.95), rgba(5, 10, 20, 0.85)),
+                        url('https://media.licdn.com/dms/image/v2/C4E1BAQFUXcB0Rx8j9A/company-background_10000/company-background_10000/0/1584477483291?e=2147483647&v=beta&t=Yoc5hPQ29Zv2gIwWDYb5CpWxvfQywpexZ7QsYb6N3s0') no-repeat center center fixed;
+            background-size: cover;
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container { max-width: 1600px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+
+        /* Cabeçalho */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--dark-glass); border: 1px solid var(--border-glass);
+            padding: 15px 30px; border-radius: 12px; backdrop-filter: blur(12px);
+        }
+        .logo { background: rgba(255, 255, 255, 0.95); padding: 5px 15px; border-radius: 8px; display: flex; align-items: center; }
+        .logo img { height: 35px; }
+        .header-title h1 { font-size: 1.4rem; color: #fff; font-weight: 800; text-transform: uppercase; }
+        .header-title p { font-size: 0.8rem; color: #a0aec0; display: flex; align-items: center; justify-content: flex-end; gap: 8px; }
+        .pulse { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: blink 1.5s infinite; }
+        @keyframes blink { 0% {opacity: 1;} 50% {opacity: 0.4;} 100% {opacity: 1;} }
+
+        /* Filtros Globais */
+        .filters-bar {
+            background: var(--dark-glass); border: 1px solid var(--border-glass); padding: 15px 25px; border-radius: 12px;
+            display: flex; gap: 15px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+        }
+        .filter-group { display: flex; gap: 15px; align-items: center; flex-wrap: wrap;}
+        .filter-select { background: rgba(0,0,0,0.5); border: 1px solid var(--border-glass); color: white; padding: 8px 12px; border-radius: 6px; font-size: 0.85rem; outline: none; }
+        .btn-action { background: var(--secondary); color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem; display: flex; align-items: center; gap: 8px; transition: 0.2s;}
+        .btn-action:hover { background: var(--primary); }
+
+        /* Títulos de Seção */
+        .section-title { font-size: 1.1rem; color: #fff; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px; margin-top: 15px; display: flex; align-items: center; gap: 10px; }
+        .section-title i { color: var(--secondary); }
+
+        /* Grids */
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .grid-2-1 { display: grid; grid-template-columns: 2fr 1fr; gap: 15px; }
+
+        /* Cards Gerais */
+        .card { background: var(--dark-glass); border: 1px solid var(--border-glass); border-radius: 12px; padding: 20px; backdrop-filter: blur(12px); box-shadow: 0 4px 15px rgba(0,0,0,0.2); display: flex; flex-direction: column; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .card-header h3 { font-size: 0.95rem; font-weight: 600; color: #cbd5e1; display: flex; align-items: center; gap: 8px;}
+        
+        /* KPI Cards */
+        .kpi-value { font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 5px; }
+        .kpi-sub { font-size: 0.75rem; color: #94A3B8; display: flex; align-items: center; gap: 5px; }
+        .text-success { color: var(--success); } .text-danger { color: var(--danger); } .text-warning { color: var(--warning); } .text-secondary { color: var(--secondary); }
+
+        /* Progress Bars (Metas) */
+        .progress-item { margin-bottom: 12px; }
+        .progress-labels { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 4px; color: #cbd5e1; }
+        .progress-bar { width: 100%; background: rgba(255,255,255,0.1); border-radius: 4px; height: 6px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--secondary); border-radius: 4px;}
+        .fill-success { background: var(--success); }
+        .fill-warning { background: var(--warning); }
+
+        /* Listas e Alertas */
+        .list-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; align-items: center;}
+        .list-item:last-child { border-bottom: none; }
+        .alert-box { background: rgba(255, 75, 75, 0.15); border-left: 3px solid var(--danger); padding: 10px; margin-bottom: 8px; border-radius: 4px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;}
+        .warning-box { background: rgba(245, 166, 35, 0.15); border-left: 3px solid var(--warning); padding: 10px; margin-bottom: 8px; border-radius: 4px; font-size: 0.8rem; display: flex; justify-content: space-between; align-items: center;}
+
+        /* Gráficos */
+        .chart-container { position: relative; flex-grow: 1; min-height: 220px; width: 100%; }
+        
+        /* Placeholder para Mapas/Calendários */
+        .placeholder-box { width: 100%; height: 250px; background: rgba(0,0,0,0.4); border: 1px dashed var(--border-glass); border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #94A3B8; text-align: center; padding: 20px;}
+        .placeholder-box i { font-size: 2rem; margin-bottom: 10px; opacity: 0.5;}
+
+        /* Tabela Simplificada para o layout apertado */
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th { padding: 10px; border-bottom: 1px solid var(--border-glass); color: #cbd5e1; font-size: 0.75rem; text-transform: uppercase; }
+        td { padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; }
+        .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: 700; }
+        .bg-blue { background: rgba(0, 168, 255, 0.15); color: var(--secondary); }
+        .bg-orange { background: rgba(245, 166, 35, 0.15); color: var(--warning); }
+        .bg-green { background: rgba(0, 230, 118, 0.15); color: var(--success); }
+        .bg-red { background: rgba(255, 75, 75, 0.15); color: var(--danger); }
+
+        @media (max-width: 1200px) { .grid-4 { grid-template-columns: repeat(2, 1fr); } .grid-3 { grid-template-columns: 1fr; } .grid-2-1 { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <header>
+        <div class="logo">
+            <img src="https://olgacolor.com.br/wp-content/uploads/2019/07/logo-olga-color-250.png" alt="Olgacolor">
+        </div>
+        <div class="header-title">
+            <h1>Cockpit Comercial 360º</h1>
+            <p><span class="pulse"></span> Última atualização: Agora</p>
+        </div>
+    </header>
+
+    <!-- Barra de Filtros e Ações (Filtros: Segmento, Produto, Pipe Time/Indiv, Região) -->
+    <div class="filters-bar">
+        <div class="filter-group">
+            <select class="filter-select"><option>Visão Pipe: Meu Time</option><option>Visão Pipe: Individual</option><option>Visão Pipe: Todos</option></select>
+            <select class="filter-select"><option>Segmento: Todos</option><option>Construção Civil</option><option>Indústria</option><option>Revenda</option><option>Comércio</option></select>
+            <select class="filter-select"><option>Produto: Todos</option><option>Pintura</option><option>Anodizado</option><option>Efeito Madeira</option></select>
+            <select class="filter-select"><option>Região: Brasil</option><option>Sul</option><option>Sudeste</option><option>Nordeste</option><option>Centro-Oeste</option></select>
+        </div>
+        <div class="filter-group">
+            <button class="btn-action"><i class="fa-solid fa-plus"></i> Registrar Atividade (CRM)</button>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 1: Tempo Real & Indicadores Críticos -->
+    <h2 class="section-title"><i class="fa-solid fa-bolt"></i> Visão Geral, Finanças & Área Técnica</h2>
+    <div class="grid-4">
+        <!-- Faturamento Diário -->
+        <div class="card">
+            <div class="card-header"><h3>Faturamento do Dia (Real-time)</h3><i class="fa-solid fa-money-bill-trend-up text-success"></i></div>
+            <div class="kpi-value">R$ 1.2M</div>
+            <div class="kpi-sub"><span class="text-success"><i class="fa-solid fa-caret-up"></i> 15%</span> vs média diária</div>
+        </div>
+        <!-- Preço Médio -->
+        <div class="card">
+            <div class="card-header"><h3>Preço Médio Negociado (Geral)</h3><i class="fa-solid fa-scale-balanced text-secondary"></i></div>
+            <div class="kpi-value">R$ 38,50 /Kg</div>
+            <div class="kpi-sub">Referência Pedido: <span class="text-warning"> R$ 36,00 a R$ 42,00</span></div>
+        </div>
+        <!-- Alerta Dólar -->
+        <div class="card" style="border-color: rgba(245, 166, 35, 0.5);">
+            <div class="card-header"><h3>Alerta Cambial (Fim de Mês)</h3><i class="fa-solid fa-money-bill-transfer text-warning"></i></div>
+            <div class="kpi-value text-warning">Dólar em Alta</div>
+            <div class="kpi-sub">Atenção: Risco de antecipação de pedidos.</div>
+        </div>
+        <!-- Oportunidades Área Técnica -->
+        <div class="card" style="border-color: rgba(255, 75, 75, 0.5);">
+            <div class="card-header"><h3>Engenharia (Sem Orçamento)</h3><i class="fa-solid fa-compass-drafting text-danger"></i></div>
+            <div class="kpi-value text-danger">12 Oportunidades</div>
+            <div class="kpi-sub">Fila técnica aguardando geração de orçamento.</div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 2: Metas, Performance e Pipeline -->
+    <h2 class="section-title"><i class="fa-solid fa-bullseye"></i> Metas de Venda & Pipeline Operacional</h2>
+    <div class="grid-3">
+        <!-- Metas por Canal / Indústria -->
+        <div class="card">
+            <div class="card-header"><h3>Atingimento de Metas (Mês)</h3><i class="fa-solid fa-chart-line text-secondary"></i></div>
+            
+            <div class="progress-item">
+                <div class="progress-labels"><span>Venda Direta (S/ Comissionamento)</span><span>85%</span></div>
+                <div class="progress-bar"><div class="progress-fill fill-success" style="width: 85%;"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-labels"><span>Metas de Representantes</span><span>62%</span></div>
+                <div class="progress-bar"><div class="progress-fill fill-warning" style="width: 62%;"></div></div>
+            </div>
+            <div class="progress-item">
+                <div class="progress-labels"><span>Metas de Vendas Internas</span><span>90%</span></div>
+                <div class="progress-bar"><div class="progress-fill fill-success" style="width: 90%;"></div></div>
+            </div>
+            <hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.05); margin: 15px 0 10px 0;">
+            <div class="progress-item">
+                <div class="progress-labels"><span>Acomp. Indústria / Revenda / Serralheiro</span><span>45%</span></div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 45%; background: var(--danger)"></div></div>
+            </div>
+        </div>
+
+        <!-- Funil: Fase Negociação vs Fase Obra -->
+        <div class="card">
+            <div class="card-header"><h3>Pipeline (Fase Negociação x Obra)</h3></div>
+            <div class="chart-container"><canvas id="funnelChart"></canvas></div>
+        </div>
+
+        <!-- Origem Leads & Lead Time -->
+        <div class="card">
+            <div class="card-header"><h3>Origem de Leads & Lead Time (Seg.)</h3></div>
+            <div class="chart-container" style="min-height: 120px; margin-bottom: 15px;"><canvas id="originChart"></canvas></div>
+            <div style="font-size: 0.8rem; color: #94A3B8; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+                <div class="list-item" style="padding: 2px 0;"><span><i class="fa-solid fa-clock"></i> Indústria (Previsão: 22d)</span><span class="text-warning">Alerta: +3 dias</span></div>
+                <div class="list-item" style="padding: 2px 0;"><span><i class="fa-solid fa-clock"></i> Const. Civil (Previsão: 45d)</span><span class="text-success">No Prazo</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 3: Geografia, Mapa e CRM -->
+    <h2 class="section-title"><i class="fa-solid fa-earth-americas"></i> Expansão, Vendas por Região & CRM Atividades</h2>
+    <div class="grid-2-1">
+        <!-- Mapa de Obras / Prospecção -->
+        <div class="card">
+            <div class="card-header"><h3>Geolocalização: Obras, Leads & Prospecção (Rede Obra)</h3></div>
+            <div class="placeholder-box">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <p>Mapa Interativo (Extrator Rede Obra / Prospecção)</p>
+                <small>Visão geográfica de Leads, Fechadas, A Contratar (Datas de Início e Fim). Área de raio para novos clientes.</small>
+            </div>
+        </div>
+
+        <!-- Vendas por Região e Calendário CRM -->
+        <div class="card" style="display: flex; flex-direction: column; gap: 15px;">
+            <div>
+                <div class="card-header" style="margin-bottom: 5px;"><h3>Vendas por Região</h3></div>
+                <div class="progress-item">
+                    <div class="progress-labels"><span>Sudeste</span><span>55%</span></div>
+                    <div class="progress-bar"><div class="progress-fill fill-secondary" style="width: 55%; background: var(--secondary);"></div></div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-labels"><span>Sul</span><span>25%</span></div>
+                    <div class="progress-bar"><div class="progress-fill fill-secondary" style="width: 25%; background: var(--secondary);"></div></div>
+                </div>
+            </div>
+
+            <div style="flex-grow: 1;">
+                <div class="card-header" style="margin-bottom: 10px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px;">
+                    <h3>Calendário CRM & Eventos</h3>
+                </div>
+                <div class="list-item"><span><i class="fa-solid fa-phone text-success"></i> Hoje, 14h</span><span>Ligação: Follow-up Alpha</span></div>
+                <div class="list-item"><span><i class="fa-regular fa-calendar text-secondary"></i> Amanhã</span><span>Visita: Eng. Cyrela</span></div>
+                <div class="list-item"><span><i class="fa-solid fa-campground text-warning"></i> 15 a 18/Mar</span><span>Feira: Glass South America</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 4: Rankings, Alertas, Perdas e Concorrência -->
+    <h2 class="section-title"><i class="fa-solid fa-trophy"></i> Mercado, Concorrentes & Rankings</h2>
+    <div class="grid-4">
+        
+        <!-- Top 10 Clientes (Remessa) -->
+        <div class="card">
+            <div class="card-header"><h3>Top 10 Clientes (Remessa)</h3></div>
+            <div class="list-item"><span>1. Alumínios Jundiaí</span><span>120t</span></div>
+            <div class="list-item"><span>2. Esquadrias Silva</span><span>95t</span></div>
+            <div class="list-item"><span>3. Construtora BRP</span><span>78t</span></div>
+            <div class="list-item"><span>4. Metais Tech</span><span>60t</span></div>
+            <button class="btn-action" style="margin-top: 10px; width: 100%; justify-content: center; background: rgba(255,255,255,0.1);">Ver Todos (10)</button>
+        </div>
+
+        <!-- Top Representantes -->
+        <div class="card">
+            <div class="card-header"><h3>Representantes + Venderam</h3></div>
+            <div class="list-item"><span>1. Carlos Mendes (SP)</span><span>R$ 2.5M</span></div>
+            <div class="list-item"><span>2. Rep. Sul Alumínio</span><span>R$ 1.8M</span></div>
+            <div class="list-item"><span>3. J.A. Metais (MG)</span><span>R$ 1.2M</span></div>
+            <div class="list-item"><span>4. Norte Sul Rep.</span><span>R$ 900k</span></div>
+        </div>
+
+        <!-- Alertas de Churn (Queda Nível de Compra) -->
+        <div class="card">
+            <div class="card-header"><h3>Alertas (Queda de Compra)</h3></div>
+            <div class="alert-box" style="flex-direction: column; align-items: flex-start;">
+                <strong>Indústria Metais SA</strong>
+                <span style="color:#ccc; margin-bottom: 5px;">-40% no trimestre</span>
+                <button style="background: transparent; border: 1px solid var(--danger); color: var(--danger); padding: 2px 8px; border-radius: 4px; cursor:pointer; width: 100%;">Registrar Ação</button>
+            </div>
+            <div class="warning-box" style="flex-direction: column; align-items: flex-start;">
+                <strong>Serralheria Ramos</strong>
+                <span style="color:#ccc; margin-bottom: 5px;">Sem pedidos há 45d</span>
+                <button style="background: transparent; border: 1px solid var(--warning); color: var(--warning); padding: 2px 8px; border-radius: 4px; cursor:pointer; width: 100%;">Agendar Ligação</button>
+            </div>
+        </div>
+
+        <!-- Motivos de Perda & Concorrência -->
+        <div class="card">
+            <div class="card-header"><h3>Motivos Perda & Concorrência</h3></div>
+            <div class="chart-container" style="min-height: 120px; margin-bottom: 10px;"><canvas id="lossChart"></canvas></div>
+            <div style="font-size: 0.75rem; color: #94A3B8; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
+                <strong>Mapeamento de Concorrentes:</strong><br>
+                1. CBA (Ganha no Preço)<br>
+                2. Asa Alumínio (Ganha no Prazo)<br>
+                3. Perfil (Relacionamento Regional)
+            </div>
+        </div>
+    </div>
+
+    <!-- SEÇÃO 5: Gestão de Obras (Tabela Extensa) -->
+    <h2 class="section-title"><i class="fa-solid fa-building-user"></i> Obras em Andamento: Decisores, Repasses e Indústrias Atendidas</h2>
+    <div class="card">
+        <div style="overflow-x: auto;">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Obra / Empreendimento</th>
+                        <th>Indústria / Segmento</th>
+                        <th>Decisor (Eng./Arq./Comprador)</th>
+                        <th>Parceiros / Serralheiros Vencedores</th>
+                        <th>Repasse Rep.?</th>
+                        <th>Datas (Início / Fim)</th>
+                        <th>Status Integração</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Residencial Lumina Alto de Pinheiros</strong><br><span style="font-size: 0.7rem; color: #94A3B8;">Construtora: Cyrela</span></td>
+                        <td>Construção Civil</td>
+                        <td>Eng. Marcos / Studio Arthur Casas</td>
+                        <td>3 Serralherias em Disputa</td>
+                        <td>Sim (Carlos Mendes)</td>
+                        <td><span style="font-size: 0.75rem;">Mai/26 - Dez/26</span></td>
+                        <td><span class="badge bg-blue">Lead / Cotação Sombra</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Faria Lima Corporate Tower</strong><br><span style="font-size: 0.7rem; color: #94A3B8;">Construtora: HTB Engenharia</span></td>
+                        <td>Comércio / Corporativo</td>
+                        <td>Diretoria Suprimentos / Aflalo Gasperini</td>
+                        <td><i class="fa-solid fa-trophy text-warning"></i> Serralheria Alpha Prime</td>
+                        <td>Não (Direta)</td>
+                        <td><span style="font-size: 0.75rem;">Abr/26 - Fev/27</span></td>
+                        <td><span class="badge bg-green">Contratada / Pedido SAP</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Galpão Logístico Guarulhos</strong><br><span style="font-size: 0.7rem; color: #94A3B8;">Construtora: Pátria Log</span></td>
+                        <td>Indústria / Logística</td>
+                        <td>Eng. Chefe / Venda Parceiro</td>
+                        <td><i class="fa-solid fa-trophy text-warning"></i> Esquadrimax Soluções</td>
+                        <td>Sim (Rep. Sul)</td>
+                        <td><span style="font-size: 0.75rem;">Fev/26 - Ago/26</span></td>
+                        <td><span class="badge bg-red">Bloqueio SAP: Limite</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    Chart.defaults.color = '#cbd5e1';
+    Chart.defaults.font.family = 'Montserrat';
+    Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(15, 20, 30, 0.9)';
+
+    // Gráfico de Funil (Pipeline)
+    new Chart(document.getElementById('funnelChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Leads (Prospecção)', 'Estudo Téc. (Sem Orç.)', 'Orçado / Negociação', 'Fase da Obra (Iniciando)'],
+            datasets: [{
+                label: 'Volume Projetado (Ton)',
+                data: [350, 210, 120, 85],
+                backgroundColor: 'rgba(0, 168, 255, 0.6)',
+                borderRadius: 4
+            }]
+        },
+        options: {
+            indexAxis: 'y', // Funil horizontal
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { display: false }, y: { grid: { display: false } } }
+        }
+    });
+
+    // Origem (Doughnut)
+    new Chart(document.getElementById('originChart').getContext('2d'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Indicação (40%)', 'Feiras/Eventos (30%)', 'Redes Sociais/Site (20%)', 'Outros (10%)'],
+            datasets: [{
+                data: [40, 30, 20, 10],
+                backgroundColor: ['#00a8ff', '#00e676', '#f5a623', '#ff4b4b'],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            responsive: true, maintainAspectRatio: false, cutout: '65%',
+            plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: {size: 10}, color: '#fff' } } }
+        }
+    });
+
+    // Motivos de Perda (Barra Horizontal)
+    new Chart(document.getElementById('lossChart').getContext('2d'), {
+        type: 'bar',
+        data: {
+            labels: ['Preço', 'Prazo de Entrega', 'Falta de Crédito', 'Relacionamento'],
+            datasets: [{
+                data: [45, 25, 15, 15],
+                backgroundColor: ['#ff4b4b', '#f5a623', '#95a5a6', '#00a8ff'],
+                borderRadius: 4
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: {size: 10} } } }
+        }
+    });
+</script>
+
+</body>
+</html>
