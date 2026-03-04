@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprovação de Faturamento - C3C Workplace</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Ícones Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Fonte Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    colors: {
+                        c3c: {
+                            blue: '#2978FF',
+                            teal: '#1DDDBD',
+                            dark: '#1a1a1a',
+                            bg: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #F8FAFC; }
+        .fade-in { animation: fadeIn 0.3s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .modal-backdrop { background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px); z-index: 50; }
+
+        /* Estilo do Input de Faturamento no nível de Log */
+        .input-log-billable {
+            width: 65px;
+            text-align: center;
+            font-weight: 700;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            padding: 2px;
+            color: #2978FF;
+            transition: all 0.2s;
+        }
+        .input-log-billable:focus {
+            border-color: #2978FF;
+            outline: none;
+            background-color: #F0F7FF;
+        }
+        .input-log-billable.glosa {
+            border-color: #EF4444;
+            background-color: #FEF2F2;
+            color: #B91C1C;
+        }
+        .input-log-billable:disabled {
+            background-color: #F8FAFC;
+            color: #94A3B8;
+            border-color: transparent;
+            cursor: not-allowed;
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; }
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden bg-c3c-bg">
+
+    <!-- 1. SIDEBAR (no-print) -->
+    <aside class="w-20 lg:w-64 bg-white border-r border-gray-100 flex flex-col z-20 transition-all duration-300 no-print">
+        <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-gray-50">
+            <div class="w-8 h-8 bg-gradient-to-br from-[#2978FF] to-[#1DDDBD] rounded-lg flex items-center justify-center text-white font-bold text-xs">C3C</div>
+            <span class="hidden lg:block ml-3 font-bold text-gray-800 tracking-wide text-lg">Workplace</span>
+        </div>
+        <nav class="flex-1 py-6 space-y-2">
+            <a href="#" class="flex items-center justify-center lg:justify-start gap-3 px-4 lg:px-6 py-3 bg-blue-50 text-blue-600 border-r-4 border-blue-500 font-semibold transition-colors">
+                <i data-lucide="file-check" class="w-5 h-5"></i>
+                <span class="hidden lg:block text-sm">Medição Mensal</span>
+            </a>
+            <a href="#" class="flex items-center justify-center lg:justify-start gap-3 px-4 lg:px-6 py-3 text-gray-400 hover:bg-gray-50 transition-colors">
+                <i data-lucide="landmark" class="w-5 h-5"></i>
+                <span class="hidden lg:block text-sm">Faturamento/Financeiro</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- 2. MAIN CONTENT -->
+    <main class="flex-1 flex flex-col relative w-full overflow-hidden">
+        
+        <!-- Header (no-print) -->
+        <header class="h-20 bg-white border-b border-gray-200 flex items-center justify-between px-8 shrink-0 z-10 no-print">
+            <div class="flex items-center gap-6">
+                <h1 class="text-xl font-bold text-gray-800">Fechamento de Medição</h1>
+                
+                <!-- Filtro de Período -->
+                <div class="flex items-center bg-gray-50 border border-gray-200 rounded-lg px-3 py-1.5 gap-2 shadow-sm">
+                    <i data-lucide="calendar" class="w-4 h-4 text-indigo-500"></i>
+                    <select class="bg-transparent text-sm font-bold text-gray-700 outline-none cursor-pointer">
+                        <option>Fevereiro 2025</option>
+                        <option>Janeiro 2025</option>
+                        <option>Dezembro 2024</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Lado direito do cabeçalho limpo conforme solicitado -->
+            </div>
+        </header>
+
+        <!-- Conteúdo -->
+        <div class="flex-1 overflow-y-auto p-8 fade-in bg-c3c-bg no-print">
+            
+            <div class="mb-8">
+                <h2 class="text-lg font-bold text-gray-800 flex items-center gap-2">
+                    <i data-lucide="layers" class="w-5 h-5 text-blue-600"></i> Grade de Medição
+                </h2>
+                <p class="text-xs text-gray-500 mt-1">Realize os ajustes de faturamento no extrato e feche a medição para liberar ao financeiro.</p>
+            </div>
+
+            <!-- Tabela Principal -->
+            <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+                <table class="w-full text-sm text-left">
+                    <thead class="bg-gray-50 text-gray-400 uppercase text-[10px] font-bold border-b border-gray-200">
+                        <tr>
+                            <th class="px-6 py-4">Projeto / Cliente</th>
+                            <th class="px-6 py-4 text-center">Franquia (h)</th>
+                            <th class="px-6 py-4 text-center">Lançado (h)</th>
+                            <th class="px-6 py-4 text-center">A Faturar (h)</th>
+                            <th class="px-6 py-4 text-center">Status Medição</th>
+                            <th class="px-6 py-4 text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100" id="billing-table-body">
+                        <!-- JS Populates -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Rodapé Informativo -->
+            <div class="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-5 flex items-center gap-4">
+                <div class="bg-blue-600 p-2 rounded-lg text-white shadow-sm"><i data-lucide="info" class="w-5 h-5"></i></div>
+                <div class="text-sm">
+                    <p class="font-bold text-blue-900">Atenção ao Fechar</p>
+                    <p class="text-blue-700">Ao clicar em <strong>Fechar Medição</strong>, o projeto será travado e os dados enviados para a fila do financeiro.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL: AUDITORIA E AJUSTES -->
+    <div id="extract-modal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col transform scale-95 transition-transform duration-300">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-start bg-gray-50 rounded-t-2xl">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900" id="ext-project-name">Projeto</h3>
+                    <p class="text-sm text-gray-500" id="ext-client-name">Cliente</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-100 flex items-center gap-2">
+                        <i data-lucide="printer" class="w-4 h-4"></i> Imprimir/PDF
+                    </button>
+                    <button onclick="closeModal('extract-modal')" class="text-gray-400 hover:text-gray-600 p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 bg-white" id="modal-content">
+                <!-- Conteúdo por Recurso injetado via JS -->
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-between items-center">
+                <div class="text-sm">
+                    <span class="text-gray-400 font-bold uppercase mr-2">Total Ajustado:</span>
+                    <span class="text-lg font-black text-blue-600" id="modal-subtotal-billable">0.0h</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="closeModal('extract-modal')" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold text-sm">Voltar</button>
+                    <button onclick="confirmAdjustments()" id="btn-save-adjusts" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md">Confirmar Ajustes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: FINALIZAR (COM COMPROVANTE OPCIONAL) -->
+    <div id="finalize-modal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform scale-95 transition-transform duration-300">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="check-circle" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900">Finalizar Medição</h3>
+                <p class="text-sm text-gray-500 mt-1">Deseja enviar este projeto para o financeiro faturar?</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="border-2 border-dashed border-gray-200 rounded-xl p-4 text-center hover:border-blue-400 hover:bg-blue-50 transition-all cursor-pointer group relative">
+                    <input type="file" class="absolute inset-0 opacity-0 cursor-pointer" id="proof-upload">
+                    <i data-lucide="paperclip" class="w-6 h-6 text-gray-300 mx-auto mb-1 group-hover:text-blue-500"></i>
+                    <p class="text-[10px] font-bold text-gray-400 group-hover:text-blue-600 uppercase">Comprovante de Aprovação (Opcional)</p>
+                </div>
+                
+                <div>
+                    <label class="block text-[10px] font-bold text-gray-400 uppercase mb-1">Notas Internas</label>
+                    <textarea class="w-full border border-gray-200 rounded-lg p-3 text-sm focus:ring-2 focus:ring-blue-500 outline-none resize-none h-20" placeholder="Ex: Financeiro já está em cópia no e-mail..."></textarea>
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-3">
+                <button onclick="closeModal('finalize-modal')" class="flex-1 px-4 py-2 border border-gray-300 text-gray-600 rounded-lg font-bold text-sm">Voltar</button>
+                <button onclick="completeFinalization()" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg font-bold text-sm shadow-md hover:bg-indigo-700">Fechar e Travar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // --- DADOS MOCK ---
+        let projects = [
+            { id: 1, name: "Sustentação Salesforce N2", client: "Tech Solutions", franchise: 160, logged: 185.5, billable: 185.5, status: 'open', proof: null,
+              resources: [
+                { name: "Maria Sênior", logs: [
+                    { id: 101, date: "02/02", desc: "Ajuste de Fluxos Salesforce", logged: 8.0, billable: 8.0 },
+                    { id: 102, date: "03/02", desc: "Reunião de Alinhamento", logged: 1.5, billable: 1.5 }
+                ]},
+                { name: "Lucas Estagiário", logs: [
+                    { id: 103, date: "04/02", desc: "Análise de logs (Treinamento)", logged: 10.0, billable: 3.0 }
+                ]}
+              ]
+            },
+            { id: 2, name: "Infraestrutura Cloud", client: "Banco Alpha", franchise: 200, logged: 152.0, billable: 152.0, status: 'pending_ok', proof: null,
+              resources: [
+                { name: "Roberto Analista", logs: [
+                    { id: 201, date: "05/02", desc: "Monitoramento de Instâncias", logged: 152.0, billable: 152.0 }
+                ]}
+              ]
+            }
+        ];
+
+        let activeProjectId = null;
+
+        // --- RENDERIZAÇÃO ---
+        function renderTable() {
+            const tbody = document.getElementById('billing-table-body');
+            tbody.innerHTML = '';
+
+            projects.forEach(p => {
+                const isModified = Math.abs(p.billable - p.logged) > 0.01;
+                
+                let statusBadge = '';
+                let actions = '';
+
+                switch(p.status) {
+                    case 'open':
+                        statusBadge = `<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-[10px] font-black uppercase">Pendente</span>`;
+                        actions = `
+                            <button onclick="openAuditoria(${p.id})" class="text-blue-600 font-bold text-xs hover:underline mr-4">Auditar Horas</button>
+                            <button onclick="changeStatus(${p.id}, 'pending_ok')" class="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-gray-200">Pronto p/ OK</button>
+                        `;
+                        break;
+                    case 'pending_ok':
+                        statusBadge = `<span class="bg-orange-100 text-orange-700 px-2 py-1 rounded text-[10px] font-black uppercase">Aguardando OK Cliente</span>`;
+                        actions = `
+                            <button onclick="openAuditoria(${p.id})" class="text-gray-400 hover:text-blue-600 p-2" title="Ver Relatório"><i data-lucide="printer" class="w-4 h-4"></i></button>
+                            <button onclick="openFinalizeModal(${p.id})" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-indigo-700">Fechar Medição</button>
+                        `;
+                        break;
+                    case 'ready':
+                        statusBadge = `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-black uppercase flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Pronto p/ Financeiro</span>`;
+                        actions = `
+                            <span class="text-xs text-gray-400 italic mr-3">${p.proof || 'OK via E-mail'}</span>
+                            <button onclick="openAuditoria(${p.id})" class="text-gray-400 hover:text-blue-600 p-1"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                            <button onclick="changeStatus(${p.id}, 'pending_ok')" class="text-gray-300 hover:text-red-500 text-xs font-bold ml-2">Reabrir</button>
+                        `;
+                        break;
+                }
+
+                tbody.innerHTML += `
+                <tr class="hover:bg-gray-50/50 transition-colors ${p.status === 'ready' ? 'bg-green-50/20' : ''}">
+                    <td class="px-6 py-5">
+                        <p class="font-bold text-gray-800 text-sm">${p.name}</p>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">${p.client}</p>
+                    </td>
+                    <td class="px-6 py-5 text-center font-bold text-gray-400">${p.franchise}h</td>
+                    <td class="px-6 py-5 text-center font-bold text-gray-400 bg-gray-50/30">${p.logged}h</td>
+                    <td class="px-6 py-5 text-center">
+                        <span class="px-3 py-1.5 rounded-lg font-black text-sm ${isModified ? 'bg-orange-100 text-orange-700 border border-orange-200' : 'bg-blue-50 text-blue-700'}">
+                            ${p.billable.toFixed(1)}h
+                        </span>
+                    </td>
+                    <td class="px-6 py-5 text-center">${statusBadge}</td>
+                    <td class="px-6 py-5 text-right">
+                        <div class="flex justify-end items-center gap-2">${actions}</div>
+                    </td>
+                </tr>`;
+            });
+            lucide.createIcons();
+        }
+
+        // --- MODAIS ---
+        function openAuditoria(id) {
+            activeProjectId = id;
+            const p = projects.find(x => x.id === id);
+            document.getElementById('ext-project-name').innerText = p.name;
+            document.getElementById('ext-client-name').innerText = p.client;
+            
+            const isClosed = p.status === 'ready';
+            const container = document.getElementById('modal-content');
+            container.innerHTML = '';
+
+            p.resources.forEach(res => {
+                let logsHtml = '';
+                res.logs.forEach(log => {
+                    const glosaClass = log.billable < log.logged ? 'glosa' : '';
+                    logsHtml += `
+                    <tr>
+                        <td class="px-4 py-3 font-mono text-gray-400">${log.date}</td>
+                        <td class="px-4 py-3 text-gray-700">${log.desc}</td>
+                        <td class="px-4 py-3 text-center text-gray-400 font-bold">${log.logged}h</td>
+                        <td class="px-4 py-3 text-center">
+                            <input type="number" step="0.1" value="${log.billable}" 
+                                   class="input-log-billable ${glosaClass}" 
+                                   onchange="updateLogBillable('${res.name}', ${log.id}, this.value)"
+                                   ${isClosed ? 'disabled' : ''}>
+                        </td>
+                    </tr>`;
+                });
+
+                container.innerHTML += `
+                <div class="mb-8 last:mb-0">
+                    <h4 class="bg-gray-100 px-4 py-2 text-xs font-bold text-gray-600 uppercase flex items-center gap-2 rounded-t-lg">
+                        <i data-lucide="user" class="w-4 h-4"></i> Recurso: ${res.name}
+                    </h4>
+                    <table class="w-full text-xs text-left border-x border-b border-gray-200 rounded-b-lg">
+                        <thead class="bg-white text-gray-400 font-bold border-b border-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 w-20">Data</th>
+                                <th class="px-4 py-3">Atividade</th>
+                                <th class="px-4 py-3 text-center w-24">Lançado</th>
+                                <th class="px-4 py-3 text-center w-24">A Faturar</th>
+                            </tr>
+                        </thead>
+                        <tbody>${logsHtml}</tbody>
+                    </table>
+                </div>`;
+            });
+
+            updateModalTotal();
+            
+            // Bloquear botão de salvar se estiver fechado
+            const saveBtn = document.getElementById('btn-save-adjusts');
+            if(isClosed) {
+                saveBtn.classList.add('hidden');
+            } else {
+                saveBtn.classList.remove('hidden');
+            }
+
+            const modal = document.getElementById('extract-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            lucide.createIcons();
+        }
+
+        function openFinalizeModal(id) {
+            activeProjectId = id;
+            openModal('finalize-modal');
+        }
+
+        function completeFinalization() {
+            const fileInput = document.getElementById('proof-upload');
+            const p = projects.find(x => x.id === activeProjectId);
+            
+            p.status = 'ready';
+            if (fileInput.files.length) {
+                p.proof = fileInput.files[0].name;
+            } else {
+                p.proof = 'Aprovado via E-mail';
+            }
+            
+            closeModal('finalize-modal');
+            renderTable();
+            alert("Medição fechada e travada. Disponível para o Financeiro.");
+        }
+
+        // --- UTILS ---
+        function updateLogBillable(resName, logId, val) {
+            const p = projects.find(x => x.id === activeProjectId);
+            if (p.status === 'ready') return;
+
+            const res = p.resources.find(r => r.name === resName);
+            const log = res.logs.find(l => l.id === logId);
+            log.billable = parseFloat(val) || 0;
+            updateModalTotal();
+        }
+
+        function updateModalTotal() {
+            const p = projects.find(x => x.id === activeProjectId);
+            let sum = 0;
+            p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
+            document.getElementById('modal-subtotal-billable').innerText = sum.toFixed(1) + 'h';
+        }
+
+        function confirmAdjustments() {
+            const p = projects.find(x => x.id === activeProjectId);
+            if (p.status === 'ready') return closeModal('extract-modal');
+
+            let sum = 0;
+            p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
+            p.billable = sum; 
+            closeModal('extract-modal');
+            renderTable();
+        }
+
+        function changeStatus(id, newStatus) {
+            projects.find(x => x.id === id).status = newStatus;
+            renderTable();
+        }
+
+        function openModal(id) {
+            const m = document.getElementById(id);
+            m.classList.remove('hidden');
+            setTimeout(() => m.classList.remove('opacity-0'), 10);
+        }
+
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            m.classList.add('opacity-0');
+            setTimeout(() => m.classList.add('hidden'), 300);
+        }
+
+        // Init
+        renderTable();
+    </script>
+</body>
+</html>
