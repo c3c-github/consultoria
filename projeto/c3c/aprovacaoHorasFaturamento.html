@@ -83,7 +83,6 @@
             .overflow-y-auto { overflow: visible !important; }
         }
 
-        /* Ajuste de centralização de tabela */
         table td, table th {
             vertical-align: middle;
         }
@@ -152,10 +151,12 @@
                     <thead class="bg-gray-50 text-gray-400 uppercase text-[10px] font-bold border-b border-gray-200">
                         <tr>
                             <th class="px-6 py-4">Projeto / Cliente</th>
-                            <th class="px-6 py-4 text-center">Previsto (Franquia)</th>
+                            <th class="px-6 py-4 text-center">Franquia (Previsto)</th>
                             <th class="px-6 py-4 text-center">Lançado Equipe</th>
                             <th class="px-6 py-4 text-center">A Faturar</th>
                             <th class="px-6 py-4 text-center">Adesão</th>
+                            <th class="px-6 py-4 text-center">Valor/h Médio</th>
+                            <th class="px-6 py-4 text-center">Total Faturável</th>
                             <th class="px-6 py-4 text-center">Status</th>
                             <th class="px-6 py-4 text-right">Ações</th>
                         </tr>
@@ -170,8 +171,8 @@
             <div class="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-5 flex items-center gap-4">
                 <div class="bg-blue-600 p-2 rounded-lg text-white shadow-sm shrink-0"><i data-lucide="info" class="w-5 h-5"></i></div>
                 <div class="text-sm">
-                    <p class="font-bold text-blue-900">Processo de Fechamento</p>
-                    <p class="text-blue-700">Ajuste as horas no botão <strong>Auditar</strong>. Gere o PDF para o cliente e, após o aceite, use <strong>Fechar Medição</strong> para travar os dados.</p>
+                    <p class="font-bold text-blue-900">Regra de Faturamento (Suporte)</p>
+                    <p class="text-blue-700">Para serviços de suporte, o faturamento considera o maior valor entre o <strong>A Faturar</strong> e o <strong>Previsto (Franquia)</strong>.</p>
                 </div>
             </div>
         </div>
@@ -219,22 +220,28 @@
             </div>
 
             <!-- TOTALIZADORES NO MODAL -->
-            <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 grid grid-cols-2 md:grid-cols-4 gap-4 shrink-0">
+            <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 grid grid-cols-2 md:grid-cols-5 gap-4 shrink-0">
                 <div class="text-center md:border-r border-gray-200">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Franquia Contratada</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Franquia</p>
                     <p class="text-lg font-bold text-gray-700" id="modal-val-franchise">0.0h</p>
                 </div>
                 <div class="text-center md:border-r border-gray-200 no-print">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total Lançado (Equipe)</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total Lançado</p>
                     <p class="text-lg font-bold text-gray-600" id="modal-val-logged">0.0h</p>
                 </div>
                 <div class="text-center md:border-r border-gray-200">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total a Faturar</p>
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">A Faturar</p>
                     <p class="text-lg font-black text-blue-600" id="modal-subtotal-billable">0.0h</p>
                 </div>
-                <div class="text-center flex flex-col items-center justify-center">
+                <div class="text-center md:border-r border-gray-200">
                     <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Status de Adesão</p>
-                    <span id="modal-indicator-badge" class="px-3 py-1 rounded-full text-[10px] font-black border uppercase">0%</span>
+                    <div class="flex justify-center mt-1">
+                        <span id="modal-indicator-badge" class="px-3 py-1 rounded-full text-[10px] font-black border uppercase">0%</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total Faturável</p>
+                    <p class="text-lg font-black text-green-600" id="modal-subtotal-value">R$ 0,00</p>
                 </div>
             </div>
 
@@ -281,34 +288,50 @@
 
         // --- DADOS MOCK ---
         let projects = [
-            { id: 1, name: "Sustentação Salesforce N2", client: "Tech Solutions", franchise: 160, logged: 185.5, billable: 160, status: 'open', proof: null,
-              resources: [
-                { name: "Maria Sênior", logs: [
-                    { id: 101, date: "02/02", desc: "Ajuste de Fluxos Salesforce", logged: 8.0, billable: 8.0 },
-                    { id: 102, date: "03/02", desc: "Reunião de Alinhamento", logged: 1.5, billable: 1.5 }
-                ]},
-                { name: "Lucas Estagiário", logs: [
-                    { id: 103, date: "04/02", desc: "Análise de logs (Treinamento)", logged: 10.0, billable: 3.0 }
-                ]}
-              ]
+            { 
+                id: 1, name: "Sustentação Salesforce N2", client: "Tech Solutions", type: "support",
+                franchise: 160, logged: 185.5, billable: 160, avgRate: 150.00, status: 'open', proof: null,
+                resources: [
+                    { name: "Maria Sênior", rate: 180.00, logs: [
+                        { id: 101, date: "02/02", desc: "Ajuste de Fluxos Salesforce", logged: 8.0, billable: 8.0 },
+                        { id: 102, date: "03/02", desc: "Reunião de Alinhamento", logged: 1.5, billable: 1.5 }
+                    ]},
+                    { name: "Lucas Estagiário", rate: 60.00, logs: [
+                        { id: 103, date: "04/02", desc: "Análise de logs (Treinamento)", logged: 10.0, billable: 3.0 }
+                    ]}
+                ]
             },
-            { id: 2, name: "Infraestrutura Cloud", client: "Banco Alpha", franchise: 200, logged: 152.0, billable: 152.0, status: 'pending_ok', proof: null,
-              resources: [
-                { name: "Roberto Analista", logs: [
-                    { id: 201, date: "05/02", desc: "Monitoramento de Instâncias", logged: 152.0, billable: 152.0 }
-                ]}
-              ]
+            { 
+                id: 2, name: "Infraestrutura Cloud", client: "Banco Alpha", type: "project",
+                franchise: 200, logged: 152.0, billable: 152.0, avgRate: 220.00, status: 'pending_ok', proof: null,
+                resources: [
+                    { name: "Roberto Analista", rate: 220.00, logs: [
+                        { id: 201, date: "05/02", desc: "Monitoramento de Instâncias", logged: 152.0, billable: 152.0 }
+                    ]}
+                ]
             },
-            { id: 3, name: "Projeto Especial Migração", client: "Startup Go", franchise: 100, logged: 120.0, billable: 125.0, status: 'open', proof: null,
-              resources: [
-                { name: "Arquiteto Tech", logs: [
-                    { id: 301, date: "06/02", desc: "Planejamento Arquitetura", logged: 120.0, billable: 125.0 }
-                ]}
-              ]
+            { 
+                id: 3, name: "Projeto Especial Migração", client: "Startup Go", type: "project",
+                franchise: 100, logged: 120.0, billable: 125.0, avgRate: 195.00, status: 'open', proof: null,
+                resources: [
+                    { name: "Arquiteto Tech", rate: 250.00, logs: [
+                        { id: 301, date: "06/02", desc: "Planejamento Arquitetura", logged: 120.0, billable: 125.0 }
+                    ]}
+                ]
             }
         ];
 
         let activeProjectId = null;
+
+        // --- CÁLCULO DE VALOR TOTAL (Regra Suporte) ---
+        function calculateProjectBillableValue(p) {
+            let baseHours = p.billable;
+            // Regra: Se suporte e billable < previsto, usa previsto
+            if (p.type === 'support' && p.billable < p.franchise) {
+                baseHours = p.franchise;
+            }
+            return baseHours * p.avgRate;
+        }
 
         // --- FUNÇÃO AUXILIAR DE CORES E INDICADORES ---
         function getComparisonIndicator(billable, previsto) {
@@ -337,6 +360,7 @@
             projects.forEach(p => {
                 const isModified = Math.abs(p.billable - p.logged) > 0.01;
                 const indicator = getComparisonIndicator(p.billable, p.franchise);
+                const totalValue = calculateProjectBillableValue(p);
                 
                 let statusBadge = '';
                 let actions = '';
@@ -373,7 +397,7 @@
                             <div class="p-2 bg-blue-50 rounded-lg text-blue-600 no-print shrink-0"><i data-lucide="briefcase" class="w-4 h-4"></i></div>
                             <div>
                                 <p class="font-bold text-gray-800 text-sm leading-tight">${p.name}</p>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">${p.client}</p>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-tighter">${p.client} • <span class="${p.type==='support'?'text-teal-600':'text-indigo-400'}">${p.type==='support'?'Suporte':'Projeto'}</span></p>
                             </div>
                         </div>
                     </td>
@@ -389,6 +413,10 @@
                             ${indicator.label}
                          </span>
                     </td>
+                    <td class="px-6 py-5 text-center font-bold text-gray-600">R$ ${p.avgRate.toFixed(2)}</td>
+                    <td class="px-6 py-5 text-center">
+                        <p class="font-black text-gray-900 text-sm">R$ ${totalValue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}</p>
+                    </td>
                     <td class="px-6 py-5 text-center">${statusBadge}</td>
                     <td class="px-6 py-5 text-right">
                         <div class="flex justify-end items-center gap-2">${actions}</div>
@@ -403,7 +431,6 @@
             activeProjectId = id;
             const p = projects.find(x => x.id === id);
             
-            // Populate Print Names
             document.getElementById('ext-project-name').innerText = p.name;
             document.getElementById('ext-client-name').innerText = p.client;
             document.getElementById('print-project-name').innerText = p.name;
@@ -428,14 +455,20 @@
                                    onchange="updateLogBillable('${res.name}', ${log.id}, this.value)"
                                    ${isClosed ? 'disabled' : ''}>
                         </td>
+                        <td class="px-4 py-3 text-right text-gray-500 font-medium border-b border-gray-50">R$ ${(log.billable * res.rate).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
                     </tr>`;
                 });
 
                 container.innerHTML += `
                 <div class="mb-8 last:mb-0">
-                    <h4 class="bg-gray-100 px-4 py-2 text-[10px] font-black text-gray-500 uppercase flex items-center gap-2 rounded-t-lg shadow-sm border border-gray-200 border-b-0">
-                        <i data-lucide="user" class="w-3 h-3"></i> Profissional: ${res.name}
-                    </h4>
+                    <div class="bg-gray-100 px-4 py-2 flex justify-between items-center rounded-t-lg shadow-sm border border-gray-200 border-b-0">
+                        <h4 class="text-[10px] font-black text-gray-500 uppercase flex items-center gap-2">
+                            <i data-lucide="user" class="w-3 h-3"></i> Profissional: ${res.name}
+                        </h4>
+                        <span class="text-[10px] font-bold text-indigo-600 bg-white px-2 py-0.5 rounded border border-indigo-100">
+                            Valor/h: R$ ${res.rate.toFixed(2)}
+                        </span>
+                    </div>
                     <table class="w-full text-xs text-left border border-gray-200 rounded-b-lg overflow-hidden shadow-sm">
                         <thead class="bg-white text-gray-400 font-bold border-b border-gray-100 uppercase tracking-widest">
                             <tr>
@@ -443,6 +476,7 @@
                                 <th class="px-4 py-3">Atividade / Evolução</th>
                                 <th class="px-4 py-3 text-center w-24 no-print">Lançado (Int)</th>
                                 <th class="px-4 py-3 text-center w-24">Faturado (h)</th>
+                                <th class="px-4 py-3 text-right w-32">Total Linha</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">${logsHtml}</tbody>
@@ -466,11 +500,13 @@
             const p = projects.find(x => x.id === activeProjectId);
             let sumBillable = 0;
             let sumLogged = 0;
+            let sumFinancial = 0;
             
             p.resources.forEach(res => {
                 res.logs.forEach(log => {
                     sumBillable += log.billable;
                     sumLogged += log.logged;
+                    sumFinancial += (log.billable * res.rate);
                 });
             });
 
@@ -483,6 +519,14 @@
             const badge = document.getElementById('modal-indicator-badge');
             badge.innerText = indicator.label;
             badge.className = `px-3 py-1 rounded-full text-[10px] font-black border uppercase transition-colors ${indicator.colorClass}`;
+
+            // Total Financeiro do Modal (seguindo regra de suporte se necessário)
+            let finalValue = sumFinancial;
+            if (p.type === 'support' && sumBillable < p.franchise) {
+                // Se o somatório for menor que franquia, o financeiro do modal reflete a média do contrato x franquia para coerência
+                finalValue = p.franchise * p.avgRate;
+            }
+            document.getElementById('modal-subtotal-value').innerText = `R$ ${finalValue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
         }
 
         // --- UTILS ---
