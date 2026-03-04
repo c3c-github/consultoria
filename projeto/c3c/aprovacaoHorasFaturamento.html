@@ -93,7 +93,10 @@
     <!-- 1. SIDEBAR (no-print) -->
     <aside class="w-20 lg:w-64 bg-white border-r border-gray-100 flex flex-col z-20 transition-all duration-300 no-print">
         <div class="h-20 flex items-center justify-center lg:justify-start lg:px-8 border-b border-gray-50">
-            <div class="w-8 h-8 bg-gradient-to-br from-[#2978FF] to-[#1DDDBD] rounded-lg flex items-center justify-center text-white font-bold text-xs">C3C</div>
+            <!-- Logo C3C Atualizado -->
+            <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm border border-gray-100 p-1">
+                <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C" class="w-full h-auto">
+            </div>
             <span class="hidden lg:block ml-3 font-bold text-gray-800 tracking-wide text-lg text-nowrap">Workplace</span>
         </div>
         <nav class="flex-1 py-6 space-y-2">
@@ -172,7 +175,7 @@
                 <div class="bg-blue-600 p-2 rounded-lg text-white shadow-sm shrink-0"><i data-lucide="info" class="w-5 h-5"></i></div>
                 <div class="text-sm">
                     <p class="font-bold text-blue-900">Regra de Faturamento (Suporte)</p>
-                    <p class="text-blue-700">Para serviços de suporte, o faturamento considera o maior valor entre o <strong>A Faturar</strong> e o <strong>Previsto (Franquia)</strong>.</p>
+                    <p class="text-blue-700">Para suporte, o faturamento considera o maior entre <strong>A Faturar</strong> e <strong>Franquia</strong>. Relatório consolidado e anônimo para o cliente.</p>
                 </div>
             </div>
         </div>
@@ -197,7 +200,10 @@
             <!-- Cabeçalho apenas para IMPRESSÃO -->
             <div class="hidden print-only p-8 border-b-2 border-gray-100">
                 <div class="flex justify-between items-center mb-8">
-                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white font-bold text-xl">C3C</div>
+                    <!-- Logo C3C no Relatório -->
+                    <div class="w-16 h-16 bg-white rounded-xl flex items-center justify-center p-2 border border-gray-100">
+                        <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C" class="w-full h-auto">
+                    </div>
                     <div class="text-right">
                         <h2 class="text-2xl font-black text-gray-900 uppercase">Relatório de Medição Técnica</h2>
                         <p class="text-gray-500 font-bold">Fevereiro 2025</p>
@@ -216,7 +222,7 @@
             </div>
             
             <div class="flex-1 overflow-y-auto p-6 bg-white" id="modal-content">
-                <!-- Conteúdo por Recurso injetado via JS -->
+                <!-- Conteúdo por Recurso ou Consolidado injetado via JS -->
             </div>
 
             <!-- TOTALIZADORES NO MODAL -->
@@ -246,7 +252,7 @@
             </div>
 
             <div class="p-6 border-t border-gray-100 bg-white rounded-b-2xl flex justify-end gap-3 shrink-0 no-print">
-                <button onclick="closeModal('extract-modal')" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold text-sm hover:bg-gray-50 transition-colors">Cancelar</button>
+                <button onclick="closeModal('extract-modal')" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold text-sm hover:bg-gray-50 transition-colors">Voltar</button>
                 <button onclick="confirmAdjustments()" id="btn-save-adjusts" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md transition-all">Confirmar Ajustes</button>
             </div>
         </div>
@@ -256,8 +262,8 @@
     <div id="finalize-modal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 transform scale-95 transition-transform duration-300">
             <div class="text-center mb-6">
-                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="file-check" class="w-8 h-8"></i>
+                <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 p-3">
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="Logo C3C" class="w-full h-auto">
                 </div>
                 <h3 class="text-xl font-bold text-gray-900">Finalizar Medição</h3>
                 <p class="text-sm text-gray-500 mt-1">Deseja enviar este projeto para o financeiro faturar?</p>
@@ -323,21 +329,17 @@
 
         let activeProjectId = null;
 
-        // --- CÁLCULO DE VALOR TOTAL (Regra Suporte) ---
         function calculateProjectBillableValue(p) {
             let baseHours = p.billable;
-            // Regra: Se suporte e billable < previsto, usa previsto
             if (p.type === 'support' && p.billable < p.franchise) {
                 baseHours = p.franchise;
             }
             return baseHours * p.avgRate;
         }
 
-        // --- FUNÇÃO AUXILIAR DE CORES E INDICADORES ---
         function getComparisonIndicator(billable, previsto) {
             const diff = billable - previsto;
             const percent = previsto > 0 ? ((billable / previsto) * 100).toFixed(0) : 0;
-            
             let colorClass = '';
             let label = `${percent}%`;
 
@@ -348,40 +350,35 @@
             } else {
                 colorClass = 'text-purple-600 bg-purple-50 border-purple-200';
             }
-
             return { colorClass, label, diff };
         }
 
-        // --- RENDERIZAÇÃO DA GRADE PRINCIPAL ---
         function renderTable() {
             const tbody = document.getElementById('billing-table-body');
             tbody.innerHTML = '';
-
             projects.forEach(p => {
                 const isModified = Math.abs(p.billable - p.logged) > 0.01;
                 const indicator = getComparisonIndicator(p.billable, p.franchise);
                 const totalValue = calculateProjectBillableValue(p);
-                
-                let statusBadge = '';
-                let actions = '';
+                let statusBadge = '', actions = '';
 
                 switch(p.status) {
                     case 'open':
-                        statusBadge = `<span class="bg-blue-50 text-blue-700 px-2 py-1 rounded text-[10px] font-black border border-blue-100 uppercase">Em Ajuste</span>`;
+                        statusBadge = `<span class="bg-blue-50 text-blue-700 px-2 py-1 rounded text-[10px] font-black border border-blue-100 uppercase text-nowrap">Em Ajuste</span>`;
                         actions = `
                             <button onclick="openAuditoria(${p.id})" class="text-blue-600 font-bold text-xs hover:underline mr-4 flex items-center gap-1"><i data-lucide="list" class="w-3 h-3"></i> Auditar</button>
                             <button onclick="changeStatus(${p.id}, 'pending_ok')" class="bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg font-bold text-xs hover:bg-gray-200 flex items-center gap-1 transition-colors"><i data-lucide="eye" class="w-3 h-3"></i> Pronto p/ OK</button>
                         `;
                         break;
                     case 'pending_ok':
-                        statusBadge = `<span class="bg-orange-50 text-orange-700 px-2 py-1 rounded text-[10px] font-black border border-orange-100 uppercase">Aguardando Cliente</span>`;
+                        statusBadge = `<span class="bg-orange-50 text-orange-700 px-2 py-1 rounded text-[10px] font-black border border-orange-100 uppercase text-nowrap">Aguardando Cliente</span>`;
                         actions = `
                             <button onclick="openAuditoria(${p.id})" class="p-2 text-gray-400 hover:text-blue-600 bg-gray-50 rounded-lg transition-colors" title="Ver Relatório PDF"><i data-lucide="printer" class="w-4 h-4"></i></button>
                             <button onclick="openFinalizeModal(${p.id})" class="bg-indigo-600 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow-sm hover:bg-indigo-700 flex items-center gap-1"><i data-lucide="check" class="w-3 h-3"></i> Fechar Medição</button>
                         `;
                         break;
                     case 'ready':
-                        statusBadge = `<span class="bg-green-50 text-green-700 px-2 py-1 rounded text-[10px] font-black border border-green-100 uppercase flex items-center gap-1"><i data-lucide="check-circle" class="w-3 h-3"></i> Pronto p/ Financeiro</span>`;
+                        statusBadge = `<span class="bg-green-50 text-green-700 px-2 py-1 rounded text-[10px] font-black border border-green-100 uppercase flex items-center gap-1 text-nowrap"><i data-lucide="check-circle" class="w-3 h-3"></i> Pronto p/ Financeiro</span>`;
                         actions = `
                             <span class="text-xs text-gray-400 italic mr-3 truncate max-w-[100px]">${p.proof || 'OK via E-mail'}</span>
                             <button onclick="openAuditoria(${p.id})" class="text-gray-400 hover:text-blue-600 p-1"><i data-lucide="eye" class="w-4 h-4"></i></button>
@@ -426,66 +423,117 @@
             lucide.createIcons();
         }
 
-        // --- MODAIS ---
         function openAuditoria(id) {
             activeProjectId = id;
             const p = projects.find(x => x.id === id);
-            
-            document.getElementById('ext-project-name').innerText = p.name;
-            document.getElementById('ext-client-name').innerText = p.client;
-            document.getElementById('print-project-name').innerText = p.name;
-            document.getElementById('print-client-name').innerText = p.client;
-            
             const isClosed = p.status === 'ready';
             const container = document.getElementById('modal-content');
             container.innerHTML = '';
 
-            p.resources.forEach(res => {
-                let logsHtml = '';
-                res.logs.forEach(log => {
+            document.getElementById('ext-project-name').innerText = p.name;
+            document.getElementById('ext-client-name').innerText = p.client;
+            document.getElementById('print-project-name').innerText = p.name;
+            document.getElementById('print-client-name').innerText = p.client;
+
+            if (p.type === 'support') {
+                // VISÃO SUPORTE: Consolidada (Líder vê recurso, Cliente não)
+                let allLogs = [];
+                p.resources.forEach(res => {
+                    res.logs.forEach(log => {
+                        allLogs.push({ ...log, resourceName: res.name, rate: res.rate });
+                    });
+                });
+                allLogs.sort((a,b) => a.date.localeCompare(b.date));
+
+                let rowsHtml = '';
+                allLogs.forEach(log => {
                     const glosaClass = log.billable < log.logged ? 'glosa' : '';
-                    logsHtml += `
+                    rowsHtml += `
                     <tr class="hover:bg-gray-50/50 transition-colors">
                         <td class="px-4 py-3 font-mono text-gray-400 border-b border-gray-50">${log.date}</td>
+                        <td class="px-4 py-3 text-gray-800 border-b border-gray-50 leading-tight no-print font-semibold">
+                            ${log.resourceName}
+                        </td>
                         <td class="px-4 py-3 text-gray-700 border-b border-gray-50 leading-tight">${log.desc}</td>
                         <td class="px-4 py-3 text-center text-gray-400 font-bold border-b border-gray-50 no-print">${log.logged.toFixed(1)}h</td>
                         <td class="px-4 py-3 text-center border-b border-gray-50">
                             <input type="number" step="0.1" value="${log.billable}" 
                                    class="input-log-billable ${glosaClass}" 
-                                   onchange="updateLogBillable('${res.name}', ${log.id}, this.value)"
+                                   onchange="updateLogBillableSupport(${log.id}, this.value)"
                                    ${isClosed ? 'disabled' : ''}>
                         </td>
-                        <td class="px-4 py-3 text-right text-gray-500 font-medium border-b border-gray-50">R$ ${(log.billable * res.rate).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                        <td class="px-4 py-3 text-right text-gray-500 font-medium border-b border-gray-50 no-print">R$ ${(log.billable * log.rate).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
                     </tr>`;
                 });
 
-                container.innerHTML += `
-                <div class="mb-8 last:mb-0">
-                    <div class="bg-gray-100 px-4 py-2 flex justify-between items-center rounded-t-lg shadow-sm border border-gray-200 border-b-0">
-                        <h4 class="text-[10px] font-black text-gray-500 uppercase flex items-center gap-2">
-                            <i data-lucide="user" class="w-3 h-3"></i> Profissional: ${res.name}
-                        </h4>
-                        <span class="text-[10px] font-bold text-indigo-600 bg-white px-2 py-0.5 rounded border border-indigo-100">
-                            Valor/h: R$ ${res.rate.toFixed(2)}
-                        </span>
-                    </div>
+                container.innerHTML = `
+                <div class="mb-8">
+                    <h4 class="bg-gray-100 px-4 py-2 text-[10px] font-black text-gray-500 uppercase rounded-t-lg shadow-sm border border-gray-200 border-b-0 flex items-center gap-2">
+                        <i data-lucide="list" class="w-3 h-3"></i> Extrato de Atividades (Consolidado)
+                    </h4>
                     <table class="w-full text-xs text-left border border-gray-200 rounded-b-lg overflow-hidden shadow-sm">
                         <thead class="bg-white text-gray-400 font-bold border-b border-gray-100 uppercase tracking-widest">
                             <tr>
                                 <th class="px-4 py-3 w-24">Data</th>
-                                <th class="px-4 py-3">Atividade / Evolução</th>
+                                <th class="px-4 py-3 w-32 no-print">Recurso (Líder)</th>
+                                <th class="px-4 py-3">Descrição Técnica</th>
                                 <th class="px-4 py-3 text-center w-24 no-print">Lançado (Int)</th>
                                 <th class="px-4 py-3 text-center w-24">Faturado (h)</th>
-                                <th class="px-4 py-3 text-right w-32">Total Linha</th>
+                                <th class="px-4 py-3 text-right w-32 no-print">Valor Ref.</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white">${logsHtml}</tbody>
+                        <tbody class="bg-white">${rowsHtml}</tbody>
                     </table>
                 </div>`;
-            });
+
+            } else {
+                // VISÃO PROJETO: Detalhada por Recurso (Padrão)
+                p.resources.forEach(res => {
+                    let logsHtml = '';
+                    res.logs.forEach(log => {
+                        const glosaClass = log.billable < log.logged ? 'glosa' : '';
+                        logsHtml += `
+                        <tr class="hover:bg-gray-50/50 transition-colors">
+                            <td class="px-4 py-3 font-mono text-gray-400 border-b border-gray-50">${log.date}</td>
+                            <td class="px-4 py-3 text-gray-700 border-b border-gray-50 leading-tight">${log.desc}</td>
+                            <td class="px-4 py-3 text-center text-gray-400 font-bold border-b border-gray-50 no-print">${log.logged.toFixed(1)}h</td>
+                            <td class="px-4 py-3 text-center border-b border-gray-50">
+                                <input type="number" step="0.1" value="${log.billable}" 
+                                       class="input-log-billable ${glosaClass}" 
+                                       onchange="updateLogBillable('${res.name}', ${log.id}, this.value)"
+                                       ${isClosed ? 'disabled' : ''}>
+                            </td>
+                            <td class="px-4 py-3 text-right text-gray-500 font-medium border-b border-gray-50">R$ ${(log.billable * res.rate).toLocaleString('pt-BR', {minimumFractionDigits: 2})}</td>
+                        </tr>`;
+                    });
+
+                    container.innerHTML += `
+                    <div class="mb-8 last:mb-0">
+                        <div class="bg-gray-100 px-4 py-2 flex justify-between items-center rounded-t-lg shadow-sm border border-gray-200 border-b-0">
+                            <h4 class="text-[10px] font-black text-gray-500 uppercase flex items-center gap-2">
+                                <i data-lucide="user" class="w-3 h-3"></i> Profissional: ${res.name}
+                            </h4>
+                            <span class="text-[10px] font-bold text-indigo-600 bg-white px-2 py-0.5 rounded border border-indigo-100 no-print">
+                                Valor/h: R$ ${res.rate.toFixed(2)}
+                            </span>
+                        </div>
+                        <table class="w-full text-xs text-left border border-gray-200 rounded-b-lg overflow-hidden shadow-sm">
+                            <thead class="bg-white text-gray-400 font-bold border-b border-gray-100 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-4 py-3 w-24">Data</th>
+                                    <th class="px-4 py-3">Atividade / Evolução</th>
+                                    <th class="px-4 py-3 text-center w-24 no-print">Lançado (Int)</th>
+                                    <th class="px-4 py-3 text-center w-24">Faturado (h)</th>
+                                    <th class="px-4 py-3 text-right w-32">Total Linha</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white">${logsHtml}</tbody>
+                        </table>
+                    </div>`;
+                });
+            }
 
             updateModalTotals();
-            
             const saveBtn = document.getElementById('btn-save-adjusts');
             if(isClosed) saveBtn.classList.add('hidden');
             else saveBtn.classList.remove('hidden');
@@ -498,10 +546,7 @@
 
         function updateModalTotals() {
             const p = projects.find(x => x.id === activeProjectId);
-            let sumBillable = 0;
-            let sumLogged = 0;
-            let sumFinancial = 0;
-            
+            let sumBillable = 0, sumLogged = 0, sumFinancial = 0;
             p.resources.forEach(res => {
                 res.logs.forEach(log => {
                     sumBillable += log.billable;
@@ -509,41 +554,40 @@
                     sumFinancial += (log.billable * res.rate);
                 });
             });
-
             const indicator = getComparisonIndicator(sumBillable, p.franchise);
-
             document.getElementById('modal-val-franchise').innerText = p.franchise.toFixed(1) + 'h';
             document.getElementById('modal-val-logged').innerText = sumLogged.toFixed(1) + 'h';
             document.getElementById('modal-subtotal-billable').innerText = sumBillable.toFixed(1) + 'h';
-            
             const badge = document.getElementById('modal-indicator-badge');
             badge.innerText = indicator.label;
             badge.className = `px-3 py-1 rounded-full text-[10px] font-black border uppercase transition-colors ${indicator.colorClass}`;
-
-            // Total Financeiro do Modal (seguindo regra de suporte se necessário)
-            let finalValue = sumFinancial;
-            if (p.type === 'support' && sumBillable < p.franchise) {
-                // Se o somatório for menor que franquia, o financeiro do modal reflete a média do contrato x franquia para coerência
-                finalValue = p.franchise * p.avgRate;
-            }
-            document.getElementById('modal-subtotal-value').innerText = `R$ ${finalValue.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+            let finalVal = sumFinancial;
+            if (p.type === 'support' && sumBillable < p.franchise) finalVal = p.franchise * p.avgRate;
+            document.getElementById('modal-subtotal-value').innerText = `R$ ${finalVal.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
         }
 
-        // --- UTILS ---
         function updateLogBillable(resName, logId, val) {
             const p = projects.find(x => x.id === activeProjectId);
             if (p.status === 'ready') return;
-
             const res = p.resources.find(r => r.name === resName);
             const log = res.logs.find(l => l.id === logId);
             log.billable = parseFloat(val) || 0;
             updateModalTotals();
         }
 
+        function updateLogBillableSupport(logId, val) {
+            const p = projects.find(x => x.id === activeProjectId);
+            if (p.status === 'ready') return;
+            p.resources.forEach(res => {
+                const log = res.logs.find(l => l.id === logId);
+                if (log) log.billable = parseFloat(val) || 0;
+            });
+            updateModalTotals();
+        }
+
         function confirmAdjustments() {
             const p = projects.find(x => x.id === activeProjectId);
             if (p.status === 'ready') return closeModal('extract-modal');
-
             let sum = 0;
             p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
             p.billable = sum; 
@@ -551,44 +595,18 @@
             renderTable();
         }
 
-        function openFinalizeModal(id) {
-            activeProjectId = id;
-            openModal('finalize-modal');
-        }
-
+        function openFinalizeModal(id) { activeProjectId = id; openModal('finalize-modal'); }
         function completeFinalization() {
-            const fileInput = document.getElementById('proof-upload');
             const p = projects.find(x => x.id === activeProjectId);
-            
+            const fileInput = document.getElementById('proof-upload');
             p.status = 'ready';
-            if (fileInput.files.length) {
-                p.proof = fileInput.files[0].name;
-            } else {
-                p.proof = 'Aprovado via E-mail';
-            }
-            
+            p.proof = fileInput.files.length ? fileInput.files[0].name : 'Aprovado via E-mail';
             closeModal('finalize-modal');
             renderTable();
         }
-
-        function changeStatus(id, newStatus) {
-            projects.find(x => x.id === id).status = newStatus;
-            renderTable();
-        }
-
-        function openModal(id) {
-            const m = document.getElementById(id);
-            m.classList.remove('hidden');
-            setTimeout(() => m.classList.remove('opacity-0'), 10);
-        }
-
-        function closeModal(id) {
-            const m = document.getElementById(id);
-            m.classList.add('opacity-0');
-            setTimeout(() => m.classList.add('hidden'), 300);
-        }
-
-        // Init
+        function changeStatus(id, ns) { projects.find(x => x.id === id).status = ns; renderTable(); }
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); setTimeout(() => document.getElementById(id).classList.remove('opacity-0'), 10); }
+        function closeModal(id) { document.getElementById(id).classList.add('opacity-0'); setTimeout(() => document.getElementById(id).classList.add('hidden'), 300); }
         renderTable();
     </script>
 </body>
