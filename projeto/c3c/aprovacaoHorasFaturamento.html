@@ -137,7 +137,7 @@
                     <thead class="bg-gray-50 text-gray-400 uppercase text-[10px] font-bold border-b border-gray-200">
                         <tr>
                             <th class="px-6 py-4">Projeto / Cliente</th>
-                            <th class="px-6 py-4 text-center">Franquia (h)</th>
+                            <th class="px-6 py-4 text-center">Franquia (Previsto)</th>
                             <th class="px-6 py-4 text-center">Lançado (h)</th>
                             <th class="px-6 py-4 text-center">A Faturar (h)</th>
                             <th class="px-6 py-4 text-center">Status Medição</th>
@@ -163,17 +163,17 @@
 
     <!-- MODAL: AUDITORIA E AJUSTES -->
     <div id="extract-modal" class="fixed inset-0 modal-backdrop hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col transform scale-95 transition-transform duration-300">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl h-[85vh] flex flex-col transform scale-95 transition-transform duration-300 border border-gray-100">
             <div class="p-6 border-b border-gray-100 flex justify-between items-start bg-gray-50 rounded-t-2xl">
                 <div>
                     <h3 class="text-xl font-bold text-gray-900" id="ext-project-name">Projeto</h3>
                     <p class="text-sm text-gray-500" id="ext-client-name">Cliente</p>
                 </div>
                 <div class="flex gap-2">
-                    <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-100 flex items-center gap-2">
+                    <button onclick="window.print()" class="bg-white border border-gray-300 text-gray-700 px-3 py-1.5 rounded-lg text-xs font-bold hover:bg-gray-100 flex items-center gap-2 transition-colors">
                         <i data-lucide="printer" class="w-4 h-4"></i> Imprimir/PDF
                     </button>
-                    <button onclick="closeModal('extract-modal')" class="text-gray-400 hover:text-gray-600 p-2"><i data-lucide="x" class="w-6 h-6"></i></button>
+                    <button onclick="closeModal('extract-modal')" class="text-gray-400 hover:text-gray-600 p-2 transition-colors"><i data-lucide="x" class="w-6 h-6"></i></button>
                 </div>
             </div>
             
@@ -181,15 +181,29 @@
                 <!-- Conteúdo por Recurso injetado via JS -->
             </div>
 
-            <div class="p-6 border-t border-gray-100 bg-gray-50 rounded-b-2xl flex justify-between items-center">
-                <div class="text-sm">
-                    <span class="text-gray-400 font-bold uppercase mr-2">Total Ajustado:</span>
-                    <span class="text-lg font-black text-blue-600" id="modal-subtotal-billable">0.0h</span>
+            <!-- TOTALIZADORES NO MODAL -->
+            <div class="px-8 py-4 bg-gray-50 border-t border-gray-100 grid grid-cols-4 gap-4">
+                <div class="text-center border-r border-gray-200 last:border-0">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Previsto (Franquia)</p>
+                    <p class="text-lg font-bold text-gray-700" id="modal-val-franchise">0.0h</p>
                 </div>
-                <div class="flex gap-2">
-                    <button onclick="closeModal('extract-modal')" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold text-sm">Voltar</button>
-                    <button onclick="confirmAdjustments()" id="btn-save-adjusts" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md">Confirmar Ajustes</button>
+                <div class="text-center border-r border-gray-200 last:border-0">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Total Lançado</p>
+                    <p class="text-lg font-bold text-gray-600" id="modal-val-logged">0.0h</p>
                 </div>
+                <div class="text-center border-r border-gray-200 last:border-0">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">A Faturar</p>
+                    <p class="text-lg font-black text-blue-600" id="modal-subtotal-billable">0.0h</p>
+                </div>
+                <div class="text-center flex flex-col items-center justify-center">
+                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-1">Diferença vs Previsto</p>
+                    <span id="modal-indicator-badge" class="px-3 py-1 rounded-full text-xs font-black border uppercase">0%</span>
+                </div>
+            </div>
+
+            <div class="p-6 border-t border-gray-100 bg-white rounded-b-2xl flex justify-end gap-3 shrink-0">
+                <button onclick="closeModal('extract-modal')" class="px-6 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg font-bold text-sm hover:bg-gray-50 transition-colors">Voltar</button>
+                <button onclick="confirmAdjustments()" id="btn-save-adjusts" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-bold text-sm hover:bg-blue-700 shadow-md transition-all">Confirmar Ajustes</button>
             </div>
         </div>
     </div>
@@ -230,7 +244,7 @@
 
         // --- DADOS MOCK ---
         let projects = [
-            { id: 1, name: "Sustentação Salesforce N2", client: "Tech Solutions", franchise: 160, logged: 185.5, billable: 185.5, status: 'open', proof: null,
+            { id: 1, name: "Sustentação Salesforce N2", client: "Tech Solutions", franchise: 160, logged: 185.5, billable: 160, status: 'open', proof: null,
               resources: [
                 { name: "Maria Sênior", logs: [
                     { id: 101, date: "02/02", desc: "Ajuste de Fluxos Salesforce", logged: 8.0, billable: 8.0 },
@@ -247,10 +261,39 @@
                     { id: 201, date: "05/02", desc: "Monitoramento de Instâncias", logged: 152.0, billable: 152.0 }
                 ]}
               ]
+            },
+            { id: 3, name: "Projeto Especial Migração", client: "Startup Go", franchise: 100, logged: 120.0, billable: 125.0, status: 'open', proof: null,
+              resources: [
+                { name: "Arquiteto Tech", logs: [
+                    { id: 301, date: "06/02", desc: "Planejamento Arquitetura", logged: 120.0, billable: 125.0 }
+                ]}
+              ]
             }
         ];
 
         let activeProjectId = null;
+
+        // --- FUNÇÃO AUXILIAR DE CORES E INDICADORES ---
+        function getComparisonIndicator(billable, previsto) {
+            const diff = billable - previsto;
+            const percent = previsto > 0 ? ((billable / previsto) * 100).toFixed(0) : 0;
+            
+            let colorClass = '';
+            let label = `${percent}%`;
+
+            if (Math.abs(diff) < 0.01) {
+                // Iguais
+                colorClass = 'text-green-600 bg-green-50 border-green-200';
+            } else if (billable < previsto) {
+                // Menor
+                colorClass = 'text-red-600 bg-red-50 border-red-200';
+            } else {
+                // Maior
+                colorClass = 'text-purple-600 bg-purple-50 border-purple-200';
+            }
+
+            return { colorClass, label, diff };
+        }
 
         // --- RENDERIZAÇÃO ---
         function renderTable() {
@@ -259,6 +302,7 @@
 
             projects.forEach(p => {
                 const isModified = Math.abs(p.billable - p.logged) > 0.01;
+                const indicator = getComparisonIndicator(p.billable, p.franchise);
                 
                 let statusBadge = '';
                 let actions = '';
@@ -283,7 +327,7 @@
                         actions = `
                             <span class="text-xs text-gray-400 italic mr-3">${p.proof || 'OK via E-mail'}</span>
                             <button onclick="openAuditoria(${p.id})" class="text-gray-400 hover:text-blue-600 p-1"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                            <button onclick="changeStatus(${p.id}, 'pending_ok')" class="text-gray-300 hover:text-red-500 text-xs font-bold ml-2">Reabrir</button>
+                            <button onclick="changeStatus(${p.id}, 'pending_ok')" class="text-gray-300 hover:text-red-500 text-xs font-bold ml-2 transition-colors">Reabrir</button>
                         `;
                         break;
                 }
@@ -297,9 +341,14 @@
                     <td class="px-6 py-5 text-center font-bold text-gray-400">${p.franchise}h</td>
                     <td class="px-6 py-5 text-center font-bold text-gray-400 bg-gray-50/30">${p.logged}h</td>
                     <td class="px-6 py-5 text-center">
-                        <span class="px-3 py-1.5 rounded-lg font-black text-sm ${isModified ? 'bg-orange-100 text-orange-700 border border-orange-200' : 'bg-blue-50 text-blue-700'}">
-                            ${p.billable.toFixed(1)}h
-                        </span>
+                        <div class="flex flex-col items-center gap-1">
+                            <span class="px-3 py-1.5 rounded-lg font-black text-sm ${isModified ? 'bg-orange-50 text-orange-600 border border-orange-200' : 'bg-blue-50 text-blue-700'}">
+                                ${p.billable.toFixed(1)}h
+                            </span>
+                            <span class="text-[9px] font-black px-1.5 py-0.5 rounded border uppercase ${indicator.colorClass}">
+                                ${indicator.label} vs Previsto
+                            </span>
+                        </div>
                     </td>
                     <td class="px-6 py-5 text-center">${statusBadge}</td>
                     <td class="px-6 py-5 text-right">
@@ -341,10 +390,10 @@
 
                 container.innerHTML += `
                 <div class="mb-8 last:mb-0">
-                    <h4 class="bg-gray-100 px-4 py-2 text-xs font-bold text-gray-600 uppercase flex items-center gap-2 rounded-t-lg">
+                    <h4 class="bg-gray-100 px-4 py-2 text-xs font-bold text-gray-600 uppercase flex items-center gap-2 rounded-t-lg shadow-sm border border-gray-200 border-b-0">
                         <i data-lucide="user" class="w-4 h-4"></i> Recurso: ${res.name}
                     </h4>
-                    <table class="w-full text-xs text-left border-x border-b border-gray-200 rounded-b-lg">
+                    <table class="w-full text-xs text-left border border-gray-200 rounded-b-lg overflow-hidden">
                         <thead class="bg-white text-gray-400 font-bold border-b border-gray-100">
                             <tr>
                                 <th class="px-4 py-3 w-20">Data</th>
@@ -358,20 +407,61 @@
                 </div>`;
             });
 
-            updateModalTotal();
+            updateModalTotals();
             
-            // Bloquear botão de salvar se estiver fechado
             const saveBtn = document.getElementById('btn-save-adjusts');
-            if(isClosed) {
-                saveBtn.classList.add('hidden');
-            } else {
-                saveBtn.classList.remove('hidden');
-            }
+            if(isClosed) saveBtn.classList.add('hidden');
+            else saveBtn.classList.remove('hidden');
 
             const modal = document.getElementById('extract-modal');
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
             lucide.createIcons();
+        }
+
+        function updateModalTotals() {
+            const p = projects.find(x => x.id === activeProjectId);
+            let sumBillable = 0;
+            let sumLogged = 0;
+            
+            p.resources.forEach(res => {
+                res.logs.forEach(log => {
+                    sumBillable += log.billable;
+                    sumLogged += log.logged;
+                });
+            });
+
+            const indicator = getComparisonIndicator(sumBillable, p.franchise);
+
+            document.getElementById('modal-val-franchise').innerText = p.franchise.toFixed(1) + 'h';
+            document.getElementById('modal-val-logged').innerText = sumLogged.toFixed(1) + 'h';
+            document.getElementById('modal-subtotal-billable').innerText = sumBillable.toFixed(1) + 'h';
+            
+            const badge = document.getElementById('modal-indicator-badge');
+            badge.innerText = indicator.label;
+            badge.className = `px-3 py-1 rounded-full text-xs font-black border uppercase transition-colors ${indicator.colorClass}`;
+        }
+
+        // --- UTILS ---
+        function updateLogBillable(resName, logId, val) {
+            const p = projects.find(x => x.id === activeProjectId);
+            if (p.status === 'ready') return;
+
+            const res = p.resources.find(r => r.name === resName);
+            const log = res.logs.find(l => l.id === logId);
+            log.billable = parseFloat(val) || 0;
+            updateModalTotals();
+        }
+
+        function confirmAdjustments() {
+            const p = projects.find(x => x.id === activeProjectId);
+            if (p.status === 'ready') return closeModal('extract-modal');
+
+            let sum = 0;
+            p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
+            p.billable = sum; 
+            closeModal('extract-modal');
+            renderTable();
         }
 
         function openFinalizeModal(id) {
@@ -393,35 +483,6 @@
             closeModal('finalize-modal');
             renderTable();
             alert("Medição fechada e travada. Disponível para o Financeiro.");
-        }
-
-        // --- UTILS ---
-        function updateLogBillable(resName, logId, val) {
-            const p = projects.find(x => x.id === activeProjectId);
-            if (p.status === 'ready') return;
-
-            const res = p.resources.find(r => r.name === resName);
-            const log = res.logs.find(l => l.id === logId);
-            log.billable = parseFloat(val) || 0;
-            updateModalTotal();
-        }
-
-        function updateModalTotal() {
-            const p = projects.find(x => x.id === activeProjectId);
-            let sum = 0;
-            p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
-            document.getElementById('modal-subtotal-billable').innerText = sum.toFixed(1) + 'h';
-        }
-
-        function confirmAdjustments() {
-            const p = projects.find(x => x.id === activeProjectId);
-            if (p.status === 'ready') return closeModal('extract-modal');
-
-            let sum = 0;
-            p.resources.forEach(res => res.logs.forEach(log => sum += log.billable));
-            p.billable = sum; 
-            closeModal('extract-modal');
-            renderTable();
         }
 
         function changeStatus(id, newStatus) {
