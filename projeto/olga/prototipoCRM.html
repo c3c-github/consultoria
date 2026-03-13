@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olgacolor CRM - Protótipo Funcional Interativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        
+        /* Transições Suaves de Tela */
+        .view-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+        .view-section.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Efeito para o Drag and Drop do Kanban */
+        .kanban-dropzone { min-height: 200px; transition: background-color 0.2s; }
+        .kanban-dropzone.drag-over { background-color: rgba(59, 130, 246, 0.1); border: 2px dashed #3b82f6; border-radius: 0.5rem; }
+    </style>
+</head>
+<body class="bg-slate-50 h-screen flex flex-col overflow-hidden text-slate-800">
+
+    <header class="bg-slate-900 text-white h-16 flex items-center justify-between px-6 shadow-md z-30 border-b-4 border-blue-600 shrink-0">
+        <div class="flex items-center gap-6 h-full">
+            <div class="font-black text-xl tracking-wider flex items-center gap-2 cursor-pointer" onclick="navigate('dashboard')">
+                <i class="fas fa-layer-group text-blue-500"></i> OLGACOLOR <span class="font-light text-slate-400 text-sm">| CRM</span>
+            </div>
+            <div class="h-6 w-px bg-slate-700"></div>
+            <nav class="hidden lg:flex h-full text-sm font-medium text-slate-400" id="main-nav">
+                <button onclick="navigate('dashboard')" class="nav-btn h-full px-4 hover:text-white transition border-b-2 border-transparent" data-target="dashboard">Painel Comercial</button>
+                <button onclick="navigate('crm')" class="nav-btn h-full px-4 text-white border-b-2 border-blue-500 transition" data-target="crm">Contas e Clientes</button>
+                <button onclick="navigate('obras')" class="nav-btn h-full px-4 hover:text-white transition border-b-2 border-transparent" data-target="obras">Mapa de Obras</button>
+                <button onclick="navigate('funil')" class="nav-btn h-full px-4 hover:text-white transition border-b-2 border-transparent" data-target="funil">Funil de Vendas</button>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="openModal('modal-menu')" class="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2 rounded-md text-sm font-bold transition shadow-sm flex items-center gap-2">
+                <i class="fas fa-plus"></i> CRIAR NOVO
+            </button>
+            <div class="h-9 w-9 rounded-full bg-slate-700 border-2 border-blue-500 flex items-center justify-center font-bold text-sm" title="Vendedor">VO</div>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-hidden relative">
+
+        <section id="view-dashboard" class="view-section h-full overflow-y-auto p-8 bg-slate-100 flex-col gap-6">
+            <div class="flex justify-between items-center mb-2">
+                <h1 class="text-2xl font-bold text-slate-800">Visão Geral do Negócio</h1>
+                <span class="text-sm text-slate-500 bg-white px-3 py-1 rounded shadow-sm border border-slate-200"><i class="fas fa-sync-alt mr-1"></i> Atualizado em tempo real</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-blue-500">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Pipeline Aberto</p>
+                    <h3 class="text-3xl font-black text-slate-800" id="kpi-pipeline">R$ 0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-purple-500">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Obras no Radar</p>
+                    <h3 class="text-3xl font-black text-slate-800" id="kpi-obras">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Oportunidades (Funil)</p>
+                    <h3 class="text-3xl font-black text-slate-800" id="kpi-opps">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-green-500">
+                    <p class="text-xs text-slate-500 uppercase font-bold mb-1">Clientes na Base</p>
+                    <h3 class="text-3xl font-black text-slate-800" id="kpi-clientes">0</h3>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6 flex-1">
+                <h3 class="font-bold text-lg mb-4 text-slate-800"><i class="fas fa-bolt text-amber-500 mr-2"></i>Radar da Equipe (Últimas Atividades)</h3>
+                <div id="dash-atividades" class="space-y-4"></div>
+            </div>
+        </section>
+
+        <section id="view-crm" class="view-section active h-full w-full">
+            <aside class="w-[300px] bg-white border-r border-slate-200 flex flex-col z-20 shadow-md">
+                <div class="p-4 border-b border-slate-100 bg-slate-50">
+                    <input type="text" placeholder="Buscar cliente..." class="w-full text-sm p-2 rounded-md border border-slate-300 focus:outline-none focus:border-blue-500">
+                </div>
+                <div id="crm-lista-clientes" class="flex-1 overflow-y-auto"></div>
+            </aside>
+
+            <section class="flex-1 flex flex-col bg-slate-50 border-r border-slate-200 min-w-[450px]">
+                <div id="crm-header" class="p-6 border-b border-slate-200 bg-white z-10"></div>
+                
+                <div class="p-6 border-b border-slate-200 bg-white">
+                    <div class="border border-slate-300 rounded-xl overflow-hidden focus-within:border-blue-500 focus-within:ring-1 transition shadow-sm">
+                        <textarea id="input-atividade" class="w-full p-4 text-sm resize-none focus:outline-none" rows="2" placeholder="O que aconteceu com este cliente? Registre visita, ligação ou acordo..."></textarea>
+                        <div class="bg-slate-50 px-4 py-2 flex justify-between items-center border-t border-slate-200">
+                            <select id="input-tipo-ativ" class="text-sm bg-white border border-slate-300 rounded p-1 outline-none text-slate-600">
+                                <option value="Visita">📍 Visita / Reunião</option><option value="Ligação">📞 Ligação</option><option value="WhatsApp">📱 WhatsApp</option>
+                            </select>
+                            <button onclick="salvarAtividade()" class="bg-blue-600 text-white px-5 py-1.5 rounded-md text-sm font-bold hover:bg-blue-700 transition">Salvar Histórico</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="px-6 py-2 bg-slate-100 border-b border-slate-200 font-bold text-slate-500 text-xs uppercase tracking-wider sticky top-0 z-10">Linha do Tempo</div>
+                <div class="p-6 overflow-y-auto flex-1 space-y-6" id="crm-timeline"></div>
+            </section>
+
+            <aside class="w-[380px] bg-slate-50 flex flex-col z-10 overflow-y-auto p-6 shadow-inner">
+                <div class="mb-8">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider"><i class="fas fa-hard-hat text-purple-600 mr-2"></i> Obras na Rede</h3>
+                        <button onclick="openModal('modal-obra')" class="text-xs text-blue-600 font-bold hover:underline">+ Vincular Obra</button>
+                    </div>
+                    <div id="crm-obras-lista" class="space-y-3"></div>
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-sm font-bold text-slate-800 uppercase tracking-wider"><i class="fas fa-funnel-dollar text-amber-500 mr-2"></i> Negócios Abertos</h3>
+                        <button onclick="openModal('modal-oportunidade')" class="text-xs text-blue-600 font-bold hover:underline">+ Nova Oportunidade</button>
+                    </div>
+                    <div id="crm-funil-lista" class="space-y-3"></div>
+                </div>
+            </aside>
+        </section>
+
+        <section id="view-obras" class="view-section h-full w-full p-8 bg-slate-100 flex-col overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-slate-800"><i class="fas fa-city mr-2 text-purple-600"></i>Mapa Global de Obras</h1>
+                    <p class="text-sm text-slate-500 mt-1">Cruze dados entre Construtoras (Dona) e Serralheiros (Instaladores).</p>
+                </div>
+                <button onclick="openModal('modal-obra')" class="bg-purple-600 text-white px-5 py-2 rounded-md font-bold shadow-md hover:bg-purple-700 transition">+ Mapear Nova Obra</button>
+            </div>
+            <div id="grid-obras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+        </section>
+
+        <section id="view-funil" class="view-section h-full w-full p-8 bg-slate-100 flex-col overflow-hidden">
+            <div class="flex justify-between items-center mb-6 shrink-0">
+                <h1 class="text-2xl font-bold text-slate-800"><i class="fas fa-filter mr-2 text-green-600"></i>Funil de Vendas</h1>
+                <button onclick="openModal('modal-oportunidade')" class="bg-green-600 text-white px-5 py-2 rounded-md font-bold shadow-md hover:bg-green-700 transition">+ Nova Oportunidade</button>
+            </div>
+            
+            <div class="flex gap-4 flex-1 overflow-x-auto pb-4 items-start">
+                <div id="kanban-board" class="flex gap-4 h-full w-full"></div>
+            </div>
+            <p class="text-xs text-slate-400 mt-2"><i class="fas fa-info-circle"></i> Dica: Você pode arrastar os cards entre as colunas para atualizar a fase do negócio.</p>
+        </section>
+
+    </main>
+
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+        
+        <div id="modal-menu" class="modal-content hidden bg-white rounded-2xl shadow-2xl w-[400px] overflow-hidden">
+            <div class="bg-slate-800 p-5 flex justify-between items-center text-white">
+                <h2 class="text-lg font-bold">O que você deseja criar?</h2>
+                <button onclick="closeModals()" class="text-slate-400 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6 space-y-3 bg-slate-50">
+                <button onclick="openModal('modal-cliente')" class="w-full flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:border-blue-500 transition text-left">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center text-xl"><i class="fas fa-building"></i></div>
+                    <div><div class="font-bold text-slate-800">Nova Conta/Cliente</div><div class="text-xs text-slate-500">Serralheiro, Construtora...</div></div>
+                </button>
+                <button onclick="openModal('modal-obra')" class="w-full flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:border-purple-500 transition text-left">
+                    <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center text-xl"><i class="fas fa-hard-hat"></i></div>
+                    <div><div class="font-bold text-slate-800">Nova Obra</div><div class="text-xs text-slate-500">Mapear empreendimento civil</div></div>
+                </button>
+                <button onclick="openModal('modal-oportunidade')" class="w-full flex items-center gap-4 p-4 rounded-xl border border-slate-200 bg-white hover:border-amber-500 transition text-left">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center text-xl"><i class="fas fa-dollar-sign"></i></div>
+                    <div><div class="font-bold text-slate-800">Nova Oportunidade</div><div class="text-xs text-slate-500">Adicionar negócio ao funil</div></div>
+                </button>
+            </div>
+        </div>
+
+        <div id="modal-cliente" class="modal-content hidden bg-white rounded-2xl shadow-2xl w-[500px] overflow-hidden">
+            <div class="bg-blue-600 p-5 flex justify-between items-center text-white">
+                <h2 class="text-lg font-bold"><i class="fas fa-building mr-2"></i>Cadastrar Cliente</h2>
+                <button onclick="closeModals()" class="text-blue-200 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form onsubmit="salvarCliente(event)" class="p-6 space-y-4">
+                <div><label class="block text-xs font-bold text-slate-500 mb-1">Razão Social</label><input type="text" id="f-cli-nome" required class="w-full border p-2 rounded outline-none focus:border-blue-500"></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Tipo de Cliente</label>
+                        <select id="f-cli-tipo" class="w-full border p-2 rounded outline-none">
+                            <option>Serralheiro</option><option>Construtora</option><option>Revenda</option><option>Indústria</option>
+                        </select>
+                    </div>
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Cidade / UF</label><input type="text" id="f-cli-cidade" class="w-full border p-2 rounded outline-none" placeholder="Ex: São Paulo, SP"></div>
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded hover:bg-blue-700 mt-2">Salvar Conta</button>
+            </form>
+        </div>
+
+        <div id="modal-obra" class="modal-content hidden bg-white rounded-2xl shadow-2xl w-[500px] overflow-hidden">
+            <div class="bg-purple-600 p-5 flex justify-between items-center text-white">
+                <h2 class="text-lg font-bold"><i class="fas fa-hard-hat mr-2"></i>Mapear Nova Obra</h2>
+                <button onclick="closeModals()" class="text-purple-200 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form onsubmit="salvarObra(event)" class="p-6 space-y-4">
+                <div><label class="block text-xs font-bold text-slate-500 mb-1">Nome do Empreendimento</label><input type="text" id="f-obra-nome" required class="w-full border p-2 rounded outline-none"></div>
+                <div class="p-3 bg-slate-50 border border-slate-200 rounded space-y-3">
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wide">A Teia de Relacionamentos</p>
+                    <div><label class="block text-xs font-bold text-slate-700 mb-1">Construtora (Dona da Obra)</label>
+                    <select id="f-obra-const" required class="w-full border p-2 rounded text-sm combo-construtoras outline-none"></select></div>
+                    <div><label class="block text-xs font-bold text-blue-600 mb-1">Serralheiro Instalador (Comprador)</label>
+                    <select id="f-obra-serr" class="w-full border border-blue-300 bg-blue-50 p-2 rounded text-sm combo-serralheiros outline-none"></select></div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Fase da Obra</label>
+                    <select id="f-obra-fase" class="w-full border p-2 rounded outline-none"><option>Fundação</option><option>Alvenaria</option><option>Esquadrias</option></select></div>
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Potencial (Ton)</label><input type="number" id="f-obra-pot" class="w-full border p-2 rounded outline-none"></div>
+                </div>
+                <button type="submit" class="w-full bg-purple-600 text-white font-bold py-3 rounded hover:bg-purple-700 mt-2">Salvar Obra</button>
+            </form>
+        </div>
+
+        <div id="modal-oportunidade" class="modal-content hidden bg-white rounded-2xl shadow-2xl w-[500px] overflow-hidden">
+            <div class="bg-amber-500 p-5 flex justify-between items-center text-white">
+                <h2 class="text-lg font-bold"><i class="fas fa-dollar-sign mr-2"></i>Novo Negócio</h2>
+                <button onclick="closeModals()" class="text-amber-100 hover:text-white"><i class="fas fa-times"></i></button>
+            </div>
+            <form onsubmit="salvarOportunidade(event)" class="p-6 space-y-4">
+                <div><label class="block text-xs font-bold text-slate-500 mb-1">O que estamos negociando?</label><input type="text" id="f-op-titulo" required class="w-full border p-2 rounded outline-none" placeholder="Ex: Lote Perfis Suprema"></div>
+                <div><label class="block text-xs font-bold text-slate-500 mb-1">Cliente Solicitante</label>
+                <select id="f-op-cliente" required class="w-full border p-2 rounded text-sm combo-todos outline-none"></select></div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Valor Estimado (R$)</label><input type="number" id="f-op-valor" required class="w-full border p-2 rounded outline-none"></div>
+                    <div><label class="block text-xs font-bold text-slate-500 mb-1">Fase no Funil</label>
+                    <select id="f-op-fase" class="w-full border p-2 rounded outline-none"><option>Mapeamento</option><option>Proposta</option><option>Negociação</option></select></div>
+                </div>
+                <button type="submit" class="w-full bg-amber-500 text-white font-bold py-3 rounded hover:bg-amber-600 mt-2">Adicionar ao Funil</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 1. O BANCO DE DADOS EM MEMÓRIA
+        const db = {
+            clientes: [
+                { id: 1, nome: "Alumínios Esquadrimax", tipo: "Serralheiro", cidade: "Guarulhos, SP" },
+                { id: 2, nome: "Construtora Cyrela", tipo: "Construtora", cidade: "São Paulo, SP" },
+                { id: 3, nome: "Revenda Alumínio Certo", tipo: "Revenda", cidade: "Campinas, SP" },
+                { id: 4, nome: "MRV Engenharia", tipo: "Construtora", cidade: "Belo Horizonte, MG" }
+            ],
+            obras: [
+                { id: 1, nome: "Residencial Vista Parque", construtoraId: 2, serralheiroId: 1, fase: "Esquadrias", pot: "12" },
+                { id: 2, nome: "Prédio Comercial Neo", construtoraId: 4, serralheiroId: null, fase: "Fundação", pot: "25" }
+            ],
+            oportunidades: [
+                { id: 1, titulo: "Perfis Linha Suprema Branca (Lote 1)", clienteId: 1, valor: 45000, fase: "Negociação" },
+                { id: 2, titulo: "Reposição Mensal Tubos", clienteId: 3, valor: 18000, fase: "Proposta" }
+            ],
+            atividades: [
+                { id: 1, clienteId: 1, tipo: "Visita", texto: "Visita na obra para validação de bitolas dos perfis de fachada.", data: "Ontem, 14:00" },
+                { id: 2, clienteId: 1, tipo: "Ligação", texto: "Cotação enviada. Cliente pediu faturamento direto para construtora.", data: "Hoje, 10:30" }
+            ]
+        };
+
+        let estado = { viewAtual: 'crm', clienteSelecionadoId: 1 };
+        const formatarMoeda = (valor) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+
+        // 2. NAVEGAÇÃO
+        function navigate(viewName) {
+            estado.viewAtual = viewName;
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(`view-${viewName}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('border-blue-500', 'text-white');
+                btn.classList.add('border-transparent', 'text-slate-400');
+            });
+            document.querySelector(`[data-target="${viewName}"]`).classList.add('border-blue-500', 'text-white');
+            document.querySelector(`[data-target="${viewName}"]`).classList.remove('text-slate-400', 'border-transparent');
+
+            renderAll();
+        }
+
+        // 3. RENDERIZAÇÃO DOM
+        function renderAll() {
+            renderDashboard();
+            renderCRM();
+            renderObras();
+            renderFunil();
+            preencherSelects();
+        }
+
+        function renderDashboard() {
+            const pipelineAtivo = db.oportunidades.filter(o => o.fase !== 'Fechado').reduce((acc, curr) => acc + curr.valor, 0);
+            document.getElementById('kpi-pipeline').innerText = formatarMoeda(pipelineAtivo);
+            document.getElementById('kpi-obras').innerText = db.obras.length;
+            document.getElementById('kpi-opps').innerText = db.oportunidades.length;
+            document.getElementById('kpi-clientes').innerText = db.clientes.length;
+
+            document.getElementById('dash-atividades').innerHTML = db.atividades.slice().reverse().slice(0, 5).map(a => {
+                const cli = db.clientes.find(c => c.id === a.clienteId);
+                const icone = a.tipo === 'Visita' ? 'fa-map-marker-alt text-green-500' : 'fa-phone-alt text-blue-500';
+                return `<div class="flex gap-3 items-start border-b border-slate-100 pb-3 last:border-0">
+                    <div class="mt-1 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center shrink-0"><i class="fas ${icone} text-xs"></i></div>
+                    <div><p class="text-sm text-slate-700 font-medium">${a.texto}</p><p class="text-xs text-slate-400 mt-1"><strong>${cli ? cli.nome : ''}</strong> • ${a.data}</p></div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCRM() {
+            // Lista Lateral
+            document.getElementById('crm-lista-clientes').innerHTML = db.clientes.map(c => {
+                const ativo = c.id === estado.clienteSelecionadoId;
+                const icone = c.tipo === 'Serralheiro' ? 'fa-industry' : (c.tipo === 'Construtora' ? 'fa-building' : 'fa-store');
+                return `<div onclick="selecionarCliente(${c.id})" class="p-4 border-b border-slate-100 cursor-pointer hover:bg-blue-50 transition ${ativo ? 'bg-blue-50 border-l-4 border-l-blue-500' : 'border-l-4 border-l-transparent'}">
+                    <div class="font-bold text-slate-800 text-sm mb-1">${c.nome}</div>
+                    <div class="text-[10px] text-slate-500"><i class="fas ${icone} mr-1"></i>${c.tipo}</div>
+                </div>`;
+            }).join('');
+
+            // Meio (Detalhes)
+            const cliente = db.clientes.find(c => c.id === estado.clienteSelecionadoId) || db.clientes[0];
+            document.getElementById('crm-header').innerHTML = `<div class="flex justify-between items-start">
+                <div><h2 class="text-xl font-black text-slate-800">${cliente.nome}</h2><p class="text-sm text-slate-500 mt-1"><i class="fas fa-map-marker-alt"></i> ${cliente.cidade}</p></div>
+                <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-wide">${cliente.tipo}</span>
+            </div>`;
+
+            const atvs = db.atividades.filter(a => a.clienteId === cliente.id).reverse();
+            document.getElementById('crm-timeline').innerHTML = atvs.length === 0 ? '<p class="text-xs text-slate-400 text-center">Sem histórico.</p>' : atvs.map(a => `
+                <div class="relative pl-8 before:absolute before:left-3.5 before:top-8 before:bottom-[-1.5rem] before:w-0.5 before:bg-slate-200 last:before:hidden">
+                    <div class="absolute left-0 top-1 w-7 h-7 bg-white rounded-full flex items-center justify-center border border-slate-300 shadow-sm z-10 text-[10px]"><i class="fas fa-check text-blue-500"></i></div>
+                    <div class="flex items-center gap-2 mb-1"><span class="text-xs font-bold text-slate-800">Você (${a.tipo})</span><span class="text-xs text-slate-500">• ${a.data}</span></div>
+                    <div class="bg-white border border-slate-200 p-3 rounded-xl shadow-sm text-sm text-slate-600">${a.texto}</div>
+                </div>`).join('');
+
+            // Direita (Relacionamentos)
+            const obras = db.obras.filter(o => o.construtoraId === cliente.id || o.serralheiroId === cliente.id);
+            document.getElementById('crm-obras-lista').innerHTML = obras.length === 0 ? '<p class="text-xs text-slate-400">Nenhuma obra vinculada.</p>' : obras.map(o => `
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm border-l-4 border-l-purple-500">
+                    <h4 class="font-bold text-slate-800 text-sm mb-1">${o.nome}</h4>
+                    <span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded uppercase font-bold">Fase: ${o.fase}</span>
+                </div>`).join('');
+
+            const opps = db.oportunidades.filter(o => o.clienteId === cliente.id);
+            document.getElementById('crm-funil-lista').innerHTML = opps.length === 0 ? '<p class="text-xs text-slate-400">Nenhum negócio aberto.</p>' : opps.map(o => `
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm border-l-4 border-l-amber-500">
+                    <h4 class="font-bold text-slate-800 text-sm mb-2">${o.titulo}</h4>
+                    <div class="flex justify-between items-end"><span class="font-black text-slate-700 text-sm">${formatarMoeda(o.valor)}</span><span class="text-[9px] bg-amber-50 text-amber-700 px-2 py-1 rounded font-bold uppercase">${o.fase}</span></div>
+                </div>`).join('');
+        }
+
+        function renderObras() {
+            document.getElementById('grid-obras').innerHTML = db.obras.map(o => {
+                const construtora = db.clientes.find(c => c.id == o.construtoraId);
+                const serralheiro = db.clientes.find(c => c.id == o.serralheiroId);
+                return `
+                <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col hover:shadow-md transition">
+                    <div class="bg-slate-800 p-4 text-white">
+                        <h3 class="font-bold text-lg mb-1 truncate">${o.nome}</h3>
+                        <span class="bg-purple-500 text-white text-[10px] px-2 py-0.5 rounded uppercase font-bold tracking-wide">${o.fase}</span>
+                    </div>
+                    <div class="p-5 flex-1 space-y-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center text-lg"><i class="fas fa-building"></i></div>
+                            <div><p class="text-[10px] text-slate-400 font-bold uppercase">Construtora Dona</p><p class="font-bold text-slate-700 text-sm">${construtora ? construtora.nome : 'N/A'}</p></div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center text-lg"><i class="fas fa-industry"></i></div>
+                            <div><p class="text-[10px] text-blue-400 font-bold uppercase">Serralheiro Comprador</p><p class="font-bold text-blue-700 text-sm">${serralheiro ? serralheiro.nome : '<span class="italic text-blue-400 font-normal">Aberto p/ Prospecção</span>'}</p></div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-3 border-t border-slate-200 text-right"><span class="text-xs text-slate-500 mr-2">Volume:</span><span class="font-black text-slate-800">${o.pot} Ton</span></div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderFunil() {
+            const fases = ['Mapeamento', 'Proposta', 'Negociação', 'Fechado'];
+            document.getElementById('kanban-board').innerHTML = fases.map(fase => {
+                const ops = db.oportunidades.filter(o => o.fase === fase);
+                const total = ops.reduce((acc, curr) => acc + curr.valor, 0);
+                
+                return `
+                <div class="w-80 bg-slate-200/60 rounded-xl p-3 flex flex-col border border-slate-300 shadow-sm shrink-0">
+                    <div class="flex justify-between items-center px-2 py-2 mb-2 border-b border-slate-300">
+                        <div>
+                            <h3 class="font-bold text-slate-700 text-sm uppercase tracking-wide">${fase}</h3>
+                            <div class="text-[10px] font-bold text-slate-500 mt-0.5">${formatarMoeda(total)}</div>
+                        </div>
+                        <span class="bg-white text-slate-600 text-xs px-2 py-0.5 rounded shadow-sm font-bold">${ops.length}</span>
+                    </div>
+                    <div class="space-y-3 overflow-y-auto kanban-dropzone flex-1 rounded" data-fase="${fase}" ondragover="allowDrop(event)" ondrop="drop(event)" ondragenter="dragEnter(event)" ondragleave="dragLeave(event)">
+                        ${ops.map(op => {
+                            const cli = db.clientes.find(c => c.id == op.clienteId);
+                            return `
+                            <div class="bg-white p-3 rounded-lg shadow-sm border border-slate-200 cursor-grab hover:border-blue-400 border-l-4 border-l-blue-500 transition" draggable="true" ondragstart="dragStart(event, ${op.id})">
+                                <div class="text-[10px] text-slate-400 font-bold mb-1 truncate">${cli ? cli.nome : 'Sem Cliente'}</div>
+                                <h4 class="text-sm font-bold text-slate-800 leading-tight mb-2">${op.titulo}</h4>
+                                <div class="font-black ${fase === 'Fechado' ? 'text-green-600' : 'text-blue-600'} text-sm">${formatarMoeda(op.valor)}</div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // 4. DRAG AND DROP (KANBAN MAGIA)
+        function dragStart(e, id) { e.dataTransfer.setData("text/plain", id); e.target.style.opacity = "0.5"; }
+        function allowDrop(e) { e.preventDefault(); }
+        function dragEnter(e) { let dz = e.target.closest('.kanban-dropzone'); if (dz) dz.classList.add('drag-over'); }
+        function dragLeave(e) { let dz = e.target.closest('.kanban-dropzone'); if (dz) dz.classList.remove('drag-over'); }
+        function drop(e) {
+            e.preventDefault();
+            let dz = e.target.closest('.kanban-dropzone');
+            if (dz) {
+                dz.classList.remove('drag-over');
+                const id = parseInt(e.dataTransfer.getData("text/plain"));
+                const novaFase = dz.getAttribute('data-fase');
+                let opp = db.oportunidades.find(o => o.id === id);
+                if (opp && opp.fase !== novaFase) {
+                    opp.fase = novaFase;
+                    renderAll(); // Atualiza a tela e os valores do Kanban instantaneamente
+                }
+            }
+        }
+        document.addEventListener('dragend', (e) => { if(e.target.draggable) e.target.style.opacity = "1"; });
+
+        // 5. CRUD (MODAIS E CRIAÇÃO)
+        function selecionarCliente(id) { estado.clienteSelecionadoId = id; renderCRM(); }
+
+        function openModal(idModal) {
+            document.getElementById('modal-overlay').classList.remove('hidden');
+            document.getElementById('modal-overlay').classList.add('flex');
+            document.querySelectorAll('.modal-content').forEach(el => el.classList.add('hidden'));
+            if(idModal !== 'modal-menu') document.getElementById('modal-menu').classList.add('hidden');
+            document.getElementById(idModal).classList.remove('hidden');
+            preencherSelects();
+        }
+
+        function closeModals() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+            document.getElementById('modal-overlay').classList.remove('flex');
+            document.querySelectorAll('input, select').forEach(i => { if(i.id.startsWith('f-')) i.value = '' }); // Limpa form
+        }
+
+        function preencherSelects() {
+            let htmlConstrutoras = '<option value="">(Selecione a Construtora)</option>';
+            db.clientes.filter(c => c.tipo === 'Construtora').forEach(c => htmlConstrutoras += `<option value="${c.id}">${c.nome}</option>`);
+            
+            let htmlSerralheiros = '<option value="">Ainda não definido (Concorrência)</option>';
+            db.clientes.filter(c => c.tipo === 'Serralheiro').forEach(c => htmlSerralheiros += `<option value="${c.id}">${c.nome}</option>`);
+            
+            let htmlTodos = '';
+            db.clientes.forEach(c => htmlTodos += `<option value="${c.id}" ${c.id === estado.clienteSelecionadoId ? 'selected' : ''}>${c.nome}</option>`);
+
+            document.querySelectorAll('.combo-construtoras').forEach(el => el.innerHTML = htmlConstrutoras);
+            document.querySelectorAll('.combo-serralheiros').forEach(el => el.innerHTML = htmlSerralheiros);
+            document.querySelectorAll('.combo-todos').forEach(el => el.innerHTML = htmlTodos);
+        }
+
+        function salvarAtividade() {
+            const txt = document.getElementById('input-atividade').value;
+            if(!txt.trim()) return;
+            db.atividades.push({ id: Date.now(), clienteId: estado.clienteSelecionadoId, tipo: document.getElementById('input-tipo-ativ').value, texto: txt, data: "Agora mesmo", autor: "Você" });
+            document.getElementById('input-atividade').value = '';
+            renderAll();
+        }
+
+        function salvarCliente(e) {
+            e.preventDefault();
+            const novo = { id: Date.now(), nome: document.getElementById('f-cli-nome').value, tipo: document.getElementById('f-cli-tipo').value, cidade: document.getElementById('f-cli-cidade').value || 'Não informada', cnpj: '00.000.000/0001-00' };
+            db.clientes.unshift(novo);
+            estado.clienteSelecionadoId = novo.id;
+            closeModals(); navigate('crm');
+        }
+
+        function salvarObra(e) {
+            e.preventDefault();
+            const serrId = document.getElementById('f-obra-serr').value;
+            db.obras.unshift({ id: Date.now(), nome: document.getElementById('f-obra-nome').value, construtoraId: parseInt(document.getElementById('f-obra-const').value), serralheiroId: serrId ? parseInt(serrId) : null, fase: document.getElementById('f-obra-fase').value, pot: document.getElementById('f-obra-pot').value || 'A Estimar', cidade: 'A Mapear' });
+            closeModals(); navigate('obras');
+        }
+
+        function salvarOportunidade(e) {
+            e.preventDefault();
+            db.oportunidades.push({ id: Date.now(), titulo: document.getElementById('f-op-titulo').value, clienteId: parseInt(document.getElementById('f-op-cliente').value), valor: parseFloat(document.getElementById('f-op-valor').value) || 0, fase: document.getElementById('f-op-fase').value });
+            closeModals(); navigate('funil');
+        }
+
+        // 6. INIT
+        window.onload = () => navigate('crm');
+    </script>
+</body>
+</html>

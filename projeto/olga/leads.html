@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olgacolor CRM - Leads & Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .view-section { display: none; animation: fadeIn 0.2s ease-in-out; }
+        .view-section.active { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .status-badge { @apply px-2 py-0.5 rounded-full text-[10px] font-bold uppercase; }
+        .kanban-col { min-width: 300px; }
+    </style>
+</head>
+<body class="bg-slate-50 h-screen flex flex-col overflow-hidden text-slate-800 font-inter">
+
+    <!-- HEADER PRINCIPAL -->
+    <header class="bg-slate-900 text-white h-16 flex items-center justify-between px-6 shadow-md z-50 border-b-4 border-blue-600 shrink-0">
+        <div class="flex items-center gap-6">
+            <div class="font-black text-xl tracking-wider flex items-center gap-2 cursor-pointer" onclick="navigate('dashboard')">
+                <i class="fas fa-layer-group text-blue-500"></i> OLGACOLOR <span class="font-light text-slate-400 text-sm">| CRM</span>
+            </div>
+            <div class="h-6 w-px bg-slate-700"></div>
+            <nav class="hidden lg:flex gap-1 text-sm font-medium">
+                <button onclick="navigate('dashboard')" class="nav-btn px-4 py-2 rounded-md transition" data-target="dashboard">Painel Comercial</button>
+                <button onclick="navigate('leads')" class="nav-btn px-4 py-2 rounded-md transition" data-target="leads">Gestão de Leads</button>
+                <button onclick="navigate('crm')" class="nav-btn px-4 py-2 rounded-md transition" data-target="crm">Carteira/Contas</button>
+                <button onclick="navigate('obras')" class="nav-btn px-4 py-2 rounded-md transition" data-target="obras">Mapa de Obras</button>
+                <button onclick="navigate('funil')" class="nav-btn px-4 py-2 rounded-md transition" data-target="funil">Funil de Vendas</button>
+            </nav>
+        </div>
+        <div class="flex items-center gap-4">
+            <button onclick="openModal('modal-import')" class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-lg text-xs font-bold transition flex items-center gap-2 shadow-lg">
+                <i class="fas fa-plus-circle"></i> IMPORTAR LEADS
+            </button>
+            <div class="h-10 w-10 rounded-full bg-slate-800 border-2 border-blue-500 flex items-center justify-center font-bold text-sm text-blue-400">VO</div>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-hidden relative">
+
+        <!-- DASHBOARD -->
+        <section id="view-dashboard" class="view-section h-full overflow-y-auto p-8 bg-slate-100 flex-col gap-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-black text-slate-800">Performance Comercial</h1>
+                <div class="text-xs font-bold text-slate-400 uppercase tracking-widest">Tempo Real</div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-emerald-500">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Leads Novos</p>
+                    <h3 class="text-3xl font-black" id="kpi-leads-novos">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-blue-500">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Pipeline Vendas</p>
+                    <h3 class="text-3xl font-black" id="kpi-pipeline">R$ 0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-amber-500">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Taxa Conversão</p>
+                    <h3 class="text-3xl font-black" id="kpi-conversao">0%</h3>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-purple-500">
+                    <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Obras no Radar</p>
+                    <h3 class="text-3xl font-black" id="kpi-obras">0</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Distribuição de Carteira -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm flex flex-col">
+                    <h3 class="font-bold text-sm uppercase mb-4 text-slate-500 tracking-wider">Carga por Vendedor</h3>
+                    <div id="dash-vendedores" class="space-y-4"></div>
+                </div>
+                <!-- Últimas Atividades -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-2xl shadow-sm flex flex-col">
+                    <h3 class="font-bold text-sm uppercase mb-4 text-slate-500 tracking-wider">Histórico de Movimentação</h3>
+                    <div id="dash-atividades" class="space-y-4"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GESTÃO DE LEADS -->
+        <section id="view-leads" class="view-section h-full w-full bg-white flex-col">
+            <div class="p-6 border-b border-slate-200 bg-slate-50 flex justify-between items-center shadow-sm">
+                <div>
+                    <h1 class="text-xl font-black flex items-center gap-2">
+                        <i class="fas fa-bullseye text-emerald-500"></i> Gestão de Entrada (Leads)
+                    </h1>
+                    <p class="text-sm text-slate-500">Qualificação e distribuição de novas oportunidades</p>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="distribuirAutomatico()" class="bg-white border-2 border-slate-200 px-4 py-2 rounded-xl text-xs font-black hover:border-blue-500 transition uppercase tracking-tight">
+                        <i class="fas fa-random mr-2 text-blue-500"></i>Distribuir Automaticamente
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-hidden flex">
+                <!-- Tabela de Leads -->
+                <div class="flex-1 overflow-y-auto p-6">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-[10px] font-black uppercase text-slate-400 border-b-2 border-slate-50">
+                                <th class="pb-4 px-2">Data</th>
+                                <th class="pb-4">Lead / Empresa</th>
+                                <th class="pb-4">Origem / Cidade</th>
+                                <th class="pb-4">Atribuído a</th>
+                                <th class="pb-4">Status</th>
+                                <th class="pb-4 text-right">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-leads-corpo" class="text-sm divide-y divide-slate-50"></tbody>
+                    </table>
+                </div>
+
+                <!-- Funil de Leads Sidebar -->
+                <aside class="w-80 border-l border-slate-200 bg-slate-50 p-6 flex flex-col gap-8">
+                    <div>
+                        <h4 class="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Saúde da Conversão</h4>
+                        <div id="lead-funnel-stats" class="space-y-3"></div>
+                    </div>
+                    <div class="p-4 bg-blue-600 rounded-2xl text-white shadow-xl">
+                        <h5 class="font-bold text-sm mb-2">Dica Pro:</h5>
+                        <p class="text-[11px] leading-relaxed opacity-90">Leads sem vendedor por mais de 24h diminuem a chance de conversão em 60%. Use a distribuição automática!</p>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- CRM / CARTEIRA -->
+        <section id="view-crm" class="view-section h-full w-full">
+            <aside class="w-[320px] bg-white border-r border-slate-200 flex flex-col z-10 shadow-lg">
+                <div class="p-5 border-b border-slate-100 bg-slate-50/50">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-3 text-slate-400 text-xs"></i>
+                        <input type="text" placeholder="Filtrar carteira..." class="w-full text-xs pl-9 pr-4 py-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+                <div id="crm-lista-clientes" class="flex-1 overflow-y-auto"></div>
+            </aside>
+
+            <section class="flex-1 flex flex-col bg-slate-100 border-r border-slate-200">
+                <div id="crm-header" class="p-8 bg-white border-b border-slate-200"></div>
+                
+                <div class="p-8 pb-4">
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <textarea id="input-atividade" class="w-full p-5 text-sm resize-none focus:outline-none" rows="3" placeholder="O que aconteceu no contato com este cliente?"></textarea>
+                        <div class="bg-slate-50 px-6 py-3 flex justify-between items-center border-t border-slate-100">
+                            <div class="flex gap-4">
+                                <button class="text-slate-400 hover:text-blue-600 transition"><i class="fas fa-phone"></i></button>
+                                <button class="text-slate-400 hover:text-green-600 transition"><i class="fab fa-whatsapp"></i></button>
+                                <button class="text-slate-400 hover:text-purple-600 transition"><i class="fas fa-map-marker-alt"></i></button>
+                            </div>
+                            <button onclick="salvarAtividade()" class="bg-blue-600 text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-tight hover:bg-blue-700 shadow-md">Salvar no Histórico</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-1 overflow-y-auto px-8 py-4 space-y-6" id="crm-timeline"></div>
+            </section>
+
+            <aside class="w-[380px] bg-slate-50 p-8 space-y-8 overflow-y-auto">
+                <div>
+                    <h3 class="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Obras Relacionadas</h3>
+                    <div id="crm-obras-lista" class="space-y-3"></div>
+                </div>
+                <div>
+                    <h3 class="text-[10px] font-black uppercase text-slate-400 mb-4 tracking-widest">Negócios no Funil</h3>
+                    <div id="crm-funil-lista" class="space-y-3"></div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- MAPA DE OBRAS -->
+        <section id="view-obras" class="view-section h-full w-full p-8 bg-slate-100 overflow-y-auto flex-col">
+            <h1 class="text-2xl font-black mb-8">Mapa Global de Obras</h1>
+            <div id="grid-obras" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <!-- FUNIL DE VENDAS -->
+        <section id="view-funil" class="view-section h-full w-full p-8 bg-slate-100 flex-col overflow-hidden">
+            <h1 class="text-2xl font-black mb-8">Funil de Vendas (Oportunidades)</h1>
+            <div id="kanban-board" class="flex gap-6 h-full overflow-x-auto pb-8 items-start"></div>
+        </section>
+
+    </main>
+
+    <!-- MODAIS -->
+    <div id="modal-overlay" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[100] hidden items-center justify-center p-4">
+        
+        <!-- Importação em Massa -->
+        <div id="modal-import" class="modal-content hidden bg-white rounded-3xl shadow-2xl w-[650px] overflow-hidden">
+            <div class="bg-emerald-600 p-6 flex justify-between items-center text-white">
+                <h2 class="text-xl font-black uppercase tracking-tight">Importação de Leads</h2>
+                <button onclick="closeModals()" class="hover:rotate-90 transition duration-300"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-8 space-y-6">
+                <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100 text-emerald-800 text-xs leading-relaxed">
+                    <i class="fas fa-info-circle mr-2"></i> Cole sua lista do Excel ou WhatsApp abaixo. <br>
+                    <strong>Formato sugerido:</strong> Nome da Empresa, Cidade, Telefone (Um por linha).
+                </div>
+                <textarea id="import-area" rows="10" class="w-full border-2 border-slate-100 p-5 font-mono text-sm rounded-2xl focus:outline-none focus:border-emerald-500 transition shadow-inner" placeholder="Exemplo:&#10;Construtora Alvorada, Rio de Janeiro, 2199887766&#10;Serralheria do João, SP, 11955443322"></textarea>
+                <div class="flex justify-end gap-4">
+                    <button onclick="closeModals()" class="px-6 py-3 text-sm font-bold text-slate-400">Cancelar</button>
+                    <button onclick="processarImportacao()" class="bg-emerald-600 text-white px-8 py-3 rounded-2xl font-black text-xs uppercase shadow-xl hover:bg-emerald-700 transform hover:-translate-y-1 transition">Processar e Importar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conversão de Lead -->
+        <div id="modal-converter" class="modal-content hidden bg-white rounded-3xl shadow-2xl w-[500px] overflow-hidden">
+            <div class="bg-blue-600 p-6 text-white flex justify-between items-center">
+                <h2 class="text-xl font-black uppercase tracking-tight">Qualificar Lead</h2>
+                <button onclick="closeModals()"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-8 space-y-6">
+                <div id="converter-lead-info" class="p-4 bg-blue-50 border border-blue-100 rounded-2xl text-sm text-blue-800 font-bold text-center"></div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Tipo de Cadastro</label>
+                        <select id="conv-tipo" class="w-full border-2 border-slate-100 p-3 rounded-xl text-sm focus:border-blue-500 outline-none">
+                            <option>Serralheiro</option><option>Construtora</option><option>Revenda</option><option>Indústria</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-black text-slate-400 uppercase mb-2">Abrir Oportunidade? (Opcional)</label>
+                        <input type="text" id="conv-negocio" class="w-full border-2 border-slate-100 p-3 rounded-xl text-sm outline-none focus:border-blue-500" placeholder="Ex: Lote inicial 2 Ton">
+                    </div>
+                </div>
+                <button onclick="executarConversao()" class="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase shadow-xl hover:bg-blue-700 transition">Confirmar Conversão</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const db = {
+            vendedores: [
+                { id: 1, nome: "Fabiana Alumínio", cor: "bg-blue-500" },
+                { id: 2, nome: "Marcos Projetos", cor: "bg-purple-500" },
+                { id: 3, nome: "Juliana Obras", cor: "bg-emerald-500" }
+            ],
+            leads: [
+                { id: 1, nome: "Construtora Rossi", cidade: "Rio de Janeiro", fone: "21-9988-7766", vendedorId: 1, status: "Novo", data: "2023-11-01" },
+                { id: 2, nome: "Alumínios VIP", cidade: "São Paulo", fone: "11-9554-3322", vendedorId: null, status: "Aguardando", data: "2023-11-02" },
+                { id: 3, nome: "Engenharia Master", cidade: "Curitiba", fone: "41-3322-1100", vendedorId: 2, status: "Contatado", data: "2023-11-01" }
+            ],
+            clientes: [
+                { id: 10, nome: "Serralheria Esquadrimax", tipo: "Serralheiro", cidade: "Guarulhos" }
+            ],
+            obras: [
+                { id: 1, nome: "Residencial Jardins", construtoraId: 10, serralheiroId: 10, fase: "Esquadrias", pot: 12 }
+            ],
+            oportunidades: [
+                { id: 1, titulo: "Lote Linha Suprema", clienteId: 10, valor: 45000, fase: "Negociação" }
+            ],
+            atividades: [
+                { id: 1, clienteId: 10, texto: "Cliente recebeu catálogo de cores especiais.", data: "Hoje, 09:00", tipo: "Ligação" }
+            ]
+        };
+
+        let estado = { viewAtual: 'dashboard', clienteSelecionadoId: 10, leadSendoConvertidoId: null };
+        const formatarMoeda = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+
+        // NAVEGAÇÃO
+        function navigate(v) {
+            estado.viewAtual = v;
+            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
+            document.getElementById(`view-${v}`).classList.add('active');
+            
+            document.querySelectorAll('.nav-btn').forEach(b => {
+                const isActive = b.getAttribute('data-target') === v;
+                b.classList.toggle('bg-blue-600', isActive);
+                b.classList.toggle('text-white', isActive);
+                b.classList.toggle('text-slate-400', !isActive);
+                b.classList.toggle('hover:bg-slate-800', !isActive);
+            });
+            render();
+        }
+
+        // RENDERIZAÇÃO CENTRAL
+        function render() {
+            if (estado.viewAtual === 'dashboard') renderDashboard();
+            if (estado.viewAtual === 'leads') renderLeads();
+            if (estado.viewAtual === 'crm') renderCRM();
+            if (estado.viewAtual === 'obras') renderObras();
+            if (estado.viewAtual === 'funil') renderFunil();
+        }
+
+        function renderDashboard() {
+            document.getElementById('kpi-leads-novos').innerText = db.leads.filter(l => l.status === 'Novo' || l.status === 'Aguardando').length;
+            const pipeline = db.oportunidades.reduce((acc, o) => acc + o.valor, 0);
+            document.getElementById('kpi-pipeline').innerText = formatarMoeda(pipeline);
+            document.getElementById('kpi-obras').innerText = db.obras.length;
+
+            // Stats Vendedores (Carga de Trabalho)
+            document.getElementById('dash-vendedores').innerHTML = db.vendedores.map(v => {
+                const leadsCount = db.leads.filter(l => l.vendedorId === v.id).length;
+                const oppsCount = db.oportunidades.filter(o => {
+                    const cli = db.clientes.find(c => c.id === o.clienteId);
+                    return cli && cli.vendedorId === v.id; // Simulação de vínculo
+                }).length;
+                
+                return `<div class="p-4 bg-slate-50 border rounded-2xl">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-slate-700">${v.nome}</span>
+                        <span class="text-[10px] font-black text-slate-400 uppercase">${leadsCount} Leads</span>
+                    </div>
+                    <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                        <div class="${v.cor} h-full" style="width: ${(leadsCount/10)*100}%"></div>
+                    </div>
+                </div>`;
+            }).join('');
+
+            // Histórico Rápido
+            document.getElementById('dash-atividades').innerHTML = db.atividades.slice().reverse().slice(0, 4).map(a => `
+                <div class="flex gap-4 items-start border-b border-slate-50 pb-4">
+                    <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-500 flex items-center justify-center shrink-0"><i class="fas fa-check text-xs"></i></div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-700">${a.texto}</p>
+                        <p class="text-[10px] text-slate-400 mt-1 uppercase font-black">${a.data} • ${a.tipo}</p>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderLeads() {
+            const corpo = document.getElementById('lista-leads-corpo');
+            corpo.innerHTML = db.leads.slice().reverse().map(l => {
+                const vend = db.vendedores.find(v => v.id === l.vendedorId);
+                let statusCls = "bg-slate-100 text-slate-600";
+                if(l.status === 'Contatado') statusCls = "bg-blue-100 text-blue-700";
+                if(l.status === 'Novo') statusCls = "bg-emerald-100 text-emerald-700";
+                if(l.status === 'Aguardando') statusCls = "bg-amber-100 text-amber-700 animate-pulse";
+                
+                return `<tr class="hover:bg-slate-50 transition group">
+                    <td class="py-4 px-2 text-[10px] font-black text-slate-300 uppercase">${l.data}</td>
+                    <td>
+                        <div class="font-black text-slate-800 text-sm">${l.nome}</div>
+                        <div class="text-[10px] text-slate-400 font-bold tracking-tighter">${l.fone}</div>
+                    </td>
+                    <td class="text-xs text-slate-500 font-medium">${l.cidade}</td>
+                    <td>
+                        <select onchange="atribuirManual(${l.id}, this.value)" class="text-[11px] font-black bg-transparent border-none focus:ring-0 uppercase cursor-pointer text-slate-500 hover:text-blue-600">
+                            <option value="">Não atribuído</option>
+                            ${db.vendedores.map(v => `<option value="${v.id}" ${v.id === l.vendedorId ? 'selected' : ''}>${v.nome}</option>`).join('')}
+                        </select>
+                    </td>
+                    <td><span class="status-badge ${statusCls}">${l.status}</span></td>
+                    <td class="text-right pr-4">
+                        <button onclick="prepararConversao(${l.id})" class="opacity-0 group-hover:opacity-100 bg-blue-600 text-white px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-tight hover:bg-blue-700 transition">CONVERTER</button>
+                        <button onclick="removerLead(${l.id})" class="ml-2 text-slate-300 hover:text-red-500 transition"><i class="fas fa-trash"></i></button>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            const funnelStats = ['Aguardando', 'Novo', 'Contatado'];
+            document.getElementById('lead-funnel-stats').innerHTML = funnelStats.map(s => {
+                const count = db.leads.filter(l => l.status === s).length;
+                return `<div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center">
+                    <span class="text-xs font-bold text-slate-500 uppercase">${s}</span>
+                    <span class="text-sm font-black text-slate-800">${count}</span>
+                </div>`;
+            }).join('');
+        }
+
+        function renderCRM() {
+            const list = document.getElementById('crm-lista-clientes');
+            list.innerHTML = db.clientes.map(c => `
+                <div onclick="selecionarCliente(${c.id})" class="p-5 border-b cursor-pointer transition ${c.id === estado.clienteSelecionadoId ? 'bg-white border-l-4 border-l-blue-600 shadow-inner' : 'hover:bg-slate-50'}">
+                    <div class="font-black text-slate-800 text-sm mb-1">${c.nome}</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[9px] font-black uppercase text-slate-400 tracking-widest">${c.tipo}</span>
+                        <span class="text-[9px] font-bold text-slate-400">${c.cidade}</span>
+                    </div>
+                </div>`).join('');
+
+            const cliente = db.clientes.find(c => c.id === estado.clienteSelecionadoId);
+            if(!cliente) return;
+
+            document.getElementById('crm-header').innerHTML = `
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-2xl font-black text-slate-800">${cliente.nome}</h2>
+                        <div class="text-xs text-slate-400 font-bold uppercase tracking-widest mt-1">${cliente.tipo} • ${cliente.cidade}</div>
+                    </div>
+                    <button class="bg-slate-100 text-slate-500 p-3 rounded-xl hover:bg-slate-200 transition"><i class="fas fa-edit"></i></button>
+                </div>`;
+
+            const atvs = db.atividades.filter(a => a.clienteId === cliente.id).reverse();
+            document.getElementById('crm-timeline').innerHTML = atvs.map(a => `
+                <div class="relative pl-8 before:absolute before:left-3 before:top-8 before:bottom-[-2rem] before:w-0.5 before:bg-slate-200 last:before:hidden">
+                    <div class="absolute left-0 top-0 w-6 h-6 rounded-full bg-white border-2 border-blue-500 z-10"></div>
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100">
+                        <div class="flex justify-between mb-2">
+                            <span class="text-[10px] font-black uppercase text-blue-600">${a.tipo}</span>
+                            <span class="text-[10px] font-bold text-slate-300 uppercase">${a.data}</span>
+                        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed">${a.texto}</p>
+                    </div>
+                </div>`).join('');
+
+            const obras = db.obras.filter(o => o.construtoraId === cliente.id || o.serralheiroId === cliente.id);
+            document.getElementById('crm-obras-lista').innerHTML = obras.map(o => `
+                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-purple-500">
+                    <div class="font-bold text-xs mb-1 text-slate-800">${o.nome}</div>
+                    <div class="text-[9px] font-black uppercase text-slate-400 tracking-tight">Fase: ${o.fase} • ${o.pot} Ton</div>
+                </div>`).join('');
+
+            const opps = db.oportunidades.filter(o => o.clienteId === cliente.id);
+            document.getElementById('crm-funil-lista').innerHTML = opps.map(o => `
+                <div class="p-4 bg-white rounded-xl border border-slate-200 shadow-sm border-l-4 border-l-amber-500">
+                    <div class="font-bold text-xs mb-1 text-slate-800">${o.titulo}</div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[11px] font-black text-amber-600 uppercase">${formatarMoeda(o.valor)}</span>
+                        <span class="text-[9px] font-bold text-slate-400 uppercase">${o.fase}</span>
+                    </div>
+                </div>`).join('');
+        }
+
+        // LÓGICA DE NEGÓCIO: LEADS
+        function processarImportacao() {
+            const raw = document.getElementById('import-area').value;
+            if(!raw.trim()) return;
+            const linhas = raw.split('\n');
+            linhas.forEach(linha => {
+                const parts = linha.split(',');
+                if(parts[0] && parts[0].trim().length > 2) {
+                    db.leads.push({
+                        id: Date.now() + Math.random(),
+                        nome: parts[0].trim(),
+                        cidade: (parts[1] || 'A Definir').trim(),
+                        fone: (parts[2] || 'Sem Fone').trim(),
+                        vendedorId: null,
+                        status: 'Aguardando',
+                        data: new Date().toLocaleDateString('pt-BR')
+                    });
+                }
+            });
+            document.getElementById('import-area').value = '';
+            closeModals();
+            navigate('leads');
+        }
+
+        function distribuirAutomatico() {
+            const aguardando = db.leads.filter(l => l.status === 'Aguardando' || !l.vendedorId);
+            if(aguardando.length === 0) return;
+            aguardando.forEach((l, idx) => {
+                const vIdx = idx % db.vendedores.length;
+                l.vendedorId = db.vendedores[vIdx].id;
+                l.status = 'Novo';
+            });
+            render();
+        }
+
+        function atribuirManual(leadId, vId) {
+            const lead = db.leads.find(l => l.id === leadId);
+            if(lead) {
+                lead.vendedorId = vId ? parseInt(vId) : null;
+                lead.status = vId ? 'Novo' : 'Aguardando';
+                render();
+            }
+        }
+
+        function prepararConversao(id) {
+            const lead = db.leads.find(l => l.id === id);
+            estado.leadSendoConvertidoId = id;
+            document.getElementById('converter-lead-info').innerText = `Validado: ${lead.nome}`;
+            openModal('modal-converter');
+        }
+
+        function executarConversao() {
+            const lead = db.leads.find(l => l.id === estado.leadSendoConvertidoId);
+            const novoId = Date.now();
+            
+            db.clientes.unshift({
+                id: novoId,
+                nome: lead.nome,
+                tipo: document.getElementById('conv-tipo').value,
+                cidade: lead.cidade,
+                vendedorId: lead.vendedorId
+            });
+
+            const oppTitulo = document.getElementById('conv-negocio').value;
+            if(oppTitulo.trim()) {
+                db.oportunidades.push({
+                    id: Date.now() + 1,
+                    titulo: oppTitulo,
+                    clienteId: novoId,
+                    valor: 0,
+                    fase: 'Mapeamento'
+                });
+            }
+
+            db.leads = db.leads.filter(l => l.id !== lead.id);
+            closeModals();
+            estado.clienteSelecionadoId = novoId;
+            navigate('crm');
+        }
+
+        function salvarAtividade() {
+            const txt = document.getElementById('input-atividade').value;
+            if(!txt.trim()) return;
+            db.atividades.push({
+                id: Date.now(),
+                clienteId: estado.clienteSelecionadoId,
+                texto: txt,
+                data: "Hoje, agora",
+                tipo: "Anotação"
+            });
+            document.getElementById('input-atividade').value = '';
+            renderCRM();
+        }
+
+        // MODAIS
+        function openModal(id) {
+            document.getElementById('modal-overlay').classList.replace('hidden', 'flex');
+            document.querySelectorAll('.modal-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+        function closeModals() {
+            document.getElementById('modal-overlay').classList.replace('flex', 'hidden');
+        }
+
+        // PLACEHOLDERS PARA COMPLEMENTO
+        function renderObras() {
+            document.getElementById('grid-obras').innerHTML = db.obras.map(o => `
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                    <h4 class="font-black text-slate-800 mb-2">${o.nome}</h4>
+                    <div class="flex justify-between items-center text-[10px] font-black uppercase text-slate-400">
+                        <span>${o.pot} Ton</span>
+                        <span class="bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">${o.fase}</span>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderFunil() {
+            const fases = ['Mapeamento', 'Proposta', 'Negociação', 'Fechado'];
+            document.getElementById('kanban-board').innerHTML = fases.map(f => {
+                const ops = db.oportunidades.filter(o => o.fase === f);
+                return `<div class="kanban-col bg-slate-200/40 p-4 rounded-3xl border border-slate-200/60 shrink-0 h-full flex flex-col">
+                    <h3 class="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-4 px-2">${f} (${ops.length})</h3>
+                    <div class="space-y-4 overflow-y-auto">
+                        ${ops.map(o => `<div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 text-sm font-bold text-slate-700">${o.titulo}</div>`).join('')}
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        window.onload = () => navigate('dashboard');
+    </script>
+</body>
+</html>

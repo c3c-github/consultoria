@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Report Olga Color - 13/03/2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; overflow: hidden; }
+        .slide { display: none; height: 100vh; width: 100vw; transition: opacity 0.5s ease-in-out; }
+        .slide.active { display: flex; flex-direction: column; opacity: 1; }
+        .gradient-olga { background: linear-gradient(135deg, #e30613 0%, #99040d 100%); }
+        .bg-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .progress-fill { transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .glow-red { box-shadow: 0 0 20px rgba(227, 6, 19, 0.2); }
+    </style>
+</head>
+<body>
+
+    <!-- Navegação Inferior -->
+    <div class="fixed bottom-8 right-8 z-50 flex gap-4 no-print">
+        <button onclick="prevSlide()" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all border border-white/5 shadow-lg">
+            <i data-lucide="chevron-left" class="text-white"></i>
+        </button>
+        <button onclick="nextSlide()" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-all border border-white/5 shadow-lg">
+            <i data-lucide="chevron-right" class="text-white"></i>
+        </button>
+    </div>
+
+    <!-- Indicador de Progresso Superior -->
+    <div class="fixed top-0 left-0 w-full h-1 bg-white/10 z-50">
+        <div id="topProgressBar" class="h-full bg-red-600 transition-all duration-300" style="width: 0%"></div>
+    </div>
+
+    <main id="presentation">
+        
+        <!-- Slide 1: Capa -->
+        <section class="slide active items-center justify-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="absolute top-0 left-0 w-96 h-96 bg-red-600 rounded-full filter blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 right-0 w-96 h-96 bg-blue-600 rounded-full filter blur-[120px] translate-x-1/2 translate-y-1/2"></div>
+            </div>
+            
+            <div class="z-10 text-center px-6">
+                <div class="flex justify-center items-center gap-8 mb-12">
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" alt="C3C" class="h-16 brightness-0 invert">
+                    <div class="h-12 w-px bg-white/20"></div>
+                    <img src="https://olgacolor.com.br/wp-content/uploads/2019/07/logo-olga-color-250.png" alt="Olga Color" class="h-16">
+                </div>
+                <h1 class="text-6xl font-black mb-4 tracking-tighter uppercase">Status Report</h1>
+                <p class="text-2xl text-slate-400 font-light max-w-2xl mx-auto uppercase tracking-wide">
+                    Projeto Salesforce Olga Color
+                </p>
+                <div class="mt-12 flex justify-center gap-6 text-sm font-bold uppercase tracking-widest text-slate-500">
+                    <span class="text-white px-3 py-1 bg-red-600 rounded shadow-lg glow-red">HOJE: 13/03/2026</span>
+                    <span>•</span>
+                    <span>Consolidado Semana 5</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: Macrocronograma Estratégico -->
+        <section class="slide p-12 bg-slate-900">
+            <div class="max-w-7xl mx-auto w-full">
+                <header class="mb-12">
+                    <h2 class="text-3xl font-bold flex items-center gap-3 uppercase">
+                        <i data-lucide="calendar" class="text-red-600"></i> Macrocronograma Estratégico
+                    </h2>
+                    <p class="text-slate-400">Progresso do desenvolvimento e marcos de go-live</p>
+                </header>
+
+                <div class="bg-card p-10 rounded-3xl relative mb-12 border border-white/5 shadow-2xl">
+                    <div class="flex justify-between mb-8 relative z-10 text-[10px] font-bold uppercase text-slate-500 tracking-widest text-center">
+                        <div class="w-1/4">Desenvolvimento<br><span class="text-green-500">Finalizando (S1-S6)</span></div>
+                        <div class="w-1/4">Homologação<br><span class="text-yellow-500 italic">Início em 23/03</span></div>
+                        <div class="w-1/4">Go-Live Prep<br><span class="text-slate-400">Março/Abril</span></div>
+                        <div class="w-1/4">Go-Live<br><span class="text-red-500">06 DE ABRIL</span></div>
+                    </div>
+                    
+                    <div class="relative h-4 bg-slate-800 rounded-full overflow-hidden">
+                        <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-green-500 to-yellow-500 progress-fill" style="width: 83.3%"></div>
+                        <div class="absolute top-0 h-full w-1 bg-white shadow-[0_0_15px_white] z-20" style="left: 83.3%"></div>
+                    </div>
+                    <div class="mt-4 flex justify-between text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+                        <span>Início: 09/02</span>
+                        <span class="text-white font-black bg-red-600 px-2 rounded">Hoje: 13/03 (Final da Semana 5)</span>
+                        <span>Go-Live: 06/04</span>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10 ring-1 ring-yellow-500/30">
+                        <h4 class="text-xs font-bold text-yellow-500 mb-2 uppercase tracking-widest">Foco da Semana</h4>
+                        <p class="text-2xl font-black">PCP & ANTECIPADO</p>
+                        <p class="text-[10px] text-slate-400 mt-2 italic">Validações técnicas concluídas</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-white/5 border border-white/10 ring-1 ring-blue-500/30">
+                        <h4 class="text-xs font-bold text-blue-500 mb-2 uppercase tracking-widest">Próxima Fase (S6)</h4>
+                        <p class="text-2xl font-black">SIMULADOS TADEU</p>
+                        <p class="text-[10px] text-slate-400 mt-2 italic">Início em 16/03</p>
+                    </div>
+                    <div class="p-6 rounded-2xl bg-red-600/10 border border-red-600/30">
+                        <h4 class="text-xs font-bold text-red-500 mb-2 uppercase tracking-widest">Go-Live Target</h4>
+                        <p class="text-3xl font-black text-white">06 DE ABRIL</p>
+                        <p class="text-[10px] text-slate-400 mt-2 uppercase font-bold tracking-widest">Foco: Web & iPad</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: Highlights da Semana -->
+        <section class="slide p-12 overflow-y-auto custom-scroll">
+            <div class="max-w-6xl mx-auto w-full">
+                <header class="mb-10">
+                    <h2 class="text-3xl font-bold flex items-center gap-3 uppercase tracking-tight">
+                        <i data-lucide="zap" class="text-yellow-400"></i> Highlights Estratégicos (13/03)
+                    </h2>
+                    <p class="text-slate-400">Conquistas, validações e alertas críticos do encerramento da Semana 5</p>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-card p-8 rounded-3xl border-l-4 border-green-500 shadow-xl">
+                        <h3 class="text-xl font-bold text-green-500 mb-6 flex items-center gap-2 uppercase tracking-wide">
+                            <i data-lucide="check-circle" class="h-6 w-6"></i> Validações de Fluxo
+                        </h3>
+                        <ul class="space-y-4 text-sm">
+                            <li class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/5">
+                                <i data-lucide="check" class="h-4 w-4 text-green-500 mt-1"></i>
+                                <div>
+                                    <p class="font-bold">Finalizado Validação do PCP</p>
+                                    <p class="text-xs text-slate-400 leading-relaxed italic">Ressalva: Necessário realizar Test Stress para garantir estabilidade nas duas pontas.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/5">
+                                <i data-lucide="layers" class="h-4 w-4 text-green-500 mt-1"></i>
+                                <div>
+                                    <p class="font-bold">Antecipado: Conceituado & Validado</p>
+                                    <p class="text-xs text-slate-400 leading-relaxed italic">Alerta: Dependência do Aster para validação técnica. Dev finaliza na segunda-feira (16/03).</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 bg-white/5 p-4 rounded-xl border border-white/5">
+                                <i data-lucide="monitor" class="h-4 w-4 text-green-500 mt-1"></i>
+                                <div>
+                                    <p class="font-bold">Go-Live: Foco Web / iPad</p>
+                                    <p class="text-xs text-slate-400 leading-relaxed italic">Fase 1 validada nestas plataformas; App Salesforce Mobile pausado por tempo hábil.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-card p-8 rounded-3xl border-l-4 border-orange-500 shadow-xl">
+                        <h3 class="text-xl font-bold text-orange-500 mb-6 flex items-center gap-2 uppercase tracking-wide">
+                            <i data-lucide="alert-circle" class="h-6 w-6 text-orange-500"></i> Alertas & Correções
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-orange-600/5 rounded-xl border border-orange-600/10">
+                                <p class="text-sm font-bold text-orange-400">Correção de Cálculo no SAP</p>
+                                <p class="text-xs text-slate-400 mt-1 leading-relaxed">Identificado e corrigido bug no cálculo do pedido causado por parâmetro incorreto no ambiente de desenvolvimento do SAP.</p>
+                            </div>
+                            <div class="p-4 bg-blue-600/10 rounded-xl border border-blue-600/20">
+                                <p class="text-sm font-bold text-blue-400 uppercase text-[10px] tracking-widest">Visibilidade de Produção</p>
+                                <p class="text-xs text-slate-400 mt-1 italic">Implementado o retorno de quantidade produzida (essencial para acompanhamento real do pedido e antecipado).</p>
+                            </div>
+                            <div class="p-4 bg-white/5 rounded-xl border border-white/10 opacity-70">
+                                <p class="text-sm font-bold text-slate-300">Status de Produção</p>
+                                <p class="text-xs text-slate-400 mt-1 italic leading-relaxed">Em processo de finalização o retorno automático do status de produção do pedido.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 4: Painel de Atividades (Planilha Atualizada) -->
+        <section class="slide p-12 overflow-y-auto custom-scroll">
+            <div class="max-w-7xl mx-auto w-full">
+                <header class="mb-8 flex justify-between items-end">
+                    <div>
+                        <h2 class="text-3xl font-bold uppercase tracking-tight">Evolução das Atividades</h2>
+                        <p class="text-slate-400 italic text-sm font-light tracking-wide">Status consolidado conforme micro-status de hoje (13/03)</p>
+                    </div>
+                </header>
+
+                <div class="bg-card rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="max-h-[60vh] overflow-y-auto custom-scroll">
+                        <table class="w-full text-left">
+                            <thead class="bg-white/5 text-[10px] uppercase font-bold text-slate-500 tracking-widest sticky top-0 z-20 backdrop-blur-md">
+                                <tr>
+                                    <th class="px-6 py-4">Macro / Atividade</th>
+                                    <th class="px-6 py-4 text-center">Responsável</th>
+                                    <th class="px-6 py-4">Status & Detalhe</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-[11px] divide-y divide-white/5">
+                                <tr class="bg-green-500/5">
+                                    <td class="px-6 py-3 font-bold">Contas, Contatos e Botões SAP (S1)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">Joao Victor</td>
+                                    <td class="px-6 py-3 text-green-500 font-bold uppercase">Concluído</td>
+                                </tr>
+                                <tr class="bg-green-500/5">
+                                    <td class="px-6 py-3 font-bold">Proposta, Opp e Pré-venda "Normal" (S2)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">Joao Victor</td>
+                                    <td class="px-6 py-3 text-yellow-500 font-bold italic uppercase tracking-tighter">Aguardando Validação (KC 20/02)</td>
+                                </tr>
+                                <tr class="bg-blue-500/5">
+                                    <td class="px-6 py-3 font-bold">PDF, Similaridade, Descontos & Cliente Pagador (S3)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">July / Joao Victor</td>
+                                    <td class="px-6 py-3 text-green-500 font-bold uppercase tracking-tighter italic">Concluído (PDF Layout Padrão)</td>
+                                </tr>
+                                <!-- Despriorizado Olga -->
+                                <tr class="bg-slate-900/80 opacity-60 border-l-4 border-slate-600 transition-colors">
+                                    <td class="px-6 py-3 font-bold text-slate-500 line-through decoration-slate-400">Ferramentas Customizadas (Ajustes Integração)</td>
+                                    <td class="px-6 py-3 text-center text-slate-500 italic">Victor Lucas / JV</td>
+                                    <td class="px-6 py-3">
+                                        <span class="bg-slate-700/50 text-slate-400 px-2 py-1 rounded text-[9px] uppercase font-bold flex items-center gap-1 w-fit">
+                                            <i data-lucide="pause-circle" class="h-3 w-3"></i> Despriorizado pela Olga
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="bg-yellow-500/10">
+                                    <td class="px-6 py-3 font-bold text-yellow-500 uppercase tracking-tighter">Alertas PCP & Deploy QA (S4)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">July / Renan / JV</td>
+                                    <td class="px-6 py-3 text-yellow-400 font-bold animate-pulse uppercase">Em Andamento / Deploy Homolog</td>
+                                </tr>
+                                <tr class="bg-orange-500/10 border-l-4 border-orange-500">
+                                    <td class="px-6 py-3 font-bold text-orange-400 uppercase tracking-tighter italic">Antecipados por Nota Mãe/Filho (S5)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">July</td>
+                                    <td class="px-6 py-3 text-orange-400 font-black uppercase tracking-widest">Foco Atual / Em Andamento</td>
+                                </tr>
+                                <tr class="bg-white/5 opacity-50">
+                                    <td class="px-6 py-3 font-bold">EDI, Lotes de Terceiros e Updates (S5)</td>
+                                    <td class="px-6 py-3 text-center text-slate-400">Lucas / Joao Victor</td>
+                                    <td class="px-6 py-3 italic uppercase text-slate-500">Priorizado / Novo</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 5: Riscos & Pendências -->
+        <section class="slide p-12">
+            <div class="max-w-7xl mx-auto w-full">
+                <header class="mb-10">
+                    <h2 class="text-3xl font-bold uppercase tracking-tight flex items-center gap-3">
+                        <i data-lucide="alert-triangle" class="text-orange-500"></i> Gestão de Bloqueios
+                    </h2>
+                    <p class="text-slate-400">Monitoramento ativo de riscos técnicos para garantir a Homologação</p>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div class="space-y-6">
+                        <div class="bg-red-600/5 p-6 rounded-2xl border border-red-600/20 relative">
+                            <h5 class="font-bold mb-2 uppercase text-red-500 text-sm">Stress Test (PCP)</h5>
+                            <p class="text-xs text-slate-400 italic leading-relaxed">Risco de performance e consistência das regras de alerta se aplicadas em grande volume de dados simultâneos.</p>
+                            <div class="mt-4 flex gap-1"><div class="w-4 h-1 bg-red-600 rounded"></div><div class="w-4 h-1 bg-red-600 rounded"></div><div class="w-4 h-1 bg-red-600/30 rounded"></div></div>
+                        </div>
+                        <div class="bg-orange-600/5 p-6 rounded-2xl border border-orange-600/20">
+                            <h5 class="font-bold mb-2 uppercase text-orange-400 text-sm">Validação Aster (Antecipado)</h5>
+                            <p class="text-xs text-slate-400 italic leading-relaxed">O fluxo conceitual está validado, porém a integração final depende da validação técnica do Aster no SAP.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-card p-8 rounded-3xl border border-white/5 shadow-xl">
+                        <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6 border-b border-white/10 pb-2">Pendências Ativas</h4>
+                        <div class="space-y-4 text-[11px]">
+                            <div class="flex items-center justify-between p-3 bg-white/5 rounded border-l-2 border-red-600">
+                                <span class="text-slate-300">Erro Pedido de Projeto Ferramenta (SAP)</span>
+                                <span class="bg-red-600 text-white font-bold px-2 py-0.5 rounded text-[8px] uppercase">Ação: Time Olga</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white/5 rounded border-l-2 border-yellow-500">
+                                <span class="text-slate-300">Envio do Layout de PDF Customizado</span>
+                                <span class="bg-yellow-500 text-black font-bold px-2 py-0.5 rounded text-[8px] uppercase">Ação: Olga Color</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 bg-white/5 rounded border-l-2 border-slate-500 opacity-60">
+                                <span class="text-slate-300">Vídeos de Treinamento e Demo</span>
+                                <span class="bg-slate-500 text-white font-bold px-2 py-0.5 rounded text-[8px] uppercase">Time C3C</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 6: Foco S6 & Próximos Passos -->
+        <section class="slide items-center justify-center p-12 text-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10 pointer-events-none gradient-olga"></div>
+            
+            <div class="z-10 w-full max-w-5xl">
+                <h2 class="text-4xl font-black mb-12 italic uppercase tracking-tighter">Foco Próxima Semana (S6)</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                    <div class="p-8 bg-card rounded-2xl border border-white/10 group hover:border-blue-500/50 transition-all">
+                        <i data-lucide="play-circle" class="h-10 w-10 text-blue-500 mb-4 mx-auto group-hover:scale-110 transition-transform"></i>
+                        <p class="font-bold text-sm uppercase">Simulados Tadeu</p>
+                        <p class="text-[10px] text-slate-500 mt-2 font-mono">16/03 a 20/03</p>
+                        <p class="text-[9px] text-blue-400 mt-4 italic uppercase tracking-widest font-black">Vendas 0, 1 e 2</p>
+                    </div>
+                    <div class="p-8 bg-card rounded-2xl border border-white/10 group hover:border-orange-500/50 transition-all">
+                        <i data-lucide="file-check" class="h-10 w-10 text-orange-500 mb-4 mx-auto group-hover:scale-110 transition-transform"></i>
+                        <p class="font-bold text-sm uppercase italic">Conclusão Antecipado</p>
+                        <p class="text-[10px] text-slate-500 mt-2">Fim do Desenvolvimento: 16/03</p>
+                    </div>
+                    <div class="p-8 gradient-olga rounded-2xl shadow-2xl glow-red transform scale-110">
+                        <p class="text-white font-black text-xs uppercase tracking-widest">Início Homologação</p>
+                        <p class="text-white text-3xl font-black mt-2 tracking-tighter">23 DE MARÇO</p>
+                        <p class="text-white/80 text-[10px] mt-4 font-bold uppercase">Go-Live: 06/04</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-center items-center gap-10 grayscale opacity-40 mt-12">
+                    <img src="https://c3c.my.site.com/resource/1752735833000/logo" class="h-8 brightness-0 invert">
+                    <img src="https://olgacolor.com.br/wp-content/uploads/2019/07/logo-olga-color-250.png" class="h-8">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('topProgressBar');
+
+        function updateProgress() {
+            const percent = ((currentSlide + 1) / slides.length) * 100;
+            progressBar.style.width = percent + '%';
+        }
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            slides[index].classList.add('active');
+            updateProgress();
+            slides[index].scrollTop = 0;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Touch Swipe
+        let touchstartX = 0;
+        let touchendX = 0;
+        function checkDirection() {
+          if (touchendX < touchstartX - 50) nextSlide();
+          if (touchendX > touchstartX + 50) prevSlide();
+        }
+        document.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
+        document.addEventListener('touchend', e => {
+          touchendX = e.changedTouches[0].screenX;
+          checkDirection();
+        });
+
+        updateProgress();
+    </script>
+</body>
+</html>
