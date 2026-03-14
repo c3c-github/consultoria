@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3C Software | A Anatomia da Autonomia</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==============================================
+           1. CORE DESIGN SYSTEM (Deep Tech & High-Ticket)
+           ============================================== */
+        :root {
+            --bg-deep: #02040a; 
+            --bg-surface: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            --c3c-cyan: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --sf-purple: #9D53F2; /* Einstein IA */
+            --tbl-green: #00A183; /* Tableau */
+            
+            --text-main: #FFFFFF;
+            --text-muted: #8b9bb4;
+            
+            --gradient-vanguard: linear-gradient(135deg, var(--c3c-cyan) 0%, var(--c3c-blue) 50%, var(--sf-purple) 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-deep); color: var(--text-main); overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg-deep); } ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* Textura Matte (Ruído Fotográfico) */
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.04; }
+        
+        /* Auras Vivas no Fundo */
+        .ambient-aurora { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.3; animation: breathe 20s ease-in-out infinite alternate; mix-blend-mode: screen; }
+        .orb-1 { width: 50vw; height: 50vw; background: rgba(41, 120, 255, 0.3); top: -20%; left: -10%; }
+        .orb-2 { width: 60vw; height: 60vw; background: rgba(157, 83, 242, 0.15); bottom: -10%; right: -10%; animation-delay: -5s; }
+        @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(5%, 5%); } }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 5vw; position: relative; z-index: 10; }
+        
+        /* Tipografia C-Level */
+        .mono { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.04em; margin-bottom: 24px; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+        h3 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+        p { font-size: 1.25rem; font-weight: 400; color: var(--text-muted); }
+        .text-gradient { background: var(--gradient-vanguard); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+
+        /* Botões */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 18px 36px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: none; border-radius: 100px; }
+        .btn-primary { background: var(--text-main); color: var(--bg-deep); box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
+        .btn-primary:hover { background: var(--c3c-cyan); color: #000; box-shadow: 0 15px 40px rgba(29, 221, 189, 0.4); transform: translateY(-4px); }
+        .btn-glass { background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); }
+        .btn-glass:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-4px); }
+        
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 5vw; display: flex; justify-content: space-between; align-items: center; background: rgba(2, 4, 10, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -1px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff;}
+        .logo-orb { width: 14px; height: 14px; border-radius: 50%; background: var(--gradient-vanguard); box-shadow: 0 0 20px var(--c3c-cyan); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { color: var(--text-main); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--c3c-cyan); }
+
+        /* Utils */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ==============================================
+           ATO 1: THE HOOK (A Simulação)
+           ============================================== */
+        #ato-1 { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 60px 0; position: relative; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; width: 100%; }
+        
+        .chat-simulation { width: 100%; max-width: 480px; margin: 0 auto; padding: 24px; transform: rotateY(-15deg) rotateX(10deg); animation: floatUI 8s ease-in-out infinite; transform-style: preserve-3d; perspective: 1000px; border-top: 1px solid var(--sf-purple); box-shadow: -30px 40px 80px rgba(0,0,0,0.8); background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(24px); border-radius: 20px; }
+        @keyframes floatUI { 0%, 100% { transform: translateY(0) rotateY(-15deg) rotateX(10deg); } 50% { transform: translateY(-20px) rotateY(-10deg) rotateX(5deg); } }
+        
+        .msg { padding: 16px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; opacity: 0; transform: translateY(10px); transition: 0.5s ease; }
+        .msg.visible { opacity: 1; transform: translateY(0); }
+        .msg-user { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; margin-right: 20px; border-bottom-left-radius: 4px; }
+        .msg-agent { background: rgba(157, 83, 242, 0.15); border: 1px solid rgba(157, 83, 242, 0.4); color: var(--text-main); margin-left: 20px; border-bottom-right-radius: 4px; display: none; }
+        
+        .typing-dots { display: none; gap: 6px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; width: fit-content; margin-bottom: 16px; margin-left: 20px; }
+        .typing-dots.active { display: flex; }
+        .dot { width: 6px; height: 6px; background: var(--c3c-cyan); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+        .dot:nth-child(1) { animation-delay: -0.32s; } .dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
+
+        /* ==============================================
+           ATO 2: O MANIFESTO CONSULTIVO (A Tensão)
+           ============================================== */
+        #ato-2 { padding: 15vh 0; background: radial-gradient(circle at center, rgba(41, 120, 255, 0.05) 0%, transparent 60%); text-align: center; }
+        .manifesto-container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+        
+        /* Deep Scroll Effect: Espaçamento de 25vh obriga o usuário a descer para ler */
+        .manifesto-line { font-size: clamp(2.2rem, 4.5vw, 4.2rem); font-weight: 500; line-height: 1.3; color: rgba(255,255,255,0.08); transition: color 0.6s ease, text-shadow 0.6s ease, transform 0.6s ease; margin-bottom: 25vh; letter-spacing: -0.02em; transform: scale(0.95); width: 100%; }
+        .manifesto-line:last-child { margin-bottom: 10vh; }
+        .manifesto-line.highlighted { color: #fff; text-shadow: 0 0 40px rgba(255,255,255,0.15); transform: scale(1); }
+        .manifesto-line em { color: var(--c3c-cyan); font-style: normal; font-weight: 800; }
+
+        /* ==============================================
+           ATO 3: O TÚNEL DE ENGENHARIA (Sticky Scroll)
+           ============================================== */
+        #ato-3 { padding: 150px 0; border-top: 1px solid var(--glass-border); }
+        .tunnel-wrapper { display: flex; align-items: flex-start; gap: 80px; position: relative; }
+        
+        /* O Lado Esquerdo Trava (Sticky) enquanto o Direito rola */
+        .tunnel-left { position: sticky; top: 25vh; width: 40%; }
+        .tunnel-right { width: 60%; display: flex; flex-direction: column; gap: 15vh; padding-bottom: 15vh; }
+        
+        .layer-box { width: 100%; border-radius: 16px; padding: 60px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; background: rgba(10, 14, 23, 0.8); backdrop-filter: blur(16px); transition: 0.4s ease; transform: translateX(0); opacity: 0; }
+        .layer-box.active { opacity: 1; }
+        .layer-box::before { content: ''; position: absolute; width: 4px; height: 100%; top: 0; left: 0; transition: 0.4s; }
+        .layer-box:hover { transform: translateX(15px); background: rgba(255,255,255,0.03); }
+
+        .layer-core::before { background: var(--text-main); }
+        .layer-data::before { background: var(--c3c-blue); } .layer-data { border-color: rgba(41, 120, 255, 0.2); }
+        .layer-ia::before { background: var(--sf-purple); } .layer-ia { border-color: rgba(157, 83, 242, 0.3); }
+        .layer-analytics::before { background: var(--tbl-green); } .layer-analytics { border-color: rgba(0, 161, 131, 0.3); }
+
+        .tag { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 4px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; color: #fff; font-family: 'JetBrains Mono'; text-transform: uppercase; margin-right: 8px; margin-bottom: 24px; display: inline-block; }
+        .layer-data .tag { color: var(--c3c-blue); border-color: rgba(41, 120, 255, 0.3); background: rgba(41, 120, 255, 0.1); }
+        .layer-ia .tag { color: var(--sf-purple); border-color: rgba(157, 83, 242, 0.3); background: rgba(157, 83, 242, 0.1); }
+        .layer-analytics .tag { color: var(--tbl-green); border-color: rgba(0, 161, 131, 0.3); background: rgba(0, 161, 131, 0.1); }
+
+        /* ==============================================
+           ATO 4: ENTREGAS EXEMPLARES (Bento Grid)
+           ============================================== */
+        #ato-4 { padding: 150px 0; border-top: 1px solid var(--glass-border); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; auto-rows: minmax(350px, auto); margin-top: 80px; }
+        .col-12 { grid-column: span 12; } .col-6 { grid-column: span 6; } .col-4 { grid-column: span 4; } .col-8 { grid-column: span 8; }
+
+        .bento-card { background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 16px; padding: 50px; position: relative; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.4s; }
+        
+        /* Efeito Spotlight Rastreado pelo Mouse */
+        .bento-card::before {
+            content: ''; position: absolute; top: var(--mouse-y, 0); left: var(--mouse-x, 0); transform: translate(-50%, -50%);
+            width: 800px; height: 800px; background: radial-gradient(circle, rgba(29, 221, 189, 0.15) 0%, transparent 50%);
+            opacity: 0; transition: opacity 0.3s; z-index: 0; pointer-events: none;
+        }
+        .bento-card:hover { border-color: rgba(29, 221, 189, 0.4); }
+        .bento-card:hover::before { opacity: 1; }
+        .bento-content { position: relative; z-index: 1; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+
+        /* Tableau Mockup UI em CSS Animado (Sem usar Imagens Pesadas) */
+        .mockup-dashboard { width: 100%; height: 100%; min-height: 220px; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border); border-radius: 8px; display: flex; flex-direction: column; padding: 15px; gap: 10px; }
+        .mock-header { display: flex; justify-content: space-between; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; }
+        .mock-title { width: 40%; height: 8px; background: var(--text-muted); border-radius: 4px; opacity: 0.5; }
+        .mock-kpis { display: flex; gap: 10px; }
+        .mock-kpi { flex: 1; height: 50px; background: rgba(0, 161, 131, 0.1); border: 1px solid rgba(0, 161, 131, 0.3); border-radius: 4px; display: flex; align-items: center; padding-left: 10px; overflow: hidden;}
+        .mock-kpi-val { width: 0%; height: 12px; background: var(--tbl-green); border-radius: 4px; transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mock-chart { flex-grow: 1; background: repeating-linear-gradient(0deg, transparent, transparent 19px, rgba(255,255,255,0.05) 20px); position: relative; display: flex; align-items: flex-end; gap: 15px; padding-top: 20px;}
+        .mock-bar { width: 15%; background: var(--sf-purple); border-radius: 4px 4px 0 0; opacity: 0.8; transform-origin: bottom; transform: scaleY(0); transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .mock-bar:nth-child(3) { background: var(--c3c-cyan); box-shadow: 0 0 15px var(--c3c-cyan); }
+        
+        /* Classes ativadas via JS quando o card entra na tela */
+        .scroll-box.active .mock-kpi-val:nth-child(1) { width: 50%; }
+        .scroll-box.active .mock-kpi:nth-child(2) .mock-kpi-val { width: 80%; transition-delay: 0.2s;}
+        .scroll-box.active .mock-bar:nth-child(1) { transform: scaleY(0.3); transition-delay: 0.1s; }
+        .scroll-box.active .mock-bar:nth-child(2) { transform: scaleY(0.5); transition-delay: 0.2s; }
+        .scroll-box.active .mock-bar:nth-child(3) { transform: scaleY(0.9); transition-delay: 0.3s; }
+        .scroll-box.active .mock-bar:nth-child(4) { transform: scaleY(0.6); transition-delay: 0.4s; }
+
+        /* ==============================================
+           ATO 5: O FATOR HUMANO (Cultura)
+           ============================================== */
+        #ato-5 { padding: 180px 0; position: relative; border-top: 1px solid var(--glass-border); overflow: hidden; }
+        /* Estúdio Cinematográfico de Fundo */
+        .cinematic-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--bg-deep) 30%, transparent 100%), radial-gradient(circle at 80% 50%, rgba(29, 221, 189, 0.08) 0%, rgba(41, 120, 255, 0.05) 40%, transparent 80%); z-index: 0; }
+        .cinematic-grid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; animation: panLabGrid 30s linear infinite; }
+        @keyframes panLabGrid { 0% { transform: translateY(0); } 100% { transform: translateY(50px); } }
+        
+        .human-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; position: relative; z-index: 2; margin-top: 60px; }
+        .culture-card { padding: 40px; border-left: 2px solid var(--c3c-cyan); background: rgba(0,0,0,0.4); backdrop-filter: blur(10px); transition: 0.4s; }
+        .culture-card:hover { background: rgba(29, 221, 189, 0.05); }
+
+        /* ==============================================
+           ATO 6: CHECK-MATE (O CTA)
+           ============================================== */
+        #ato-6 { padding: 25vh 0; text-align: center; position: relative; border-top: 1px solid var(--glass-border); }
+        .spotlight-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 800px; height: 800px; background: radial-gradient(circle at center, rgba(41, 120, 255, 0.15) 0%, transparent 70%); z-index: 0; pointer-events: none; }
+
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .chat-simulation { transform: none; animation: none; margin-top: 40px; }
+            .tunnel-wrapper { flex-direction: column; gap: 60px; }
+            .tunnel-left { position: relative; top: 0; width: 100%; }
+            .tunnel-right { width: 100%; padding-top: 0; padding-bottom: 0; gap: 40px; }
+            .col-12, .col-8, .col-6, .col-4 { grid-column: span 12; }
+            .human-grid { grid-template-columns: 1fr; gap: 40px; }
+            .nav-links { display: none; }
+            .manifesto-line { margin-bottom: 20vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="ambient-aurora">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <a href="#" class="logo"><div class="logo-orb"></div> C3C SOFTWARE</a>
+        <div class="nav-links">
+            <a href="#ato-2">O Manifesto</a>
+            <a href="#ato-3">A Arquitetura</a>
+            <a href="#ato-4">Provas B2B</a>
+            <a href="#ato-5">As Pessoas</a>
+        </div>
+        <a href="#ato-6" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.75rem;">Agendar Diagnóstico</a>
+    </nav>
+
+    <section id="ato-1" class="container">
+        <div class="hero-grid">
+            <div class="reveal">
+                <h1>O CRM passivo <span style="text-decoration: line-through; color: #444;">morreu.</span><br>Bem-vindo à <br><span class="text-gradient">Autonomia.</span></h1>
+                <p style="margin-bottom: 24px; margin-top: 24px; color: #fff; font-weight: 500; font-size: 1.35rem;">
+                    A Salesforce lançou o Agentforce. A promessa da hiperautomação é real. Mas a verdade que as fábricas de software não contam é: <strong>plugar Inteligência Artificial em dados desorganizados gera apenas alucinações caras.</strong>
+                </p>
+                <p style="margin-bottom: 40px; font-size: 1.2rem;">
+                    A tecnologia pela tecnologia não escala. Nós somos a consultoria que entra na sua operação corporativa, estrutura a fundação humana, harmoniza seus dados legados e ativa a IA da forma certa.
+                </p>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;">
+                    <a href="#ato-3" class="btn btn-primary">Entenda a Engenharia &darr;</a>
+                </div>
+            </div>
+            
+            <div class="chat-simulation reveal" style="transition-delay: 0.2s;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border);">
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--gradient-vanguard); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 15px var(--sf-purple);">🦫</div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 1.1rem; color: #fff; text-align: left;">Agentforce B2B</div>
+                        <div class="mono" style="font-size: 0.65rem; color: var(--sf-purple); font-weight: 800;">IA AUTÔNOMA: ONLINE</div>
+                    </div>
+                </div>
+                
+                <div class="msg msg-user visible">
+                    <strong>Cliente VIP (WhatsApp):</strong><br>
+                    "Meu estoque na filial sul não bate com o ERP SAP. Preciso de transferência imediata da matriz ou paralisamos a fábrica amanhã."
+                </div>
+                
+                <div class="typing-dots" id="sim-typing">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+
+                <div class="msg msg-agent" id="sim-response">
+                    <span class="mono" style="font-size: 0.65rem; color: var(--c3c-cyan); display: block; margin-bottom: 8px;">> CRUZANDO DATA CLOUD & MULESOFT...</span>
+                    <strong>SLA Resolvido:</strong><br>
+                    Divergência de SAP identificada e corrigida. Ordem de transferência de 500 unidades gerada via Data Cloud. Caminhão alocado via API Logística. Cliente notificado.<br>
+                    <div style="margin-top: 12px; padding: 10px; border-left: 2px solid var(--tbl-green); font-size: 0.75rem; background: rgba(0, 161, 131, 0.1); color: #fff; border-radius: 4px;">Tableau Sync: OK | Resolução: 2.4s (Zero Humanos)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ato-2" class="container">
+        <div class="manifesto-container">
+            <h2 class="manifesto-line scroll-text">Nós não vendemos licenças soltas.<br>Nós <em>orquestramos soluções</em> de negócios.</h2>
+            <h2 class="manifesto-line scroll-text">Se você busca apenas "mãos baratas para codar",<br>nós não somos a agência para você.</h2>
+            <h2 class="manifesto-line scroll-text">Nós assumimos a complexidade da<br><em>arquitetura de ponta a ponta.</em></h2>
+            <h2 class="manifesto-line scroll-text">Do resgate do seu banco de dados legado<br>até a IA operando no WhatsApp do cliente.</h2>
+            <h2 class="manifesto-line scroll-text">O projeto só termina quando a diretoria enxerga o<br><em>resultado em dólares</em> no painel gerencial.</h2>
+        </div>
+    </section>
+
+    <section id="ato-3">
+        <div class="container tunnel-wrapper">
+            
+            <div class="tunnel-left reveal">
+                <span class="mono" style="color: var(--text-muted); margin-bottom: 20px; display: block;">// O FRAMEWORK OBRIGATÓRIO</span>
+                <h2 style="margin-bottom: 30px; font-size: 3.5rem;">A Orquestração em <br><span class="text-gradient">4 Camadas.</span></h2>
+                <p style="max-width: 400px; font-size: 1.15rem;">A tecnologia pela tecnologia não escala. Esta é a jornada arquitetural inegociável para construir uma corporação à prova de falhas na Era dos Agentes. Sem atalhos.</p>
+                <div class="mono" style="font-size: 0.8rem; margin-top: 50px; color: var(--c3c-cyan); opacity: 0.6;">&darr; DESÇA PELOS ANDARES</div>
+            </div>
+
+            <div class="tunnel-right">
+                
+                <div class="layer-box layer-core scroll-box">
+                    <div>
+                        <span class="tag">Sales Cloud</span><span class="tag">Service Cloud</span><span class="tag">Marketing</span>
+                    </div>
+                    <h3 style="margin-bottom: 20px; font-size: 2.2rem;">01. A Fundação Operacional.</h3>
+                    <p>A máquina aprende com o humano. Antes de correr, a operação precisa caminhar sem atrito. Executamos a digitalização básica com excelência brutal. Destruímos o excesso de cliques, desenhamos funis B2B de alta conversão e centralizamos o atendimento. <strong>Foco obsessivo em 99% de adoção do usuário.</strong></p>
+                </div>
+
+                <div class="layer-box layer-data scroll-box">
+                    <div>
+                        <span class="tag">MuleSoft</span><span class="tag">Data Cloud</span>
+                    </div>
+                    <h3 style="margin-bottom: 20px; font-size: 2.2rem;">02. O Motor e o Sistema Nervoso.</h3>
+                    <p>O trabalho duro de onde as outras consultorias fogem. Seus dados estão ilhados. Desenhamos a <em>Application Network</em> via <strong>MuleSoft</strong>, extraindo informações de sistemas engessados. Harmonizamos essa massa no <strong>Data Cloud</strong>. Limpamos a sujeira e criamos o Golden Record. <strong>O cérebro confiável que a IA exige para não errar.</strong></p>
+                </div>
+
+                <div class="layer-box layer-ia scroll-box">
+                    <div>
+                        <span class="tag">Agentforce</span><span class="tag">Digital Engagement</span>
+                    </div>
+                    <h3 style="margin-bottom: 20px; font-size: 2.2rem;">03. A Vanguarda Tangível.</h3>
+                    <p>Ativação: A era da resolução zero-touch. Com a casa arrumada e os dados puros, nós soltamos as amarras. Parametrizamos o <strong>Agentforce</strong> integrado aos canais digitais. Seus clientes são compreendidos, negociados e resolvidos instantaneamente. Sem humanos na triagem, mas com <strong>governança impenetrável que nunca treina LLMs públicos.</strong></p>
+                </div>
+
+                <div class="layer-box layer-analytics scroll-box">
+                    <div>
+                        <span class="tag">Tableau</span><span class="tag">Analytics</span>
+                    </div>
+                    <h3 style="margin-bottom: 20px; font-size: 2.2rem;">04. A Lente Executiva.</h3>
+                    <p>A diretoria não lê prompts de IA. Lê os resultados. A hiperautomação só tem valor se puder ser provada matematicamente. Traduzimos a economia de horas de suporte e a deflexão de chamados diretamente em painéis executivos gerenciais de alta legibilidade no <strong>Tableau</strong>. Informação em tempo real para decisões estratégicas.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="ato-4" class="container">
+        <div class="reveal">
+            <span class="mono" style="color: var(--c3c-cyan); font-size: 0.9rem; margin-bottom: 20px; display: block;">// NOSSAS ENTREGAS</span>
+            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; max-width: 1000px;">Nossas arquiteturas sustentam líderes de mercado. <span class="text-gradient">Substituímos promessas por matemática.</span></h2>
+        </div>
+
+        <div class="bento-grid">
+            
+            <div class="bento-card col-4 tracking-card reveal">
+                <div class="bento-content">
+                    <div>
+                        <span class="mono" style="font-size: 0.7rem; color: #fff; margin-bottom: 15px; display: block;">DESAFIO 01: FUNDAÇÃO CORE</span>
+                        <h3 style="font-size: 1.8rem; margin-bottom: 15px;">Adoção de 98% no Banco X.</h3>
+                        <p style="font-size: 1.05rem; color: var(--text-muted);">Como reestruturamos o Sales e Service Cloud focando em UX, alcançando 98% de adoção da equipe comercial em apenas 30 dias.</p>
+                    </div>
+                    <span class="mono" style="font-size: 0.8rem; font-weight: 800; color: var(--text-main); margin-top: 30px; display: block;">VER ARQUITETURA &rarr;</span>
+                </div>
+            </div>
+            
+            <div class="bento-card col-8 tracking-card reveal" style="border-top: 2px solid var(--c3c-blue); transition-delay: 0.1s;">
+                <div class="bento-content">
+                    <div>
+                        <span class="mono" style="font-size: 0.7rem; color: var(--c3c-blue); margin-bottom: 15px; display: block;">DESAFIO 02: O MOTOR (MULESOFT)</span>
+                        <h3 style="font-size: 2.4rem; margin-bottom: 15px;">O resgate de 10 anos de dados sujos.</h3>
+                        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 600px;">A Indústria Y possuía 3 ERPs obsoletos. Desenhamos a integração no MuleSoft que limpou o legado e habilitou o Data Cloud, criando o perfil 360 perfeito para a diretoria.</p>
+                    </div>
+                    <span class="mono" style="font-size: 0.8rem; font-weight: 800; color: var(--c3c-blue); margin-top: 30px;">VER ARQUITETURA &rarr;</span>
+                </div>
+            </div>
+
+            <div class="bento-card col-12 tracking-card scroll-box reveal" style="flex-direction: row; border-top: 2px solid var(--sf-purple); padding: 60px; transition-delay: 0.2s; flex-wrap: wrap; gap: 60px; align-items: center;">
+                <div class="bento-content" style="flex: 1; min-width: 300px;">
+                    <span class="mono" style="font-size: 0.7rem; color: var(--sf-purple); margin-bottom: 15px; display: block;">DESAFIO 03: VANGUARDA TANGÍVEL (AGENTFORCE)</span>
+                    <h3 style="font-size: 2.8rem; margin-bottom: 20px; line-height: 1.1;">SLA reduzido de 4 horas para 3 segundos.</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 600px;">O Varejo Z afogava sua operação em triagens repetitivas de faturamento. Implementamos o Agentforce via WhatsApp para zerar a fila de nível 1 instantaneamente, auditado no Tableau.</p>
+                    <span class="mono" style="font-size: 0.8rem; font-weight: 800; color: var(--sf-purple); margin-top: 30px;">VER ARQUITETURA &rarr;</span>
+                </div>
+                
+                <div style="flex: 1; min-width: 300px; display: flex; align-items: center; justify-content: center; z-index: 1;">
+                    <div class="mockup-dashboard">
+                        <div class="mock-header">
+                            <div class="mock-title"></div> 
+                            <span class="mono" style="font-size: 0.6rem; color: var(--tbl-green); letter-spacing: 1px;">LIVE ROI</span>
+                        </div>
+                        <div class="mock-kpis">
+                            <div class="mock-kpi"><div class="mock-kpi-val"></div></div>
+                            <div class="mock-kpi"><div class="mock-kpi-val" style="width: 0%;"></div></div>
+                        </div>
+                        <div class="mock-chart">
+                            <div class="mock-bar"></div><div class="mock-bar"></div><div class="mock-bar"></div><div class="mock-bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="ato-5">
+        <div class="cinematic-bg"></div>
+        <div class="cinematic-grid"></div>
+        <div class="container reveal" style="position: relative; z-index: 10;">
+            <p class="mono" style="color: var(--c3c-cyan); margin-bottom: 20px;">// O MANIFESTO C3CEIRO</p>
+            <h2 style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 30px; max-width: 900px;">O Código é binário.<br>A Arquitetura é <span style="color: #fff;">humana.</span></h2>
+            
+            <div class="human-grid">
+                <div class="culture-card">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px;">Para a sua Empresa.</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
+                        Nossa maior entrega não é o software, são as pessoas. Quando você contrata a C3C, não delegamos seu core business para juniores. Você senta à mesa com Arquitetos Salesforce, Especialistas MuleSoft e Engenheiros de IA focados em entender sua regra de negócio profunda antes de escrever uma única linha de código.
+                    </p>
+                    <button class="btn btn-glass">Conheça nossa Liderança</button>
+                </div>
+                <div class="culture-card" style="border-left-color: var(--c3c-blue);">
+                    <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--c3c-cyan);">Para os Talentos.</h3>
+                    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px;">
+                        Não somos uma fábrica genérica. Reunimos as mentes mais inquietas do ecossistema. Valorizamos a profundidade intelectual, a transparência radical e a paixão por resolver o in-resolvível. Se você busca desafios de vanguarda e arquitetura pesada, encontrou a sua tribo.
+                    </p>
+                    <button class="btn btn-glass" style="border-color: var(--c3c-cyan); color: var(--c3c-cyan);">Junte-se à Vanguarda (Vagas)</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ato-6">
+        <div class="spotlight-bg"></div>
+        <div class="container reveal" style="position: relative; z-index: 10;">
+            <div class="mono" style="color: var(--c3c-blue); margin-bottom: 24px;">// NEXT STEPS</div>
+            <h2 style="font-size: clamp(3.5rem, 8vw, 6.5rem); margin-bottom: 30px; line-height: 1;">Pronto para desenhar <br>a sua <span class="text-gradient">Autonomia?</span></h2>
+            <p style="max-width: 800px; margin: 0 auto 60px auto; font-size: 1.35rem; font-weight: 500;">
+                A Era dos Agentes já começou. Seus concorrentes já estão arrumando a casa. Corte o jargão corporativo. Reúna seus líderes técnicos, agende uma sessão de <em>whiteboard</em> com nossos Arquitetos de Solução e vamos mapear a sua transição hoje.
+            </p>
+            <button class="btn btn-primary" style="padding: 24px 60px; font-size: 1.2rem; border-radius: 100px;">Agendar Diagnóstico Arquitetural</button>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 50px 0; border-top: 1px solid var(--glass-border); background: var(--bg-deep); position: relative; z-index: 10;">
+        <p class="mono" style="font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px;">© 2026 C3C SOFTWARE. A ORQUESTRAÇÃO DEFINITIVA DA ERA DOS AGENTES.</p>
+    </footer>
+
+    <script>
+        // 1. REVEAL BÁSICO GERAL
+        const baseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 }); 
+        document.querySelectorAll('.reveal').forEach(el => baseObserver.observe(el));
+
+        // 2. DISPARADOR DAS ANIMAÇÕES DO TÚNEL E DO DASHBOARD CSS NO SCROLL
+        const tunnelObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { rootMargin: "0px", threshold: 0.2 }); 
+        document.querySelectorAll('.scroll-box').forEach(el => tunnelObserver.observe(el));
+
+        // 3. ATO 2: O MANIFESTO "TENSÃO" 
+        // Lógica que ilumina o texto apenas no centro geométrico da tela
+        const manifestoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('highlighted');
+                } else {
+                    entry.target.classList.remove('highlighted');
+                }
+            });
+        }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 }); 
+
+        document.querySelectorAll('.scroll-text').forEach(el => manifestoObserver.observe(el));
+
+        // 4. ATO 4: EFEITO SPOTLIGHT NOS CARDS
+        // Rastreia a posição exata X e Y do cursor do usuário
+        document.querySelectorAll('.tracking-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // 5. ATO 1: SHOW, DON'T TELL (Simulador IA)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const typing = document.getElementById('sim-typing');
+                const response = document.getElementById('sim-response');
+                
+                if(typing && response) {
+                    typing.classList.add('active'); // O Agente começa a "pensar"
+                    
+                    // Aguarda 3 segundos para dar a sensação de processamento complexo
+                    setTimeout(() => {
+                        typing.classList.remove('active');
+                        typing.style.display = 'none';
+                        response.classList.add('visible');
+                        response.style.display = 'block';
+                    }, 3000); 
+                }
+            }, 1500); // Aciona logo após a leitura inicial da Hero
+        });
+    </script>
+</body>
+</html>
