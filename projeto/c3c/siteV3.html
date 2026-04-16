@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C3C Software | Devolvendo o seu tempo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;800;900&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==============================================
+           1. CORE DESIGN SYSTEM (Deep Tech & High-Ticket)
+           ============================================== */
+        :root {
+            --bg-deep: #02040a; 
+            --bg-surface: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            
+            --c3c-cyan: #1DDDBD;
+            --c3c-blue: #2978FF;
+            --sf-purple: #9D53F2; /* Einstein IA */
+            --tbl-green: #00A183; /* Tableau */
+            --mkt-orange: #FF7A00; /* Marketing Cloud */
+            
+            --text-main: #FFFFFF;
+            --text-muted: #8b9bb4;
+            
+            --gradient-vanguard: linear-gradient(135deg, var(--c3c-cyan) 0%, var(--c3c-blue) 50%, var(--sf-purple) 100%);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--bg-deep); color: var(--text-main); overflow-x: hidden; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        ::-webkit-scrollbar { width: 8px; } ::-webkit-scrollbar-track { background: var(--bg-deep); } ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* Textura Matte (Ruído Fotográfico) */
+        .noise-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 9999; pointer-events: none; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); opacity: 0.04; }
+        
+        /* Auras Vivas no Fundo */
+        .ambient-aurora { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(140px); opacity: 0.3; animation: breathe 20s ease-in-out infinite alternate; mix-blend-mode: screen; }
+        .orb-1 { width: 50vw; height: 50vw; background: rgba(41, 120, 255, 0.3); top: -20%; left: -10%; }
+        .orb-2 { width: 60vw; height: 60vw; background: rgba(157, 83, 242, 0.15); bottom: -10%; right: -10%; animation-delay: -5s; }
+        @keyframes breathe { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(5%, 5%); } }
+
+        .container { max-width: 1300px; margin: 0 auto; padding: 0 5vw; position: relative; z-index: 10; }
+        
+        /* Tipografia C-Level */
+        .mono { font-family: 'JetBrains Mono', monospace; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 24px; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; }
+        h3 { font-size: clamp(1.8rem, 3vw, 2.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+        p { font-size: 1.25rem; font-weight: 400; color: var(--text-muted); }
+        .text-gradient { background: var(--gradient-vanguard); -webkit-background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
+
+        /* Botões */
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 18px 36px; font-size: 0.9rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; border: none; border-radius: 100px; }
+        .btn-primary { background: var(--text-main); color: var(--bg-deep); box-shadow: 0 10px 30px rgba(255,255,255,0.1); }
+        .btn-primary:hover { background: var(--c3c-cyan); color: #000; box-shadow: 0 15px 40px rgba(29, 221, 189, 0.4); transform: translateY(-4px); }
+        .btn-glass { background: rgba(255,255,255,0.03); color: var(--text-main); border: 1px solid var(--glass-border); backdrop-filter: blur(12px); }
+        .btn-glass:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); transform: translateY(-4px); }
+        
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; padding: 25px 5vw; display: flex; justify-content: space-between; align-items: center; background: rgba(2, 4, 10, 0.7); backdrop-filter: blur(20px); border-bottom: 1px solid var(--glass-border); z-index: 1000; }
+        .logo { font-weight: 900; font-size: 1.4rem; letter-spacing: -1px; display: flex; align-items: center; gap: 12px; text-decoration: none; color: #fff;}
+        .logo-orb { width: 14px; height: 14px; border-radius: 50%; background: var(--gradient-vanguard); box-shadow: 0 0 20px var(--c3c-cyan); }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { color: var(--text-main); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; opacity: 0.6; transition: 0.3s; }
+        .nav-links a:hover { opacity: 1; color: var(--c3c-cyan); }
+
+        /* Utils */
+        .reveal { opacity: 0; transform: translateY(50px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ==============================================
+           DOBRA 1: HERO (O Abraço Inicial)
+           ============================================== */
+        #dobra-1 { min-height: 100vh; display: flex; align-items: center; padding: 120px 0 60px 0; position: relative; }
+        .hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; width: 100%; }
+        
+        .chat-simulation { width: 100%; max-width: 480px; margin: 0 auto; padding: 24px; transform: rotateY(-15deg) rotateX(10deg); animation: floatUI 8s ease-in-out infinite; transform-style: preserve-3d; perspective: 1000px; border-top: 1px solid var(--sf-purple); box-shadow: -30px 40px 80px rgba(0,0,0,0.8); background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(24px); border-radius: 20px; }
+        @keyframes floatUI { 0%, 100% { transform: translateY(0) rotateY(-15deg) rotateX(10deg); } 50% { transform: translateY(-20px) rotateY(-10deg) rotateX(5deg); } }
+        
+        .msg { padding: 16px; border-radius: 12px; font-size: 0.9rem; margin-bottom: 16px; line-height: 1.5; opacity: 0; transform: translateY(10px); transition: 0.5s ease; }
+        .msg.visible { opacity: 1; transform: translateY(0); }
+        .msg-user { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: #fff; margin-right: 20px; border-bottom-left-radius: 4px; display: none;}
+        .msg-agent { background: rgba(157, 83, 242, 0.15); border: 1px solid rgba(157, 83, 242, 0.4); color: var(--text-main); margin-left: 20px; border-bottom-right-radius: 4px; display: none; }
+        
+        .typing-dots { display: none; gap: 6px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 12px; width: fit-content; margin-bottom: 16px; margin-left: 20px; }
+        .typing-dots.active { display: flex; }
+        .dot { width: 6px; height: 6px; background: var(--c3c-cyan); border-radius: 50%; animation: bounce 1.4s infinite ease-in-out both; }
+        .dot:nth-child(1) { animation-delay: -0.32s; } .dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes bounce { 0%, 80%, 100% { transform: scale(0); opacity: 0.3; } 40% { transform: scale(1); opacity: 1; } }
+
+        /* ==============================================
+           MANIFESTO / TENSÃO (Scroll Effect)
+           ============================================== */
+        .manifesto-container { max-width: 1100px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; padding: 15vh 0 5vh 0; }
+        .manifesto-line { font-size: clamp(2.2rem, 4.5vw, 4.2rem); font-weight: 500; line-height: 1.3; color: rgba(255,255,255,0.08); transition: color 0.6s ease, text-shadow 0.6s ease, transform 0.6s ease; margin-bottom: 25vh; letter-spacing: -0.02em; transform: scale(0.95); width: 100%; text-align: center; }
+        .manifesto-line:last-child { margin-bottom: 10vh; }
+        .manifesto-line.highlighted { color: #fff; text-shadow: 0 0 40px rgba(255,255,255,0.15); transform: scale(1); }
+        .manifesto-line em { color: inherit; font-style: normal; font-weight: 800; transition: color 0.6s ease; }
+        .manifesto-line.highlighted em { color: var(--c3c-cyan); text-shadow: 0 0 20px rgba(29, 221, 189, 0.4); }
+
+        /* ==============================================
+           DOBRA 2: RESULTADOS (A Tranquilidade em Números)
+           ============================================== */
+        #dobra-2 { padding: 120px 0; background: radial-gradient(circle at center, rgba(41, 120, 255, 0.05) 0%, transparent 60%); position: relative; border-top: 1px solid var(--glass-border); }
+        .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-top: 60px; }
+        .kpi-card { background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 16px; padding: 40px; text-align: center; transition: 0.4s; position: relative; overflow: hidden; }
+        .kpi-card:hover { transform: translateY(-10px); border-color: rgba(29, 221, 189, 0.3); background: rgba(255,255,0,0.02); }
+        .kpi-value { font-size: 3.5rem; font-weight: 900; color: #fff; margin-bottom: 15px; display: block; }
+        .kpi-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 15px; color: var(--c3c-cyan); }
+        
+        /* ==============================================
+           DOBRA 3: O NOSSO JEITO (A Jornada - Sticky Scroll)
+           ============================================== */
+        #dobra-3 { padding: 150px 0; border-top: 1px solid var(--glass-border); }
+        .tunnel-wrapper { display: flex; align-items: flex-start; gap: 80px; position: relative; }
+        
+        .tunnel-left { position: sticky; top: 25vh; width: 40%; }
+        .tunnel-right { width: 60%; display: flex; flex-direction: column; gap: 15vh; padding-bottom: 15vh; }
+        
+        .layer-box { width: 100%; border-radius: 16px; padding: 60px; border: 1px solid var(--glass-border); position: relative; overflow: hidden; background: rgba(10, 14, 23, 0.8); backdrop-filter: blur(16px); transition: 0.4s ease; transform: translateX(0); opacity: 0; }
+        .layer-box.active { opacity: 1; }
+        .layer-box::before { content: ''; position: absolute; width: 4px; height: 100%; top: 0; left: 0; transition: 0.4s; }
+        .layer-box:hover { transform: translateX(15px); background: rgba(255,255,255,0.03); }
+
+        .layer-core::before { background: var(--text-main); }
+        .layer-data::before { background: var(--c3c-blue); } .layer-data { border-color: rgba(41, 120, 255, 0.2); }
+        .layer-memory::before { background: var(--tbl-green); } .layer-memory { border-color: rgba(0, 161, 131, 0.2); }
+        .layer-mkt::before { background: var(--mkt-orange); } .layer-mkt { border-color: rgba(255, 122, 0, 0.2); }
+        .layer-ia::before { background: var(--sf-purple); } .layer-ia { border-color: rgba(157, 83, 242, 0.3); }
+        .layer-slack::before { background: #E01E5A; } .layer-slack { border-color: rgba(224, 30, 90, 0.3); }
+
+        .tag { padding: 8px 16px; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 4px; font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; color: #fff; font-family: 'JetBrains Mono'; text-transform: uppercase; margin-right: 8px; margin-bottom: 24px; display: inline-block; }
+        .layer-data .tag { color: var(--c3c-blue); border-color: rgba(41, 120, 255, 0.3); background: rgba(41, 120, 255, 0.1); }
+        .layer-memory .tag { color: var(--tbl-green); border-color: rgba(0, 161, 131, 0.3); background: rgba(0, 161, 131, 0.1); }
+        .layer-mkt .tag { color: var(--mkt-orange); border-color: rgba(255, 122, 0, 0.3); background: rgba(255, 122, 0, 0.1); }
+        .layer-ia .tag { color: var(--sf-purple); border-color: rgba(157, 83, 242, 0.3); background: rgba(157, 83, 242, 0.1); }
+        .layer-slack .tag { color: #E01E5A; border-color: rgba(224, 30, 90, 0.3); background: rgba(224, 30, 90, 0.1); }
+
+        /* ==============================================
+           DOBRA 4: CASOS E CLIENTES (Bento Grid)
+           ============================================== */
+        #dobra-4 { padding: 150px 0; border-top: 1px solid var(--glass-border); }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; auto-rows: minmax(350px, auto); margin-top: 80px; }
+        .col-12 { grid-column: span 12; } .col-6 { grid-column: span 6; } .col-4 { grid-column: span 4; } .col-8 { grid-column: span 8; }
+
+        .bento-card { background: var(--bg-surface); border: 1px solid var(--glass-border); border-radius: 16px; padding: 50px; position: relative; overflow: hidden; display: flex; flex-direction: column; transition: border-color 0.4s; }
+        
+        /* Efeito Spotlight Rastreado pelo Mouse */
+        .bento-card::before {
+            content: ''; position: absolute; top: var(--mouse-y, 0); left: var(--mouse-x, 0); transform: translate(-50%, -50%);
+            width: 800px; height: 800px; background: radial-gradient(circle, rgba(29, 221, 189, 0.15) 0%, transparent 50%);
+            opacity: 0; transition: opacity 0.3s; z-index: 0; pointer-events: none;
+        }
+        .bento-card:hover { border-color: rgba(29, 221, 189, 0.4); }
+        .bento-card:hover::before { opacity: 1; }
+        .bento-content { position: relative; z-index: 1; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        
+        .logo-scroll { display: flex; gap: 40px; margin-top: 60px; justify-content: center; opacity: 0.6; filter: grayscale(100%); flex-wrap: wrap; }
+        .logo-scroll span { font-size: 1.5rem; font-weight: 800; font-family: 'Montserrat'; }
+
+        /* ==============================================
+           DOBRA 5: BLOG / INSIGHTS
+           ============================================== */
+        #dobra-5 { padding: 150px 0; border-top: 1px solid var(--glass-border); background: rgba(0,0,0,0.2); }
+        .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-top: 60px; margin-bottom: 60px;}
+        .blog-card { background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border); border-radius: 12px; padding: 30px; transition: 0.3s; display: flex; flex-direction: column; }
+        .blog-card:hover { transform: translateY(-5px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2); }
+        .blog-tag { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--c3c-cyan); margin-bottom: 15px; font-weight: 700; }
+        .blog-title { font-size: 1.4rem; font-weight: 700; line-height: 1.3; margin-bottom: 20px; }
+
+        /* ==============================================
+           DOBRA 6: VAGAS (O Fator Humano)
+           ============================================== */
+        #dobra-6 { padding: 180px 0; position: relative; border-top: 1px solid var(--glass-border); overflow: hidden; }
+        .cinematic-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, var(--bg-deep) 30%, transparent 100%), radial-gradient(circle at 80% 50%, rgba(29, 221, 189, 0.08) 0%, rgba(41, 120, 255, 0.05) 40%, transparent 80%); z-index: 0; }
+        .cinematic-grid { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 50px 50px; z-index: 0; animation: panLabGrid 30s linear infinite; }
+        @keyframes panLabGrid { 0% { transform: translateY(0); } 100% { transform: translateY(50px); } }
+
+        /* ==============================================
+           FOOTER
+           ============================================== */
+        footer { padding: 80px 0 40px 0; border-top: 1px solid var(--glass-border); background: var(--bg-deep); position: relative; z-index: 10; }
+        .footer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; margin-bottom: 60px; }
+        .footer-col h4 { font-size: 1.1rem; color: #fff; margin-bottom: 20px; font-weight: 700; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li a { color: var(--text-muted); text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+        .footer-col ul li a:hover { color: var(--c3c-cyan); }
+        .footer-bottom { text-align: center; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 40px; }
+
+        @media (max-width: 1024px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .chat-simulation { transform: none; animation: none; margin-top: 40px; }
+            .kpi-grid { grid-template-columns: 1fr; }
+            .tunnel-wrapper { flex-direction: column; gap: 60px; }
+            .tunnel-left { position: relative; top: 0; width: 100%; }
+            .tunnel-right { width: 100%; padding-top: 0; padding-bottom: 0; gap: 40px; }
+            .col-12, .col-8, .col-6, .col-4 { grid-column: span 12; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 600px) {
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="ambient-aurora">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav>
+        <a href="#" class="logo"><div class="logo-orb"></div> C3C SOFTWARE</a>
+        <div class="nav-links">
+            <a href="#dobra-2">Resultados</a>
+            <a href="#dobra-3">Jornada</a>
+            <a href="#dobra-4">Clientes</a>
+            <a href="#dobra-5">Blog</a>
+            <a href="#dobra-6">Vagas</a>
+        </div>
+        <a href="#dobra-1" class="btn btn-glass" style="padding: 12px 24px; font-size: 0.75rem;">Falar com IA</a>
+    </nav>
+
+    <!-- DOBRA 1: HERO -->
+    <section id="dobra-1" class="container">
+        <div class="hero-grid">
+            <div class="reveal">
+                <h1>A Inteligência Artificial não veio para tomar o seu lugar.<br><span class="text-gradient">Ela veio para devolver o seu tempo.</span></h1>
+                <p style="margin-bottom: 40px; font-size: 1.25rem;">
+                    Ajudamos a sua empresa a organizar a casa, conectar dados e criar Agentes Autônomos de um jeito simples. O trabalho repetitivo fica com a tecnologia, e a sua equipe volta a focar no que realmente importa: ser estratégica e cuidar do seu negócio.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 10px; align-items: flex-start; justify-content: flex-start; flex-wrap: wrap;">
+                    <button class="btn btn-primary" onclick="window.scrollTo(0, document.body.scrollHeight)">Converse com nossos Agentes</button>
+                    <span style="font-size: 0.9rem; color: var(--text-muted); max-width: 400px; line-height: 1.4;">
+                        O Salesmelo vai tirar suas dúvidas sobre o processo e, se fizer sentido para você agora, ele mesmo já organiza as agendas com nosso time.
+                    </span>
+                </div>
+            </div>
+            
+            <div class="chat-simulation reveal" style="transition-delay: 0.2s;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid var(--glass-border);">
+                    <div style="width: 44px; height: 44px; border-radius: 50%; background: var(--gradient-vanguard); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 15px var(--sf-purple);">👋</div>
+                    <div>
+                        <div style="font-weight: 800; font-size: 1.1rem; color: #fff; text-align: left;">Salesmelo</div>
+                        <div class="mono" style="font-size: 0.65rem; color: var(--sf-purple); font-weight: 800;">AGENTE C3C: OUVINDO</div>
+                    </div>
+                </div>
+                
+                <div class="typing-dots" id="sim-typing-1">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+
+                <div class="msg msg-agent" id="sim-response-1">
+                    Olá! 👋 Sou Salesmelo. O pessoal da C3C me pediu para te receber. Tudo bem com você? Meu papel aqui é facilitar a sua vida.
+                </div>
+                
+                <div class="msg msg-user" id="sim-user-1">
+                    Oi! Preciso arrumar os dados da minha empresa para colocar IA pra rodar, mas meus sistemas são muito antigos.
+                </div>
+
+                <div class="typing-dots" id="sim-typing-2">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+
+                <div class="msg msg-agent" id="sim-response-2">
+                    Entendi perfeitamente o seu cenário! Integrar sistemas antigos e organizar dados é justamente o nosso foco. O nosso time de especialistas adora resolver esse tipo de desafio. Faz sentido para você eu já olhar a agenda deles e marcarmos um bate-papo de 20 minutinhos para esta semana? 🚀
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- MANIFESTO EFFECT -->
+    <section class="container">
+        <div class="manifesto-container">
+            <h2 class="manifesto-line scroll-text">Nós somos consultores da <em>era da autonomia.</em></h2>
+            <h2 class="manifesto-line scroll-text">Antes de você ligar qualquer Inteligência Artificial...</h2>
+            <h2 class="manifesto-line scroll-text">Nós ajudamos a <em>organizar a sua casa.</em></h2>
+            <h2 class="manifesto-line scroll-text">Quando o processo está limpo,<br>a leveza aparece <em>nos indicadores.</em></h2>
+        </div>
+    </section>
+
+    <!-- DOBRA 2: NÚMEROS -->
+    <section id="dobra-2">
+        <div class="container reveal">
+            <h2 style="font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 20px; text-align: center;">O que acontece quando você otimiza seus processos com a ferramenta certa?</h2>
+            <p style="text-align: center; max-width: 900px; margin: 0 auto;">Nós somos consultores e especialistas no ecossistema Salesforce e acreditamos que ele consegue ajudar a trazer resultados que mudam a vida das empresas. Quando você arruma seus processos antes de ligar a inteligência artificial, a leveza aparece nos números. Veja o que eles nos mostram:</p>
+            
+            <div class="kpi-grid">
+                <div class="kpi-card tracking-card">
+                    <span class="kpi-value">+29%</span>
+                    <h3 class="kpi-title">Em tempo livre de Vendas</h3>
+                    <p style="font-size: 1rem;">Porque seus vendedores param de brigar com planilhas e passam mais tempo conversando com clientes de verdade.</p>
+                </div>
+                <div class="kpi-card tracking-card">
+                    <span class="kpi-value">+32%</span>
+                    <h3 class="kpi-title">Em clientes satisfeitos</h3>
+                    <p style="font-size: 1rem;">Porque o atendimento fica mais rápido: a IA resolve o simples em segundos, e o humano cuida do que é complexo com calma.</p>
+                </div>
+                <div class="kpi-card tracking-card">
+                    <span class="kpi-value">💸</span>
+                    <h3 class="kpi-title">Mais economia, menos estresse</h3>
+                    <p style="font-size: 1rem;">Sistemas conectados significam o fim do trabalho dobrado, zero retrabalho e decisões tomadas com clareza.</p>
+                </div>
+            </div>
+            <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 30px; font-style: italic;">Dados baseados em médias de Customer Success da Salesforce.</p>
+        </div>
+    </section>
+
+    <!-- DOBRA 3: A JORNADA -->
+    <section id="dobra-3">
+        <div class="container tunnel-wrapper">
+            <div class="tunnel-left reveal">
+                <span class="mono" style="color: var(--text-muted); margin-bottom: 20px; display: block;">// A NOSSA JORNADA</span>
+                <h2 style="margin-bottom: 30px; font-size: 3.5rem;">Um passo de cada vez, <br><span class="text-gradient">sem pular etapas.</span></h2>
+                <p style="max-width: 400px; font-size: 1.15rem;">Ligar uma IA no meio de processos não integrados ou fluxos falhos só gera confusão. Por isso, desenhamos uma caminhada segura. Estaremos com você no estágio que precisar.</p>
+                <div class="mono" style="font-size: 0.8rem; margin-top: 50px; color: var(--c3c-cyan); opacity: 0.6;">&darr; VEJA O PASSO A PASSO</div>
+            </div>
+
+            <div class="tunnel-right">
+                
+                <div class="layer-box layer-core scroll-box">
+                    <div>
+                        <span class="tag">Sales Cloud</span><span class="tag">Service Cloud</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">1. Digitalização das Jornadas.</h3>
+                    <p>Começamos pelo básico. Desenhamos e construímos junto com vocês os processos de marketing, vendas e atendimento de modo que os dados de negócio possam ser geridos em um sistema de informação consistente.</p>
+                </div>
+
+                <div class="layer-box layer-data scroll-box">
+                    <div>
+                        <span class="tag">MuleSoft</span><span class="tag">Informatica</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">2. Criando Pontes.</h3>
+                    <p>Sabe aquela informação importante presa em sistemas antigos ou planilhas que não conseguem fazer integração com outros lugares? Nós criamos junções seguras para que tudo converse de forma fluida com o seu CRM.</p>
+                </div>
+
+                <div class="layer-box layer-memory scroll-box">
+                    <div>
+                        <span class="tag">Data Cloud</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">3. Memória Única Integrada.</h3>
+                    <p>Juntamos todas essas informações em um único "cérebro". É aqui que criamos um perfil único (360) de cada cliente e conseguimos dar o contexto exato e histórico perfeito para suas campanhas ou para os agentes inteligentes.</p>
+                </div>
+
+                <div class="layer-box layer-mkt scroll-box">
+                    <div>
+                        <span class="tag">Marketing Cloud</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">4. A Conversa Certa.</h3>
+                    <p>Com a visão 360 do seu cliente completa e limpa, nós ajudamos a sua marca a entregar a mensagem correta, no momento exato e nos canais que o seu consumidor realmente gosta de utilizar com engajamento.</p>
+                </div>
+
+                <div class="layer-box layer-ia scroll-box">
+                    <div>
+                        <span class="tag">Agentforce</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">5. A Autonomia Plena.</h3>
+                    <p>Esse é o grande momento! Após tudo estar conectado, dar vida aos seus Agentes se torna simples. Eles terão contexto para trabalhar e liberam seu time para focar nos problemas criativos e de alta complexidade.</p>
+                </div>
+
+                <div class="layer-box layer-slack scroll-box">
+                    <div>
+                        <span class="tag">Slack</span>
+                    </div>
+                    <h3 style="margin-bottom: 15px; font-size: 2rem;">6. A Centralização da sua equipe.</h3>
+                    <p>A automação de nada serve se o time continuar se perdendo em e-mails infinitos. Posicionamos o Slack como o seu Digital front de batalha. Alertas do Data Cloud caem no canal da diretoria, e o Agentforce age como "funcionário extra" colaborando direto com o seu time de humanos. O trabalho vira conversa.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- DOBRA 4: CASOS / CLIENTES -->
+    <section id="dobra-4" class="container">
+        <div class="reveal">
+            <span class="mono" style="color: var(--c3c-cyan); font-size: 0.9rem; margin-bottom: 20px; display: block;">// HISTÓRIAS REAIS</span>
+            <h2 style="font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 20px; max-width: 1000px;">Histórias reais de quem já <br><span class="text-gradient">respira aliviado.</span></h2>
+            <p style="max-width: 600px; margin-bottom: 40px;">A teoria é linda, mas a gente gosta mesmo é de mostrar como a tecnologia facilita o dia a dia. Olha só como ajudamos na prática:</p>
+        </div>
+
+        <div class="bento-grid">
+            <div class="bento-card col-12 tracking-card reveal" style="border-top: 2px solid var(--c3c-cyan);">
+                <div class="bento-content" style="display: flex; gap: 40px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 300px;">
+                        <span class="mono" style="font-size: 0.7rem; color: var(--c3c-cyan); margin-bottom: 15px; display: block;">CASE DE SUCESSO</span>
+                        <h3 style="font-size: 2.2rem; margin-bottom: 15px; line-height: 1.1;">De 9 ferramentas ilhadas para a <br>visão 360 de 200 mil clientes.</h3>
+                        <p style="font-size: 1.05rem; color: var(--text-muted); margin-bottom: 20px;">
+                            <strong>O Cenário:</strong> A Vindi (serviços financeiros da LWSA) sofria com a fragmentação extrema. Com cerca de 9 sistemas distintos de marketing e vendas, entender a jornada comercial completa era quase impossível.
+                        </p>
+                        <p style="font-size: 1.05rem; color: var(--text-muted);">
+                            <strong>A Orquestração:</strong> Lideramos a unificação das Unidades de Negócio em etapas blindadas. Implementamos <em>Service e Sales Cloud</em> e evoluímos diretamente para o cruzamento de dados brutos com o <strong>Data Cloud e o CRM Analytics</strong>. A consolidação da autonomia se deu recentemente com a ativação fluida do pioneiro <strong>Agentforce</strong>.
+                        </p>
+                    </div>
+                    
+                    <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; justify-content: center; gap: 20px;">
+                        <div style="position: relative; width: 100%; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); border: 1px solid var(--glass-border); overflow: hidden; transition: 0.5s transform; background: #000;">
+                            <video id="vindi-video" src="vindi.mp4" muted playsinline loop style="width: 100%; display: block;">
+                                <track src="vindi.vtt" kind="subtitles" srclang="pt" label="Português" default>
+                            </video>
+                            
+                            <button onclick="toggleVideoSound(this)" style="position: absolute; bottom: 20px; right: 20px; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); width: 44px; height: 44px; border-radius: 50%; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.3s; z-index: 10;">
+                                <svg class="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                                <svg class="unmute-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="reveal" style="margin-top: 100px; text-align: center;">
+            <p class="mono" style="font-size: 0.9rem; color: var(--text-muted);">MARCAS QUE CONFIAM EM NOSSOS CONSELHOS</p>
+            <div class="logo-scroll">
+                <span>Vindi</span>
+                <span>LWSA</span>
+                <span>Salesforce</span>
+                <span>Partner</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOBRA 5: BLOG -->
+    <section id="dobra-5">
+        <div class="container reveal">
+            <span class="mono" style="color: var(--c3c-blue); font-size: 0.9rem; margin-bottom: 20px; display: block;">// NOSSAS ANOTAÇÕES</span>
+            <h2 style="font-size: clamp(2.5rem, 4vw, 3.5rem); margin-bottom: 20px; max-width: 800px;">Acreditamos que todo conhecimento <br>deve ser compartilhado.</h2>
+            <p style="max-width: 700px;">Nós estudamos as tendências de IA e traduzimos tudo para você, sem usar palavras difíceis. Pegue um café e boa leitura:</p>
+            
+            <div class="blog-grid">
+                <a href="#" class="blog-card" style="text-decoration: none; color: inherit;">
+                    <div class="blog-tag">O Básico</div>
+                    <h3 class="blog-title">O que é o Agentforce e qual a diferença dele para um Chatbot comum?</h3>
+                    <p style="font-size: 0.95rem;">Entenda por que a autonomia não é sobre ter uma janela de chat, mas sim uma inteligência que toma atitudes.</p>
+                </a>
+                <a href="#" class="blog-card" style="text-decoration: none; color: inherit;">
+                    <div class="blog-tag">Infraestrutura</div>
+                    <h3 class="blog-title">Silos de Informação: por que a sua equipe perde tempo procurando dados?</h3>
+                    <p style="font-size: 0.95rem;">O custo invisível de não ter uma visão 360 do seu cliente e como o MuleSoft une as pontas soltas.</p>
+                </a>
+                <a href="#" class="blog-card" style="text-decoration: none; color: inherit;">
+                    <div class="blog-tag">Estratégia</div>
+                    <h3 class="blog-title">Por que tentar usar IA com dados bagunçados custa tão caro?</h3>
+                    <p style="font-size: 0.95rem;">Descubra os riscos da hiperautomação apressada e como pavimentar a estrada antes de colocar um carro veloz.</p>
+                </a>
+            </div>
+            
+            <div style="text-align: center;">
+                <button class="btn btn-glass">Ler todas as nossas conversas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- DOBRA 6: VAGAS -->
+    <section id="dobra-6">
+        <div class="cinematic-bg"></div>
+        <div class="cinematic-grid"></div>
+        <div class="container reveal" style="position: relative; z-index: 10; text-align: center;">
+            <p class="mono" style="color: var(--sf-purple); margin-bottom: 20px;">// VEM PRO TIME</p>
+            <h2 style="font-size: clamp(3rem, 6vw, 5rem); margin-bottom: 30px;">Gente cuidando de gente.<br>Quer construir o futuro com a gente?</h2>
+            
+            <p style="max-width: 800px; margin: 0 auto 40px auto; font-size: 1.25rem;">
+                Nós acreditamos que no tripé de pessoas, tecnologia e processos, as primeiras são as principais responsáveis que mudam o panorama de entrega e produtividade das empresas. São elas que possuem criatividade para propor evoluções. Se você domina ou tem interesse em dominar os produtos da Salesforce e quer trabalhar num lugar que valoriza boas ideias e conversas, a sua cadeira está te esperando.
+            </p>
+            
+            <button class="btn btn-primary">Conhecer vagas e deixar currículo</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>A Consultoria</h4>
+                    <ul>
+                        <li><a href="#">Sobre Nós</a></li>
+                        <li><a href="#dobra-4">Quem Confia</a></li>
+                        <li><a href="#dobra-6">Vem pro Time</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>A Jornada</h4>
+                    <ul>
+                        <li><a href="#dobra-3">Sales & Service (Fundação)</a></li>
+                        <li><a href="#dobra-3">Integrações (MuleSoft/Informatica)</a></li>
+                        <li><a href="#dobra-3">Dados (Data 360)</a></li>
+                        <li><a href="#dobra-3">Marketing Cloud</a></li>
+                        <li><a href="#dobra-3">Agentforce</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Aprenda</h4>
+                    <ul>
+                        <li><a href="#dobra-5">Nossas Conversas (Blog)</a></li>
+                        <li><a href="#">Guias Práticos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato e Legal</h4>
+                    <ul>
+                        <li><a href="#">LinkedIn</a></li>
+                        <li><a href="#">Fale com a IA (Salesmelo)</a></li>
+                        <li><a href="#">Política de Privacidade</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p class="mono" style="font-size: 0.8rem; color: var(--text-muted); letter-spacing: 2px;">© 2026 C3C SOFTWARE. A INTEGRIDADE DOS DADOS NO CENTRO DE TUDO.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Reveal Básico
+        const baseObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 }); 
+        document.querySelectorAll('.reveal').forEach(el => baseObserver.observe(el));
+
+        // Highlight Scroll Sections
+        const tunnelObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { rootMargin: "0px", threshold: 0.2 }); 
+        document.querySelectorAll('.scroll-box').forEach(el => tunnelObserver.observe(el));
+
+        // Rastreio para Cards Spotlight
+        document.querySelectorAll('.tracking-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
+        // Efeito de Tensão do Manifesto (Highlight no scroll)
+        const manifestoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('highlighted');
+                } else {
+                    entry.target.classList.remove('highlighted');
+                }
+            });
+        }, { rootMargin: "-45% 0px -45% 0px", threshold: 0 }); 
+        document.querySelectorAll('.scroll-text').forEach(el => manifestoObserver.observe(el));
+
+        // Autoplay do Vídeo Moderno no Scroll
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const vid = entry.target;
+                if (entry.isIntersecting) {
+                    vid.play().catch(() => {});
+                } else {
+                    vid.pause();
+                }
+            });
+        }, { threshold: 0.5 });
+        const vindiVid = document.getElementById('vindi-video');
+        if(vindiVid) videoObserver.observe(vindiVid);
+
+        // Simulação da Conversa da Hero Section
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const t1 = document.getElementById('sim-typing-1');
+                const r1 = document.getElementById('sim-response-1');
+                const u1 = document.getElementById('sim-user-1');
+                const t2 = document.getElementById('sim-typing-2');
+                const r2 = document.getElementById('sim-response-2');
+                
+                if(t1) {
+                    t1.classList.add('active');
+                    
+                    // IA Manda primeira mensagem (Abertura)
+                    setTimeout(() => {
+                        t1.classList.remove('active');
+                        t1.style.display = 'none';
+                        r1.classList.add('visible');
+                        r1.style.display = 'block';
+
+                        // Usuário responde
+                        setTimeout(() => {
+                            u1.classList.add('visible');
+                            u1.style.display = 'block';
+
+                            // IA responde (Handoff)
+                            setTimeout(() => {
+                                t2.classList.add('active');
+                                setTimeout(() => {
+                                    t2.classList.remove('active');
+                                    t2.style.display = 'none';
+                                    r2.classList.add('visible');
+                                    r2.style.display = 'block';
+                                }, 3000);
+                            }, 1000);
+
+                        }, 4000);
+
+                    }, 2000); 
+                }
+            }, 1000);
+        });
+
+        // Controle Customizado de Mute do Vídeo
+        window.toggleVideoSound = function(btn) {
+            const vid = document.getElementById('vindi-video');
+            const muteIcon = btn.querySelector('.mute-icon');
+            const unmuteIcon = btn.querySelector('.unmute-icon');
+            
+            if(vid.muted) {
+                vid.muted = false;
+                muteIcon.style.display = 'none';
+                unmuteIcon.style.display = 'block';
+                btn.style.background = 'var(--c3c-cyan)';
+                btn.style.color = '#000';
+            } else {
+                vid.muted = true;
+                muteIcon.style.display = 'block';
+                unmuteIcon.style.display = 'none';
+                btn.style.background = 'rgba(0,0,0,0.5)';
+                btn.style.color = '#fff';
+            }
+        };
+    </script>
+</body>
+</html>

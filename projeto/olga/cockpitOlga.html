@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olgacolor | Cockpit B2B</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        olga: '#f97316', // Laranja Olgacolor
+                        dark: '#020617', // Fundo Tático
+                        panel: '#0f172a', // Painéis
+                        prosp: '#3b82f6', // Azul (Prospecção)
+                        conc: '#eab308',  // Amarelo (Concorrência)
+                        ganha: '#10b981', // Verde (Ganha)
+                        perde: '#ef4444'  // Vermelho (Perdida)
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body { background-color: #020617; color: #f8fafc; font-family: 'Segoe UI', system-ui, sans-serif; overflow: hidden; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        
+        /* Tema Escuro forçado no Mapa Leaflet */
+        .leaflet-container { background: #020617 !important; outline: none; }
+        .leaflet-layer, .leaflet-control-zoom-in, .leaflet-control-zoom-out, .leaflet-control-attribution {
+            filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+        }
+        
+        /* Pino do Mapa Animado */
+        .marker-pin {
+            border-radius: 50%; border: 2px solid rgba(255,255,255,0.8);
+            box-shadow: 0 0 15px currentColor; cursor: pointer;
+            transition: transform 0.2s, z-index 0s;
+        }
+        .marker-pin:hover { transform: scale(1.3); z-index: 1000 !important; }
+
+        /* Canvas da Teia */
+        .vis-network { outline: none; }
+        
+        /* Painéis de Vidro (UI) */
+        .glass { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); border: 1px solid #334155; }
+    </style>
+</head>
+<body class="flex flex-col h-screen w-screen">
+
+    <header class="h-16 glass flex items-center justify-between px-6 z-50 shrink-0 shadow-lg">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-olga rounded flex items-center justify-center text-white text-xl shadow-[0_0_15px_rgba(249,115,22,0.5)]">
+                <i class="fa-solid fa-building"></i>
+            </div>
+            <div>
+                <h1 class="font-black text-xl leading-tight tracking-widest text-white">OLGA<span class="text-olga">COLOR</span></h1>
+                <p class="text-[9px] uppercase tracking-[0.2em] text-slate-400">Market Intelligence Command</p>
+            </div>
+        </div>
+
+        <nav class="flex gap-1 bg-dark p-1 rounded-lg border border-slate-800">
+            <button onclick="switchTab('map')" id="tab-map" class="px-4 py-2 rounded text-sm font-bold bg-olga text-white transition flex items-center gap-2"><i class="fa-solid fa-map-location-dot"></i> War Room</button>
+            <button onclick="switchTab('teia')" id="tab-teia" class="px-4 py-2 rounded text-sm font-bold text-slate-400 hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-spider"></i> Teia de Influência</button>
+            <button onclick="switchTab('funnel')" id="tab-funnel" class="px-4 py-2 rounded text-sm font-bold text-slate-400 hover:text-white transition flex items-center gap-2"><i class="fa-solid fa-filter"></i> Motor Execução</button>
+        </nav>
+
+        <button onclick="openModal('modal-add')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 px-4 py-2 rounded text-sm font-bold transition flex items-center gap-2 text-white shadow-lg">
+            <i class="fa-solid fa-radar text-prosp"></i> Mapear Obra
+        </button>
+    </header>
+
+    <main class="flex-1 relative overflow-hidden">
+
+        <div id="view-map" class="absolute inset-0 flex flex-col z-10 bg-dark">
+            <div class="absolute top-4 left-4 z-[400] glass p-4 rounded-xl shadow-2xl w-72 flex flex-col gap-3">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-slate-700 pb-2 flex items-center gap-2"><i class="fa-solid fa-filter"></i> Filtros de Radar</h3>
+                <div>
+                    <label class="text-[10px] text-slate-500 uppercase font-bold">Segmento (Tipologia)</label>
+                    <select id="f-segmento" onchange="renderAll()" class="w-full bg-dark border border-slate-700 rounded p-2 text-sm text-white outline-none focus:border-olga">
+                        <option value="Todos">Todos</option>
+                        <option value="Hospitalar">Hospitalar</option>
+                        <option value="Alto Padrão">Alto Padrão</option>
+                        <option value="Corporativo">Corporativo</option>
+                        <option value="Varejo">Varejo</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] text-slate-500 uppercase font-bold">Status do Funil</label>
+                    <select id="f-status" onchange="renderAll()" class="w-full bg-dark border border-slate-700 rounded p-2 text-sm text-white outline-none focus:border-olga">
+                        <option value="Todos">Todos</option>
+                        <option value="Prospecção">Prospecção</option>
+                        <option value="Concorrência">Em Concorrência</option>
+                        <option value="Ganha">Obra Ganha</option>
+                        <option value="Perdida">Perdida</option>
+                    </select>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-2 text-center"><i class="fa-solid fa-hand-pointer text-olga mr-1"></i> Clique nos pinos para abrir o Dossiê</p>
+            </div>
+            
+            <div id="map-container" class="w-full h-full"></div>
+            
+            <div class="absolute bottom-6 left-6 z-[400] glass p-4 rounded-xl flex gap-4 text-xs font-bold text-slate-300">
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-prosp shadow-[0_0_8px_#3b82f6]"></span> Prospecção</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-conc shadow-[0_0_8px_#eab308]"></span> Concorrência</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-ganha shadow-[0_0_8px_#10b981]"></span> Ganha</div>
+                <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-perde shadow-[0_0_8px_#ef4444]"></span> Perdida</div>
+            </div>
+        </div>
+
+        <div id="view-teia" class="absolute inset-0 hidden flex-col z-10 bg-dark p-6">
+            <div class="glass p-4 rounded-xl flex justify-between items-center mb-4 shrink-0 shadow-lg border border-slate-800">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center gap-2"><i class="fa-solid fa-diagram-project text-olga"></i> Teia Relacional (Niche Hack)</h2>
+                    <p class="text-xs text-slate-400 mt-1">Descubra as "panelinhas" do mercado. Arraste os ícones e veja a física de relacionamento.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <label class="text-xs font-bold text-slate-500 uppercase">Centro do Universo:</label>
+                    <select id="n-center" onchange="renderAll()" class="bg-dark border border-slate-700 rounded p-2 text-sm text-white outline-none focus:border-olga">
+                        <option value="Construtora">Monopólio por Construtora</option>
+                        <option value="Arquiteto">Monopólio por Arquiteto</option>
+                        <option value="Serralheiro">Monopólio por Serralheiro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="flex-1 glass rounded-xl overflow-hidden relative border border-slate-800 shadow-2xl">
+                <div id="network-container" class="w-full h-full"></div>
+                <div class="absolute bottom-4 right-4 bg-dark/80 p-3 rounded-lg border border-slate-700 text-xs font-bold text-slate-300 flex flex-col gap-2">
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-building text-olga text-lg w-5 text-center"></i> Construtora</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-compass-drafting text-purple-500 text-lg w-5 text-center"></i> Arquiteto</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-hammer text-ganha text-lg w-5 text-center"></i> Serralheiro</div>
+                    <div class="flex items-center gap-2"><i class="fa-solid fa-circle text-prosp text-sm w-5 text-center"></i> Obra</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-funnel" class="absolute inset-0 hidden bg-dark p-6 overflow-x-auto">
+            <div class="flex gap-6 h-full min-w-max" id="kanban-container">
+                </div>
+        </div>
+
+    </main>
+
+    <div id="modal-360" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[2000] hidden items-center justify-center p-4">
+        <div class="bg-panel w-full max-w-7xl h-[95vh] rounded-2xl shadow-2xl border border-slate-700 flex flex-col overflow-hidden relative">
+            
+            <div id="m-statusbar" class="h-2 w-full bg-slate-500"></div>
+            
+            <div class="p-6 border-b border-slate-800 bg-slate-900/50 flex justify-between items-start shrink-0">
+                <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                        <span id="m-status" class="px-3 py-1 text-[10px] font-black rounded uppercase tracking-widest text-white shadow-lg">STATUS</span>
+                        <span class="text-[10px] font-bold text-slate-400 bg-slate-800 px-3 py-1 rounded-full border border-slate-700 uppercase"><i class="fa-solid fa-tag mr-1"></i> <span id="m-segmento">Segmento</span></span>
+                    </div>
+                    <h2 id="m-nome" class="text-3xl font-black text-white tracking-tight leading-none mt-3">Nome da Obra</h2>
+                </div>
+                <div class="text-right ml-6 shrink-0 mr-8">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Demanda (Volume Fábrica)</p>
+                    <p id="m-volume" class="text-3xl font-black text-olga tracking-tighter mt-1">0 <span class="text-lg font-normal text-slate-400">Ton</span></p>
+                    <p id="m-vgv" class="text-sm font-bold text-ganha mt-1">R$ 0</p>
+                </div>
+                <button onclick="closeModal('modal-360')" class="absolute top-6 right-6 text-slate-500 hover:text-white transition"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 bg-dark grid grid-cols-1 lg:grid-cols-12 gap-6">
+                
+                <div class="lg:col-span-7 flex flex-col gap-6">
+                    
+                    <div class="glass p-5 rounded-xl border border-slate-800 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-industry text-prosp"></i> Visão Fábrica (Produtos Específicos)</h3>
+                        <div id="m-produtos" class="grid grid-cols-2 gap-3">
+                            </div>
+                    </div>
+
+                    <div class="glass p-5 rounded-xl border border-slate-800 shadow-xl flex-1 flex flex-col">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-2">
+                            <h3 class="text-sm font-bold text-slate-300 uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-swords text-conc"></i> Arena de Batalha (Orçamentos)</h3>
+                        </div>
+                        <div id="m-arena" class="space-y-3 flex-1 overflow-y-auto pr-2">
+                            </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    
+                    <div class="glass p-5 rounded-xl border border-slate-800 shadow-xl">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-users text-olga"></i> Hub de Influência Local</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-olga/10 border border-olga/30 flex items-center justify-center text-olga text-xl"><i class="fa-solid fa-building"></i></div>
+                                <div><p class="text-[10px] font-bold text-slate-500 uppercase">Construtora / Incorporadora</p><p id="m-const" class="text-white font-bold text-lg">---</p></div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-500 text-xl"><i class="fa-solid fa-compass-drafting"></i></div>
+                                <div><p class="text-[10px] font-bold text-slate-500 uppercase">Arquiteto Especificador</p><p id="m-arq" class="text-white font-bold text-lg">---</p></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass p-5 rounded-xl border border-slate-800 shadow-xl flex-1 flex flex-col overflow-hidden">
+                        <h3 class="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 border-b border-slate-800 pb-2 flex items-center gap-2"><i class="fa-solid fa-clock-rotate-left text-slate-400"></i> Dossiê Histórico</h3>
+                        <div id="m-timeline" class="flex-1 overflow-y-auto border-l-2 border-slate-700 ml-2 pl-4 space-y-5 pr-2">
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-add" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[2000] hidden items-center justify-center p-4">
+        <div class="bg-panel w-full max-w-md p-6 rounded-2xl shadow-2xl border border-slate-700 relative">
+            <button onclick="closeModal('modal-add')" class="absolute top-4 right-4 text-slate-500 hover:text-white transition"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h2 class="text-xl font-bold text-white mb-2 flex items-center gap-2"><i class="fa-solid fa-radar text-prosp"></i> Mapear Obra no Radar</h2>
+            <p class="text-xs text-slate-400 mb-6">Cadastre a inteligência de mercado coletada. A obra entrará no Funil de Prospecção.</p>
+            
+            <form onsubmit="salvarObra(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Nome do Empreendimento</label>
+                    <input type="text" id="add-nome" required class="w-full bg-dark border border-slate-700 rounded-lg p-2 text-sm text-white focus:border-olga outline-none">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Tipologia</label>
+                        <select id="add-seg" class="w-full bg-dark border border-slate-700 rounded-lg p-2 text-sm text-white focus:border-olga outline-none">
+                            <option>Hospitalar</option><option>Alto Padrão</option><option>Corporativo</option><option>Varejo</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Volume (Ton de Alumínio)</label>
+                        <input type="number" id="add-vol" required min="1" class="w-full bg-dark border border-slate-700 rounded-lg p-2 text-sm text-white focus:border-olga outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-500 uppercase mb-1">Dono da Obra (Construtora)</label>
+                    <input type="text" id="add-const" required class="w-full bg-dark border border-slate-700 rounded-lg p-2 text-sm text-white focus:border-olga outline-none">
+                </div>
+                <button type="submit" class="w-full bg-olga hover:bg-orange-600 text-white font-bold py-2.5 rounded-lg mt-4 transition shadow-lg">Salvar e Plotar no Mapa</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. O BANCO DE DADOS (Mock Gêmeo Digital) ---
+        let obrasData = [
+            {
+                id: 1, nome: "Hospital Albert Einstein - Nova Ala", segmento: "Hospitalar", status: "Concorrência", 
+                lat: -23.600, lng: -46.715, volumeKg: 45000, vgv: "R$ 2.800.000",
+                construtora: "Racional Engenharia", arquiteto: "Perkins&Will",
+                produtos: [
+                    { linha: "Linha Lock (Acústica)", app: "Quartos/UTI", acab: "Branco Antimicrobiano" },
+                    { linha: "Fachada Stick", app: "Recepção", acab: "Anodizado Inox" }
+                ],
+                orcamentos: [
+                    { id: 101, serralheiro: "Esquadrias Premium", valor: 2750000, status: "Aberto", olga: true },
+                    { id: 102, serralheiro: "Vidros & Cia VIP", valor: 2900000, status: "Aberto", olga: true },
+                    { id: 103, serralheiro: "Serralheria Alpha (Concorrente)", valor: 2600000, status: "Aberto", olga: false } 
+                ],
+                timeline: [
+                    { data: "Hoje", tipo: "SLA", desc: "Bid aberto pela Construtora. Dinheiro na mesa!" },
+                    { data: "02/Fev/2026", tipo: "Visita", desc: "Amostra da Linha Lock aprovada pelo arquiteto (Vedação e Acústica)." }
+                ]
+            },
+            {
+                id: 2, nome: "Residencial Infinity Coast", segmento: "Alto Padrão", status: "Ganha", 
+                lat: -26.990, lng: -48.634, volumeKg: 120000, vgv: "R$ 8.500.000",
+                construtora: "FG Empreendimentos", arquiteto: "Pininfarina",
+                produtos: [
+                    { linha: "Sistema Levitare", app: "Living", acab: "Efeito Madeira Nogueira" },
+                    { linha: "Delicato Minimalista", app: "Suítes", acab: "Preto Jateado" }
+                ],
+                orcamentos: [
+                    { id: 201, serralheiro: "MegaFachadas", valor: 8500000, status: "Ganha", olga: true },
+                    { id: 202, serralheiro: "Esquadrias Premium", valor: 8800000, status: "Perdida Interna", olga: true }
+                ],
+                timeline: [{ data: "10/Jan/2026", tipo: "Contrato", desc: "Obra fechada! Matrizes liberadas para a extrusão em Jacutinga." }]
+            },
+            {
+                id: 3, nome: "Atacadão Rodovia Dutra", segmento: "Varejo", status: "Prospecção", 
+                lat: -23.450, lng: -46.500, volumeKg: 18000, vgv: "R$ 950.000",
+                construtora: "Método Fast Track", arquiteto: "Projeto Padrão",
+                produtos: [{ linha: "Fachada Grid", app: "Entrada", acab: "Pintura Branca Padrão" }],
+                orcamentos: [],
+                timeline: [{ data: "20/Mar/2026", tipo: "Radar", desc: "Terreno tapumado identificado. Construção Fast-track." }]
+            },
+            {
+                id: 4, nome: "Sede Corporativa XP", segmento: "Corporativo", status: "Perdida", 
+                lat: -23.590, lng: -46.688, volumeKg: 85000, vgv: "R$ 6.200.000",
+                construtora: "JHSF", arquiteto: "Aflalo/Gasperini",
+                produtos: [{ linha: "Imponenza Unitizada", app: "Pele de Vidro", acab: "Anodizado Natural" }],
+                orcamentos: [{ id: 401, serralheiro: "MegaFachadas", valor: 6500000, status: "Perdida (Preço)", olga: true }],
+                timeline: [{ data: "05/Mar/2026", tipo: "Loss", desc: "Perdemos para o concorrente Alcoa. Motivo: Preço da fachada unitizada 8% acima." }]
+            }
+        ];
+
+        let activeObraId = null;
+        let map, markersLayer, networkGraph;
+        
+        // Dicionário Visual (Cores)
+        const styleMap = {
+            'Prospecção': { color: '#3b82f6', tail: 'bg-blue-500' },
+            'Concorrência': { color: '#eab308', tail: 'bg-yellow-500' },
+            'Ganha': { color: '#10b981', tail: 'bg-emerald-500' },
+            'Perdida': { color: '#ef4444', tail: 'bg-red-500' }
+        };
+
+        // --- 2. CONTROLE DE ABAS (Navegação SPA) ---
+        function switchTab(tabId) {
+            document.querySelectorAll('main > div[id^="view-"]').forEach(el => { el.classList.remove('flex'); el.classList.add('hidden'); });
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            document.getElementById(`view-${tabId}`).classList.add('flex');
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => { btn.classList.remove('bg-olga', 'text-white'); btn.classList.add('text-slate-400'); });
+            document.getElementById(`tab-${tabId}`).classList.remove('text-slate-400');
+            document.getElementById(`tab-${tabId}`).classList.add('bg-olga', 'text-white');
+
+            if (tabId === 'map') setTimeout(() => map.invalidateSize(), 100);
+            if (tabId === 'teia') initNetwork();
+            if (tabId === 'funnel') renderFunnel();
+        }
+
+        function renderAll() {
+            renderMap();
+            if(!document.getElementById('view-teia').classList.contains('hidden')) initNetwork();
+            if(!document.getElementById('view-funnel').classList.contains('hidden')) renderFunnel();
+        }
+
+        // --- 3. MAPA TÁTICO (Leaflet.js) ---
+        function initMap() {
+            map = L.map('map-container', {zoomControl: false}).setView([-23.55, -46.63], 8);
+            L.control.zoom({position: 'topright'}).addTo(map);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { attribution: 'Olgacolor Maps' }).addTo(map);
+            markersLayer = L.layerGroup().addTo(map);
+            renderMap();
+        }
+
+        function renderMap() {
+            markersLayer.clearLayers();
+            const fSeg = document.getElementById('f-segmento').value;
+            const fSts = document.getElementById('f-status').value;
+
+            obrasData.forEach(o => {
+                if(fSeg !== 'Todos' && o.segmento !== fSeg) return;
+                if(fSts !== 'Todos' && o.status !== fSts) return;
+
+                let cor = styleMap[o.status].color;
+                let size = Math.max(16, Math.min(35, 10 + (o.volumeKg / 4000))); // Raio dinâmico por tonelada
+                
+                let icon = L.divIcon({
+                    className: '',
+                    html: `<div class="marker-pin" style="background:${cor}; color:${cor}; width:${size}px; height:${size}px;"></div>`,
+                    iconSize: [size, size], iconAnchor: [size/2, size/2]
+                });
+
+                let marker = L.marker([o.lat, o.lng], {icon}).addTo(markersLayer);
+                marker.bindTooltip(`<b>${o.nome}</b><br>${(o.volumeKg/1000).toFixed(1)} Ton | ${o.status}`, {className: 'bg-panel border-slate-700 text-white'});
+                marker.on('click', () => openModal360(o.id));
+            });
+        }
+
+        // --- 4. MOTOR DE EXECUÇÃO (Kanban Funnel) ---
+        function renderFunnel() {
+            const board = document.getElementById('kanban-container');
+            board.innerHTML = '';
+            const cols = ['Prospecção', 'Concorrência', 'Ganha'];
+            const fSeg = document.getElementById('f-segmento').value;
+
+            cols.forEach(sts => {
+                let color = styleMap[sts].color;
+                let list = obrasData.filter(o => o.status === sts && (fSeg === 'Todos' || o.segmento === fSeg));
+                
+                let html = `<div class="w-80 shrink-0 flex flex-col glass rounded-xl overflow-hidden shadow-2xl">
+                    <div class="p-4 border-b border-slate-800 flex justify-between items-center" style="border-top: 4px solid ${color}">
+                        <h3 class="font-bold text-white uppercase text-sm tracking-wider">${sts}</h3>
+                        <span class="bg-slate-800 px-2 py-0.5 rounded text-xs font-bold text-slate-400 border border-slate-700">${list.length}</span>
+                    </div>
+                    <div class="p-3 flex-1 overflow-y-auto space-y-3">
+                        ${list.map(o => `
+                            <div onclick="openModal360(${o.id})" class="bg-panel border border-slate-700 p-4 rounded-lg cursor-pointer hover:border-olga transition shadow-lg relative overflow-hidden group">
+                                <div class="absolute top-0 left-0 w-1 h-full transition-colors" style="background-color: ${color}"></div>
+                                <div class="flex justify-between items-start mb-2 pl-2">
+                                    <span class="text-[9px] uppercase font-bold text-slate-400 bg-slate-800 px-2 py-0.5 rounded tracking-widest">${o.segmento}</span>
+                                    <span class="text-xs font-bold text-white"><i class="fa-solid fa-weight-hanging mr-1 text-slate-500"></i>${(o.volumeKg/1000).toFixed(1)}t</span>
+                                </div>
+                                <h4 class="font-bold text-white text-sm mb-1 pl-2 leading-tight group-hover:text-olga transition">${o.nome}</h4>
+                                <p class="text-xs text-slate-500 pl-2 truncate"><i class="fa-solid fa-helmet-safety mr-1 w-3"></i>${o.construtora}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>`;
+                board.innerHTML += html;
+            });
+        }
+
+        // --- 5. TEIA DE INFLUÊNCIA (Vis.js Network Analytics) ---
+        function initNetwork() {
+            const center = document.getElementById('n-center').value; // Construtora, Arquiteto, Serralheiro
+            const nodes = new vis.DataSet();
+            const edges = new vis.DataSet();
+            const ids = new Set();
+            const fSeg = document.getElementById('f-segmento').value;
+
+            function addNode(id, label, iconCode, color, size) {
+                if(!ids.has(id)) {
+                    nodes.add({id, label, shape: 'icon', icon: {face: '"Font Awesome 6 Free"', code: iconCode, size, color}, font: {color:'#e2e8f0', size:11, face:'system-ui'}});
+                    ids.add(id);
+                }
+            }
+
+            obrasData.filter(o => fSeg === 'Todos' || o.segmento === fSeg).forEach(o => {
+                let oId = 'o_'+o.id; addNode(oId, o.nome, '\uf111', styleMap[o.status].color, 25); // circle (Obra)
+                let cId = 'c_'+o.construtora; addNode(cId, o.construtora, '\uf1ad', '#f97316', center==='Construtora'?50:35); // building (Construtora)
+                let aId = 'a_'+o.arquiteto; addNode(aId, o.arquiteto, '\uf56b', '#a855f7', center==='Arquiteto'?50:35); // compass (Arquiteto)
+                
+                edges.add({from: cId, to: oId, color: '#334155'});
+                edges.add({from: aId, to: oId, color: '#334155', dashes: true});
+
+                o.orcamentos.forEach(or => {
+                    let sId = 's_'+or.serralheiro; addNode(sId, or.serralheiro, '\uf0ad', '#10b981', center==='Serralheiro'?50:35); // wrench (Serralheiro)
+                    edges.add({from: sId, to: oId, color: or.status==='Ganha'?'#10b981':'#334155', width: or.status==='Ganha'?3:1});
+                });
+            });
+
+            if(networkGraph) networkGraph.destroy();
+            networkGraph = new vis.Network(document.getElementById('network-container'), {nodes, edges}, {
+                physics: { solver: 'forceAtlas2Based', forceAtlas2Based: { gravitationalConstant: -90, springLength: 120 } },
+                interaction: { hover: true, dragNodes: true }
+            });
+        }
+
+        // --- 6. DOSSIÊ 360 & A REGRA DE OURO (Coroar Vencedor) ---
+        function openModal360(id) {
+            activeObraId = id;
+            let o = obrasData.find(x => x.id === id);
+            let conf = styleMap[o.status];
+
+            // Cabeçalho Estratégico
+            document.getElementById('m-statusbar').className = `h-2 w-full ${conf.tail}`;
+            document.getElementById('m-nome').innerText = o.nome;
+            document.getElementById('m-segmento').innerText = o.segmento;
+            document.getElementById('m-volume').innerHTML = `${(o.volumeKg/1000).toFixed(1)} <span class="text-lg font-normal text-slate-400">Ton</span>`;
+            document.getElementById('m-vgv').innerText = o.vgv;
+            document.getElementById('m-const').innerText = o.construtora;
+            document.getElementById('m-arq').innerText = o.arquiteto;
+            
+            let badge = document.getElementById('m-status');
+            badge.innerText = o.status;
+            badge.className = `px-3 py-1 text-[10px] font-black rounded uppercase tracking-widest text-white shadow-lg ${conf.tail}`;
+
+            // Visão Fábrica (Produtos)
+            document.getElementById('m-produtos').innerHTML = o.produtos.map(p => `
+                <div class="bg-panel border border-slate-700 p-3 rounded-xl border-l-4 border-l-prosp shadow-inner">
+                    <p class="font-bold text-white text-sm truncate mb-1">${p.linha}</p>
+                    <div class="flex justify-between items-center border-t border-slate-800 pt-1 mt-1">
+                        <span class="text-[9px] text-slate-400 uppercase tracking-widest"><i class="fa-solid fa-cube mr-1"></i>${p.app}</span>
+                        <span class="text-[10px] text-prosp uppercase font-bold truncate max-w-[50%] text-right">${p.acab}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Arena (Oportunidades Filhas)
+            let arena = document.getElementById('m-arena');
+            if(o.orcamentos.length === 0) {
+                arena.innerHTML = '<p class="text-sm text-slate-500 italic p-4 border border-dashed border-slate-700 rounded text-center">Nenhum orçamento solicitado.</p>';
+            } else {
+                arena.innerHTML = o.orcamentos.map(or => {
+                    let btn = '';
+                    let bg = 'bg-panel border-slate-700';
+                    
+                    if(or.status === 'Ganha') {
+                        bg = 'bg-emerald-900/20 border-emerald-500/50';
+                        btn = '<span class="text-emerald-500 font-black text-[10px] tracking-widest uppercase"><i class="fa-solid fa-check-double mr-1"></i>Vencedor</span>';
+                    } else if(or.status.includes('Perdida')) {
+                        bg = 'bg-slate-900 border-slate-800 opacity-50';
+                        btn = `<span class="text-slate-500 font-bold text-[10px] uppercase tracking-widest">${or.status}</span>`;
+                    } else if(o.status === 'Concorrência') {
+                        // Botão Matador: Coroar Vencedor
+                        btn = `<button onclick="coroarVencedor(${or.id})" class="bg-slate-700 hover:bg-emerald-600 text-white px-3 py-1.5 rounded text-xs font-bold transition shadow-lg border border-slate-600 hover:border-emerald-500"><i class="fa-solid fa-trophy mr-1 text-conc"></i> Ganhar</button>`;
+                    }
+                    
+                    return `
+                    <div class="p-3 rounded-xl border flex justify-between items-center ${bg}">
+                        <div>
+                            <p class="font-bold text-white text-sm flex items-center gap-2">${or.serralheiro} ${!or.olga ? '<span class="bg-red-900/50 text-red-400 text-[9px] px-1.5 py-0.5 rounded border border-red-800 uppercase tracking-widest">Concorrente</span>':''}</p>
+                            <p class="text-xs text-slate-400 mt-1 font-mono">R$ ${or.valor.toLocaleString('pt-BR')}</p>
+                        </div>
+                        <div>${btn}</div>
+                    </div>`;
+                }).join('');
+            }
+
+            // Timeline Histórica
+            document.getElementById('m-timeline').innerHTML = o.timeline.map(t => `
+                <div class="relative">
+                    <div class="absolute -left-[21px] top-1.5 w-2 h-2 rounded-full bg-olga ring-4 ring-dark"></div>
+                    <div class="flex items-baseline gap-2 mb-1">
+                        <span class="text-[10px] font-bold text-olga uppercase tracking-wider">${t.data}</span>
+                        <span class="text-[9px] bg-slate-800 text-slate-400 px-1 rounded uppercase tracking-widest border border-slate-700">${t.tipo}</span>
+                    </div>
+                    <p class="text-sm text-slate-300 leading-snug">${t.desc}</p>
+                </div>
+            `).join('');
+
+            openModal('modal-360');
+        }
+
+        // A MÁGICA DE NEGÓCIO DA DIRETORIA
+        function coroarVencedor(orcId) {
+            let o = obrasData.find(x => x.id === activeObraId);
+            let vencedor = o.orcamentos.find(x => x.id === orcId);
+            
+            // Regra: Perdeu para a concorrência Externa ou Interna?
+            if(!vencedor.olga) {
+                o.status = "Perdida";
+                o.orcamentos.forEach(or => or.status = (or.id===orcId) ? "Ganha Concorrente" : "Perdida");
+                o.timeline.unshift({data: "AGORA", tipo: "Loss", desc: `Obra Perdida. O concorrente executará via ${vencedor.serralheiro}.`});
+            } else {
+                o.status = "Ganha";
+                o.orcamentos.forEach(or => or.status = (or.id===orcId) ? "Ganha" : (or.olga ? "Perdida Interna" : "Perdida Concorrente"));
+                o.timeline.unshift({data: "AGORA", tipo: "Win", desc: `VITÓRIA! Obra fechada com o parceiro ${vencedor.serralheiro}. Avisar fábrica para extrusão.`});
+            }
+            
+            renderAll();
+            openModal360(activeObraId); // Dá refresh na tela vendo tudo mudar de cor (Efeito UAU)
+        }
+
+        // --- 7. MODAIS E CRUD (Nova Obra) ---
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); document.getElementById(id).classList.add('flex'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); document.getElementById(id).classList.remove('flex'); activeObraId = null; }
+
+        function salvarObra(e) {
+            e.preventDefault();
+            let n = {
+                id: Date.now(),
+                nome: document.getElementById('add-nome').value,
+                segmento: document.getElementById('add-seg').value,
+                volumeKg: parseInt(document.getElementById('add-vol').value) * 1000,
+                construtora: document.getElementById('add-const').value,
+                arquiteto: "A Definir (Mapear)",
+                status: "Prospecção", vgv: "A orçar",
+                lat: -23.5 + (Math.random()*0.5 - 0.25), lng: -46.6 + (Math.random()*0.5 - 0.25), // Simula lat/lng vizinhas SP
+                produtos: [{linha: "Sem especificação", app: "A definir", acab: "-"}], 
+                orcamentos: [], 
+                timeline: [{data: "Hoje", tipo: "Radar", desc: "Sinal de mercado captado. Empreendimento adicionado ao Funil Olgacolor."}]
+            };
+            obrasData.push(n);
+            closeModal('modal-add');
+            e.target.reset();
+            renderAll();
+            alert(`Sucesso! "${n.nome}" já está plotada no Mapa e mapeada na Teia de Influência.`);
+        }
+
+        // --- INICIAR SISTEMA ---
+        window.onload = () => { initMap(); renderAll(); };
+    </script>
+</body>
+</html>
